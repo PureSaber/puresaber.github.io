@@ -1,3 +1,6 @@
+---
+layout: null
+---
 <!doctype html>
 <html lang="zh-CN">
 <head>
@@ -335,783 +338,87 @@
         <h3 id="developer-tools-title">开发工具</h3>
         <section id="ai" class="catalog-group" aria-labelledby="ai-title">
           <h4 id="ai-title">AI 编程与助手</h4>
-          <ul class="resources">
-            <li data-alias="opencode cli">
-              <h5><a href="https://opencode.ai/docs/">OpenCode</a></h5>
-              <p>在终端里读项目、梳理代码和辅助修改。接手一个新仓库时，可以先用它找项目入口、测试命令和关键配置。</p>
-              <div class="card-details"><span>CLI</span></div>
-            </li>
-            <li>
-              <h5><a href="https://code.claude.com/docs/">Claude Code</a></h5>
-              <p>在终端读代码、修改文件和运行项目命令。</p>
-              <div class="card-details"><span>CLI</span></div>
-            </li>
-            <li>
-              <h5><a href="https://developers.openai.com/codex/">Codex</a></h5>
-              <p>在终端或桌面应用中协作开发、审查和修改代码。</p>
-              <div class="card-details"><span>CLI / 桌面</span></div>
-            </li>
-            <li data-alias="agy">
-              <h5><a href="https://antigravity.google/">Google Antigravity（agy）</a></h5>
-              <p>Google 的 AI 开发环境与命令行工具。</p>
-              <div class="card-details"><span>IDE / CLI</span></div>
-            </li>
-            <li data-alias="google jules cli">
-              <h5><a href="https://jules.google/docs/changelog/">Jules</a></h5>
-              <p>Google 的异步编程代理。现已只读，计划于 2026 年 12 月 31 日结束服务。</p>
-              <div class="card-details"><span>Web / CLI</span><a href="https://jules.google/docs/">使用文档</a></div>
-            </li>
-            <li>
-              <h5><a href="https://github.com/qxcnm/Codex-Manager">CodexManager</a></h5>
-              <p>管理 Codex CLI 账号和本地网关。</p>
-              <div class="card-details"><span>桌面工具</span></div>
-            </li>
-            <li data-alias="ChatGPT Desktop">
-              <h5><a href="https://chatgpt.com/download/">ChatGPT</a></h5>
-              <p>用于写作、资料整理、代码讨论和文件分析。</p>
-              <div class="card-details"><span>Web / 桌面</span><a href="https://chatgpt.com/">网页版</a></div>
-            </li>
-            <li>
-              <h5><a href="https://gemini.google.com/">Gemini</a></h5>
-              <p>Google 的网页助手，用于问答、资料整理和代码讨论。</p>
-              <div class="card-details"><span>Web</span></div>
-            </li>
-          </ul>
+          {% include catalog-group.html group="ai" %}
         </section>
         <section id="development" class="catalog-group" aria-labelledby="development-title">
           <h4 id="development-title">编辑器与 IDE</h4>
-          <ul class="resources">
-            <li data-alias="VS Code VSCode">
-              <h5><a href="https://code.visualstudio.com/docs">Visual Studio Code</a></h5>
-              <p>在编辑器里浏览仓库、修改文件和调试代码。想在同一个窗口里看代码、终端和 Git 改动时可以用它。</p>
-              <div class="card-details"><span>IDE</span></div>
-              <details id="extensions" class="extensions">
-                <summary id="extensions-title">VS Code 扩展（9）</summary>
-                <ul class="extension-list">
-                  <li>
-                    <h6><a href="https://marketplace.visualstudio.com/items?itemName=antfu.slidev">Slidev</a></h6>
-                    <p>编写和预览 Slidev 演示文稿。</p>
-                    <div class="card-details"><span>扩展</span></div>
-                  </li>
-                  <li>
-                    <h6><a href="https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode">Prettier</a></h6>
-                    <p>格式化 JavaScript、HTML、CSS 等文件。</p>
-                    <div class="card-details"><span>扩展</span></div>
-                  </li>
-                  <li>
-                    <h6><a href="https://marketplace.visualstudio.com/items?itemName=GitHub.github-vscode-theme">GitHub Theme</a></h6>
-                    <p>在 VS Code 使用 GitHub 配色主题。</p>
-                    <div class="card-details"><span>扩展</span></div>
-                  </li>
-                  <li>
-                    <h6><a href="https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop">LaTeX Workshop</a></h6>
-                    <p>编译、预览和编辑 LaTeX 文档。</p>
-                    <div class="card-details"><span>扩展</span></div>
-                  </li>
-                  <li>
-                    <h6><a href="https://marketplace.visualstudio.com/items?itemName=MarsCode.marscode-extension">MarsCode</a></h6>
-                    <p>用于代码补全和问答的编程助手扩展。</p>
-                    <div class="card-details"><span>扩展</span></div>
-                  </li>
-                  <li>
-                    <h6><a href="https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer">Live Server</a></h6>
-                    <p>启动带自动刷新的本地网页服务器。</p>
-                    <div class="card-details"><span>扩展</span></div>
-                  </li>
-                  <li>
-                    <h6><a href="https://marketplace.visualstudio.com/items?itemName=shd101wyy.markdown-preview-enhanced">Markdown Preview Enhanced</a></h6>
-                    <p>预览带公式和图表的 Markdown。</p>
-                    <div class="card-details"><span>扩展</span></div>
-                  </li>
-                  <li>
-                    <h6><a href="https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons">vscode-icons</a></h6>
-                    <p>按文件类型显示不同图标。</p>
-                    <div class="card-details"><span>扩展</span></div>
-                  </li>
-                  <li>
-                    <h6><a href="https://marketplace.visualstudio.com/items?itemName=yzane.markdown-pdf">Markdown PDF</a></h6>
-                    <p>将 Markdown 文件导出为 PDF。</p>
-                    <div class="card-details"><span>扩展</span></div>
-                  </li>
-                </ul>
-              </details>
-            </li>
-            <li>
-              <h5><a href="https://cursor.com/">Cursor</a></h5>
-              <p>带 AI 补全和编程代理的代码编辑器。</p>
-              <div class="card-details"><span>IDE</span></div>
-            </li>
-            <li>
-              <h5><a href="https://www.jetbrains.com/idea/">IntelliJ IDEA</a></h5>
-              <p>JetBrains 的 Java 和 Kotlin IDE。</p>
-              <div class="card-details"><span>IDE</span></div>
-            </li>
-            <li>
-              <h5><a href="https://www.jetbrains.com/pycharm/">PyCharm</a></h5>
-              <p>JetBrains 的 Python IDE。</p>
-              <div class="card-details"><span>IDE</span></div>
-            </li>
-            <li>
-              <h5><a href="https://www.jetbrains.com/datagrip/">DataGrip</a></h5>
-              <p>JetBrains 的数据库与 SQL IDE。</p>
-              <div class="card-details"><span>IDE</span></div>
-            </li>
-            <li>
-              <h5><a href="https://visualstudio.microsoft.com/">Visual Studio</a></h5>
-              <p>Microsoft 的 .NET 与 C++ 开发环境。</p>
-              <div class="card-details"><span>IDE</span></div>
-            </li>
-          </ul>
+          {% include catalog-group.html group="development" %}
         </section>
         <section id="git-open-source" class="catalog-group" aria-labelledby="git-open-source-title">
           <h4 id="git-open-source-title">Git 与开源协作</h4>
-          <ul class="resources">
-            <li data-alias="gh">
-              <h5><a href="https://cli.github.com/manual/">GitHub CLI（<code>gh</code>）</a></h5>
-              <p>在终端查看 Pull Request、Issue 和 Actions 状态。维护多个仓库时，常用 <code>gh pr list</code> 和 <code>gh run list</code> 快速切换检查。</p>
-              <div class="card-details"><span>CLI</span></div>
-              <div class="usage-example">
-                <strong>用法示例</strong>
-                <p>跨仓看待审 PR 时，用 <code>gh pr list -R OWNER/REPO</code> 指定仓库，省去来回切目录。</p>
-              </div>
-            </li>
-            <li>
-              <h5><a href="https://git-scm.com/">Git</a></h5>
-              <p>管理版本、分支和提交历史。</p>
-              <div class="card-details"><span>CLI</span></div>
-            </li>
-          </ul>
+          {% include catalog-group.html group="git-open-source" %}
         </section>
         <section id="runtimes" class="catalog-group" aria-labelledby="runtimes-title">
           <h4 id="runtimes-title">编程语言、运行时与包管理</h4>
-          <ul class="resources">
-            <li>
-              <h5><a href="https://docs.astral.sh/uv/">uv</a></h5>
-              <p>管理 Python 环境和项目依赖。把同一套依赖带到另一台机器或 CI 时，可以用锁文件同步环境。</p>
-              <div class="card-details"><span>包管理器</span></div>
-            </li>
-            <li>
-              <h5><a href="https://nodejs.org/">Node.js</a></h5>
-              <p>在浏览器以外运行 JavaScript。</p>
-              <div class="card-details"><span>运行时</span></div>
-            </li>
-            <li>
-              <h5><a href="https://docs.npmjs.com/">npm</a></h5>
-              <p>管理 JavaScript 包和项目脚本。</p>
-              <div class="card-details"><span>包管理器</span></div>
-            </li>
-            <li>
-              <h5><a href="https://docs.npmjs.com/cli/commands/npx">npx</a></h5>
-              <p>直接运行 npm 包提供的命令。</p>
-              <div class="card-details"><span>CLI</span></div>
-            </li>
-            <li>
-              <h5><a href="https://pnpm.io/">pnpm</a></h5>
-              <p>安装和管理 JavaScript 项目依赖。</p>
-              <div class="card-details"><span>包管理器</span></div>
-            </li>
-            <li>
-              <h5><a href="https://www.python.org/">Python</a></h5>
-              <p>编写脚本、数据分析程序和自动化工具。</p>
-              <div class="card-details"><span>语言</span></div>
-            </li>
-            <li>
-              <h5><a href="https://pip.pypa.io/">pip</a></h5>
-              <p>安装和管理 Python 包。</p>
-              <div class="card-details"><span>包管理器</span></div>
-            </li>
-            <li>
-              <h5><a href="https://docs.conda.io/">conda</a></h5>
-              <p>管理跨语言依赖和隔离环境。</p>
-              <div class="card-details"><span>包管理器</span></div>
-            </li>
-            <li>
-              <h5><a href="https://rust-lang.org/">Rust</a></h5>
-              <p>用于系统软件、CLI 与性能敏感程序。</p>
-              <div class="card-details"><span>语言</span></div>
-            </li>
-            <li>
-              <h5><a href="https://rust-analyzer.github.io/">rust-analyzer</a></h5>
-              <p>为编辑器提供 Rust 补全、跳转和诊断。</p>
-              <div class="card-details"><span>语言服务器</span></div>
-            </li>
-            <li>
-              <h5><a href="https://github.com/openjdk/jdk">Java（OpenJDK）</a></h5>
-              <p>Java 语言和虚拟机的开源实现。</p>
-              <div class="card-details"><span>语言 / SDK</span></div>
-            </li>
-            <li>
-              <h5><a href="https://dotnet.microsoft.com/download">.NET SDK</a></h5>
-              <p>构建、运行和打包 .NET 应用。</p>
-              <div class="card-details"><span>SDK</span></div>
-            </li>
-            <li>
-              <h5><a href="https://gcc.gnu.org/">GCC（C/C++）</a></h5>
-              <p>编译 C、C++ 等语言的 GNU 工具链。</p>
-              <div class="card-details"><span>编译器</span></div>
-            </li>
-            <li>
-              <h5><a href="https://learn.microsoft.com/cpp/build/reference/compiling-a-c-cpp-program">MSVC（C/C++）</a></h5>
-              <p>Microsoft 的 C 和 C++ 编译工具链。</p>
-              <div class="card-details"><span>编译器</span></div>
-            </li>
-            <li>
-              <h5><a href="https://go.dev/">Go</a></h5>
-              <p>用于服务端开发和命令行应用。</p>
-              <div class="card-details"><span>语言</span></div>
-            </li>
-          </ul>
+          {% include catalog-group.html group="runtimes" %}
         </section>
       </section>
       <section id="infrastructure" class="catalog-category" aria-labelledby="infrastructure-title">
         <h3 id="infrastructure-title">部署与基础设施</h3>
         <section id="deployment" class="catalog-group" aria-labelledby="deployment-title">
           <h4 id="deployment-title">容器、部署与运维</h4>
-          <ul class="resources">
-            <li>
-              <h5><a href="https://docs.docker.com/engine/">Docker</a></h5>
-              <p>构建镜像并运行容器。</p>
-              <div class="card-details"><span>容器工具</span></div>
-            </li>
-            <li>
-              <h5><a href="https://www.docker.com/products/docker-desktop/">Docker Desktop</a></h5>
-              <p>在桌面系统中运行和管理 Docker。</p>
-              <div class="card-details"><span>桌面工具</span></div>
-            </li>
-            <li>
-              <h5><a href="https://docs.docker.com/compose/">Docker Compose</a></h5>
-              <p>用一个配置文件定义和运行多容器应用。</p>
-              <div class="card-details"><span>CLI</span></div>
-            </li>
-            <li>
-              <h5><a href="https://kubernetes.io/docs/reference/kubectl/">kubectl</a></h5>
-              <p>查看和管理 Kubernetes 资源。</p>
-              <div class="card-details"><span>CLI</span></div>
-            </li>
-            <li>
-              <h5><a href="https://vercel.com/docs/cli">Vercel CLI</a></h5>
-              <p>在终端预览、配置和部署 Vercel 项目。</p>
-              <div class="card-details"><span>CLI</span></div>
-            </li>
-            <li>
-              <h5><a href="https://docs.github.com/actions">GitHub Actions</a></h5>
-              <p>运行仓库的测试、构建和发布流程。</p>
-              <div class="card-details"><span>Web</span></div>
-            </li>
-            <li>
-              <h5><a href="https://docs.github.com/pages">GitHub Pages</a></h5>
-              <p>从 GitHub 仓库发布静态网站。</p>
-              <div class="card-details"><span>Web</span></div>
-            </li>
-            <li>
-              <h5><a href="https://learn.microsoft.com/iis/">IIS</a></h5>
-              <p>Windows 的 Web 服务器和站点管理工具。</p>
-              <div class="card-details"><span>Web 服务器</span></div>
-            </li>
-            <li>
-              <h5><a href="https://prometheus.github.io/client_python/">prometheus_client</a></h5>
-              <p>为 Python 程序暴露 Prometheus 指标。</p>
-              <div class="card-details"><span>Python 库</span></div>
-            </li>
-          </ul>
+          {% include catalog-group.html group="deployment" %}
         </section>
         <section id="api-development" class="catalog-group" aria-labelledby="api-development-title">
           <h4 id="api-development-title">API 开发与调试</h4>
-          <ul class="resources">
-            <li>
-              <h5><a href="https://fastapi.tiangolo.com/">FastAPI</a></h5>
-              <p>用 Python 构建带交互式文档的 API。</p>
-              <div class="card-details"><span>Python 框架</span></div>
-            </li>
-            <li>
-              <h5><a href="https://docs.apifox.com/download">Apifox</a></h5>
-              <p>设计 API、调试请求、生成文档和模拟响应。</p>
-              <div class="card-details"><span>Web / 桌面</span></div>
-            </li>
-          </ul>
+          {% include catalog-group.html group="api-development" %}
         </section>
         <section id="databases" class="catalog-group" aria-labelledby="databases-title">
           <h4 id="databases-title">数据库与查询</h4>
-          <ul class="resources">
-            <li>
-              <h5><a href="https://dev.mysql.com/doc/">MySQL</a></h5>
-              <p>关系型数据库。</p>
-              <div class="card-details"><span>数据库</span></div>
-            </li>
-            <li>
-              <h5><a href="https://dev.mysql.com/downloads/workbench/">MySQL Workbench</a></h5>
-              <p>管理 MySQL 连接、查询和数据库结构。</p>
-              <div class="card-details"><span>桌面工具</span></div>
-            </li>
-            <li>
-              <h5><a href="https://www.sqlite.org/cli.html">SQLite（sqlite3）</a></h5>
-              <p>用命令行查询本地 SQLite 数据库文件。</p>
-              <div class="card-details"><span>数据库 / CLI</span></div>
-            </li>
-            <li>
-              <h5><a href="https://learn.microsoft.com/sql/sql-server/">Microsoft SQL Server</a></h5>
-              <p>Microsoft 的关系型数据库。</p>
-              <div class="card-details"><span>数据库</span></div>
-            </li>
-            <li>
-              <h5><a href="https://www.postgresql.org/docs/current/app-psql.html">psql</a></h5>
-              <p>从终端执行 PostgreSQL 查询和脚本。</p>
-              <div class="card-details"><span>CLI</span></div>
-            </li>
-            <li>
-              <h5><a href="https://redis.io/docs/latest/develop/tools/cli/">redis-cli</a></h5>
-              <p>从终端连接和管理 Redis。</p>
-              <div class="card-details"><span>CLI</span></div>
-            </li>
-            <li>
-              <h5><a href="https://docs.turso.tech/">Turso</a></h5>
-              <p>使用兼容 SQLite 的数据库与云服务。</p>
-              <div class="card-details"><span>数据库 / 云服务</span></div>
-            </li>
-          </ul>
+          {% include catalog-group.html group="databases" %}
         </section>
       </section>
       <section id="quant" class="catalog-category" aria-labelledby="quant-title">
         <h3 id="quant-title">量化与数据科学</h3>
         <section id="research-data" class="catalog-group" aria-labelledby="research-data-title">
           <h4 id="research-data-title">研究环境与数据处理</h4>
-          <ul class="resources">
-            <li>
-              <h5><a href="https://jupyter.org/">JupyterLab</a></h5>
-              <p>用 Notebook 做策略复现的单步检查，例如抽查信号计算、对齐交易日、对照研报图表。</p>
-              <div class="card-details"><span>Notebook</span></div>
-            </li>
-            <li>
-              <h5><a href="https://pandas.pydata.org/docs/getting_started/index.html">pandas</a></h5>
-              <p>清洗行情表、合并交易日并计算滚动指标。适合把原始数据整理成回测需要的表格。</p>
-              <div class="card-details"><span>Python 库</span></div>
-            </li>
-            <li>
-              <h5><a href="https://duckdb.org/docs/stable/data/csv/overview">DuckDB</a></h5>
-              <p>用 SQL 查询本地 CSV 或 Parquet，适合快速抽取样本、查重复行和对比文件字段。</p>
-              <div class="card-details"><span>数据库</span></div>
-            </li>
-            <li>
-              <h5><a href="https://numpy.org/">NumPy</a></h5>
-              <p>进行多维数组运算和数值计算。</p>
-              <div class="card-details"><span>Python 库</span></div>
-            </li>
-            <li>
-              <h5><a href="https://scipy.org/">SciPy</a></h5>
-              <p>提供统计、优化和信号处理工具。</p>
-              <div class="card-details"><span>Python 库</span></div>
-            </li>
-            <li>
-              <h5><a href="https://docs.pola.rs/">Polars</a></h5>
-              <p>以表达式方式处理表格和列式数据。</p>
-              <div class="card-details"><span>数据框架</span></div>
-            </li>
-            <li>
-              <h5><a href="https://www.minitab.com/en-us/products/minitab/">Minitab</a></h5>
-              <p>用于统计分析、质量控制和实验设计。</p>
-              <div class="card-details"><span>桌面工具</span></div>
-            </li>
-          </ul>
+          {% include catalog-group.html group="research-data" %}
         </section>
         <section id="market-tools" class="catalog-group" aria-labelledby="market-tools-title">
           <h4 id="market-tools-title">行情接口、技术指标与回测</h4>
-          <ul class="resources">
-            <li>
-              <h5><a href="https://akshare.akfamily.xyz/">AKShare</a></h5>
-              <p>用 Python 探索股票、期货、基金等公开财经数据。接入策略前，先对照原始数据源确认字段、时间戳和复权口径。</p>
-              <div class="card-details"><span>Python 库</span></div>
-            </li>
-            <li>
-              <h5><a href="https://pypi.org/project/pandas-ta/">pandas-ta</a></h5>
-              <p>在 pandas 数据上计算常用技术指标。</p>
-              <div class="card-details"><span>Python 库</span></div>
-            </li>
-            <li>
-              <h5><a href="https://www.backtrader.com/">Backtrader</a></h5>
-              <p>构建基于事件的策略回测。</p>
-              <div class="card-details"><span>Python 库</span></div>
-            </li>
-            <li>
-              <h5><a href="https://vectorbt.dev/">vectorbt</a></h5>
-              <p>用向量化计算扫描和比较回测参数。</p>
-              <div class="card-details"><span>Python 库</span></div>
-            </li>
-          </ul>
+          {% include catalog-group.html group="market-tools" %}
         </section>
         <section id="visualization" class="catalog-group" aria-labelledby="visualization-title">
           <h4 id="visualization-title">数据可视化</h4>
-          <ul class="resources">
-            <li>
-              <h5><a href="https://matplotlib.org/">Matplotlib</a></h5>
-              <p>生成可细致控制的统计图和研究图。</p>
-              <div class="card-details"><span>Python 库</span></div>
-            </li>
-            <li>
-              <h5><a href="https://seaborn.pydata.org/">Seaborn</a></h5>
-              <p>快速绘制统计关系和分布。</p>
-              <div class="card-details"><span>Python 库</span></div>
-            </li>
-            <li>
-              <h5><a href="https://altair-viz.github.io/">Altair</a></h5>
-              <p>以声明式语法构建统计图。</p>
-              <div class="card-details"><span>Python 库</span></div>
-            </li>
-            <li>
-              <h5><a href="https://plotly.com/python/">Plotly</a></h5>
-              <p>生成可缩放和悬停查看的交互图。</p>
-              <div class="card-details"><span>Python 库</span></div>
-            </li>
-            <li>
-              <h5><a href="https://docs.streamlit.io/">Streamlit</a></h5>
-              <p>将 Python 脚本做成可交互的数据应用。</p>
-              <div class="card-details"><span>Python 框架</span></div>
-            </li>
-          </ul>
+          {% include catalog-group.html group="visualization" %}
         </section>
         <section id="modeling" class="catalog-group" aria-labelledby="modeling-title">
           <h4 id="modeling-title">机器学习与优化</h4>
-          <ul class="resources">
-            <li>
-              <h5><a href="https://scikit-learn.org/stable/">scikit-learn（sklearn）</a></h5>
-              <p>训练与评估常用机器学习模型。</p>
-              <div class="card-details"><span>Python 库</span></div>
-            </li>
-            <li>
-              <h5><a href="https://lightgbm.readthedocs.io/">LightGBM</a></h5>
-              <p>训练基于树的梯度提升模型。</p>
-              <div class="card-details"><span>Python 库</span></div>
-            </li>
-            <li>
-              <h5><a href="https://xgboost.readthedocs.io/">XGBoost</a></h5>
-              <p>训练用于分类、回归和排序的梯度提升模型。</p>
-              <div class="card-details"><span>Python 库</span></div>
-            </li>
-            <li>
-              <h5><a href="https://developers.google.com/optimization">OR-Tools（ortools）</a></h5>
-              <p>求解排程、路径规划和约束优化问题。</p>
-              <div class="card-details"><span>优化库</span></div>
-            </li>
-            <li>
-              <h5><a href="https://docs.gurobi.com/projects/optimizer/en/current/reference/python.html">Gurobi（gurobipy）</a></h5>
-              <p>从 Python 构建和求解数学规划模型。</p>
-              <div class="card-details"><span>求解器 / Python 接口</span></div>
-            </li>
-            <li>
-              <h5><a href="https://pytorch.org/">PyTorch（torch）</a></h5>
-              <p>用张量与自动微分训练神经网络。</p>
-              <div class="card-details"><span>Python 库</span></div>
-            </li>
-            <li>
-              <h5><a href="https://www.tensorflow.org/">TensorFlow</a></h5>
-              <p>构建、训练和部署机器学习模型。</p>
-              <div class="card-details"><span>Python 库</span></div>
-            </li>
-            <li>
-              <h5><a href="https://docs.wandb.ai/">Weights &amp; Biases（W&amp;B）</a></h5>
-              <p>跟踪训练指标、参数和模型实验。</p>
-              <div class="card-details"><span>Web / Python SDK</span></div>
-            </li>
-            <li>
-              <h5><a href="https://mlflow.org/">MLflow</a></h5>
-              <p>记录模型实验并管理模型产物。</p>
-              <div class="card-details"><span>实验平台</span></div>
-            </li>
-            <li>
-              <h5><a href="https://www.tensorflow.org/tensorboard">TensorBoard</a></h5>
-              <p>查看模型训练曲线与指标。</p>
-              <div class="card-details"><span>可视化工具</span></div>
-            </li>
-          </ul>
+          {% include catalog-group.html group="modeling" %}
         </section>
         <section id="nlp" class="catalog-group" aria-labelledby="nlp-title">
           <h4 id="nlp-title">文本、语音与模型工具</h4>
-          <ul class="resources">
-            <li>
-              <h5><a href="https://github.com/fxsjy/jieba">jieba</a></h5>
-              <p>中文分词与关键词提取。</p>
-              <div class="card-details"><span>Python 库</span></div>
-            </li>
-            <li>
-              <h5><a href="https://github.com/BYVoid/OpenCC">OpenCC</a></h5>
-              <p>转换简繁中文及地区词汇。</p>
-              <div class="card-details"><span>CLI / 库</span></div>
-            </li>
-            <li>
-              <h5><a href="https://www.nltk.org/">NLTK</a></h5>
-              <p>文本预处理、标注和语料分析。</p>
-              <div class="card-details"><span>Python 库</span></div>
-            </li>
-            <li>
-              <h5><a href="https://spacy.io/">spaCy</a></h5>
-              <p>构建分词、词性标注和实体识别流程。</p>
-              <div class="card-details"><span>Python 库</span></div>
-            </li>
-            <li>
-              <h5><a href="https://github.com/SYSTRAN/faster-whisper">faster-whisper（faster_whisper）</a></h5>
-              <p>在本地进行 Whisper 语音转写。</p>
-              <div class="card-details"><span>Python 库</span></div>
-            </li>
-            <li>
-              <h5><a href="https://huggingface.co/docs/transformers/">Transformers</a></h5>
-              <p>使用或微调预训练模型。</p>
-              <div class="card-details"><span>Python 库</span></div>
-            </li>
-            <li>
-              <h5><a href="https://huggingface.co/docs/tokenizers/">Tokenizers</a></h5>
-              <p>训练和运行文本分词器。</p>
-              <div class="card-details"><span>模型工具</span></div>
-            </li>
-            <li>
-              <h5><a href="https://onnxruntime.ai/">ONNX Runtime</a></h5>
-              <p>在不同硬件平台运行 ONNX 模型。</p>
-              <div class="card-details"><span>推理运行时</span></div>
-            </li>
-            <li data-alias="huggingface_hub">
-              <h5><a href="https://huggingface.co/docs/hub/">Hugging Face Hub</a></h5>
-              <p>查找和共享模型、数据集和演示。</p>
-              <div class="card-details"><span>Web / SDK</span></div>
-            </li>
-            <li>
-              <h5><a href="https://github.com/chidiwilliams/buzz">Buzz</a></h5>
-              <p>使用本地语音模型转写音频。</p>
-              <div class="card-details"><span>桌面工具</span></div>
-            </li>
-          </ul>
+          {% include catalog-group.html group="nlp" %}
         </section>
       </section>
       <section id="office" class="catalog-category" aria-labelledby="office-title">
         <h3 id="office-title">办公与协作</h3>
         <section id="productivity" class="catalog-group" aria-labelledby="productivity-title">
           <h4 id="productivity-title">文档、笔记与效率</h4>
-          <ul class="resources">
-            <li>
-              <h5><a href="https://www.microsoft.com/microsoft-365">Microsoft Office</a></h5>
-              <p>处理文档、表格和演示文稿。</p>
-              <div class="card-details"><span>Web / 桌面</span></div>
-            </li>
-            <li>
-              <h5><a href="https://www.notion.com/">Notion</a></h5>
-              <p>组织笔记、团队文档和数据库。</p>
-              <div class="card-details"><span>Web / 桌面</span></div>
-            </li>
-            <li>
-              <h5><a href="https://www.todoist.com/">Todoist</a></h5>
-              <p>组织任务、项目和重复提醒。</p>
-              <div class="card-details"><span>Web / 桌面</span></div>
-            </li>
-            <li>
-              <h5><a href="https://evernote.com/">Evernote</a></h5>
-              <p>收集和查找笔记、网页剪藏。</p>
-              <div class="card-details"><span>Web / 桌面</span></div>
-            </li>
-            <li>
-              <h5><a href="https://www.u-tools.cn/">uTools</a></h5>
-              <p>用快捷搜索启动应用和插件。</p>
-              <div class="card-details"><span>桌面工具</span></div>
-            </li>
-            <li>
-              <h5><a href="https://www.typeless.com/">Typeless</a></h5>
-              <p>语音输入和文字整理。</p>
-              <div class="card-details"><span>桌面工具</span></div>
-            </li>
-            <li>
-              <h5><a href="https://miktex.org/">MiKTeX</a></h5>
-              <p>安装和管理 TeX 与 LaTeX 工具。</p>
-              <div class="card-details"><span>排版工具</span></div>
-            </li>
-            <li>
-              <h5><a href="https://pandoc.org/">Pandoc</a></h5>
-              <p>在 Markdown、Word、HTML 等文档格式间转换。</p>
-              <div class="card-details"><span>CLI</span></div>
-            </li>
-            <li>
-              <h5><a href="https://endnote.com/">EndNote</a></h5>
-              <p>管理参考文献和插入引文。</p>
-              <div class="card-details"><span>文献工具</span></div>
-            </li>
-            <li>
-              <h5><a href="https://www.zotero.org/">Zotero</a></h5>
-              <p>收集论文、管理书目和导出引文。</p>
-              <div class="card-details"><span>文献工具</span></div>
-            </li>
-            <li>
-              <h5><a href="https://www.mendeley.com/">Mendeley</a></h5>
-              <p>整理参考资料和 PDF 阅读记录。</p>
-              <div class="card-details"><span>文献工具</span></div>
-            </li>
-          </ul>
+          {% include catalog-group.html group="productivity" %}
         </section>
         <section id="communication" class="catalog-group" aria-labelledby="communication-title">
           <h4 id="communication-title">即时通信与会议</h4>
-          <ul class="resources">
-            <li>
-              <h5><a href="https://meeting.tencent.com/">腾讯会议</a></h5>
-              <p>参加视频会议和共享屏幕。</p>
-              <div class="card-details"><span>Web / 桌面</span></div>
-            </li>
-            <li data-alias="QQNT">
-              <h5><a href="https://im.qq.com/">QQ（QQNT）</a></h5>
-              <p>腾讯即时通信客户端，QQNT 为新版桌面客户端。</p>
-              <div class="card-details"><span>桌面 / 移动</span></div>
-            </li>
-            <li>
-              <h5><a href="https://tim.qq.com/">TIM</a></h5>
-              <p>基于 QQ 的办公沟通应用。</p>
-              <div class="card-details"><span>桌面 / 移动</span></div>
-            </li>
-            <li data-alias="xwechat">
-              <h5><a href="https://weixin.qq.com/">微信（WeChat）</a></h5>
-              <p>用于聊天、文件分享和跨设备沟通。</p>
-              <div class="card-details"><span>桌面 / 移动</span></div>
-            </li>
-            <li>
-              <h5><a href="https://desktop.telegram.org/">Telegram Desktop</a></h5>
-              <p>Telegram 的桌面客户端。</p>
-              <div class="card-details"><span>桌面工具</span></div>
-            </li>
-            <li data-alias="飞书 Lark">
-              <h5><a href="https://www.feishu.cn/">飞书（Lark）</a></h5>
-              <p>将消息、文档、会议和团队协作放在一起。</p>
-              <div class="card-details"><span>Web / 桌面</span><a href="https://www.larksuite.com/">Lark 国际版</a></div>
-            </li>
-            <li>
-              <h5><a href="https://slack.com/">Slack</a></h5>
-              <p>用频道组织团队沟通。</p>
-              <div class="card-details"><span>Web / 桌面</span></div>
-            </li>
-            <li>
-              <h5><a href="https://discord.com/">Discord</a></h5>
-              <p>用于社群文字和语音沟通。</p>
-              <div class="card-details"><span>Web / 桌面</span></div>
-            </li>
-            <li>
-              <h5><a href="https://www.zoom.com/">Zoom</a></h5>
-              <p>视频会议和线上活动。</p>
-              <div class="card-details"><span>Web / 桌面</span></div>
-            </li>
-            <li>
-              <h5><a href="https://www.microsoft.com/microsoft-teams/">Microsoft Teams</a></h5>
-              <p>团队聊天、会议与协作。</p>
-              <div class="card-details"><span>Web / 桌面</span></div>
-            </li>
-            <li>
-              <h5><a href="https://support.microsoft.com/skype">Skype</a></h5>
-              <p>原 Skype 消费者服务已退役，可查看 Microsoft 的迁移说明。</p>
-              <div class="card-details"><span>历史工具</span></div>
-            </li>
-            <li>
-              <h5><a href="https://www.whatsapp.com/">WhatsApp</a></h5>
-              <p>即时通信和通话。</p>
-              <div class="card-details"><span>Web / 桌面</span></div>
-            </li>
-            <li>
-              <h5><a href="https://signal.org/">Signal</a></h5>
-              <p>端到端加密的消息和语音通话。</p>
-              <div class="card-details"><span>桌面 / 移动</span></div>
-            </li>
-          </ul>
+          {% include catalog-group.html group="communication" %}
         </section>
       </section>
       <section id="desktop" class="catalog-category" aria-labelledby="desktop-title">
         <h3 id="desktop-title">桌面与媒体</h3>
         <section id="file-transfer" class="catalog-group" aria-labelledby="file-transfer-title">
           <h4 id="file-transfer-title">文件传输</h4>
-          <ul class="resources">
-            <li>
-              <h5><a href="https://localsend.org/">LocalSend</a></h5>
-              <p>在同一局域网的设备间传输文件。</p>
-              <div class="card-details"><span>桌面 / 移动</span></div>
-              <div class="usage-example">
-                <strong>用法示例</strong>
-                <p>手机和电脑连同一 Wi-Fi，在手机端选照片或文件，点电脑的设备名，再到电脑上确认接收。</p>
-              </div>
-            </li>
-            <li data-alias="snapdrop.net">
-              <h5><a href="https://snapdrop.net/">Snapdrop</a></h5>
-              <p>通过浏览器在设备间发送文件。</p>
-              <div class="card-details"><span>Web</span></div>
-            </li>
-          </ul>
+          {% include catalog-group.html group="file-transfer" %}
         </section>
         <section id="remote-desktop" class="catalog-group" aria-labelledby="remote-desktop-title">
           <h4 id="remote-desktop-title">远程访问与桌面工具</h4>
-          <ul class="resources">
-            <li>
-              <h5><a href="https://bitwarden.com/help/cli/">Bitwarden CLI</a></h5>
-              <p>从终端操作 Bitwarden 密码库。</p>
-              <div class="card-details"><span>CLI</span></div>
-            </li>
-            <li data-alias="UU远程">
-              <h5><a href="https://uuyc.163.com/">UU 远程</a></h5>
-              <p>用于远程桌面和游戏串流。</p>
-              <div class="card-details"><span>桌面 / 移动</span></div>
-            </li>
-            <li>
-              <h5><a href="https://tailscale.com/">Tailscale</a></h5>
-              <p>将自己的设备接入同一个私有网络。</p>
-              <div class="card-details"><span>网络工具</span></div>
-            </li>
-            <li data-alias="Clash Verge">
-              <h5><a href="https://github.com/clash-verge-rev/clash-verge-rev">Clash Verge Rev</a></h5>
-              <p>管理代理配置和规则的图形客户端。</p>
-              <div class="card-details"><span>桌面工具</span></div>
-            </li>
-            <li>
-              <h5><a href="https://knowledge.broadcom.com/external/article/368667/download-and-license-vmware-desktop-hype.html">VMware Workstation</a></h5>
-              <p>在桌面系统运行虚拟机。</p>
-              <div class="card-details"><span>桌面工具</span></div>
-            </li>
-            <li>
-              <h5><a href="https://mumu.163.com/">MuMu 模拟器</a></h5>
-              <p>在电脑上运行 Android 应用。</p>
-              <div class="card-details"><span>桌面工具</span></div>
-            </li>
-            <li>
-              <h5><a href="https://syzs.qq.com/">腾讯手游助手</a></h5>
-              <p>在 Windows 上运行部分 Android 手游。</p>
-              <div class="card-details"><span>桌面工具</span></div>
-            </li>
-            <li>
-              <h5><a href="https://docs.unity.com/en-us/hub/install-hub-win-mac">Unity Hub</a></h5>
-              <p>管理 Unity 编辑器版本和项目。</p>
-              <div class="card-details"><span>桌面工具</span></div>
-            </li>
-          </ul>
+          {% include catalog-group.html group="remote-desktop" %}
         </section>
         <section id="browsers" class="catalog-group" aria-labelledby="browsers-title">
           <h4 id="browsers-title">浏览器</h4>
-          <ul class="resources">
-            <li>
-              <h5><a href="https://www.google.com/chrome/">Google Chrome</a></h5>
-              <p>Google 浏览器，内置网页开发和调试工具。</p>
-              <div class="card-details"><span>浏览器</span></div>
-            </li>
-            <li>
-              <h5><a href="https://www.microsoft.com/edge">Microsoft Edge</a></h5>
-              <p>Microsoft 浏览器。</p>
-              <div class="card-details"><span>浏览器</span></div>
-            </li>
-            <li>
-              <h5><a href="https://www.firefox.com/">Mozilla Firefox</a></h5>
-              <p>Mozilla 浏览器，可用于跨浏览器测试。</p>
-              <div class="card-details"><span>浏览器</span></div>
-            </li>
-          </ul>
+          {% include catalog-group.html group="browsers" %}
         </section>
         <section id="media" class="catalog-group" aria-labelledby="media-title">
           <h4 id="media-title">媒体制作</h4>
-          <ul class="resources">
-            <li>
-              <h5><a href="https://obsproject.com/">OBS Studio</a></h5>
-              <p>录制屏幕及音频，或进行直播。</p>
-              <div class="card-details"><span>桌面工具</span></div>
-            </li>
-            <li>
-              <h5><a href="https://ffmpeg.org/">FFmpeg</a></h5>
-              <p>处理音视频编码、裁剪和转换。</p>
-              <div class="card-details"><span>CLI</span></div>
-            </li>
-          </ul>
+          {% include catalog-group.html group="media" %}
         </section>
       </section>
     </section>
@@ -1121,69 +428,25 @@
         <h3 id="learning-title">学习资料</h3>
         <section id="computer-learning" class="catalog-group" aria-labelledby="computer-learning-title">
           <h4 id="computer-learning-title">计算机与编程自学</h4>
-          <ul class="resources">
-            <li data-alias="CS.DIY CSDIY cs-self-learning">
-              <h5><a href="https://csdiy.wiki/">CS 自学指南</a></h5>
-              <p>按方向查找计算机课程、教材和实践资源。想补一块知识时，可以从感兴趣的主题找课程和配套练习。</p>
-              <div class="card-details"><span>课程目录</span><a href="https://github.com/PKUFlyingPig/cs-self-learning">源码仓库</a></div>
-            </li>
-            <li>
-              <h5><a href="https://docs.python.org/zh-cn/3/tutorial/">Python 官方教程（中文）</a></h5>
-              <p>已经有一点编程基础的话，可以从函数、数据结构和模块开始补 Python，再动手写一个读写 CSV 的脚本。</p>
-              <div class="card-details"><span>教程</span></div>
-            </li>
-            <li>
-              <h5><a href="https://developer.mozilla.org/zh-CN/docs/Learn_web_development">MDN 学习 Web 开发</a></h5>
-              <p>按 HTML、CSS、JavaScript 学网页开发。想给自己的 GitHub Pages 加导航、表单或交互时，可以从相应章节查起。</p>
-              <div class="card-details"><span>教程</span></div>
-            </li>
-            <li>
-              <h5><a href="https://git-scm.com/book/zh/v2">《Pro Git》中文版</a></h5>
-              <p>遇到分支、合并和回退的问题时，按章节查命令和示例。也可以跟着 Git 基础章节练一次完整的提交流程。</p>
-              <div class="card-details"><span>书籍</span></div>
-            </li>
-            <li>
-              <h5><a href="https://sqlbolt.com/">SQLBolt</a></h5>
-              <p>在浏览器里边读边做 SQL 练习。可以从查询、连接和聚合练起，再拿自己的数据验证。</p>
-              <div class="card-details"><span>交互练习</span></div>
-            </li>
-          </ul>
+          {% include catalog-group.html group="computer-learning" %}
         </section>
       </section>
       <section id="market-research-resources" class="catalog-category" aria-labelledby="market-research-resources-title">
         <h3 id="market-research-resources-title">市场与研究资料</h3>
         <section id="research" class="catalog-group" aria-labelledby="research-title">
           <h4 id="research-title">市场数据与官方核对</h4>
-          <ul class="resources">
-            <li data-alias="上期所 SHFE">
-              <h5><a href="https://www.shfe.com.cn/reports/tradedata/dailyandweeklydata/">上海期货交易所 · 日周数据</a></h5>
-              <p>查看上期所期货和期权的日交易快讯、周行情及每日结算参数，用于抽样核对第三方数据。</p>
-              <div class="card-details"><span>市场数据</span></div>
-            </li>
-          </ul>
+          {% include catalog-group.html group="research" %}
         </section>
       </section>
       <section id="web-resources" class="catalog-category" aria-labelledby="web-resources-title">
         <h3 id="web-resources-title">工具发现</h3>
         <section id="tool-directories" class="catalog-group" aria-labelledby="tool-directories-title">
           <h4 id="tool-directories-title">工具合集与导航站</h4>
-          <ul class="resources">
-            <li>
-              <h5><a href="https://awesome-selfhosted.net/">Awesome Selfhosted</a></h5>
-              <p>按用途查询可自行托管的开源软件。</p>
-              <div class="card-details"><span>工具目录</span></div>
-            </li>
-          </ul>
+          {% include catalog-group.html group="tool-directories" %}
         </section>
         <section id="online-tools" class="catalog-group" aria-labelledby="online-tools-title">
           <h4 id="online-tools-title">在线工具合集</h4>
-          <ul class="resources">
-            <li>
-              <h5><a href="https://tools.simonwillison.net/">Simon Willison’s Tools</a></h5>
-              <p>在浏览器直接使用的独立小工具合集。</p>
-              <div class="card-details"><span>在线工具集</span></div>
-            </li>
-          </ul>
+          {% include catalog-group.html group="online-tools" %}
         </section>
       </section>
     </section>

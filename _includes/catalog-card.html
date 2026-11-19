@@ -1,0 +1,21 @@
+<li{% if include.entry.alias %} data-alias="{{ include.entry.alias | escape }}"{% endif %}>
+  <{{ include.heading }}><a href="{{ include.entry.url | escape }}">{{ include.entry.name }}</a></{{ include.heading }}>
+  <p>{{ include.entry.summary }}</p>
+  <div class="card-details"><span>{{ include.entry.type | escape }}</span>{% if include.entry.docs %}<a href="{{ include.entry.docs.url | escape }}">{{ include.entry.docs.label }}</a>{% endif %}</div>
+  {% if include.entry.usage %}
+    <div class="usage-example">
+      <strong>{{ include.entry.usage.label }}</strong>
+      <p>{{ include.entry.usage.example }}</p>
+    </div>
+  {% endif %}
+  {% if include.entry.extensions %}
+    <details id="extensions" class="extensions">
+      <summary id="extensions-title">VS Code 扩展（{{ include.entry.extensions | size }}）</summary>
+      <ul class="extension-list">
+        {% for extension in include.entry.extensions %}
+          {% include catalog-card.html entry=extension heading="h6" %}
+        {% endfor %}
+      </ul>
+    </details>
+  {% endif %}
+</li>
