@@ -92,11 +92,55 @@
     .search-row :focus-visible, summary:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
     .search-status { color: var(--muted); font-size: .875rem; margin-top: .3rem; }
     .category-links { margin-top: .8rem; }
-    .category-links summary { color: var(--green); cursor: pointer; width: fit-content; font-weight: 650; }
     .category-links ul { margin: .55rem 0 0; padding: 0; list-style: none; }
     .category-index { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: .85rem 1rem; }
     .category-index > li > a { font-weight: 650; }
     .category-links a { font-size: .875rem; text-underline-offset: .2em; }
+    .category-buttons { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .category-buttons button {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .24rem .63rem;
+      border: 1px solid #b7c7b9;
+      border-radius: .55rem;
+      background: var(--card);
+      color: var(--green);
+      font: inherit;
+      font-size: .875rem;
+      font-weight: 650;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .category-buttons button::after {
+      content: "";
+      border: .25em solid transparent;
+      border-bottom: 0;
+      border-top-color: currentColor;
+    }
+    .category-buttons button:hover { background: #e7eee3; }
+    .category-buttons button[aria-expanded="true"] {
+      border-color: var(--green);
+      background: var(--green);
+      color: var(--card);
+    }
+    .category-buttons button[aria-expanded="true"]::after { transform: rotate(180deg); }
+    .category-buttons button:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+    .category-links.is-enhanced .category-index {
+      display: block;
+      margin-top: .45rem;
+      padding: .46rem .72rem;
+      border: 1px solid var(--line);
+      border-radius: .55rem;
+      background: #edf1e9;
+    }
+    .category-links.is-enhanced .category-index > li > a { display: none; }
+    .category-links.is-enhanced .category-index ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .36rem 1.1rem;
+      margin: 0;
+    }
     .extensions { margin-top: .8rem; padding-top: .6rem; border-top: 1px solid var(--line); }
     .extensions summary { color: var(--green); font-size: .875rem; font-weight: 650; cursor: pointer; width: fit-content; }
     .resources > li:has(> .extensions[open]) { grid-column: 1 / -1; }
@@ -151,8 +195,7 @@
         </div>
         <p class="search-status" id="search-status" role="status"></p>
       </div>
-      <details class="category-links">
-        <summary>按分类浏览</summary>
+      <div class="category-links" role="navigation" aria-label="按分类浏览">
         <ul class="category-index">
           <li>
             <a href="#developer-tools">开发工具</a>
@@ -217,7 +260,7 @@
             </ul>
           </li>
         </ul>
-      </details>
+      </div>
     </div>
     <section id="tools" class="catalog-section" aria-labelledby="tools-title">
       <h2 id="tools-title">工具</h2>
@@ -1179,6 +1222,42 @@
       if (target && extensions.contains(target)) extensions.open = true;
     }
 
+    function initializeCategoryNavigation() {
+      const navigation = document.querySelector(".category-links");
+      const index = navigation.querySelector(".category-index");
+      const buttons = document.createElement("div");
+      buttons.className = "category-buttons";
+
+      const categories = Array.from(index.children, (panel) => {
+        const link = panel.querySelector("a");
+        const button = document.createElement("button");
+        panel.id = "browse-" + link.hash.slice(1);
+        panel.hidden = true;
+        button.type = "button";
+        button.textContent = link.textContent;
+        button.setAttribute("aria-controls", panel.id);
+        button.setAttribute("aria-expanded", "false");
+        buttons.append(button);
+        return { button, panel };
+      });
+
+      for (const selected of categories) {
+        selected.button.addEventListener("click", () => {
+          const opening = selected.panel.hidden;
+          for (const category of categories) {
+            const expanded = opening && category === selected;
+            category.panel.hidden = !expanded;
+            category.button.setAttribute("aria-expanded", String(expanded));
+          }
+          index.hidden = !opening;
+        });
+      }
+
+      index.hidden = true;
+      navigation.classList.add("is-enhanced");
+      navigation.prepend(buttons);
+    }
+
     query.addEventListener("input", filterCatalog);
     clear.addEventListener("click", () => {
       query.value = "";
@@ -1191,6 +1270,7 @@
     }
     window.addEventListener("hashchange", () => revealTarget(location.hash));
 
+    initializeCategoryNavigation();
     filterCatalog();
     revealTarget(location.hash);
     search.hidden = false;
