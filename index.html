@@ -40,9 +40,9 @@ layout: null
     }
     .intro { max-width: 39rem; color: var(--muted); margin-top: .68rem; }
     nav { margin-top: .82rem; }
-    nav ul, .resources { list-style: none; padding: 0; margin: 0; }
-    nav ul { display: flex; flex-wrap: wrap; gap: .55rem; }
-    nav a {
+    .masthead nav ul, .resources { list-style: none; padding: 0; margin: 0; }
+    .masthead nav ul { display: flex; flex-wrap: wrap; gap: .55rem; }
+    .masthead nav a {
       display: block;
       padding: .35rem .8rem;
       border: 1px solid #b7c7b9;
@@ -51,7 +51,7 @@ layout: null
       font-weight: 650;
       text-decoration: none;
     }
-    nav a:hover { background: #e7eee3; }
+    .masthead nav a:hover { background: #e7eee3; }
     main { padding-block: .2rem 3.5rem; }
     .catalog-section { padding-top: 2rem; }
     .catalog-section + .catalog-section { border-top: 1px solid var(--line); margin-top: 2.3rem; }
@@ -69,7 +69,7 @@ layout: null
     .resources :is(h5, h6) a:hover { text-decoration-thickness: .14em; }
     .resources p { color: var(--muted); font-size: .93rem; margin-top: .4rem; }
     code { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .91em; }
-    .skip { position: absolute; z-index: 1; top: .6rem; left: .6rem; padding: .5rem .8rem; background: var(--card); }
+    .skip { position: absolute; z-index: 4; top: .6rem; left: .6rem; padding: .5rem .8rem; background: var(--card); }
     .skip:not(:focus) { clip-path: inset(50%); }
 
     .catalog-controls { padding-top: 1.4rem; }
@@ -99,113 +99,84 @@ layout: null
     .category-index { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: .85rem 1rem; }
     .category-index > li > a { font-weight: 650; }
     .category-links a { font-size: .875rem; text-underline-offset: .2em; }
-    .category-buttons { display: flex; flex-wrap: wrap; gap: .4rem; }
-    .category-buttons button {
-      display: inline-flex;
+    .has-sidebar {
+      --sidebar-width: 14.25rem;
+      --sidebar-rail: 3rem;
+      --sidebar-inset: var(--sidebar-width);
+      padding-inline-start: var(--sidebar-inset);
+    }
+    .has-sidebar[data-sidebar-collapsed] { --sidebar-inset: var(--sidebar-rail); }
+    .site-sidebar {
+      position: fixed;
+      inset-block: 0;
+      inset-inline-start: 0;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      width: var(--sidebar-width);
+      background: #edf1e9;
+      border-inline-end: 1px solid var(--line);
+    }
+    [data-sidebar-collapsed] .site-sidebar { width: var(--sidebar-rail); }
+    .sidebar-header {
+      display: flex;
       align-items: center;
+      justify-content: space-between;
+      min-height: 3.6rem;
       gap: .4rem;
-      padding: .24rem .63rem;
+      padding: .45rem .62rem .45rem .88rem;
+    }
+    [data-sidebar-collapsed] .sidebar-header { justify-content: center; padding-inline: 0; }
+    .sidebar-toggle {
+      display: grid;
+      place-items: center;
+      width: 2.45rem;
+      height: 2.45rem;
       border: 1px solid #b7c7b9;
-      border-radius: .55rem;
+      border-radius: .5rem;
       background: var(--card);
       color: var(--green);
-      font: inherit;
-      font-size: .875rem;
-      font-weight: 650;
-      white-space: nowrap;
       cursor: pointer;
     }
-    .category-buttons button::after {
-      content: "";
-      border: .25em solid transparent;
-      border-bottom: 0;
-      border-top-color: currentColor;
-    }
-    .category-buttons button:hover { background: #e7eee3; }
-    .category-buttons button[aria-expanded="true"] {
-      border-color: var(--green);
-      background: var(--green);
-      color: var(--card);
-    }
-    .category-buttons button[aria-expanded="true"]::after { transform: rotate(180deg); }
-    .category-buttons button:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
-    .category-links.is-enhanced .category-index {
-      display: block;
-      margin-top: .45rem;
-      padding: .46rem .72rem;
-      border: 1px solid var(--line);
-      border-radius: .55rem;
-      background: #edf1e9;
-    }
-    .is-enhanced .category-index > li > a { display: none; }
-    .category-links.is-enhanced .category-index ul {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .36rem 1.1rem;
+    .sidebar-toggle svg { width: 1.2rem; height: 1.2rem; }
+    [data-sidebar-collapsed] .sidebar-toggle svg { transform: scaleX(-1); }
+    .sidebar-nav {
       margin: 0;
-    }
-    .floating-directory {
-      position: fixed;
-      z-index: 2;
-      inset-inline-end: max(1rem, env(safe-area-inset-right));
-      bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
-    }
-    .floating-directory > summary {
-      display: flex;
-      align-items: center;
-      gap: .45rem;
-      min-height: 2.6rem;
-      padding: .28rem .9rem;
-      border-radius: 2rem;
-      background: var(--green);
-      color: var(--card);
-      font-size: .875rem;
-      font-weight: 700;
-      cursor: pointer;
-      list-style: none;
-    }
-    .floating-directory > summary::-webkit-details-marker { display: none; }
-    .floating-directory > summary::after {
-      content: "";
-      border: .25em solid transparent;
-      border-bottom: 0;
-      border-top-color: currentColor;
-    }
-    .floating-directory[open] > summary::after { transform: rotate(180deg); }
-    .directory-panel {
-      position: absolute;
-      inset-inline-end: 0;
-      bottom: calc(100% + .55rem);
-      width: min(19rem, calc(100vw - 2rem));
-      max-height: 70vh;
-      max-height: min(70dvh, 29rem);
-      overflow: auto;
+      overflow-y: auto;
       overscroll-behavior: contain;
-      padding: .8rem .86rem;
-      border: 1px solid #a6b8a9;
-      border-radius: .8rem;
-      background: var(--card);
-      box-shadow: 0 .25rem 1rem #19262024;
+      padding: 0 .45rem max(.8rem, env(safe-area-inset-bottom));
+      font-size: .875rem;
     }
-    .directory-panel h2 { margin-bottom: .42rem; font-size: 1rem; letter-spacing: 0; }
-    .directory-panel .category-buttons { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .14rem .35rem; }
-    .directory-panel .category-buttons button {
-      padding: .2rem .4rem;
-      border: 0;
+    .sidebar-nav ul { margin: 0; padding: 0; list-style: none; }
+    .sidebar-nav ul ul { padding-inline-start: .65rem; }
+    .sidebar-nav .sidebar-section { color: var(--muted); font-weight: 700; margin-block: .45rem .15rem; }
+    .sidebar-nav a, .sidebar-nav summary {
+      display: block;
+      padding: .28rem .42rem;
+      border-inline-start: 3px solid transparent;
       border-radius: .35rem;
-      background: transparent;
-      font-size: .82rem;
-      text-align: left;
-      text-decoration: underline;
-      text-underline-offset: .2em;
-      white-space: normal;
+      text-decoration: none;
+      overflow-wrap: anywhere;
     }
-    .directory-panel .category-buttons button::after { display: none; }
-    .directory-panel .category-buttons button:hover,
-    .directory-panel .category-buttons button[aria-expanded="true"] { background: #e7eee3; color: var(--green); }
-    .directory-panel ul { margin: 0; padding: 0; list-style: none; }
-    .directory-panel .category-index { display: block; margin-top: .55rem; padding-top: .45rem; border-top: 1px solid var(--line); }
-    .directory-panel .category-index a { display: block; padding: .17rem .4rem; font-size: .82rem; text-underline-offset: .2em; }
+    .sidebar-nav summary { display: list-item; list-style-position: inside; cursor: pointer; }
+    .sidebar-nav a:hover, .sidebar-nav summary:hover { background: #e0e9dd; }
+    .sidebar-nav details[data-active] > summary { color: var(--green); font-weight: 700; }
+    .sidebar-nav [aria-current="location"] {
+      border-inline-start-color: var(--green);
+      color: var(--ink);
+      background: #dbe8d9;
+      font-weight: 700;
+    }
+    .sidebar-nav :focus-visible, .sidebar-toggle:focus-visible { outline: 2px solid var(--green); outline-offset: -2px; }
+    @media (max-width: 44rem) {
+      .has-sidebar { --sidebar-inset: var(--sidebar-rail); }
+      .site-sidebar { width: min(var(--sidebar-width), 84vw); }
+      .has-sidebar:not([data-sidebar-collapsed]) .site-sidebar { box-shadow: .24rem 0 .8rem #19262026; }
+    }
+    @media (pointer: coarse) {
+      .sidebar-toggle { width: 2.75rem; height: 2.75rem; }
+      .sidebar-nav a, .sidebar-nav summary { min-height: 2.75rem; align-content: center; }
+    }
     .extensions { margin-top: .8rem; padding-top: .6rem; border-top: 1px solid var(--line); }
     .extensions summary { color: var(--green); font-size: .875rem; font-weight: 650; cursor: pointer; width: fit-content; }
     .resources > li:has(> .extensions[open]) { grid-column: 1 / -1; }
@@ -243,6 +214,15 @@ layout: null
 </head>
 <body>
   <a class="skip" href="#main">跳到正文</a>
+  <aside id="catalog-sidebar" class="site-sidebar" aria-label="工具箱侧边栏" hidden>
+    <div class="sidebar-header">
+      <strong id="sidebar-title">目录</strong>
+      <button id="sidebar-toggle" class="sidebar-toggle" type="button" aria-controls="sidebar-navigation" aria-expanded="true" aria-label="收起侧边栏" title="收起侧边栏">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16m7-11-3 3 3 3"/></svg>
+      </button>
+    </div>
+    <nav id="sidebar-navigation" class="sidebar-nav" aria-label="工具与资源目录"></nav>
+  </aside>
   <header class="masthead">
     <div class="wrap">
       <h1>我的实用工具箱</h1>
@@ -453,12 +433,6 @@ layout: null
       </section>
     </section>
   </main>
-  <details id="floating-directory" class="floating-directory" hidden>
-    <summary>目录</summary>
-    <div class="directory-panel" role="navigation" aria-label="浮动分类目录">
-      <h2>目录</h2>
-    </div>
-  </details>
   <script>
     const search = document.querySelector("#catalog-search");
     const query = document.querySelector("#catalog-query");
@@ -467,7 +441,6 @@ layout: null
     const extensions = document.querySelector("#extensions");
     const extensionsSummary = document.querySelector("#extensions-title");
     const defaultExtensionsLabel = extensionsSummary?.textContent;
-    const directory = document.querySelector("#floating-directory");
     const normalize = (text) => text.normalize("NFKC").toLowerCase();
     let filtering = false;
     let extensionsWereOpen = false;
@@ -563,87 +536,144 @@ layout: null
       } else {
         status.textContent = "找到 " + total + " 项";
       }
+      sidebar.refresh();
     }
 
     function revealTarget(hash) {
       const target = document.getElementById(hash.slice(1));
-      if (target?.closest("[hidden]")) {
+      const wasHidden = target?.closest("[hidden]");
+      if (wasHidden) {
         query.value = "";
         filterCatalog();
       }
       if (target && extensions.contains(target)) extensions.open = true;
+      return wasHidden ? target : null;
     }
 
-    function initializeCategoryNavigation(navigation, idPrefix) {
-      const index = navigation.querySelector(".category-index");
-      const buttons = document.createElement("div");
-      buttons.className = "category-buttons";
+    function initializeSidebar() {
+      const element = document.querySelector("#catalog-sidebar");
+      const navigation = element.querySelector("nav");
+      const title = element.querySelector("#sidebar-title");
+      const toggle = element.querySelector("#sidebar-toggle");
+      const fallback = document.querySelector(".category-links");
+      const index = fallback.querySelector(".category-index");
+      const narrow = window.matchMedia("(max-width: 44rem)");
+      const categoriesById = new Map(Array.from(index.children, (item) => [item.firstElementChild.hash.slice(1), item]));
+      const entries = new Map();
+      let active;
+      let anchor;
+      let frame;
 
-      const categories = Array.from(index.children, (panel) => {
-        const link = panel.querySelector("a");
-        const button = document.createElement("button");
-        const targetId = link.hash.slice(1);
-        panel.id = idPrefix + targetId;
-        panel.hidden = true;
-        button.type = "button";
-        button.textContent = link.textContent;
-        button.setAttribute("aria-controls", panel.id);
-        button.setAttribute("aria-expanded", "false");
-        buttons.append(button);
-        return { button, panel, targetId };
-      });
-
-      function selectCategory(selected) {
-        for (const category of categories) {
-          const expanded = category === selected;
-          category.panel.hidden = !expanded;
-          category.button.setAttribute("aria-expanded", String(expanded));
-        }
-        index.hidden = !selected;
+      function register(source, control, category) {
+        entries.set(source.id, { source, heading: source.firstElementChild, control, category });
       }
 
-      for (const category of categories) {
-        category.button.addEventListener("click", () => {
-          selectCategory(category.panel.hidden ? category : null);
+      for (const section of sections) {
+        const label = document.createElement("a");
+        label.href = "#" + section.element.id;
+        label.textContent = section.element.firstElementChild.textContent;
+        label.className = "sidebar-section";
+        const list = document.createElement("ul");
+        navigation.append(label, list);
+        register(section.element, label);
+
+        for (const { element: category, groups } of section.categories) {
+          const item = categoriesById.get(category.id);
+          const [labelLink, children] = item.children;
+          const details = document.createElement("details");
+          const summary = document.createElement("summary");
+          summary.textContent = labelLink.textContent;
+          details.append(summary, children);
+          item.replaceChildren(details);
+          list.append(item);
+          register(category, summary, details);
+
+          const groupLinks = new Map(Array.from(children.querySelectorAll("a"), (link) => [link.hash.slice(1), link]));
+          for (const { element: group } of groups) register(group, groupLinks.get(group.id), details);
+        }
+      }
+
+      function revealActiveControl() {
+        if (!active || navigation.hidden || !active.control.getClientRects().length) return;
+        const control = active.control.getBoundingClientRect();
+        const bounds = navigation.getBoundingClientRect();
+        if (control.top < bounds.top) navigation.scrollTop += control.top - bounds.top;
+        else if (control.bottom > bounds.bottom) navigation.scrollTop += control.bottom - bounds.bottom;
+      }
+
+      function update() {
+        frame = undefined;
+        if (anchor && Math.abs(window.scrollY - anchor.scrollY) > 2) anchor = undefined;
+        const available = Array.from(entries.values()).filter(({ source }) => !source.hidden);
+        const atBottom = window.scrollY > 0 && window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+        const line = Math.min(104, window.innerHeight * .22);
+        const next = anchor?.entry ?? (atBottom ? available.at(-1) : available.findLast(({ heading }) =>
+          heading.getBoundingClientRect().top <= line)) ?? available[0];
+        if (next === active) return;
+        active?.control.removeAttribute("aria-current");
+        active?.category?.removeAttribute("data-active");
+        active = next;
+        if (!active) return;
+        active.control.setAttribute("aria-current", "location");
+        if (active.category) {
+          active.category.open = true;
+          active.category.setAttribute("data-active", "");
+        }
+        revealActiveControl();
+      }
+
+      function queueUpdate() {
+        if (frame === undefined) frame = window.requestAnimationFrame(update);
+      }
+
+      function setCollapsed(collapsed) {
+        const before = active?.heading.getBoundingClientRect().top;
+        document.body.toggleAttribute("data-sidebar-collapsed", collapsed);
+        navigation.hidden = collapsed;
+        title.hidden = collapsed;
+        const label = collapsed ? "展开侧边栏" : "收起侧边栏";
+        toggle.setAttribute("aria-label", label);
+        toggle.setAttribute("aria-expanded", String(!collapsed));
+        toggle.title = label;
+        if (before !== undefined && window.scrollY > 0) {
+          window.scrollBy(0, active.heading.getBoundingClientRect().top - before);
+          if (anchor) anchor.scrollY = window.scrollY;
+        }
+        revealActiveControl();
+        queueUpdate();
+      }
+
+      function followHash(hash) {
+        const entry = entries.get(hash.slice(1));
+        // Near the bottom, multiple links can land at the same scroll position.
+        window.requestAnimationFrame(() => {
+          anchor = entry ? { entry, scrollY: window.scrollY } : undefined;
+          queueUpdate();
         });
       }
 
-      index.hidden = true;
-      navigation.classList.add("is-enhanced");
-      navigation.prepend(buttons);
-      return (targetId) => selectCategory(categories.find((category) => category.targetId === targetId));
-    }
-
-    function initializeFloatingDirectory(navigation) {
-      const panel = directory.querySelector(".directory-panel");
-      const summary = directory.querySelector("summary");
-      const categoryHeadings = sections.flatMap((section) => section.categories.map(({ element }) => element));
-      panel.append(navigation.querySelector(".category-index").cloneNode(true));
-      const selectCategory = initializeCategoryNavigation(panel, "directory-");
-
-      directory.addEventListener("toggle", () => {
-        if (!directory.open) return;
-        const visible = categoryHeadings.filter((category) => !category.hidden);
-        const current = visible.findLast((category) => category.getBoundingClientRect().top <= window.innerHeight * .25)
-          ?? visible[0];
-        selectCategory(current?.id);
+      toggle.addEventListener("click", () => setCollapsed(!navigation.hidden));
+      element.addEventListener("keydown", (event) => {
+        if (event.key !== "Escape" || navigation.hidden) return;
+        event.preventDefault();
+        setCollapsed(true);
+        toggle.focus();
       });
+      narrow.addEventListener("change", () => setCollapsed(narrow.matches));
+      window.addEventListener("scroll", queueUpdate, { passive: true });
+      window.addEventListener("resize", queueUpdate);
+      if ("ResizeObserver" in window) new ResizeObserver(queueUpdate).observe(document.querySelector("main"));
+      document.body.classList.add("has-sidebar");
+      setCollapsed(narrow.matches);
+      element.hidden = false;
+      fallback.hidden = true;
 
-      directory.addEventListener("keydown", (event) => {
-        if (event.key === "Escape" && directory.open) {
-          event.preventDefault();
-          directory.open = false;
-          summary.focus();
-        }
-      });
-
-      if ("IntersectionObserver" in window) {
-        const observer = new IntersectionObserver(([entry]) => {
-          directory.hidden = entry.isIntersecting || entry.boundingClientRect.bottom > 0;
-          if (directory.hidden) directory.open = false;
-        });
-        observer.observe(document.querySelector(".catalog-controls"));
-      }
+      return {
+        element,
+        followHash,
+        refresh() { anchor = undefined; queueUpdate(); },
+        closeOnNarrowScreen() { if (narrow.matches) setCollapsed(true); },
+      };
     }
 
     query.addEventListener("input", filterCatalog);
@@ -653,27 +683,31 @@ layout: null
       query.focus();
     });
 
-    const categoryNavigation = document.querySelector(".category-links");
-    initializeFloatingDirectory(categoryNavigation);
-    initializeCategoryNavigation(categoryNavigation, "browse-");
+    const sidebar = initializeSidebar();
 
     for (const link of document.querySelectorAll('a[href^="#"]')) {
-      link.addEventListener("click", () => {
+      link.addEventListener("click", (event) => {
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
         revealTarget(link.hash);
-        if (directory.contains(link)) {
-          directory.open = false;
+        if (sidebar.element.contains(link)) {
+          sidebar.closeOnNarrowScreen();
           const target = document.getElementById(link.hash.slice(1));
           if (target) {
             target.tabIndex = -1;
             target.focus({ preventScroll: true });
           }
         }
+        sidebar.followHash(link.hash);
       });
     }
-    window.addEventListener("hashchange", () => revealTarget(location.hash));
+    window.addEventListener("hashchange", () => {
+      revealTarget(location.hash)?.scrollIntoView();
+      sidebar.followHash(location.hash);
+    });
 
     filterCatalog();
     revealTarget(location.hash);
+    sidebar.followHash(location.hash);
     search.hidden = false;
   </script>
 </body>
