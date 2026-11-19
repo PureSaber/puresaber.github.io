@@ -463,6 +463,8 @@ layout: null
     const clear = document.querySelector("#clear-search");
     const status = document.querySelector("#search-status");
     const extensions = document.querySelector("#extensions");
+    const extensionsSummary = document.querySelector("#extensions-title");
+    const defaultExtensionsLabel = extensionsSummary?.textContent;
     const directory = document.querySelector("#floating-directory");
     const normalize = (text) => text.normalize("NFKC").toLowerCase();
     let filtering = false;
@@ -494,7 +496,7 @@ layout: null
             const record = indexCard(card, labels);
             if (card.contains(extensions)) {
               const host = card.querySelector("h5").textContent;
-              const extensionLabels = [...labels, host, extensions.querySelector("summary").textContent];
+              const extensionLabels = [...labels, host, defaultExtensionsLabel];
               record.extensions = Array.from(extensions.querySelectorAll(".extension-list > li"), (extension) =>
                 indexCard(extension, extensionLabels));
             }
@@ -513,6 +515,9 @@ layout: null
           extensionCount += filterCard(extension, terms);
         }
         extensions.hidden = extensionCount === 0;
+        extensionsSummary.textContent = terms.length && extensionCount > 0
+          ? `匹配 ${extensionCount} 个扩展 · 共 ${card.extensions.length} 个`
+          : defaultExtensionsLabel;
         if (terms.length) {
           extensions.open = extensionCount > 0;
         } else if (filtering) {
