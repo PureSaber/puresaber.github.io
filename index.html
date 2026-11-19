@@ -27,16 +27,16 @@
     a { color: var(--green); }
     a:focus-visible { outline: 3px solid var(--green); outline-offset: 5px; }
     .wrap { width: min(59rem, calc(100% - 3rem)); margin-inline: auto; }
-    .masthead { padding-block: clamp(2.5rem, 8vw, 5.5rem) 2rem; border-bottom: 1px solid var(--line); }
+    .masthead { padding-block: clamp(1.65rem, 4vw, 2.7rem) 1.3rem; border-bottom: 1px solid var(--line); }
     h1, h2, h3, h4, h5, h6, p { margin: 0; }
     h1 {
-      font-size: clamp(2.25rem, 7vw, 4.4rem);
+      font-size: clamp(1.95rem, 4.75vw, 3.3125rem);
       line-height: 1.12;
       letter-spacing: -.05em;
       font-weight: 780;
     }
-    .intro { max-width: 39rem; color: var(--muted); margin-top: 1.1rem; }
-    nav { margin-top: 1.5rem; }
+    .intro { max-width: 39rem; color: var(--muted); margin-top: .68rem; }
+    nav { margin-top: .82rem; }
     nav ul, .resources { list-style: none; padding: 0; margin: 0; }
     nav ul { display: flex; flex-wrap: wrap; gap: .55rem; }
     nav a {
@@ -134,13 +134,75 @@
       border-radius: .55rem;
       background: #edf1e9;
     }
-    .category-links.is-enhanced .category-index > li > a { display: none; }
+    .is-enhanced .category-index > li > a { display: none; }
     .category-links.is-enhanced .category-index ul {
       display: flex;
       flex-wrap: wrap;
       gap: .36rem 1.1rem;
       margin: 0;
     }
+    .floating-directory {
+      position: fixed;
+      z-index: 2;
+      inset-inline-end: max(1rem, env(safe-area-inset-right));
+      bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+    }
+    .floating-directory > summary {
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+      min-height: 2.6rem;
+      padding: .28rem .9rem;
+      border-radius: 2rem;
+      background: var(--green);
+      color: var(--card);
+      font-size: .875rem;
+      font-weight: 700;
+      cursor: pointer;
+      list-style: none;
+    }
+    .floating-directory > summary::-webkit-details-marker { display: none; }
+    .floating-directory > summary::after {
+      content: "";
+      border: .25em solid transparent;
+      border-bottom: 0;
+      border-top-color: currentColor;
+    }
+    .floating-directory[open] > summary::after { transform: rotate(180deg); }
+    .directory-panel {
+      position: absolute;
+      inset-inline-end: 0;
+      bottom: calc(100% + .55rem);
+      width: min(19rem, calc(100vw - 2rem));
+      max-height: 70vh;
+      max-height: min(70dvh, 29rem);
+      overflow: auto;
+      overscroll-behavior: contain;
+      padding: .8rem .86rem;
+      border: 1px solid #a6b8a9;
+      border-radius: .8rem;
+      background: var(--card);
+      box-shadow: 0 .25rem 1rem #19262024;
+    }
+    .directory-panel h2 { margin-bottom: .42rem; font-size: 1rem; letter-spacing: 0; }
+    .directory-panel .category-buttons { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .14rem .35rem; }
+    .directory-panel .category-buttons button {
+      padding: .2rem .4rem;
+      border: 0;
+      border-radius: .35rem;
+      background: transparent;
+      font-size: .82rem;
+      text-align: left;
+      text-decoration: underline;
+      text-underline-offset: .2em;
+      white-space: normal;
+    }
+    .directory-panel .category-buttons button::after { display: none; }
+    .directory-panel .category-buttons button:hover,
+    .directory-panel .category-buttons button[aria-expanded="true"] { background: #e7eee3; color: var(--green); }
+    .directory-panel ul { margin: 0; padding: 0; list-style: none; }
+    .directory-panel .category-index { display: block; margin-top: .55rem; padding-top: .45rem; border-top: 1px solid var(--line); }
+    .directory-panel .category-index a { display: block; padding: .17rem .4rem; font-size: .82rem; text-underline-offset: .2em; }
     .extensions { margin-top: .8rem; padding-top: .6rem; border-top: 1px solid var(--line); }
     .extensions summary { color: var(--green); font-size: .875rem; font-weight: 650; cursor: pointer; width: fit-content; }
     .resources > li:has(> .extensions[open]) { grid-column: 1 / -1; }
@@ -164,9 +226,14 @@
       font-size: .79rem;
     }
     .card-details span { padding-inline: .45rem; border-radius: .35rem; background: #edf1e9; }
+    .usage-example { margin-top: .9rem; padding: .65rem .78rem; border-inline-start: 3px solid #87a38b; background: #edf1e9; border-radius: .28rem; }
+    .usage-example strong { display: block; color: var(--green); font-size: .83rem; }
+    .usage-example p { margin-top: .15rem; font-size: .88rem; overflow-wrap: anywhere; }
     [hidden] { display: none !important; }
     @media (max-width: 35rem) {
       .wrap { width: calc(100% - 2rem); }
+      .masthead { padding-block: 1.4rem 1.1rem; }
+      .catalog-controls { padding-top: 1.1rem; }
       .catalog-section { padding-top: 1.55rem; }
     }
   </style>
@@ -403,6 +470,10 @@
               <h5><a href="https://cli.github.com/manual/">GitHub CLI（<code>gh</code>）</a></h5>
               <p>在终端查看 Pull Request、Issue 和 Actions 状态。维护多个仓库时，常用 <code>gh pr list</code> 和 <code>gh run list</code> 快速切换检查。</p>
               <div class="card-details"><span>CLI</span></div>
+              <div class="usage-example">
+                <strong>用法示例</strong>
+                <p>跨仓看待审 PR 时，用 <code>gh pr list -R OWNER/REPO</code> 指定仓库，省去来回切目录。</p>
+              </div>
             </li>
             <li>
               <h5><a href="https://git-scm.com/">Git</a></h5>
@@ -950,6 +1021,10 @@
               <h5><a href="https://localsend.org/">LocalSend</a></h5>
               <p>在同一局域网的设备间传输文件。</p>
               <div class="card-details"><span>桌面 / 移动</span></div>
+              <div class="usage-example">
+                <strong>用法示例</strong>
+                <p>手机和电脑连同一 Wi-Fi，在手机端选照片或文件，点电脑的设备名，再到电脑上确认接收。</p>
+              </div>
             </li>
             <li data-alias="snapdrop.net">
               <h5><a href="https://snapdrop.net/">Snapdrop</a></h5>
@@ -1113,12 +1188,19 @@
       </section>
     </section>
   </main>
+  <details id="floating-directory" class="floating-directory" hidden>
+    <summary>目录</summary>
+    <div class="directory-panel" role="navigation" aria-label="浮动分类目录">
+      <h2>目录</h2>
+    </div>
+  </details>
   <script>
     const search = document.querySelector("#catalog-search");
     const query = document.querySelector("#catalog-query");
     const clear = document.querySelector("#clear-search");
     const status = document.querySelector("#search-status");
     const extensions = document.querySelector("#extensions");
+    const directory = document.querySelector("#floating-directory");
     const normalize = (text) => text.normalize("NFKC").toLowerCase();
     let filtering = false;
     let extensionsWereOpen = false;
@@ -1222,8 +1304,7 @@
       if (target && extensions.contains(target)) extensions.open = true;
     }
 
-    function initializeCategoryNavigation() {
-      const navigation = document.querySelector(".category-links");
+    function initializeCategoryNavigation(navigation, idPrefix) {
       const index = navigation.querySelector(".category-index");
       const buttons = document.createElement("div");
       buttons.className = "category-buttons";
@@ -1231,31 +1312,68 @@
       const categories = Array.from(index.children, (panel) => {
         const link = panel.querySelector("a");
         const button = document.createElement("button");
-        panel.id = "browse-" + link.hash.slice(1);
+        const targetId = link.hash.slice(1);
+        panel.id = idPrefix + targetId;
         panel.hidden = true;
         button.type = "button";
         button.textContent = link.textContent;
         button.setAttribute("aria-controls", panel.id);
         button.setAttribute("aria-expanded", "false");
         buttons.append(button);
-        return { button, panel };
+        return { button, panel, targetId };
       });
 
-      for (const selected of categories) {
-        selected.button.addEventListener("click", () => {
-          const opening = selected.panel.hidden;
-          for (const category of categories) {
-            const expanded = opening && category === selected;
-            category.panel.hidden = !expanded;
-            category.button.setAttribute("aria-expanded", String(expanded));
-          }
-          index.hidden = !opening;
+      function selectCategory(selected) {
+        for (const category of categories) {
+          const expanded = category === selected;
+          category.panel.hidden = !expanded;
+          category.button.setAttribute("aria-expanded", String(expanded));
+        }
+        index.hidden = !selected;
+      }
+
+      for (const category of categories) {
+        category.button.addEventListener("click", () => {
+          selectCategory(category.panel.hidden ? category : null);
         });
       }
 
       index.hidden = true;
       navigation.classList.add("is-enhanced");
       navigation.prepend(buttons);
+      return (targetId) => selectCategory(categories.find((category) => category.targetId === targetId));
+    }
+
+    function initializeFloatingDirectory(navigation) {
+      const panel = directory.querySelector(".directory-panel");
+      const summary = directory.querySelector("summary");
+      const categoryHeadings = sections.flatMap((section) => section.categories.map(({ element }) => element));
+      panel.append(navigation.querySelector(".category-index").cloneNode(true));
+      const selectCategory = initializeCategoryNavigation(panel, "directory-");
+
+      directory.addEventListener("toggle", () => {
+        if (!directory.open) return;
+        const visible = categoryHeadings.filter((category) => !category.hidden);
+        const current = visible.findLast((category) => category.getBoundingClientRect().top <= window.innerHeight * .25)
+          ?? visible[0];
+        selectCategory(current?.id);
+      });
+
+      directory.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && directory.open) {
+          event.preventDefault();
+          directory.open = false;
+          summary.focus();
+        }
+      });
+
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(([entry]) => {
+          directory.hidden = entry.isIntersecting || entry.boundingClientRect.bottom > 0;
+          if (directory.hidden) directory.open = false;
+        });
+        observer.observe(document.querySelector(".catalog-controls"));
+      }
     }
 
     query.addEventListener("input", filterCatalog);
@@ -1265,12 +1383,25 @@
       query.focus();
     });
 
+    const categoryNavigation = document.querySelector(".category-links");
+    initializeFloatingDirectory(categoryNavigation);
+    initializeCategoryNavigation(categoryNavigation, "browse-");
+
     for (const link of document.querySelectorAll('a[href^="#"]')) {
-      link.addEventListener("click", () => revealTarget(link.hash));
+      link.addEventListener("click", () => {
+        revealTarget(link.hash);
+        if (directory.contains(link)) {
+          directory.open = false;
+          const target = document.getElementById(link.hash.slice(1));
+          if (target) {
+            target.tabIndex = -1;
+            target.focus({ preventScroll: true });
+          }
+        }
+      });
     }
     window.addEventListener("hashchange", () => revealTarget(location.hash));
 
-    initializeCategoryNavigation();
     filterCatalog();
     revealTarget(location.hash);
     search.hidden = false;
