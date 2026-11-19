@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Kurage 的实用工具箱，收录编程、开源维护、量化研究和自学资源。">
+  <meta name="description" content="Kurage 的实用工具箱，收录开发与量化工具、编程学习资料和市场数据来源。">
   <meta name="theme-color" content="#f6f5ef">
   <title>我的实用工具箱 · Kurage</title>
   <style>
@@ -28,7 +28,7 @@
     a:focus-visible { outline: 3px solid var(--green); outline-offset: 5px; }
     .wrap { width: min(59rem, calc(100% - 3rem)); margin-inline: auto; }
     .masthead { padding-block: clamp(2.5rem, 8vw, 5.5rem) 2rem; border-bottom: 1px solid var(--line); }
-    h1, h2, h3, p { margin: 0; }
+    h1, h2, h3, h4, p { margin: 0; }
     h1 {
       font-size: clamp(2.25rem, 7vw, 4.4rem);
       line-height: 1.12;
@@ -50,21 +50,25 @@
     }
     nav a:hover { background: #e7eee3; }
     main { padding-block: .2rem 3.5rem; }
-    section { padding-top: 2.1rem; }
-    h2 { font-size: 1.2rem; letter-spacing: -.02em; margin-bottom: .75rem; }
+    .catalog-section { padding-top: 2rem; }
+    .catalog-section + .catalog-section { border-top: 1px solid var(--line); margin-top: 2.3rem; }
+    h2 { font-size: clamp(1.5rem, 3.5vw, 1.95rem); letter-spacing: -.03em; line-height: 1.3; }
+    .catalog-group { margin-top: 1.35rem; }
+    .catalog-group + .catalog-group { margin-top: 1.75rem; }
+    h3 { color: var(--muted); font-size: 1.07rem; margin-bottom: .65rem; }
     .resources { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: .8rem; }
     .resources li { background: var(--card); border: 1px solid var(--line); border-radius: .85rem; padding: 1rem 1.15rem; }
     .resources li:hover { border-color: #92aa99; }
-    h3 { font-size: 1.04rem; line-height: 1.45; }
-    h3 a { text-decoration-thickness: .08em; text-underline-offset: .22em; }
-    h3 a:hover { text-decoration-thickness: .14em; }
+    h4 { font-size: 1.04rem; line-height: 1.45; }
+    h4 a { text-decoration-thickness: .08em; text-underline-offset: .22em; }
+    h4 a:hover { text-decoration-thickness: .14em; }
     .resources p { color: var(--muted); font-size: .93rem; margin-top: .4rem; }
     code { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .91em; }
     .skip { position: absolute; z-index: 1; top: .6rem; left: .6rem; padding: .5rem .8rem; background: var(--card); }
     .skip:not(:focus) { clip-path: inset(50%); }
     @media (max-width: 35rem) {
       .wrap { width: calc(100% - 2rem); }
-      section { padding-top: 1.55rem; }
+      .catalog-section { padding-top: 1.55rem; }
     }
   </style>
 </head>
@@ -73,51 +77,97 @@
   <header class="masthead">
     <div class="wrap">
       <h1>我的实用工具箱</h1>
-      <p class="intro">收集编程、开源维护和量化研究中值得留存的工具与资源。每条记录写明使用场景，标题直达官方入口。</p>
-      <nav aria-label="工具分类">
+      <p class="intro">把开发、开源维护和量化研究用得上的工具放在一起，也收录语言教程和数据资料。标题直达对应入口。</p>
+      <nav aria-label="工具箱目录">
         <ul>
-          <li><a href="#development">编程与开源</a></li>
-          <li><a href="#quant">量化研究</a></li>
-          <li><a href="#learning">自学资源</a></li>
+          <li><a href="#tools">工具</a></li>
+          <li><a href="#resources">资源</a></li>
         </ul>
       </nav>
     </div>
   </header>
   <main id="main" class="wrap">
-    <section id="development" aria-labelledby="development-title">
-      <h2 id="development-title">编程与开源</h2>
-      <ul class="resources">
-        <li>
-          <h3><a href="https://opencode.ai/docs/">OpenCode</a></h3>
-          <p>在终端里读项目、梳理代码和辅助修改。接手一个新仓库时，可以先用它找项目入口、测试命令和关键配置。</p>
-        </li>
-        <li>
-          <h3><a href="https://cli.github.com/manual/">GitHub CLI（<code>gh</code>）</a></h3>
-          <p>在终端查看 Pull Request、Issue 和 Actions 状态。维护多个仓库时，常用 <code>gh pr list</code> 和 <code>gh run list</code> 快速切换检查。</p>
-        </li>
-      </ul>
+    <section id="tools" class="catalog-section" aria-labelledby="tools-title">
+      <h2 id="tools-title">工具</h2>
+      <section id="development" class="catalog-group" aria-labelledby="development-title">
+        <h3 id="development-title">编程与开源</h3>
+        <ul class="resources">
+          <li>
+            <h4><a href="https://opencode.ai/docs/">OpenCode</a></h4>
+            <p>在终端里读项目、梳理代码和辅助修改。接手一个新仓库时，可以先用它找项目入口、测试命令和关键配置。</p>
+          </li>
+          <li>
+            <h4><a href="https://cli.github.com/manual/">GitHub CLI（<code>gh</code>）</a></h4>
+            <p>在终端查看 Pull Request、Issue 和 Actions 状态。维护多个仓库时，常用 <code>gh pr list</code> 和 <code>gh run list</code> 快速切换检查。</p>
+          </li>
+          <li>
+            <h4><a href="https://code.visualstudio.com/docs">Visual Studio Code</a></h4>
+            <p>在编辑器里浏览仓库、修改文件和调试代码。想在同一个窗口里看代码、终端和 Git 改动时可以用它。</p>
+          </li>
+          <li>
+            <h4><a href="https://docs.astral.sh/uv/">uv</a></h4>
+            <p>管理 Python 环境和项目依赖。把同一套依赖带到另一台机器或 CI 时，可以用锁文件同步环境。</p>
+          </li>
+        </ul>
+      </section>
+      <section id="quant" class="catalog-group" aria-labelledby="quant-title">
+        <h3 id="quant-title">量化与数据</h3>
+        <ul class="resources">
+          <li>
+            <h4><a href="https://jupyter.org/">JupyterLab</a></h4>
+            <p>用 Notebook 做策略复现的单步检查，例如抽查信号计算、对齐交易日、对照研报图表。</p>
+          </li>
+          <li>
+            <h4><a href="https://akshare.akfamily.xyz/">AKShare</a></h4>
+            <p>用 Python 探索股票、期货、基金等公开财经数据。接入策略前，先对照原始数据源确认字段、时间戳和复权口径。</p>
+          </li>
+          <li>
+            <h4><a href="https://pandas.pydata.org/docs/getting_started/index.html">pandas</a></h4>
+            <p>清洗行情表、合并交易日并计算滚动指标。适合把原始数据整理成回测需要的表格。</p>
+          </li>
+          <li>
+            <h4><a href="https://duckdb.org/docs/stable/data/csv/overview">DuckDB</a></h4>
+            <p>用 SQL 查询本地 CSV 或 Parquet，适合快速抽取样本、查重复行和对比文件字段。</p>
+          </li>
+        </ul>
+      </section>
     </section>
-    <section id="quant" aria-labelledby="quant-title">
-      <h2 id="quant-title">量化研究</h2>
-      <ul class="resources">
-        <li>
-          <h3><a href="https://jupyter.org/">JupyterLab</a></h3>
-          <p>用 Notebook 做策略复现的单步检查，例如抽查信号计算、对齐交易日、对照研报图表。</p>
-        </li>
-        <li>
-          <h3><a href="https://akshare.akfamily.xyz/">AKShare</a></h3>
-          <p>用 Python 探索股票、期货、基金等公开财经数据。接入策略前，先对照原始数据源确认字段、时间戳和复权口径。</p>
-        </li>
-      </ul>
-    </section>
-    <section id="learning" aria-labelledby="learning-title">
-      <h2 id="learning-title">自学资源</h2>
-      <ul class="resources">
-        <li>
-          <h3><a href="https://csdiy.wiki/">CS 自学指南</a></h3>
-          <p>按方向查找计算机课程、教材和实践资源。想补一块知识时，可以从感兴趣的主题找课程和配套练习。</p>
-        </li>
-      </ul>
+    <section id="resources" class="catalog-section" aria-labelledby="resources-title">
+      <h2 id="resources-title">资源</h2>
+      <section id="learning" class="catalog-group" aria-labelledby="learning-title">
+        <h3 id="learning-title">语言与开发学习</h3>
+        <ul class="resources">
+          <li>
+            <h4><a href="https://csdiy.wiki/">CS 自学指南</a></h4>
+            <p>按方向查找计算机课程、教材和实践资源。想补一块知识时，可以从感兴趣的主题找课程和配套练习。</p>
+          </li>
+          <li>
+            <h4><a href="https://docs.python.org/zh-cn/3/tutorial/">Python 官方教程（中文）</a></h4>
+            <p>已经有一点编程基础的话，可以从函数、数据结构和模块开始补 Python，再动手写一个读写 CSV 的脚本。</p>
+          </li>
+          <li>
+            <h4><a href="https://developer.mozilla.org/zh-CN/docs/Learn_web_development">MDN 学习 Web 开发</a></h4>
+            <p>按 HTML、CSS、JavaScript 学网页开发。想给自己的 GitHub Pages 加导航、表单或交互时，可以从相应章节查起。</p>
+          </li>
+          <li>
+            <h4><a href="https://git-scm.com/book/zh/v2">《Pro Git》中文版</a></h4>
+            <p>遇到分支、合并和回退的问题时，按章节查命令和示例。也可以跟着 Git 基础章节练一次完整的提交流程。</p>
+          </li>
+          <li>
+            <h4><a href="https://sqlbolt.com/">SQLBolt</a></h4>
+            <p>在浏览器里边读边做 SQL 练习。可以从查询、连接和聚合练起，再拿自己的数据验证。</p>
+          </li>
+        </ul>
+      </section>
+      <section id="research" class="catalog-group" aria-labelledby="research-title">
+        <h3 id="research-title">市场数据与核对</h3>
+        <ul class="resources">
+          <li>
+            <h4><a href="https://www.shfe.com.cn/reports/tradedata/dailyandweeklydata/">上海期货交易所 · 日周数据</a></h4>
+            <p>查看上期所期货和期权的日交易快讯、周行情及每日结算参数，用于抽样核对第三方数据。</p>
+          </li>
+        </ul>
+      </section>
     </section>
   </main>
 </body>
