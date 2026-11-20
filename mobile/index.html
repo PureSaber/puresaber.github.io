@@ -106,7 +106,7 @@
         <input id="app-search" type="search" placeholder="搜索应用名或用途" autocomplete="off">
       </div>
       <div class="filters" role="group" aria-label="按用途筛选">
-        <button type="button" data-filter="all" aria-pressed="true">全部</button><button type="button" data-filter="ai" aria-pressed="false">AI 与输入</button><button type="button" data-filter="work" aria-pressed="false">办公与协作</button><button type="button" data-filter="devices" aria-pressed="false">文件与设备</button><button type="button" data-filter="learn" aria-pressed="false">学习与阅读</button><button type="button" data-filter="daily" aria-pressed="false">地图与出行</button><button type="button" data-filter="browser" aria-pressed="false">浏览器</button>
+        <button type="button" data-filter="all" aria-pressed="true">全部</button><button type="button" data-filter="ai" aria-pressed="false">AI 与输入</button><button type="button" data-filter="work" aria-pressed="false">办公与协作</button><button type="button" data-filter="devices" aria-pressed="false">文件与设备</button><button type="button" data-filter="community" aria-pressed="false">开发与社区</button><button type="button" data-filter="learn" aria-pressed="false">学习与阅读</button><button type="button" data-filter="daily" aria-pressed="false">地图与出行</button><button type="button" data-filter="browser" aria-pressed="false">浏览器</button>
       </div>
       <p class="result-count" role="status"></p>
     </div>
@@ -120,10 +120,28 @@
               <span class="app-copy"><strong>ChatGPT</strong><span>问答与文件分析</span></span>
             </a>
           </li>
+          <li data-keywords="google bard 谷歌 人工智能">
+            <a class="app-card" href="https://gemini.google.com/">
+              <span class="app-icon" aria-hidden="true"><span>G</span><img src="icons/gemini.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.google.android.apps.bard&amp;hl=en&amp;gl=us"></span>
+              <span class="app-copy"><strong>Gemini</strong><span>Google 的 AI 助手</span></span>
+            </a>
+          </li>
           <li data-keywords="anthropic 人工智能">
             <a class="app-card" href="https://claude.com/download">
               <span class="app-icon" aria-hidden="true"><span>C</span><img src="icons/claude.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.anthropic.claude&amp;hl=en&amp;gl=us"></span>
               <span class="app-copy"><strong>Claude</strong><span>写作与长文档阅读</span></span>
+            </a>
+          </li>
+          <li data-keywords="深度求索 深度搜索 人工智能">
+            <a class="app-card" href="https://www.deepseek.com/en/download/">
+              <span class="app-icon" aria-hidden="true"><span>D</span><img src="icons/deepseek.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.deepseek.chat&amp;hl=en&amp;gl=us"></span>
+              <span class="app-copy"><strong>DeepSeek</strong><span>问答、推理与代码讨论</span></span>
+            </a>
+          </li>
+          <li data-keywords="月之暗面 moonshot 人工智能">
+            <a class="app-card" href="https://www.kimi.com/">
+              <span class="app-icon" aria-hidden="true"><span>K</span><img src="icons/kimi.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.moonshot.kimichat&amp;hl=en&amp;gl=us"></span>
+              <span class="app-copy"><strong>Kimi</strong><span>问答与文档阅读</span></span>
             </a>
           </li>
           <li data-keywords="语音输入法 dictation">
@@ -159,6 +177,12 @@
             <a class="app-card" href="https://www.larksuite.com/">
               <span class="app-icon" aria-hidden="true"><span>L</span><img src="icons/lark.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.larksuite.suite&amp;hl=en&amp;gl=us"></span>
               <span class="app-copy"><strong>Lark</strong><span>国际版团队协作</span></span>
+            </a>
+          </li>
+          <li data-keywords="dingtalk 阿里 协作">
+            <a class="app-card" href="https://www.dingtalk.com/download">
+              <span class="app-icon" aria-hidden="true"><span>钉</span><img src="icons/dingtalk.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/cn/app/%E9%92%89%E9%92%89/id930368978"></span>
+              <span class="app-copy"><strong>钉钉</strong><span>团队沟通、会议与审批</span></span>
             </a>
           </li>
           <li data-keywords="voov meeting">
@@ -234,6 +258,23 @@
           </li>
         </ul>
       </section>
+      <section class="app-section" data-category="community" aria-labelledby="heading-community">
+        <h2 id="heading-community">开发与社区</h2>
+        <ul class="app-grid">
+          <li data-keywords="github mobile 开源 代码">
+            <a class="app-card" href="https://github.com/mobile">
+              <span class="app-icon" aria-hidden="true"><span>G</span><img src="icons/github.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.github.android&amp;hl=en&amp;gl=us"></span>
+              <span class="app-copy"><strong>GitHub</strong><span>浏览仓库、Issue 和 PR</span></span>
+            </a>
+          </li>
+          <li data-keywords="twitter 推特 社交 资讯">
+            <a class="app-card" href="https://x.com/">
+              <span class="app-icon" aria-hidden="true"><span>X</span><img src="icons/x.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.twitter.android&amp;hl=en&amp;gl=us"></span>
+              <span class="app-copy"><strong>X</strong><span>关注动态与公开讨论</span></span>
+            </a>
+          </li>
+        </ul>
+      </section>
       <section class="app-section" data-category="learn" aria-labelledby="heading-learn">
         <h2 id="heading-learn">学习与阅读</h2>
         <ul class="app-grid">
@@ -253,6 +294,12 @@
             <a class="app-card" href="https://www.duolingo.com/">
               <span class="app-icon" aria-hidden="true"><span>D</span><img src="icons/duolingo.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.duolingo&amp;hl=en&amp;gl=us"></span>
               <span class="app-copy"><strong>Duolingo</strong><span>多邻国语言练习</span></span>
+            </a>
+          </li>
+          <li data-keywords="数学 编程 数理逻辑">
+            <a class="app-card" href="https://brilliant.org/help/using-brilliant/where-can-i-use-brilliant/">
+              <span class="app-icon" aria-hidden="true"><span>B</span><img src="icons/brilliant.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=org.brilliant.android&amp;hl=en&amp;gl=us"></span>
+              <span class="app-copy"><strong>Brilliant</strong><span>互动练习数学与计算机科学</span></span>
             </a>
           </li>
           <li data-keywords="声音 音高 pitch 声线">
