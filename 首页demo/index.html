@@ -1,0 +1,262 @@
+---
+layout: null
+---
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f5ef">
+  <meta name="robots" content="noindex">
+  <title>首页演示 · Kurage 实用工具箱</title>
+  <link rel="stylesheet" href="{{ '/assets/catalog.css' | relative_url }}?v=home-cards">
+  <script defer src="{{ '/assets/home-search.js' | relative_url }}"></script>
+  <style>
+    .demo-shell {
+      width: min(68rem, calc(100% - 3rem));
+      margin-inline: auto;
+    }
+    .demo-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      min-height: 4.25rem;
+      border-bottom: 1px solid #d7dcd0;
+    }
+    .demo-header a { color: #375146; text-decoration: none; }
+    .demo-header a:hover { text-decoration: underline; text-underline-offset: .24em; }
+    .demo-header .brand {
+      color: #1c382e;
+      font-size: 1.2rem;
+      font-weight: 750;
+      letter-spacing: -.035em;
+    }
+    .demo-header .back { font-size: .92rem; }
+    .demo-home { padding-block: clamp(1.9rem, 5vw, 3.35rem) 3rem; }
+    .demo-home h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      line-height: 1.15;
+      letter-spacing: -.055em;
+    }
+    .demo-home .catalog-search { margin-top: 1.25rem; }
+    .demo-home .search-row { max-width: 31rem; }
+    .demo-nav { margin-top: 1.4rem; }
+    .demo-nav ul {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 1rem;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    .demo-nav li { grid-column: span 2; min-width: 0; }
+    .demo-nav li.featured { grid-column: span 3; }
+    .demo-banner {
+      position: relative;
+      isolation: isolate;
+      display: flex;
+      align-items: center;
+      min-height: 8rem;
+      height: 100%;
+      padding: 1.25rem clamp(1rem, 2.4vw, 1.65rem);
+      border: 1px solid var(--banner-line);
+      border-radius: 1.1rem;
+      background: var(--banner-bg);
+      color: var(--banner-ink);
+      overflow: hidden;
+      text-decoration: none;
+      transition: transform .16s ease, box-shadow .16s ease;
+    }
+    .demo-banner:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px #18322818;
+      color: var(--banner-ink);
+      text-decoration: none;
+    }
+    .demo-banner:focus-visible {
+      outline: 2px solid #27644e;
+      outline-offset: 4px;
+    }
+    .featured .demo-banner { min-height: 9.4rem; }
+    .demo-banner::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      background: repeating-radial-gradient(
+        ellipse at 82% 51%,
+        transparent 0 22px,
+        var(--banner-ring) 23px,
+        transparent 24px 33px
+      );
+      mask-image: linear-gradient(90deg, transparent 45%, #000);
+      pointer-events: none;
+    }
+    .banner-copy { position: relative; z-index: 1; width: 70%; }
+    .featured .banner-copy { width: 60%; }
+    .banner-copy strong {
+      display: block;
+      font-size: clamp(1.2rem, 2.5vw, 1.65rem);
+      font-weight: 750;
+      line-height: 1.25;
+      letter-spacing: -.04em;
+    }
+    .featured .banner-copy strong { font-size: clamp(1.6rem, 3vw, 2.15rem); }
+    .banner-copy small {
+      display: block;
+      margin-top: .5rem;
+      color: var(--banner-muted);
+      font-size: .92rem;
+      line-height: 1.45;
+    }
+    .banner-tools {
+      --banner-bg: #253642;
+      --banner-ink: #f9fcff;
+      --banner-muted: #d8e5ed;
+      --banner-line: #253642;
+      --banner-ring: #deeff522;
+    }
+    .banner-mobile {
+      --banner-bg: #20382e;
+      --banner-ink: #f9fff9;
+      --banner-muted: #dce9df;
+      --banner-line: #20382e;
+      --banner-ring: #deffeb22;
+    }
+    .banner-resources {
+      --banner-bg: #e9eee5;
+      --banner-ink: #263e33;
+      --banner-muted: #475b4f;
+      --banner-line: #d4dfd1;
+      --banner-ring: #476e5029;
+    }
+    .banner-learn {
+      --banner-bg: #f3ead9;
+      --banner-ink: #513d29;
+      --banner-muted: #66533c;
+      --banner-line: #e7dbc5;
+      --banner-ring: #7c59352b;
+    }
+    .banner-projects {
+      --banner-bg: #e7ebef;
+      --banner-ink: #283b4c;
+      --banner-muted: #465767;
+      --banner-line: #d8e0e7;
+      --banner-ring: #48617d2d;
+    }
+    .banner-icon {
+      position: absolute;
+      z-index: 0;
+      top: 50%;
+      right: 10%;
+      width: 2.45rem;
+      height: 2.45rem;
+      color: var(--banner-ink);
+      opacity: .67;
+      transform: translateY(-50%) rotate(-9deg);
+    }
+    .icon-stack {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      top: 50%;
+      left: 79%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    .icon-stack img {
+      grid-area: 1 / 1;
+      width: 2.95rem;
+      height: 2.95rem;
+      padding: .36rem;
+      object-fit: contain;
+      background: #fffefa;
+      border-radius: .72rem;
+      box-shadow: 0 .35rem .9rem #071a1460;
+    }
+    .icon-stack img:first-child { transform: translate(-2.05rem, .4rem) rotate(-13deg); }
+    .icon-stack img:nth-child(2) {
+      z-index: 1;
+      transform: translateY(-.45rem) rotate(-5deg);
+    }
+    .icon-stack img:last-child { transform: translate(2rem, .42rem) rotate(12deg); }
+    @media (max-width: 48rem) {
+      .demo-nav ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .demo-nav li, .demo-nav li.featured { grid-column: auto; }
+      .icon-stack img { width: 2.45rem; height: 2.45rem; }
+      .icon-stack img:first-child { transform: translate(-1.6rem, .4rem) rotate(-13deg); }
+      .icon-stack img:last-child { transform: translate(1.6rem, .4rem) rotate(12deg); }
+    }
+    @media (max-width: 36rem) {
+      .demo-shell { width: calc(100% - 2rem); }
+      .demo-header { min-height: 3.6rem; }
+      .demo-nav ul { grid-template-columns: minmax(0, 1fr); gap: .65rem; }
+      .demo-banner, .featured .demo-banner { min-height: 6.05rem; }
+      .banner-copy small { margin-top: .35rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .demo-banner { transition: none; }
+      .demo-banner:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">跳到正文</a>
+  <header class="demo-shell demo-header">
+    <a class="brand" href="{{ '/' | relative_url }}">Kurage</a>
+    <a class="back" href="{{ '/' | relative_url }}">返回现有首页</a>
+  </header>
+  <main id="main" class="demo-shell demo-home home-page"
+        data-navigation="{{ site.data.catalog_navigation | jsonify | escape }}"
+        data-index="{{ '/assets/catalog-index.json' | relative_url }}"
+        data-icon-base="{{ '/assets/tool-icons/' | relative_url }}">
+    <h1>我的实用工具箱</h1>
+    {% include catalog-search.html label="搜索工具和资源" home=true %}
+    <nav class="demo-nav" aria-label="站点导航">
+      <ul>
+        <li class="featured">
+          <a class="demo-banner banner-tools" id="tools-entry" href="{{ '/tools/' | relative_url }}">
+            <span class="banner-copy"><strong>工具</strong><small>AI 编程、开发和量化工具</small></span>
+            <span class="icon-stack" aria-hidden="true">
+              <img src="{{ '/assets/tool-icons/vscode.svg' | relative_url }}" width="47" height="47" alt="">
+              <img src="{{ '/mobile/icons/chatgpt.webp' | relative_url }}" width="47" height="47" alt="">
+              <img src="{{ '/assets/tool-icons/docker.svg' | relative_url }}" width="47" height="47" alt="">
+            </span>
+          </a>
+        </li>
+        <li class="featured">
+          <a class="demo-banner banner-mobile" href="{{ '/mobile/' | relative_url }}">
+            <span class="banner-copy"><strong>手机应用</strong><small>我在手机上用的工具，按用途整理。</small></span>
+            <span class="icon-stack" aria-hidden="true">
+              <img src="{{ '/mobile/icons/localsend.webp' | relative_url }}" width="47" height="47" alt="">
+              <img src="{{ '/mobile/icons/chatgpt.webp' | relative_url }}" width="47" height="47" alt="">
+              <img src="{{ '/mobile/icons/telegram.webp' | relative_url }}" width="47" height="47" alt="">
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="demo-banner banner-resources" id="resources-entry" href="{{ '/resources/' | relative_url }}">
+            <span class="banner-copy"><strong>资源</strong><small>教程、市场数据和导航站</small></span>
+            <svg class="banner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linejoin="round" aria-hidden="true"><path d="M12 6.1C9.4 4.3 6 4.1 3 5.1v13c3-1 6.4-.8 9 1.1 2.6-1.9 6-2.1 9-1.1v-13c-3-1-6.4-.8-9 1Z"/><path d="M12 6.3v12.8"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="demo-banner banner-learn" href="{{ '/learn/' | relative_url }}">
+            <span class="banner-copy"><strong>学习路线</strong><small>Python、SQL 和 Git 练习</small></span>
+            <svg class="banner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18h8a3 3 0 0 0 0-6h-9a3 3 0 0 1 0-6h8"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="demo-banner banner-projects" href="{{ '/projects/' | relative_url }}">
+            <span class="banner-copy"><strong>项目与服务</strong><small>我的开源项目和在线工具</small></span>
+            <svg class="banner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 4 9 4.7-9 4.7-9-4.7Z"/><path d="m3 12.4 9 4.7 9-4.7M3 16.1l9 4.7 9-4.7"/></svg>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <ul id="search-results" class="resources home-results" aria-label="搜索结果" hidden></ul>
+  </main>
+</body>
+</html>
