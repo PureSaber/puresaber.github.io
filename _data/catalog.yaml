@@ -179,6 +179,7 @@ runtimes:
   summary: 编写脚本、数据分析程序和自动化工具。
   type: 语言
 - name: pip
+  icon: pip-pypi.svg
   url: https://pip.pypa.io/
   summary: 安装和管理 Python 包。
   type: 包管理器
@@ -363,6 +364,7 @@ market-tools:
   summary: 用 Python 探索股票、期货、基金等公开财经数据。接入策略前，先对照原始数据源确认字段、时间戳和复权口径。
   type: Python 库
 - name: pandas-ta
+  icon: pandas-ta.png
   url: https://pypi.org/project/pandas-ta/
   summary: 在 pandas 数据上计算常用技术指标。
   type: Python 库
@@ -458,6 +460,7 @@ modeling:
 
 nlp:
 - name: jieba
+  icon: jieba.png
   url: https://github.com/fxsjy/jieba
   summary: 中文分词与关键词提取。
   type: Python 库
@@ -477,6 +480,7 @@ nlp:
   summary: 构建分词、词性标注和实体识别流程。
   type: Python 库
 - name: faster-whisper（faster_whisper）
+  icon: faster-whisper-systran.png
   url: https://github.com/SYSTRAN/faster-whisper
   summary: 在本地进行 Whisper 语音转写。
   type: Python 库
