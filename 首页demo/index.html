@@ -46,7 +46,7 @@ layout: null
     .demo-nav ul {
       display: grid;
       grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: 1rem;
+      gap: .9rem;
       padding: 0;
       margin: 0;
       list-style: none;
@@ -56,145 +56,161 @@ layout: null
     .demo-banner {
       position: relative;
       isolation: isolate;
-      display: flex;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) clamp(3.2rem, 7.3vw, 5.4rem);
       align-items: center;
-      min-height: 8rem;
+      gap: .55rem;
+      min-height: 8.1rem;
       height: 100%;
-      padding: 1.25rem clamp(1rem, 2.4vw, 1.65rem);
+      padding: 1rem clamp(.95rem, 2.2vw, 1.7rem);
       border: 1px solid var(--banner-line);
-      border-radius: 1.1rem;
-      background: var(--banner-bg);
+      border-radius: 1.05rem;
+      background: linear-gradient(112deg, var(--banner-bg), var(--banner-edge));
       color: var(--banner-ink);
       overflow: hidden;
       text-decoration: none;
-      transition: transform .16s ease, box-shadow .16s ease;
+      transition: transform .18s ease, box-shadow .18s ease;
     }
     .demo-banner:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px #18322818;
-      color: var(--banner-ink);
-      text-decoration: none;
+      box-shadow: 0 .65rem 1.45rem #18322820;
     }
     .demo-banner:focus-visible {
       outline: 2px solid #27644e;
       outline-offset: 4px;
     }
-    .featured .demo-banner { min-height: 9.4rem; }
-    .demo-banner::before {
+    .featured .demo-banner {
+      grid-template-columns: minmax(0, 1fr) clamp(6.4rem, 13.5vw, 10.2rem);
+      min-height: 9.6rem;
+    }
+    .banner-copy { position: relative; z-index: 1; }
+    .banner-copy strong {
+      display: block;
+      font-size: clamp(1.18rem, 2.3vw, 1.6rem);
+      font-weight: 750;
+      line-height: 1.2;
+      letter-spacing: -.035em;
+    }
+    .featured .banner-copy strong {
+      font-size: clamp(1.54rem, 3.35vw, 2.3rem);
+      letter-spacing: -.045em;
+    }
+    .banner-copy small {
+      display: block;
+      margin-top: .45rem;
+      color: var(--banner-muted);
+      font-size: .9rem;
+      line-height: 1.44;
+      text-wrap: balance;
+    }
+    .banner-tools {
+      --banner-bg: #263b46;
+      --banner-edge: #1c2c36;
+      --banner-ink: #fcfeff;
+      --banner-muted: #d7e4eb;
+      --banner-line: #354a53;
+      --banner-ring: #ccedf72a;
+    }
+    .banner-mobile {
+      --banner-bg: #254136;
+      --banner-edge: #1b3228;
+      --banner-ink: #fafffb;
+      --banner-muted: #d9e9df;
+      --banner-line: #345143;
+      --banner-ring: #d9f5db2a;
+    }
+    .banner-resources {
+      --banner-bg: #ebf1e7;
+      --banner-edge: #dce7da;
+      --banner-ink: #223e32;
+      --banner-muted: #40584b;
+      --banner-line: #d2dfd2;
+      --banner-ring: #4e6c532a;
+    }
+    .banner-learn {
+      --banner-bg: #f7efe1;
+      --banner-edge: #eee0c8;
+      --banner-ink: #503824;
+      --banner-muted: #66513b;
+      --banner-line: #e9dcc6;
+      --banner-ring: #82684432;
+    }
+    .banner-projects {
+      --banner-bg: #edf1f5;
+      --banner-edge: #dce6ee;
+      --banner-ink: #253e51;
+      --banner-muted: #435b6b;
+      --banner-line: #d6e0e8;
+      --banner-ring: #48617e29;
+    }
+    .banner-art {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 3.15rem;
+      pointer-events: none;
+    }
+    .banner-art::before,
+    .banner-art::after {
       content: "";
       position: absolute;
       z-index: -1;
-      inset: 0;
-      background: repeating-radial-gradient(
-        ellipse at 82% 51%,
-        transparent 0 22px,
-        var(--banner-ring) 23px,
-        transparent 24px 33px
-      );
-      mask-image: linear-gradient(90deg, transparent 45%, #000);
-      pointer-events: none;
-    }
-    .banner-copy { position: relative; z-index: 1; width: 70%; }
-    .featured .banner-copy { width: 60%; }
-    .banner-copy strong {
-      display: block;
-      font-size: clamp(1.2rem, 2.5vw, 1.65rem);
-      font-weight: 750;
-      line-height: 1.25;
-      letter-spacing: -.04em;
-    }
-    .featured .banner-copy strong { font-size: clamp(1.6rem, 3vw, 2.15rem); }
-    .banner-copy small {
-      display: block;
-      margin-top: .5rem;
-      color: var(--banner-muted);
-      font-size: .92rem;
-      line-height: 1.45;
-    }
-    .banner-tools {
-      --banner-bg: #253642;
-      --banner-ink: #f9fcff;
-      --banner-muted: #d8e5ed;
-      --banner-line: #253642;
-      --banner-ring: #deeff522;
-    }
-    .banner-mobile {
-      --banner-bg: #20382e;
-      --banner-ink: #f9fff9;
-      --banner-muted: #dce9df;
-      --banner-line: #20382e;
-      --banner-ring: #deffeb22;
-    }
-    .banner-resources {
-      --banner-bg: #e9eee5;
-      --banner-ink: #263e33;
-      --banner-muted: #475b4f;
-      --banner-line: #d4dfd1;
-      --banner-ring: #476e5029;
-    }
-    .banner-learn {
-      --banner-bg: #f3ead9;
-      --banner-ink: #513d29;
-      --banner-muted: #66533c;
-      --banner-line: #e7dbc5;
-      --banner-ring: #7c59352b;
-    }
-    .banner-projects {
-      --banner-bg: #e7ebef;
-      --banner-ink: #283b4c;
-      --banner-muted: #465767;
-      --banner-line: #d8e0e7;
-      --banner-ring: #48617d2d;
-    }
-    .banner-icon {
-      position: absolute;
-      z-index: 0;
       top: 50%;
-      right: 10%;
-      width: 2.45rem;
-      height: 2.45rem;
-      color: var(--banner-ink);
-      opacity: .67;
-      transform: translateY(-50%) rotate(-9deg);
+      left: 52%;
+      width: 8.1rem;
+      aspect-ratio: 1.38;
+      border: 1px solid var(--banner-ring);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) rotate(-10deg);
     }
+    .banner-art::after { width: 11rem; opacity: .64; }
+    .icon-stack::before { width: 11.5rem; }
+    .icon-stack::after { width: 15.5rem; }
     .icon-stack {
-      position: absolute;
-      display: grid;
-      place-items: center;
-      top: 50%;
-      left: 79%;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
+      --tile-size: clamp(2.26rem, 5.4vw, 3.42rem);
+      --tile-shift: clamp(1.4rem, 3.35vw, 2.48rem);
     }
     .icon-stack img {
+      position: relative;
       grid-area: 1 / 1;
-      width: 2.95rem;
-      height: 2.95rem;
-      padding: .36rem;
+      width: var(--tile-size);
+      height: var(--tile-size);
+      padding: calc(var(--tile-size) * .125);
       object-fit: contain;
-      background: #fffefa;
-      border-radius: .72rem;
-      box-shadow: 0 .35rem .9rem #071a1460;
+      background: linear-gradient(145deg, #fff, #f3f5ef);
+      border: 1px solid #ffffffb0;
+      border-radius: calc(var(--tile-size) * .25);
+      box-shadow: 0 .35rem .85rem #0e221e58;
     }
-    .icon-stack img:first-child { transform: translate(-2.05rem, .4rem) rotate(-13deg); }
+    .icon-stack img:first-child { transform: translate(calc(-1 * var(--tile-shift)), .35rem) rotate(-13deg); }
     .icon-stack img:nth-child(2) {
       z-index: 1;
-      transform: translateY(-.45rem) rotate(-5deg);
+      transform: translateY(-.4rem) rotate(-4deg);
     }
-    .icon-stack img:last-child { transform: translate(2rem, .42rem) rotate(12deg); }
-    @media (max-width: 48rem) {
-      .demo-nav ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .demo-nav li, .demo-nav li.featured { grid-column: auto; }
-      .icon-stack img { width: 2.45rem; height: 2.45rem; }
-      .icon-stack img:first-child { transform: translate(-1.6rem, .4rem) rotate(-13deg); }
-      .icon-stack img:last-child { transform: translate(1.6rem, .4rem) rotate(12deg); }
+    .icon-stack img:last-child { transform: translate(var(--tile-shift), .36rem) rotate(12deg); }
+    .banner-icon-tile {
+      display: grid;
+      place-items: center;
+      width: clamp(2.45rem, 5.1vw, 3.35rem);
+      aspect-ratio: 1;
+      border: 1px solid #ffffffd0;
+      border-radius: .78rem;
+      background: linear-gradient(145deg, #fffffff2, #ffffff96);
+      box-shadow: .13rem .34rem .85rem #272f2420;
+      transform: rotate(-9deg);
     }
-    @media (max-width: 36rem) {
+    .banner-icon { width: 56%; height: 56%; color: var(--banner-ink); }
+    @media (max-width: 44rem) {
       .demo-shell { width: calc(100% - 2rem); }
       .demo-header { min-height: 3.6rem; }
       .demo-nav ul { grid-template-columns: minmax(0, 1fr); gap: .65rem; }
-      .demo-banner, .featured .demo-banner { min-height: 6.05rem; }
-      .banner-copy small { margin-top: .35rem; }
+      .demo-nav li, .demo-nav li.featured { grid-column: auto; }
+      .demo-banner { min-height: 5.5rem; }
+      .featured .demo-banner { min-height: 6.35rem; }
+      .banner-copy small { margin-top: .32rem; }
+      .icon-stack { --tile-size: 2.65rem; --tile-shift: 1.65rem; }
+      .icon-stack::before { width: 8.9rem; }
+      .icon-stack::after { width: 11.6rem; }
     }
     @media (prefers-reduced-motion: reduce) {
       .demo-banner { transition: none; }
@@ -219,9 +235,9 @@ layout: null
         <li class="featured">
           <a class="demo-banner banner-tools" id="tools-entry" href="{{ '/tools/' | relative_url }}">
             <span class="banner-copy"><strong>工具</strong><small>AI 编程、开发和量化工具</small></span>
-            <span class="icon-stack" aria-hidden="true">
+            <span class="banner-art icon-stack" aria-hidden="true">
               <img src="{{ '/assets/tool-icons/vscode.svg' | relative_url }}" width="47" height="47" alt="">
-              <img src="{{ '/mobile/icons/chatgpt.webp' | relative_url }}" width="47" height="47" alt="">
+              <img src="{{ '/assets/tool-icons/claude-code.svg' | relative_url }}" width="47" height="47" alt="">
               <img src="{{ '/assets/tool-icons/docker.svg' | relative_url }}" width="47" height="47" alt="">
             </span>
           </a>
@@ -229,7 +245,7 @@ layout: null
         <li class="featured">
           <a class="demo-banner banner-mobile" href="{{ '/mobile/' | relative_url }}">
             <span class="banner-copy"><strong>手机应用</strong><small>我在手机上用的工具，按用途整理。</small></span>
-            <span class="icon-stack" aria-hidden="true">
+            <span class="banner-art icon-stack" aria-hidden="true">
               <img src="{{ '/mobile/icons/localsend.webp' | relative_url }}" width="47" height="47" alt="">
               <img src="{{ '/mobile/icons/chatgpt.webp' | relative_url }}" width="47" height="47" alt="">
               <img src="{{ '/mobile/icons/telegram.webp' | relative_url }}" width="47" height="47" alt="">
@@ -239,19 +255,25 @@ layout: null
         <li>
           <a class="demo-banner banner-resources" id="resources-entry" href="{{ '/resources/' | relative_url }}">
             <span class="banner-copy"><strong>资源</strong><small>教程、市场数据和导航站</small></span>
-            <svg class="banner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linejoin="round" aria-hidden="true"><path d="M12 6.1C9.4 4.3 6 4.1 3 5.1v13c3-1 6.4-.8 9 1.1 2.6-1.9 6-2.1 9-1.1v-13c-3-1-6.4-.8-9 1Z"/><path d="M12 6.3v12.8"/></svg>
+            <span class="banner-art" aria-hidden="true">
+              <span class="banner-icon-tile"><svg class="banner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linejoin="round"><path d="M12 6.1C9.4 4.3 6 4.1 3 5.1v13c3-1 6.4-.8 9 1.1 2.6-1.9 6-2.1 9-1.1v-13c-3-1-6.4-.8-9 1Z"/><path d="M12 6.3v12.8"/></svg></span>
+            </span>
           </a>
         </li>
         <li>
           <a class="demo-banner banner-learn" href="{{ '/learn/' | relative_url }}">
             <span class="banner-copy"><strong>学习路线</strong><small>Python、SQL 和 Git 练习</small></span>
-            <svg class="banner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18h8a3 3 0 0 0 0-6h-9a3 3 0 0 1 0-6h8"/></svg>
+            <span class="banner-art" aria-hidden="true">
+              <span class="banner-icon-tile"><svg class="banner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18h8a3 3 0 0 0 0-6h-9a3 3 0 0 1 0-6h8"/></svg></span>
+            </span>
           </a>
         </li>
         <li>
           <a class="demo-banner banner-projects" href="{{ '/projects/' | relative_url }}">
             <span class="banner-copy"><strong>项目与服务</strong><small>我的开源项目和在线工具</small></span>
-            <svg class="banner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 4 9 4.7-9 4.7-9-4.7Z"/><path d="m3 12.4 9 4.7 9-4.7M3 16.1l9 4.7 9-4.7"/></svg>
+            <span class="banner-art" aria-hidden="true">
+              <span class="banner-icon-tile"><svg class="banner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"><path d="m12 4 9 4.7-9 4.7-9-4.7Z"/><path d="m3 12.4 9 4.7 9-4.7M3 16.1l9 4.7 9-4.7"/></svg></span>
+            </span>
           </a>
         </li>
       </ul>
