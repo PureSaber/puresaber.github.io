@@ -1,5 +1,8 @@
 <li{% if include.entry.alias %} data-alias="{{ include.entry.alias | escape }}"{% endif %}>
-  <{{ include.heading }}><a href="{{ include.entry.url | escape }}">{{ include.entry.name }}</a></{{ include.heading }}>
+  <{{ include.heading }}{% if include.entry.icon %} class="card-title-with-icon"{% endif %}>
+    {% if include.entry.icon %}<img class="tool-icon" src="{{ include.entry.icon | prepend: '/assets/tool-icons/' | relative_url | escape }}" width="20" height="20" alt="" loading="lazy" decoding="async">{% endif %}
+    <a href="{{ include.entry.url | escape }}">{{ include.entry.name }}</a>
+  </{{ include.heading }}>
   <p>{{ include.entry.summary }}</p>
   <div class="card-details"><span>{{ include.entry.type | escape }}</span>{% if include.entry.docs %}<a href="{{ include.entry.docs.url | escape }}">{{ include.entry.docs.label }}</a>{% endif %}</div>
   {% if include.entry.usage %}

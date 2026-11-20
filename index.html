@@ -65,6 +65,14 @@ layout: null
     .resources > li { background: var(--card); border: 1px solid var(--line); border-radius: .85rem; padding: 1rem 1.15rem; }
     .resources > li:hover { border-color: #92aa99; }
     .resources h5, .resources h6 { font-size: 1.04rem; line-height: 1.45; }
+    .card-title-with-icon { display: flex; align-items: flex-start; gap: .45rem; }
+    .tool-icon {
+      flex: 0 0 1.25rem;
+      width: 1.25rem;
+      height: 1.25rem;
+      object-fit: contain;
+      margin-block-start: .125rem;
+    }
     .resources :is(h5, h6) a { text-decoration-thickness: .08em; text-underline-offset: .22em; }
     .resources :is(h5, h6) a:hover { text-decoration-thickness: .14em; }
     .resources p { color: var(--muted); font-size: .93rem; margin-top: .4rem; }

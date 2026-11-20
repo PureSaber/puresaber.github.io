@@ -1,14 +1,17 @@
 ai:
 - name: OpenCode
+  icon: opencode.svg
   url: https://opencode.ai/docs/
   summary: 在终端里读项目、梳理代码和辅助修改。接手一个新仓库时，可以先用它找项目入口、测试命令和关键配置。
   type: CLI
   alias: opencode cli
 - name: Claude Code
+  icon: claude-code.svg
   url: https://code.claude.com/docs/
   summary: 在终端读代码、修改文件和运行项目命令。
   type: CLI
 - name: Codex
+  icon: codex.svg
   url: https://developers.openai.com/codex/
   summary: 在终端或桌面应用中协作开发、审查和修改代码。
   type: CLI / 桌面
@@ -32,6 +35,7 @@ ai:
   summary: 管理 Codex CLI 账号和本地网关。
   type: 桌面工具
 - name: ChatGPT
+  icon: chatgpt.svg
   url: https://chatgpt.com/download/
   summary: 用于写作、资料整理、代码讨论和文件分析。
   type: Web / 桌面
@@ -40,12 +44,14 @@ ai:
     label: 网页版
     url: https://chatgpt.com/
 - name: Gemini
+  icon: gemini.svg
   url: https://gemini.google.com/
   summary: Google 的网页助手，用于问答、资料整理和代码讨论。
   type: Web
 
 development:
 - name: Visual Studio Code
+  icon: vscode.svg
   url: https://code.visualstudio.com/docs
   summary: 在编辑器里浏览仓库、修改文件和调试代码。想在同一个窗口里看代码、终端和 Git 改动时可以用它。
   type: IDE
@@ -88,22 +94,27 @@ development:
     summary: 将 Markdown 文件导出为 PDF。
     type: 扩展
 - name: Cursor
+  icon: cursor.svg
   url: https://cursor.com/
   summary: 带 AI 补全和编程代理的代码编辑器。
   type: IDE
 - name: IntelliJ IDEA
+  icon: intellij.svg
   url: https://www.jetbrains.com/idea/
   summary: JetBrains 的 Java 和 Kotlin IDE。
   type: IDE
 - name: PyCharm
+  icon: pycharm.svg
   url: https://www.jetbrains.com/pycharm/
   summary: JetBrains 的 Python IDE。
   type: IDE
 - name: DataGrip
+  icon: datagrip.svg
   url: https://www.jetbrains.com/datagrip/
   summary: JetBrains 的数据库与 SQL IDE。
   type: IDE
 - name: Visual Studio
+  icon: visualstudio.svg
   url: https://visualstudio.microsoft.com/
   summary: Microsoft 的 .NET 与 C++ 开发环境。
   type: IDE
@@ -190,6 +201,7 @@ deployment:
   summary: 构建镜像并运行容器。
   type: 容器工具
 - name: Docker Desktop
+  icon: docker.svg
   url: https://www.docker.com/products/docker-desktop/
   summary: 在桌面系统中运行和管理 Docker。
   type: 桌面工具
@@ -423,14 +435,17 @@ productivity:
   summary: 处理文档、表格和演示文稿。
   type: Web / 桌面
 - name: Notion
+  icon: notion.svg
   url: https://www.notion.com/
   summary: 组织笔记、团队文档和数据库。
   type: Web / 桌面
 - name: Todoist
+  icon: todoist.svg
   url: https://www.todoist.com/
   summary: 组织任务、项目和重复提醒。
   type: Web / 桌面
 - name: Evernote
+  icon: evernote.svg
   url: https://evernote.com/
   summary: 收集和查找笔记、网页剪藏。
   type: Web / 桌面
@@ -478,11 +493,13 @@ communication:
   summary: 基于 QQ 的办公沟通应用。
   type: 桌面 / 移动
 - name: 微信（WeChat）
+  icon: wechat.svg
   url: https://weixin.qq.com/
   summary: 用于聊天、文件分享和跨设备沟通。
   type: 桌面 / 移动
   alias: xwechat
 - name: Telegram Desktop
+  icon: telegram.svg
   url: https://desktop.telegram.org/
   summary: Telegram 的桌面客户端。
   type: 桌面工具
@@ -495,14 +512,17 @@ communication:
     label: Lark 国际版
     url: https://www.larksuite.com/
 - name: Slack
+  icon: slack.svg
   url: https://slack.com/
   summary: 用频道组织团队沟通。
   type: Web / 桌面
 - name: Discord
+  icon: discord.svg
   url: https://discord.com/
   summary: 用于社群文字和语音沟通。
   type: Web / 桌面
 - name: Zoom
+  icon: zoom.svg
   url: https://www.zoom.com/
   summary: 视频会议和线上活动。
   type: Web / 桌面
@@ -525,6 +545,7 @@ communication:
 
 file-transfer:
 - name: LocalSend
+  icon: localsend.png
   url: https://localsend.org/
   summary: 在同一局域网的设备间传输文件。
   type: 桌面 / 移动
@@ -575,20 +596,24 @@ remote-desktop:
 
 browsers:
 - name: Google Chrome
+  icon: chrome.svg
   url: https://www.google.com/chrome/
   summary: Google 浏览器，内置网页开发和调试工具。
   type: 浏览器
 - name: Microsoft Edge
+  icon: edge.svg
   url: https://www.microsoft.com/edge
   summary: Microsoft 浏览器。
   type: 浏览器
 - name: Mozilla Firefox
+  icon: firefox.svg
   url: https://www.firefox.com/
   summary: Mozilla 浏览器，可用于跨浏览器测试。
   type: 浏览器
 
 media:
 - name: OBS Studio
+  icon: obsstudio.svg
   url: https://obsproject.com/
   summary: 录制屏幕及音频，或进行直播。
   type: 桌面工具
