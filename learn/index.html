@@ -16,8 +16,9 @@
       <p class="intro">选一条路线，从对应的教程开始，最后做出一份能复查的练习成果。</p>
       <nav class="site-nav" aria-label="站点导航">
         <ul>
-          <li><a href="../#tools">工具</a></li>
-          <li><a href="../#resources">资源</a></li>
+          <li><a href="../">首页</a></li>
+          <li><a href="../tools/">工具</a></li>
+          <li><a href="../resources/">资源</a></li>
           <li><a href="./" aria-current="page">学习路线</a></li>
           <li><a href="../projects/">项目与服务</a></li>
         </ul>
@@ -36,7 +37,7 @@
       <ol class="steps">
         <li><strong>写一个小函数。</strong> 在<a href="https://docs.python.org/zh-cn/3/tutorial/">Python 官方教程</a>里读控制流程、数据结构和模块，用函数计算一组数的平均值，并处理空列表。</li>
         <li><strong>读入一张成交表。</strong> 用 <code>csv.DictReader</code> 读取日期、品种、成交量三列，转换成交量类型，并把缺失或无效的行写进单独的文件。</li>
-        <li><strong>按日期和品种汇总。</strong> 用 <code>dict</code> 累加成交量，或在 <a href="../#research-data">JupyterLab 里用 pandas</a> 做同样的分组计算。</li>
+        <li><strong>按日期和品种汇总。</strong> 用 <code>dict</code> 累加成交量，或在 <a href="../tools/#research-data">JupyterLab 里用 pandas</a> 做同样的分组计算。</li>
       </ol>
       <p class="completion"><strong>完成标准：</strong> 用三行手算样本核对结果，把汇总导出为新的 CSV。</p>
     </section>
@@ -46,7 +47,7 @@
       <ol class="steps">
         <li><strong>先筛选，再排序。</strong> 跟着 <a href="https://sqlbolt.com/">SQLBolt</a> 练 <code>SELECT</code>、<code>WHERE</code> 和 <code>ORDER BY</code>，找出某段日期内成交量最大的几笔记录。</li>
         <li><strong>把明细汇总成日报。</strong> 用 <code>GROUP BY</code> 与 <code>SUM</code> 按品种和日期汇总。汇总前先确认每行代表一笔成交。</li>
-        <li><strong>连接品种表。</strong> 在 <a href="../#research-data">DuckDB</a> 里，用 <code>LEFT JOIN</code> 为日报补上品种名。先检查品种表里的代码是否唯一，再比较连接前后的行数。</li>
+        <li><strong>连接品种表。</strong> 在 <a href="../tools/#research-data">DuckDB</a> 里，用 <code>LEFT JOIN</code> 为日报补上品种名。先检查品种表里的代码是否唯一，再比较连接前后的行数。</li>
       </ol>
       <p class="completion"><strong>完成标准：</strong> 留下一条可重跑的查询，能说明缺失品种名的成交记录如何保留。</p>
     </section>
@@ -56,7 +57,7 @@
       <ol class="steps">
         <li><strong>看懂一次提交。</strong> 跟着<a href="https://git-scm.com/book/zh/v2">《Pro Git》中文版</a>的基础章节修改 README，用 <code>git status</code> 和 <code>git diff</code> 看清改动，然后暂存、提交。</li>
         <li><strong>在分支上做一次小改动。</strong> 新建分支，给 README 增加一条可执行的使用示例，提交后推送到 GitHub。</li>
-        <li><strong>发起并检查 Pull Request。</strong> 用 GitHub 网页或 <a href="../#git-open-source">GitHub CLI</a> 发起 PR。写明改了什么、怎么检查，在差异页复查后合并。</li>
+        <li><strong>发起并检查 Pull Request。</strong> 用 GitHub 网页或 <a href="../tools/#git-open-source">GitHub CLI</a> 发起 PR。写明改了什么、怎么检查，在差异页复查后合并。</li>
       </ol>
       <p class="completion"><strong>完成标准：</strong> 主分支出现新示例，PR 里能找到对应的改动和检查结果。</p>
     </section>

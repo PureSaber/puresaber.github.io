@@ -1,0 +1,67 @@
+{% assign catalog = site.data.catalog_navigation[page.catalog] %}
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{ catalog.description | escape }}">
+  <meta name="theme-color" content="#f6f5ef">
+  <title>{{ catalog.title }} · Kurage</title>
+  <link rel="stylesheet" href="{{ '/assets/catalog.css' | relative_url }}">
+  <script defer src="{{ '/assets/catalog.js' | relative_url }}"></script>
+</head>
+<body>
+  <a class="skip" href="#main">跳到正文</a>
+  {% include catalog-sidebar.html %}
+  <header class="masthead">
+    <div class="wrap">
+      <h1>{{ catalog.title }}</h1>
+      <p class="intro">{{ catalog.description }}</p>
+      <nav aria-label="站点导航">
+        <ul>
+          <li><a href="{{ '/' | relative_url }}">首页</a></li>
+          <li><a href="{{ '/tools/' | relative_url }}"{% if page.catalog == 'tools' %} aria-current="page"{% endif %}>工具</a></li>
+          <li><a href="{{ '/resources/' | relative_url }}"{% if page.catalog == 'resources' %} aria-current="page"{% endif %}>资源</a></li>
+          <li><a href="{{ '/learn/' | relative_url }}">学习路线</a></li>
+          <li><a href="{{ '/projects/' | relative_url }}">项目与服务</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="wrap">
+    <div class="catalog-controls">
+      {% capture search_label %}搜索{{ catalog.title }}{% endcapture %}
+      {% include catalog-search.html label=search_label %}
+      <div class="category-links" role="navigation" aria-label="按分类浏览">
+        <ul class="category-index">
+          {% for category in catalog.categories %}
+          <li>
+            <a href="#{{ category[0] }}">{{ category[1].title }}</a>
+            <ul>
+              {% for group in category[1].groups %}
+              <li><a href="#{{ group[0] }}">{{ group[1] }}</a></li>
+              {% endfor %}
+            </ul>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <section id="{{ page.catalog }}" class="catalog-section" aria-labelledby="{{ page.catalog }}-title">
+      <h2 id="{{ page.catalog }}-title">{{ catalog.title }}目录</h2>
+      {% for category in catalog.categories %}
+      <section id="{{ category[0] }}" class="catalog-category" aria-labelledby="{{ category[0] }}-title">
+        <h3 id="{{ category[0] }}-title">{{ category[1].title }}</h3>
+        {% for group in category[1].groups %}
+        {% assign group_id = group[0] %}
+        <section id="{{ group_id }}" class="catalog-group" aria-labelledby="{{ group_id }}-title">
+          <h4 id="{{ group_id }}-title">{{ group[1] }}</h4>
+          {% include catalog-group.html group=group_id %}
+        </section>
+        {% endfor %}
+      </section>
+      {% endfor %}
+    </section>
+  </main>
+</body>
+</html>

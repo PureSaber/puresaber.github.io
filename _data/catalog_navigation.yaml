@@ -1,0 +1,57 @@
+tools:
+  title: 工具
+  description: 按用途浏览 AI 编程、开源开发、量化研究和日常办公工具。
+  categories:
+    developer-tools:
+      title: 开发工具
+      groups:
+        ai: AI 编程与助手
+        development: 编辑器与 IDE
+        git-open-source: Git 与开源协作
+        runtimes: 编程语言、运行时与包管理
+        game-development: 游戏开发
+    infrastructure:
+      title: 部署与基础设施
+      groups:
+        deployment: 容器、部署与运维
+        api-development: API 开发与调试
+        databases: 数据库与查询
+    quant:
+      title: 量化与数据科学
+      groups:
+        research-data: 研究环境与数据处理
+        market-tools: 行情接口、技术指标与回测
+        visualization: 数据可视化
+        modeling: 机器学习与优化
+        nlp: 文本、语音与模型工具
+    office:
+      title: 办公与协作
+      groups:
+        productivity: 文档、笔记与效率
+        communication: 即时通信与会议
+    desktop:
+      title: 桌面与媒体
+      groups:
+        file-transfer: 文件传输
+        remote-desktop: 网络与远程连接
+        virtualization: 虚拟机与模拟器
+        password-management: 密码管理
+        browsers: 浏览器
+        media: 媒体制作
+resources:
+  title: 资源
+  description: 查找学习资料、市场数据来源和工具合集。
+  categories:
+    learning:
+      title: 学习资料
+      groups:
+        computer-learning: 计算机与编程自学
+    market-research-resources:
+      title: 市场与研究资料
+      groups:
+        research: 市场数据与官方核对
+    web-resources:
+      title: 工具发现
+      groups:
+        tool-directories: 工具合集与导航站
+        online-tools: 在线工具合集
