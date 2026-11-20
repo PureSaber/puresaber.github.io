@@ -7,8 +7,8 @@
   <meta name="description" content="{{ catalog.description | escape }}">
   <meta name="theme-color" content="#f6f5ef">
   <title>{{ catalog.title }} · Kurage</title>
-  <link rel="stylesheet" href="{{ '/assets/catalog.css' | relative_url }}">
-  <script defer src="{{ '/assets/catalog.js' | relative_url }}"></script>
+  <link rel="stylesheet" href="{{ '/assets/catalog.css' | relative_url }}?v=tool-views">
+  <script defer src="{{ '/assets/catalog.js' | relative_url }}?v=tool-views"></script>
 </head>
 <body>
   <a class="skip" href="#main">跳到正文</a>
@@ -48,7 +48,26 @@
       </div>
     </div>
     <section id="{{ page.catalog }}" class="catalog-section" aria-labelledby="{{ page.catalog }}-title">
-      <h2 id="{{ page.catalog }}-title">{{ catalog.title }}目录</h2>
+      <div class="catalog-heading">
+        <h2 id="{{ page.catalog }}-title">{{ catalog.title }}目录</h2>
+        {% if page.catalog == 'tools' %}
+        <div class="catalog-view" role="group" aria-label="工具目录视图" hidden>
+          <button type="button" data-view="cards" aria-label="卡片视图" aria-pressed="true" aria-controls="tools" title="卡片视图">
+            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+              <rect x="3" y="3" width="7" height="7" rx="1"/>
+              <rect x="14" y="3" width="7" height="7" rx="1"/>
+              <rect x="3" y="14" width="7" height="7" rx="1"/>
+              <rect x="14" y="14" width="7" height="7" rx="1"/>
+            </svg>
+          </button>
+          <button type="button" data-view="list" aria-label="列表视图" aria-pressed="false" aria-controls="tools" title="列表视图">
+            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true">
+              <path d="M4 6h.01M4 12h.01M4 18h.01M9 6h11M9 12h11M9 18h11"/>
+            </svg>
+          </button>
+        </div>
+        {% endif %}
+      </div>
       {% for category in catalog.categories %}
       <section id="{{ category[0] }}" class="catalog-category" aria-labelledby="{{ category[0] }}-title">
         <h3 id="{{ category[0] }}-title">{{ category[1].title }}</h3>

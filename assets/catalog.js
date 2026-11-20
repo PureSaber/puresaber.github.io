@@ -114,6 +114,44 @@ function revealTarget(hash) {
   return wasHidden ? target : null;
 }
 
+function initializeCatalogView(sidebar) {
+  const switcher = document.querySelector(".catalog-view");
+  if (!switcher) return;
+
+  const catalog = switcher.closest(".catalog-section");
+  const buttons = Array.from(switcher.querySelectorAll("button"));
+  const storageKey = "toolbox:tools-view";
+
+  function showView(view) {
+    catalog.dataset.view = view;
+    for (const button of buttons) {
+      button.setAttribute("aria-pressed", String(button.dataset.view === view));
+    }
+  }
+
+  let savedView;
+  try {
+    savedView = localStorage.getItem(storageKey);
+  } catch {
+    // The directory still works when storage is blocked.
+  }
+  showView(savedView === "list" ? "list" : "cards");
+
+  for (const button of buttons) {
+    button.addEventListener("click", () => {
+      const view = button.dataset.view;
+      showView(view);
+      sidebar.refresh();
+      try {
+        localStorage.setItem(storageKey, view);
+      } catch {
+        // Keep the selected view for the current page.
+      }
+    });
+  }
+  switcher.hidden = false;
+}
+
 function initializeSidebar() {
   const element = document.querySelector("#catalog-sidebar");
   const navigation = element.querySelector("nav");
@@ -135,7 +173,7 @@ function initializeSidebar() {
   for (const section of sections) {
     const label = document.createElement("a");
     label.href = "#" + section.element.id;
-    label.textContent = section.element.firstElementChild.textContent;
+    label.textContent = section.element.querySelector("h2").textContent;
     label.className = "sidebar-section";
     const list = document.createElement("ul");
     navigation.append(label, list);
@@ -248,6 +286,7 @@ clear.addEventListener("click", () => {
 });
 
 const sidebar = initializeSidebar();
+initializeCatalogView(sidebar);
 
 for (const link of document.querySelectorAll('a[href^="#"]')) {
   link.addEventListener("click", (event) => {
