@@ -58,7 +58,18 @@
     .result-count { color: var(--muted); margin: 1.25rem 0 0; font-size: .9rem; }
     .app-section { margin-top: 1.55rem; }
     .app-section + .app-section { padding-top: 1rem; border-top: 1px solid var(--line); }
-    .app-section h2 { margin: 0 0 .7rem; font-size: 1.24rem; line-height: 1.4; }
+    .app-section h2 { margin: 0 0 .9rem; font-size: 1.24rem; line-height: 1.4; }
+    .app-subcategory + .app-subcategory { margin-top: 1.05rem; }
+    .app-subcategory h3 { margin: 0 0 .5rem; color: var(--accent); font-size: .98rem; line-height: 1.4; font-weight: 660; }
+    .taxonomy-row { display: grid; grid-template-columns: 2.45rem minmax(0, 1fr); align-items: start; gap: .55rem; margin-top: .8rem; }
+    .taxonomy-label { margin: .6rem 0 0; color: var(--muted); font-size: .85rem; font-weight: 650; }
+    .taxonomy-row .filters { margin: 0; }
+    .subcategory-filters button { min-height: 2.65rem; border-color: var(--line); }
+    .subcategory-filters button[aria-pressed="true"] { color: var(--accent); background: #e4eee4; border-color: #719582; }
+    @media (max-width: 30rem) {
+      .taxonomy-row { grid-template-columns: 1fr; gap: .4rem; }
+      .taxonomy-label { margin: 0; }
+    }
     .app-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .68rem; list-style: none; margin: 0; padding: 0; }
     .app-card { height: 100%; min-height: 5.1rem; display: flex; align-items: center; gap: .8rem; padding: .8rem .9rem; background: var(--card); border: 1px solid var(--line); border-radius: .8rem; text-decoration: none; }
     a.app-card:hover { border-color: #6e987f; background: #fafffa; }
@@ -126,953 +137,1149 @@
         <span class="search-icon" aria-hidden="true"></span>
         <input id="app-search" type="search" placeholder="搜索应用名或用途" autocomplete="off">
       </div>
-      <div class="filters" role="group" aria-label="按用途筛选">
-        <button type="button" data-filter="all" aria-pressed="true">全部</button>
-        <button type="button" data-filter="ai" aria-pressed="false">AI 与输入</button>
-        <button type="button" data-filter="work" aria-pressed="false">办公与协作</button>
-        <button type="button" data-filter="devices" aria-pressed="false">文件与设备</button>
-        <button type="button" data-filter="social" aria-pressed="false">通讯与社交</button>
-        <button type="button" data-filter="community" aria-pressed="false">开发与社区</button>
-        <button type="button" data-filter="learn" aria-pressed="false">学习与阅读</button>
-        <button type="button" data-filter="daily" aria-pressed="false">地图与出行</button>
-        <button type="button" data-filter="shopping" aria-pressed="false">购物、物流与找房</button>
-        <button type="button" data-filter="music" aria-pressed="false">音乐与设备配套</button>
-        <button type="button" data-filter="media" aria-pressed="false">视频、插画与阅读</button>
-        <button type="button" data-filter="games" aria-pressed="false">游戏与 VR</button>
-        <button type="button" data-filter="store" aria-pressed="false">应用商店</button>
-        <button type="button" data-filter="finance" aria-pressed="false">金融与支付</button>
-        <button type="button" data-filter="health" aria-pressed="false">健康与饮食</button>
-        <button type="button" data-filter="photos" aria-pressed="false">相机与修图</button>
-        <button type="button" data-filter="jobs" aria-pressed="false">求职</button>
-        <button type="button" data-filter="tickets" aria-pressed="false">演出与电影票务</button>
-        <button type="button" data-filter="browser" aria-pressed="false">浏览器</button>
-        <button type="button" data-filter="system" aria-pressed="false">系统与计时</button>
+      <div class="taxonomy-row">
+        <p id="primary-category-label" class="taxonomy-label">大类</p>
+        <div class="filters" role="group" aria-labelledby="primary-category-label">
+          <button type="button" data-filter="all" aria-pressed="true">全部用途</button>
+          <button type="button" data-filter="ai" aria-pressed="false">AI 与输入</button>
+          <button type="button" data-filter="communication" aria-pressed="false">通讯与办公</button>
+          <button type="button" data-filter="web" aria-pressed="false">浏览与搜索</button>
+          <button type="button" data-filter="tools" aria-pressed="false">开发与设备工具</button>
+          <button type="button" data-filter="media" aria-pressed="false">社交与内容</button>
+          <button type="button" data-filter="learning" aria-pressed="false">学习、校园与求职</button>
+          <button type="button" data-filter="shopping" aria-pressed="false">购物、物流与找房</button>
+          <button type="button" data-filter="local" aria-pressed="false">出行与生活服务</button>
+          <button type="button" data-filter="finance" aria-pressed="false">金融与支付</button>
+          <button type="button" data-filter="games" aria-pressed="false">游戏与 VR</button>
+          <button type="button" data-filter="health" aria-pressed="false">健康与饮食</button>
+          <button type="button" data-filter="creation" aria-pressed="false">拍摄与内容创作</button>
+        </div>
+      </div>
+      <div class="taxonomy-row" id="subcategory-controls" hidden>
+        <p id="subcategory-label" class="taxonomy-label">子类</p>
+        <div class="filters subcategory-filters" role="group" aria-labelledby="subcategory-label"></div>
       </div>
       <p class="result-count" role="status"></p>
     </div>
     <div id="app-directory">
       <section class="app-section" data-category="ai" aria-labelledby="heading-ai">
         <h2 id="heading-ai">AI 与输入</h2>
-        <ul class="app-grid">
-          <li data-keywords="openai gpt 人工智能" data-platform="common">
-            <a class="app-card" href="https://chatgpt.com/download/">
-              <span class="app-icon" aria-hidden="true"><span>C</span><img src="icons/chatgpt.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.openai.chatgpt&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>ChatGPT</strong><span>问答与文件分析</span></span>
-            </a>
-          </li>
-          <li data-keywords="google bard 谷歌 人工智能" data-platform="common">
-            <a class="app-card" href="https://gemini.google.com/">
-              <span class="app-icon" aria-hidden="true"><span>G</span><img src="icons/gemini.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.google.android.apps.bard&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>Gemini</strong><span>Google 的 AI 助手</span></span>
-            </a>
-          </li>
-          <li data-keywords="anthropic 人工智能" data-platform="common">
-            <a class="app-card" href="https://claude.com/download">
-              <span class="app-icon" aria-hidden="true"><span>C</span><img src="icons/claude.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.anthropic.claude&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>Claude</strong><span>写作与长文档阅读</span></span>
-            </a>
-          </li>
-          <li data-keywords="深度求索 深度搜索 人工智能" data-platform="common">
-            <a class="app-card" href="https://www.deepseek.com/en/download/">
-              <span class="app-icon" aria-hidden="true"><span>D</span><img src="icons/deepseek.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.deepseek.chat&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>DeepSeek</strong><span>问答、推理与代码讨论</span></span>
-            </a>
-          </li>
-          <li data-keywords="月之暗面 moonshot 人工智能" data-platform="common">
-            <a class="app-card" href="https://www.kimi.com/">
-              <span class="app-icon" aria-hidden="true"><span>K</span><img src="icons/kimi.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.moonshot.kimichat&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>Kimi</strong><span>问答与文档阅读</span></span>
-            </a>
-          </li>
-          <li data-keywords="语音输入法 dictation" data-platform="common">
-            <a class="app-card" href="https://www.typeless.com/">
-              <span class="app-icon" aria-hidden="true"><span>T</span><img src="icons/typeless.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/us/app/typeless-ai-voice-keyboard/id6749257650"></span>
-              <span class="app-copy"><strong>Typeless</strong><span>语音转文字</span></span>
-            </a>
-          </li>
-          <li data-keywords="rikka hub llm ai" data-platform="android">
-            <a class="app-card" href="https://github.com/rikkahub/rikkahub">
-              <span class="app-icon" aria-hidden="true"><span>R</span><img src="icons/rikkahub.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=me.rerere.rikkahub&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>RikkaHub Agent</strong><span>多模型聊天客户端</span></span>
-            </a>
-          </li>
-          <li data-keywords="iflytek keyboard" data-platform="common">
-            <a class="app-card" href="https://m.app.mi.com/details?id=com.iflytek.inputmethod">
-              <span class="app-icon" aria-hidden="true"><span>讯</span><img src="icons/iflytek-input.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/cn/app/%E8%AE%AF%E9%A3%9E%E8%BE%93%E5%85%A5%E6%B3%95-%E6%96%97%E5%9B%BE%E8%A1%A8%E6%83%85%E5%8C%85%E5%AD%97%E4%BD%93%E7%BE%8E%E5%8C%96%E9%94%AE%E7%9B%98/id1582446193"></span>
-              <span class="app-copy"><strong>讯飞输入法</strong><span>中文语音输入</span></span>
-            </a>
-          </li>
-        </ul>
+        <div class="app-subcategory" data-subcategory="assistants">
+          <h3 id="heading-ai-assistants">AI 助手与模型客户端</h3>
+          <ul class="app-grid" aria-labelledby="heading-ai-assistants">
+            <li data-keywords="openai gpt 人工智能" data-platform="common">
+              <a class="app-card" href="https://chatgpt.com/download/">
+                <span class="app-icon" aria-hidden="true"><span>C</span><img src="icons/chatgpt.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.openai.chatgpt&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>ChatGPT</strong><span>问答与文件分析</span></span>
+              </a>
+            </li>
+            <li data-keywords="google bard 谷歌 人工智能" data-platform="common">
+              <a class="app-card" href="https://gemini.google.com/">
+                <span class="app-icon" aria-hidden="true"><span>G</span><img src="icons/gemini.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.google.android.apps.bard&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>Gemini</strong><span>Google 的 AI 助手</span></span>
+              </a>
+            </li>
+            <li data-keywords="anthropic 人工智能" data-platform="common">
+              <a class="app-card" href="https://claude.com/download">
+                <span class="app-icon" aria-hidden="true"><span>C</span><img src="icons/claude.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.anthropic.claude&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>Claude</strong><span>写作与长文档阅读</span></span>
+              </a>
+            </li>
+            <li data-keywords="深度求索 深度搜索 人工智能" data-platform="common">
+              <a class="app-card" href="https://www.deepseek.com/en/download/">
+                <span class="app-icon" aria-hidden="true"><span>D</span><img src="icons/deepseek.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.deepseek.chat&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>DeepSeek</strong><span>问答、推理与代码讨论</span></span>
+              </a>
+            </li>
+            <li data-keywords="月之暗面 moonshot 人工智能" data-platform="common">
+              <a class="app-card" href="https://www.kimi.com/">
+                <span class="app-icon" aria-hidden="true"><span>K</span><img src="icons/kimi.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.moonshot.kimichat&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>Kimi</strong><span>问答与文档阅读</span></span>
+              </a>
+            </li>
+            <li data-keywords="rikka hub llm ai" data-platform="android">
+              <a class="app-card" href="https://github.com/rikkahub/rikkahub">
+                <span class="app-icon" aria-hidden="true"><span>R</span><img src="icons/rikkahub.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=me.rerere.rikkahub&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>RikkaHub Agent</strong><span>多模型聊天客户端</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="input">
+          <h3 id="heading-ai-input">输入法与语音听写</h3>
+          <ul class="app-grid" aria-labelledby="heading-ai-input">
+            <li data-keywords="语音输入法 dictation" data-platform="common">
+              <a class="app-card" href="https://www.typeless.com/">
+                <span class="app-icon" aria-hidden="true"><span>T</span><img src="icons/typeless.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/us/app/typeless-ai-voice-keyboard/id6749257650"></span>
+                <span class="app-copy"><strong>Typeless</strong><span>语音转文字</span></span>
+              </a>
+            </li>
+            <li data-keywords="iflytek keyboard" data-platform="common">
+              <a class="app-card" href="https://m.app.mi.com/details?id=com.iflytek.inputmethod">
+                <span class="app-icon" aria-hidden="true"><span>讯</span><img src="icons/iflytek-input.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/cn/app/%E8%AE%AF%E9%A3%9E%E8%BE%93%E5%85%A5%E6%B3%95-%E6%96%97%E5%9B%BE%E8%A1%A8%E6%83%85%E5%8C%85%E5%AD%97%E4%BD%93%E7%BE%8E%E5%8C%96%E9%94%AE%E7%9B%98/id1582446193"></span>
+                <span class="app-copy"><strong>讯飞输入法</strong><span>中文语音输入</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </section>
-      <section class="app-section" data-category="work" aria-labelledby="heading-work">
-        <h2 id="heading-work">办公与协作</h2>
-        <ul class="app-grid">
-          <li data-keywords="feishu" data-platform="common">
-            <a class="app-card" href="https://www.feishu.cn/">
-              <span class="app-icon" aria-hidden="true"><span>飞</span><img src="icons/feishu.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/cn/app/%E9%A3%9E%E4%B9%A6-%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E6%97%97%E4%B8%8B-ai-%E5%B7%A5%E4%BD%9C%E5%B9%B3%E5%8F%B0/id1401729613"></span>
-              <span class="app-copy"><strong>飞书</strong><span>团队消息与文档</span></span>
-            </a>
-          </li>
-          <li data-keywords="飞书 国际版" data-platform="common">
-            <a class="app-card" href="https://www.larksuite.com/">
-              <span class="app-icon" aria-hidden="true"><span>L</span><img src="icons/lark.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.larksuite.suite&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>Lark</strong><span>国际版团队协作</span></span>
-            </a>
-          </li>
-          <li data-keywords="dingtalk 阿里 协作" data-platform="common">
-            <a class="app-card" href="https://www.dingtalk.com/download">
-              <span class="app-icon" aria-hidden="true"><span>钉</span><img src="icons/dingtalk.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/cn/app/%E9%92%89%E9%92%89/id930368978"></span>
-              <span class="app-copy"><strong>钉钉</strong><span>团队沟通、会议与审批</span></span>
-            </a>
-          </li>
-          <li data-keywords="voov meeting" data-platform="common">
-            <a class="app-card" href="https://meeting.tencent.com/">
-              <span class="app-icon" aria-hidden="true"><span>腾</span><img src="icons/tencent-meeting.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/cn/app/%E8%85%BE%E8%AE%AF%E4%BC%9A%E8%AE%AE-%E5%A4%9A%E4%BA%BA%E5%AE%9E%E6%97%B6%E8%A7%86%E9%A2%91%E4%BC%9A%E8%AE%AE%E8%BD%AF%E4%BB%B6/id1484048379"></span>
-              <span class="app-copy"><strong>腾讯会议</strong><span>视频会议与共享屏幕</span></span>
-            </a>
-          </li>
-          <li data-keywords="tencent docs" data-platform="common">
-            <a class="app-card" href="https://docs.qq.com/">
-              <span class="app-icon" aria-hidden="true"><span>腾</span><img src="icons/tencent-docs.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/cn/app/%E8%85%BE%E8%AE%AF%E6%96%87%E6%A1%A3/id1370780836"></span>
-              <span class="app-copy"><strong>腾讯文档</strong><span>手机编辑文档和表格</span></span>
-            </a>
-          </li>
-          <li data-keywords="camscanner 扫描 pdf" data-platform="common">
-            <a class="app-card" href="https://www.intsig.com/camscanner/">
-              <span class="app-icon" aria-hidden="true"><span>扫</span><img src="icons/camscanner.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.intsig.camscanner&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>扫描全能王</strong><span>把纸质文档扫描成 PDF</span></span>
-            </a>
-          </li>
-          <li data-keywords="qqmail email" data-platform="common">
-            <a class="app-card" href="https://mail.qq.com/">
-              <span class="app-icon" aria-hidden="true"><span>Q</span><img src="icons/qq-mail.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/cn/app/qq%E9%82%AE%E7%AE%B1/id473225145"></span>
-              <span class="app-copy"><strong>QQ 邮箱</strong><span>收发邮件</span></span>
-            </a>
-          </li>
-          <li data-keywords="tg 聊天" data-platform="common">
-            <a class="app-card" href="https://telegram.org/apps">
-              <span class="app-icon" aria-hidden="true"><span>T</span><img src="icons/telegram.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=org.telegram.messenger&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>Telegram</strong><span>消息与频道</span></span>
-            </a>
-          </li>
-          <li data-keywords="wps" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/wps-office-%E6%99%BA%E8%83%BDai%E5%8A%9E%E5%85%AC%E5%8A%A9%E6%89%8B/id599852710?uo=4">
-              <span class="app-icon" aria-hidden="true"><span>W</span><img src="icons/wps.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/wps-office-%E6%99%BA%E8%83%BDai%E5%8A%9E%E5%85%AC%E5%8A%A9%E6%89%8B/id599852710?uo=4"></span>
-              <span class="app-copy"><strong>WPS Office</strong><span>编辑办公文档与表格</span></span>
-            </a>
-          </li>
-          <li data-keywords="wechat official accounts">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E5%85%AC%E4%BC%97%E5%8F%B7%E5%8A%A9%E6%89%8B/id1116013197">
-              <span class="app-icon" aria-hidden="true"><span>微</span><img src="icons/wechat-official-accounts.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E5%85%AC%E4%BC%97%E5%8F%B7%E5%8A%A9%E6%89%8B/id1116013197"></span>
-              <span class="app-copy"><strong>微信公众号助手</strong><span>管理公众号和消息</span></span>
-            </a>
-          </li>
-          <li data-keywords="tim" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/tim-qq%E5%8A%9E%E5%85%AC%E7%AE%80%E6%B4%81%E7%89%88/id1175213887">
-              <span class="app-icon" aria-hidden="true"><span>腾</span><img src="icons/tim.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/tim-qq%E5%8A%9E%E5%85%AC%E7%AE%80%E6%B4%81%E7%89%88/id1175213887"></span>
-              <span class="app-copy"><strong>腾讯 TIM</strong><span>轻量聊天和办公协作</span></span>
-            </a>
-          </li>
-          <li data-keywords="gmail" data-platform="common">
-            <a class="app-card" href="https://play.google.com/store/apps/details?id=com.google.android.gm&amp;hl=en&amp;gl=us">
-              <span class="app-icon" aria-hidden="true"><span>G</span><img src="icons/gmail.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.google.android.gm&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>Gmail</strong><span>Google 邮件客户端</span></span>
-            </a>
-          </li>
-          <li data-keywords="outlook" data-platform="common">
-            <a class="app-card" href="https://play.google.com/store/apps/details?id=com.microsoft.office.outlook&amp;hl=en&amp;gl=us">
-              <span class="app-icon" aria-hidden="true"><span>O</span><img src="icons/outlook.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.microsoft.office.outlook&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>Outlook</strong><span>电子邮件与日历</span></span>
-            </a>
-          </li>
-          <li data-keywords="microsoft todo" data-platform="common">
-            <a class="app-card" href="https://play.google.com/store/apps/details?id=com.microsoft.todos&amp;hl=en&amp;gl=us">
-              <span class="app-icon" aria-hidden="true"><span>M</span><img src="icons/microsoft-todo.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.microsoft.todos&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>Microsoft To Do</strong><span>个人待办与清单</span></span>
-            </a>
-          </li>
-        </ul>
+      <section class="app-section" data-category="communication" aria-labelledby="heading-communication">
+        <h2 id="heading-communication">通讯与办公</h2>
+        <div class="app-subcategory" data-subcategory="messaging">
+          <h3 id="heading-communication-messaging">即时通讯与通话</h3>
+          <ul class="app-grid" aria-labelledby="heading-communication-messaging">
+            <li data-keywords="qq" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/qq/id444934666?uo=4">
+                <span class="app-icon" aria-hidden="true"><span>Q</span><img src="icons/qq.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/qq/id444934666?uo=4"></span>
+                <span class="app-copy"><strong>QQ</strong><span>腾讯即时通讯</span></span>
+              </a>
+            </li>
+            <li data-keywords="wechat" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E5%BE%AE%E4%BF%A1/id414478124?uo=4">
+                <span class="app-icon" aria-hidden="true"><span>微</span><img src="icons/wechat.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E5%BE%AE%E4%BF%A1/id414478124?uo=4"></span>
+                <span class="app-copy"><strong>微信</strong><span>聊天、公众号和小程序</span></span>
+              </a>
+            </li>
+            <li data-keywords="tg 聊天" data-platform="common">
+              <a class="app-card" href="https://telegram.org/apps">
+                <span class="app-icon" aria-hidden="true"><span>T</span><img src="icons/telegram.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=org.telegram.messenger&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>Telegram</strong><span>消息与频道</span></span>
+              </a>
+            </li>
+            <li data-keywords="whatsapp" data-platform="common">
+              <a class="app-card" href="https://play.google.com/store/apps/details?id=com.whatsapp&amp;hl=en&amp;gl=us">
+                <span class="app-icon" aria-hidden="true"><span>W</span><img src="icons/whatsapp.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.whatsapp&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>WhatsApp</strong><span>跨国即时通讯</span></span>
+              </a>
+            </li>
+            <li data-keywords="skyphone" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/jp/app/skyphone-%E9%AB%98%E9%9F%B3%E8%B3%AA%E9%80%9A%E8%A9%B1%E3%82%A2%E3%83%97%E3%83%AA/id789570237">
+                <span class="app-icon" aria-hidden="true"><span>S</span><img src="icons/skyphone.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/jp/app/skyphone-%E9%AB%98%E9%9F%B3%E8%B3%AA%E9%80%9A%E8%A9%B1%E3%82%A2%E3%83%97%E3%83%AA/id789570237"></span>
+                <span class="app-copy"><strong>SkyPhone</strong><span>语音与视频通话</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="collaboration">
+          <h3 id="heading-communication-collaboration">团队协作与会议</h3>
+          <ul class="app-grid" aria-labelledby="heading-communication-collaboration">
+            <li data-keywords="feishu" data-platform="common">
+              <a class="app-card" href="https://www.feishu.cn/">
+                <span class="app-icon" aria-hidden="true"><span>飞</span><img src="icons/feishu.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/cn/app/%E9%A3%9E%E4%B9%A6-%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E6%97%97%E4%B8%8B-ai-%E5%B7%A5%E4%BD%9C%E5%B9%B3%E5%8F%B0/id1401729613"></span>
+                <span class="app-copy"><strong>飞书</strong><span>团队消息与文档</span></span>
+              </a>
+            </li>
+            <li data-keywords="飞书 国际版" data-platform="common">
+              <a class="app-card" href="https://www.larksuite.com/">
+                <span class="app-icon" aria-hidden="true"><span>L</span><img src="icons/lark.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.larksuite.suite&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>Lark</strong><span>国际版团队协作</span></span>
+              </a>
+            </li>
+            <li data-keywords="dingtalk 阿里 协作" data-platform="common">
+              <a class="app-card" href="https://www.dingtalk.com/download">
+                <span class="app-icon" aria-hidden="true"><span>钉</span><img src="icons/dingtalk.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/cn/app/%E9%92%89%E9%92%89/id930368978"></span>
+                <span class="app-copy"><strong>钉钉</strong><span>团队沟通、会议与审批</span></span>
+              </a>
+            </li>
+            <li data-keywords="voov meeting" data-platform="common">
+              <a class="app-card" href="https://meeting.tencent.com/">
+                <span class="app-icon" aria-hidden="true"><span>腾</span><img src="icons/tencent-meeting.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/cn/app/%E8%85%BE%E8%AE%AF%E4%BC%9A%E8%AE%AE-%E5%A4%9A%E4%BA%BA%E5%AE%9E%E6%97%B6%E8%A7%86%E9%A2%91%E4%BC%9A%E8%AE%AE%E8%BD%AF%E4%BB%B6/id1484048379"></span>
+                <span class="app-copy"><strong>腾讯会议</strong><span>视频会议与共享屏幕</span></span>
+              </a>
+            </li>
+            <li data-keywords="tim" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/tim-qq%E5%8A%9E%E5%85%AC%E7%AE%80%E6%B4%81%E7%89%88/id1175213887">
+                <span class="app-icon" aria-hidden="true"><span>腾</span><img src="icons/tim.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/tim-qq%E5%8A%9E%E5%85%AC%E7%AE%80%E6%B4%81%E7%89%88/id1175213887"></span>
+                <span class="app-copy"><strong>腾讯 TIM</strong><span>轻量聊天和办公协作</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="documents">
+          <h3 id="heading-communication-documents">文档编辑与扫描</h3>
+          <ul class="app-grid" aria-labelledby="heading-communication-documents">
+            <li data-keywords="tencent docs" data-platform="common">
+              <a class="app-card" href="https://docs.qq.com/">
+                <span class="app-icon" aria-hidden="true"><span>腾</span><img src="icons/tencent-docs.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/cn/app/%E8%85%BE%E8%AE%AF%E6%96%87%E6%A1%A3/id1370780836"></span>
+                <span class="app-copy"><strong>腾讯文档</strong><span>手机编辑文档和表格</span></span>
+              </a>
+            </li>
+            <li data-keywords="wps" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/wps-office-%E6%99%BA%E8%83%BDai%E5%8A%9E%E5%85%AC%E5%8A%A9%E6%89%8B/id599852710?uo=4">
+                <span class="app-icon" aria-hidden="true"><span>W</span><img src="icons/wps.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/wps-office-%E6%99%BA%E8%83%BDai%E5%8A%9E%E5%85%AC%E5%8A%A9%E6%89%8B/id599852710?uo=4"></span>
+                <span class="app-copy"><strong>WPS Office</strong><span>编辑办公文档与表格</span></span>
+              </a>
+            </li>
+            <li data-keywords="camscanner 扫描 pdf" data-platform="common">
+              <a class="app-card" href="https://www.intsig.com/camscanner/">
+                <span class="app-icon" aria-hidden="true"><span>扫</span><img src="icons/camscanner.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.intsig.camscanner&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>扫描全能王</strong><span>把纸质文档扫描成 PDF</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="email">
+          <h3 id="heading-communication-email">邮件与日历</h3>
+          <ul class="app-grid" aria-labelledby="heading-communication-email">
+            <li data-keywords="qqmail email" data-platform="common">
+              <a class="app-card" href="https://mail.qq.com/">
+                <span class="app-icon" aria-hidden="true"><span>Q</span><img src="icons/qq-mail.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/cn/app/qq%E9%82%AE%E7%AE%B1/id473225145"></span>
+                <span class="app-copy"><strong>QQ 邮箱</strong><span>收发邮件</span></span>
+              </a>
+            </li>
+            <li data-keywords="gmail" data-platform="common">
+              <a class="app-card" href="https://play.google.com/store/apps/details?id=com.google.android.gm&amp;hl=en&amp;gl=us">
+                <span class="app-icon" aria-hidden="true"><span>G</span><img src="icons/gmail.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.google.android.gm&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>Gmail</strong><span>Google 邮件客户端</span></span>
+              </a>
+            </li>
+            <li data-keywords="outlook" data-platform="common">
+              <a class="app-card" href="https://play.google.com/store/apps/details?id=com.microsoft.office.outlook&amp;hl=en&amp;gl=us">
+                <span class="app-icon" aria-hidden="true"><span>O</span><img src="icons/outlook.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.microsoft.office.outlook&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>Outlook</strong><span>电子邮件与日历</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="planning">
+          <h3 id="heading-communication-planning">待办与计时</h3>
+          <ul class="app-grid" aria-labelledby="heading-communication-planning">
+            <li data-keywords="microsoft todo" data-platform="common">
+              <a class="app-card" href="https://play.google.com/store/apps/details?id=com.microsoft.todos&amp;hl=en&amp;gl=us">
+                <span class="app-icon" aria-hidden="true"><span>M</span><img src="icons/microsoft-todo.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.microsoft.todos&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>Microsoft To Do</strong><span>个人待办与清单</span></span>
+              </a>
+            </li>
+            <li data-keywords="timeview">
+              <a class="app-card" href="https://app.mi.com/details?id=cn.geekapp.timeview">
+                <span class="app-icon" aria-hidden="true"><span>T</span><img src="icons/timeview.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://app.mi.com/details?id=cn.geekapp.timeview"></span>
+                <span class="app-copy"><strong>TimeView</strong><span>桌面悬浮计时</span></span>
+              </a>
+            </li>
+            <li data-keywords="itime" data-platform="common">
+              <a class="app-card" href="https://play.google.com/store/apps/details?id=com.wisdom.itime&amp;hl=en&amp;gl=us">
+                <span class="app-icon" aria-hidden="true"><span>i</span><img src="icons/itime.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.wisdom.itime&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>iTime</strong><span>倒计时和纪念日</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </section>
-      <section class="app-section" data-category="devices" aria-labelledby="heading-devices">
-        <h2 id="heading-devices">文件与设备</h2>
-        <ul class="app-grid">
-          <li data-keywords="传输 局域网 LAN 跨设备" data-platform="common">
-            <a class="app-card" href="https://localsend.org/">
-              <span class="app-icon" aria-hidden="true"><span>L</span><img src="icons/localsend.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=org.localsend.localsend_app&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>LocalSend</strong><span>手机和电脑局域网传文件</span></span>
-            </a>
-          </li>
-          <li data-keywords="组网 远程" data-platform="common">
-            <a class="app-card" href="https://tailscale.com/download">
-              <span class="app-icon" aria-hidden="true"><span>T</span><img src="icons/tailscale.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.tailscale.ipn&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>Tailscale</strong><span>将设备连入同一个私有网络</span></span>
-            </a>
-          </li>
-          <li data-keywords="网易 uuyc 远程桌面" data-platform="common">
-            <a class="app-card" href="https://uuyc.163.com/">
-              <span class="app-icon" aria-hidden="true"><span>U</span><img src="icons/uu-remote.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/cn/app/uu%E8%BF%9C%E7%A8%8B-%E6%B5%81%E7%95%85%E5%8F%AF%E9%9D%A0-%E5%B0%B1%E6%98%AF%E5%A5%BD%E7%94%A8/id1642306791"></span>
-              <span class="app-copy"><strong>UU 远程</strong><span>手机远程操作电脑</span></span>
-            </a>
-          </li>
-          <li data-keywords="安卓 adb 工具" data-platform="android">
-            <a class="app-card" href="https://shizuku.rikka.app/">
-              <span class="app-icon" aria-hidden="true"><span>S</span><img src="icons/shizuku.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=moe.shizuku.privileged.api&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>Shizuku</strong><span>连接 Android 应用与系统 API</span></span>
-            </a>
-          </li>
-          <li data-keywords="mt manager 文件" data-platform="android">
-            <a class="app-card" href="https://mt.cc/">
-              <span class="app-icon" aria-hidden="true"><span>M</span><img src="icons/mt-manager.webp" alt="" width="44" height="44" data-icon-source="https://mt.cc/"></span>
-              <span class="app-copy"><strong>MT 管理器</strong><span>管理文件和压缩包</span></span>
-            </a>
-          </li>
-          <li data-keywords="谷歌身份验证器 2fa totp" data-platform="common">
-            <a class="app-card" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2">
-              <span class="app-icon" aria-hidden="true"><span>G</span><img src="icons/authenticator.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>Google Authenticator</strong><span>生成两步验证代码</span></span>
-            </a>
-          </li>
-          <li data-keywords="gspace" data-platform="android">
-            <a class="app-card" href="https://gspaceteam.com/">
-              <span class="app-icon" aria-hidden="true"><span>G</span></span>
-              <span class="app-copy"><strong>Gspace</strong><span>运行和管理应用的 Android 工具</span></span>
-            </a>
-          </li>
-          <li data-keywords="v2rayng" data-platform="android">
-            <a class="app-card" href="https://github.com/2dust/v2rayNG">
-              <span class="app-icon" aria-hidden="true"><span>v</span><img src="icons/v2rayng.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://github.com/2dust/v2rayNG"></span>
-              <span class="app-copy"><strong>v2rayNG</strong><span>Android 网络代理客户端</span></span>
-            </a>
-          </li>
-          <li data-keywords="flclash" data-platform="android">
-            <a class="app-card" href="https://github.com/chen08209/FlClash">
-              <span class="app-icon" aria-hidden="true"><span>F</span><img src="icons/flclash.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://github.com/chen08209/FlClash"></span>
-              <span class="app-copy"><strong>FlClash</strong><span>跨平台代理客户端</span></span>
-            </a>
-          </li>
-          <li data-keywords="fake location" data-platform="android">
-            <div class="app-card">
-              <span class="app-icon" aria-hidden="true"><span>F</span></span>
-              <span class="app-copy"><strong>Fake Location</strong><span>Android 定位模拟工具</span></span>
-            </div>
-          </li>
-        </ul>
+      <section class="app-section" data-category="web" aria-labelledby="heading-web">
+        <h2 id="heading-web">浏览与搜索</h2>
+        <div class="app-subcategory" data-subcategory="browsers">
+          <h3 id="heading-web-browsers">浏览器</h3>
+          <ul class="app-grid" aria-labelledby="heading-web-browsers">
+            <li data-keywords="谷歌 浏览器 browser" data-platform="common">
+              <a class="app-card" href="https://www.google.com/chrome/">
+                <span class="app-icon" aria-hidden="true"><span>C</span><img src="icons/chrome.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.android.chrome&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>Chrome</strong><span>Google 浏览器</span></span>
+              </a>
+            </li>
+            <li data-keywords="火狐 浏览器 mozilla" data-platform="common">
+              <a class="app-card" href="https://www.mozilla.org/firefox/browsers/mobile/android/">
+                <span class="app-icon" aria-hidden="true"><span>F</span><img src="icons/firefox.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=org.mozilla.firefox&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>Firefox</strong><span>Mozilla 浏览器</span></span>
+              </a>
+            </li>
+            <li data-keywords="edge" data-platform="common">
+              <a class="app-card" href="https://play.google.com/store/apps/details?id=com.microsoft.emmx&amp;hl=en&amp;gl=us">
+                <span class="app-icon" aria-hidden="true"><span>M</span><img src="icons/edge.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.microsoft.emmx&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>Microsoft Edge</strong><span>微软浏览器</span></span>
+              </a>
+            </li>
+            <li data-keywords="qq browser" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/qq%E6%B5%8F%E8%A7%88%E5%99%A8-%E8%85%BE%E8%AE%AFai%E6%B5%8F%E8%A7%88%E5%99%A8/id370139302">
+                <span class="app-icon" aria-hidden="true"><span>Q</span><img src="icons/qq-browser.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/qq%E6%B5%8F%E8%A7%88%E5%99%A8-%E8%85%BE%E8%AE%AFai%E6%B5%8F%E8%A7%88%E5%99%A8/id370139302"></span>
+                <span class="app-copy"><strong>QQ 浏览器</strong><span>腾讯浏览器和内容搜索</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="search">
+          <h3 id="heading-web-search">搜索与资讯</h3>
+          <ul class="app-grid" aria-labelledby="heading-web-search">
+            <li data-keywords="bing" data-platform="common">
+              <a class="app-card" href="https://play.google.com/store/apps/details?id=com.microsoft.bing&amp;hl=en&amp;gl=us">
+                <span class="app-icon" aria-hidden="true"><span>M</span><img src="icons/bing.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.microsoft.bing&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>Microsoft Bing</strong><span>微软搜索客户端</span></span>
+              </a>
+            </li>
+            <li data-keywords="baidu" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E7%99%BE%E5%BA%A6-ai%E6%99%BA%E8%83%BD%E6%90%9C%E7%B4%A2/id382201985?uo=4">
+                <span class="app-icon" aria-hidden="true"><span>百</span><img src="icons/baidu.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E7%99%BE%E5%BA%A6-ai%E6%99%BA%E8%83%BD%E6%90%9C%E7%B4%A2/id382201985?uo=4"></span>
+                <span class="app-copy"><strong>百度</strong><span>搜索与资讯</span></span>
+              </a>
+            </li>
+            <li data-keywords="google" data-platform="common">
+              <a class="app-card" href="https://play.google.com/store/apps/details?id=com.google.android.googlequicksearchbox&amp;hl=en&amp;gl=us">
+                <span class="app-icon" aria-hidden="true"><span>G</span><img src="icons/google.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.google.android.googlequicksearchbox&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>Google</strong><span>搜索与发现</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </section>
-      <section class="app-section" data-category="social" aria-labelledby="heading-social">
-        <h2 id="heading-social">通讯与社交</h2>
-        <ul class="app-grid">
-          <li data-keywords="qq" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/qq/id444934666?uo=4">
-              <span class="app-icon" aria-hidden="true"><span>Q</span><img src="icons/qq.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/qq/id444934666?uo=4"></span>
-              <span class="app-copy"><strong>QQ</strong><span>腾讯即时通讯</span></span>
-            </a>
-          </li>
-          <li data-keywords="wechat" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E5%BE%AE%E4%BF%A1/id414478124?uo=4">
-              <span class="app-icon" aria-hidden="true"><span>微</span><img src="icons/wechat.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E5%BE%AE%E4%BF%A1/id414478124?uo=4"></span>
-              <span class="app-copy"><strong>微信</strong><span>聊天、公众号和小程序</span></span>
-            </a>
-          </li>
-          <li data-keywords="facebook" data-platform="common">
-            <a class="app-card" href="https://play.google.com/store/apps/details?id=com.facebook.katana&amp;hl=en&amp;gl=us">
-              <span class="app-icon" aria-hidden="true"><span>F</span><img src="icons/facebook.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.facebook.katana&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>Facebook</strong><span>好友动态与社群</span></span>
-            </a>
-          </li>
-          <li data-keywords="whatsapp" data-platform="common">
-            <a class="app-card" href="https://play.google.com/store/apps/details?id=com.whatsapp&amp;hl=en&amp;gl=us">
-              <span class="app-icon" aria-hidden="true"><span>W</span><img src="icons/whatsapp.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.whatsapp&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>WhatsApp</strong><span>跨国即时通讯</span></span>
-            </a>
-          </li>
-          <li data-keywords="skyphone" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/jp/app/skyphone-%E9%AB%98%E9%9F%B3%E8%B3%AA%E9%80%9A%E8%A9%B1%E3%82%A2%E3%83%97%E3%83%AA/id789570237">
-              <span class="app-icon" aria-hidden="true"><span>S</span><img src="icons/skyphone.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/jp/app/skyphone-%E9%AB%98%E9%9F%B3%E8%B3%AA%E9%80%9A%E8%A9%B1%E3%82%A2%E3%83%97%E3%83%AA/id789570237"></span>
-              <span class="app-copy"><strong>SkyPhone</strong><span>语音与视频通话</span></span>
-            </a>
-          </li>
-        </ul>
+      <section class="app-section" data-category="tools" aria-labelledby="heading-tools">
+        <h2 id="heading-tools">开发与设备工具</h2>
+        <div class="app-subcategory" data-subcategory="development">
+          <h3 id="heading-tools-development">代码仓库与开发</h3>
+          <ul class="app-grid" aria-labelledby="heading-tools-development">
+            <li data-keywords="github mobile 开源 代码" data-platform="common">
+              <a class="app-card" href="https://github.com/mobile">
+                <span class="app-icon" aria-hidden="true"><span>G</span><img src="icons/github.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.github.android&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>GitHub</strong><span>浏览仓库、Issue 和 PR</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="android-tools">
+          <h3 id="heading-tools-android-tools">Android 系统工具</h3>
+          <ul class="app-grid" aria-labelledby="heading-tools-android-tools">
+            <li data-keywords="安卓 adb 工具" data-platform="android">
+              <a class="app-card" href="https://shizuku.rikka.app/">
+                <span class="app-icon" aria-hidden="true"><span>S</span><img src="icons/shizuku.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=moe.shizuku.privileged.api&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>Shizuku</strong><span>连接 Android 应用与系统 API</span></span>
+              </a>
+            </li>
+            <li data-keywords="gspace" data-platform="android">
+              <a class="app-card" href="https://gspaceteam.com/">
+                <span class="app-icon" aria-hidden="true"><span>G</span></span>
+                <span class="app-copy"><strong>Gspace</strong><span>运行和管理应用的 Android 工具</span></span>
+              </a>
+            </li>
+            <li data-keywords="fake location" data-platform="android">
+              <div class="app-card">
+                <span class="app-icon" aria-hidden="true"><span>F</span></span>
+                <span class="app-copy"><strong>Fake Location</strong><span>Android 定位模拟工具</span></span>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="files">
+          <h3 id="heading-tools-files">文件管理与传输</h3>
+          <ul class="app-grid" aria-labelledby="heading-tools-files">
+            <li data-keywords="mt manager 文件" data-platform="android">
+              <a class="app-card" href="https://mt.cc/">
+                <span class="app-icon" aria-hidden="true"><span>M</span><img src="icons/mt-manager.webp" alt="" width="44" height="44" data-icon-source="https://mt.cc/"></span>
+                <span class="app-copy"><strong>MT 管理器</strong><span>管理文件和压缩包</span></span>
+              </a>
+            </li>
+            <li data-keywords="传输 局域网 LAN 跨设备" data-platform="common">
+              <a class="app-card" href="https://localsend.org/">
+                <span class="app-icon" aria-hidden="true"><span>L</span><img src="icons/localsend.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=org.localsend.localsend_app&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>LocalSend</strong><span>手机和电脑局域网传文件</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="remote">
+          <h3 id="heading-tools-remote">远程访问与组网</h3>
+          <ul class="app-grid" aria-labelledby="heading-tools-remote">
+            <li data-keywords="网易 uuyc 远程桌面" data-platform="common">
+              <a class="app-card" href="https://uuyc.163.com/">
+                <span class="app-icon" aria-hidden="true"><span>U</span><img src="icons/uu-remote.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/cn/app/uu%E8%BF%9C%E7%A8%8B-%E6%B5%81%E7%95%85%E5%8F%AF%E9%9D%A0-%E5%B0%B1%E6%98%AF%E5%A5%BD%E7%94%A8/id1642306791"></span>
+                <span class="app-copy"><strong>UU 远程</strong><span>手机远程操作电脑</span></span>
+              </a>
+            </li>
+            <li data-keywords="组网 远程" data-platform="common">
+              <a class="app-card" href="https://tailscale.com/download">
+                <span class="app-icon" aria-hidden="true"><span>T</span><img src="icons/tailscale.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.tailscale.ipn&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>Tailscale</strong><span>将设备连入同一个私有网络</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="proxy">
+          <h3 id="heading-tools-proxy">网络代理</h3>
+          <ul class="app-grid" aria-labelledby="heading-tools-proxy">
+            <li data-keywords="v2rayng" data-platform="android">
+              <a class="app-card" href="https://github.com/2dust/v2rayNG">
+                <span class="app-icon" aria-hidden="true"><span>v</span><img src="icons/v2rayng.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://github.com/2dust/v2rayNG"></span>
+                <span class="app-copy"><strong>v2rayNG</strong><span>Android 网络代理客户端</span></span>
+              </a>
+            </li>
+            <li data-keywords="flclash" data-platform="android">
+              <a class="app-card" href="https://github.com/chen08209/FlClash">
+                <span class="app-icon" aria-hidden="true"><span>F</span><img src="icons/flclash.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://github.com/chen08209/FlClash"></span>
+                <span class="app-copy"><strong>FlClash</strong><span>跨平台代理客户端</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="security">
+          <h3 id="heading-tools-security">账号安全与验证</h3>
+          <ul class="app-grid" aria-labelledby="heading-tools-security">
+            <li data-keywords="谷歌身份验证器 2fa totp" data-platform="common">
+              <a class="app-card" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2">
+                <span class="app-icon" aria-hidden="true"><span>G</span><img src="icons/authenticator.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>Google Authenticator</strong><span>生成两步验证代码</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="stores">
+          <h3 id="heading-tools-stores">应用分发与下载</h3>
+          <ul class="app-grid" aria-labelledby="heading-tools-stores">
+            <li data-keywords="google play" data-platform="android">
+              <a class="app-card" href="https://play.google.com/store">
+                <span class="app-icon" aria-hidden="true"><span>G</span><img src="icons/google-play.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://commons.wikimedia.org/wiki/File:Google_Play_2022_icon.svg"></span>
+                <span class="app-copy"><strong>Google Play 商店</strong><span>Android 应用商店</span></span>
+              </a>
+            </li>
+            <li data-keywords="apkpure" data-platform="android">
+              <a class="app-card" href="https://apkpure.com/apkpure-app.html">
+                <span class="app-icon" aria-hidden="true"><span>A</span><img src="icons/apkpure.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apkpure.com/apkpure-app.html"></span>
+                <span class="app-copy"><strong>APKPure</strong><span>Android 应用下载与更新</span></span>
+              </a>
+            </li>
+            <li data-keywords="myapp" data-platform="android">
+              <a class="app-card" href="https://www.tencent.net.cn/zh-cn/products/yingyongbao/">
+                <span class="app-icon" aria-hidden="true"><span>腾</span><img src="icons/myapp.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://www.tencent.net.cn/zh-cn/products/yingyongbao/"></span>
+                <span class="app-copy"><strong>腾讯应用宝</strong><span>腾讯的 Android 应用商店</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="accessories">
+          <h3 id="heading-tools-accessories">外设管理</h3>
+          <ul class="app-grid" aria-labelledby="heading-tools-accessories">
+            <li data-keywords="xiaomi speaker" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E5%B0%8F%E7%B1%B3%E9%9F%B3%E7%AE%B1/id1270594280">
+                <span class="app-icon" aria-hidden="true"><span>小</span><img src="icons/xiaomi-speaker.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E5%B0%8F%E7%B1%B3%E9%9F%B3%E7%AE%B1/id1270594280"></span>
+                <span class="app-copy"><strong>小米音箱</strong><span>管理小爱音箱与设备</span></span>
+              </a>
+            </li>
+            <li data-keywords="sony sound connect" data-platform="common">
+              <a class="app-card" href="https://play.google.com/store/apps/details?id=com.sony.songpal.mdr&amp;hl=en&amp;gl=us">
+                <span class="app-icon" aria-hidden="true"><span>索</span><img src="icons/sony-sound-connect.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.sony.songpal.mdr&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>索尼 Sound Connect</strong><span>管理索尼耳机和音效</span></span>
+              </a>
+            </li>
+            <li data-keywords="dg lab">
+              <a class="app-card" href="https://apps.apple.com/cn/app/dg-lab/id1480806144?uo=4">
+                <span class="app-icon" aria-hidden="true"><span>D</span><img src="icons/dg-lab.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/dg-lab/id1480806144?uo=4"></span>
+                <span class="app-copy"><strong>DG-Lab</strong><span>连接 DG-Lab 设备</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </section>
-      <section class="app-section" data-category="community" aria-labelledby="heading-community">
-        <h2 id="heading-community">开发与社区</h2>
-        <ul class="app-grid">
-          <li data-keywords="github mobile 开源 代码" data-platform="common">
-            <a class="app-card" href="https://github.com/mobile">
-              <span class="app-icon" aria-hidden="true"><span>G</span><img src="icons/github.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.github.android&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>GitHub</strong><span>浏览仓库、Issue 和 PR</span></span>
-            </a>
-          </li>
-          <li data-keywords="twitter 推特 社交 资讯" data-platform="common">
-            <a class="app-card" href="https://x.com/">
-              <span class="app-icon" aria-hidden="true"><span>X</span><img src="icons/x.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.twitter.android&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>X</strong><span>关注动态与公开讨论</span></span>
-            </a>
-          </li>
-          <li data-keywords="zhihu" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E7%9F%A5%E4%B9%8E/id432274380?uo=4">
-              <span class="app-icon" aria-hidden="true"><span>知</span><img src="icons/zhihu.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E7%9F%A5%E4%B9%8E/id432274380?uo=4"></span>
-              <span class="app-copy"><strong>知乎</strong><span>问答与专栏</span></span>
-            </a>
-          </li>
-          <li data-keywords="tieba" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E7%99%BE%E5%BA%A6%E8%B4%B4%E5%90%A7/id477927812">
-              <span class="app-icon" aria-hidden="true"><span>百</span><img src="icons/tieba.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E7%99%BE%E5%BA%A6%E8%B4%B4%E5%90%A7/id477927812"></span>
-              <span class="app-copy"><strong>百度贴吧</strong><span>兴趣论坛</span></span>
-            </a>
-          </li>
-          <li data-keywords="xiaohongshu" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E5%B0%8F%E7%BA%A2%E4%B9%A6-%E4%BD%A0%E7%9A%84%E7%94%9F%E6%B4%BB%E5%85%B4%E8%B6%A3%E7%A4%BE%E5%8C%BA/id741292507?uo=4">
-              <span class="app-icon" aria-hidden="true"><span>小</span><img src="icons/xiaohongshu.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E5%B0%8F%E7%BA%A2%E4%B9%A6-%E4%BD%A0%E7%9A%84%E7%94%9F%E6%B4%BB%E5%85%B4%E8%B6%A3%E7%A4%BE%E5%8C%BA/id741292507?uo=4"></span>
-              <span class="app-copy"><strong>小红书</strong><span>生活内容与经验分享</span></span>
-            </a>
-          </li>
-          <li data-keywords="weibo" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E5%BE%AE%E5%8D%9A/id350962117?uo=4">
-              <span class="app-icon" aria-hidden="true"><span>微</span><img src="icons/weibo.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E5%BE%AE%E5%8D%9A/id350962117?uo=4"></span>
-              <span class="app-copy"><strong>微博</strong><span>关注资讯与话题</span></span>
-            </a>
-          </li>
-          <li data-keywords="reddit" data-platform="common">
-            <a class="app-card" href="https://play.google.com/store/apps/details?id=com.reddit.frontpage&amp;hl=en&amp;gl=us">
-              <span class="app-icon" aria-hidden="true"><span>R</span><img src="icons/reddit.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.reddit.frontpage&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>Reddit</strong><span>按主题浏览社区</span></span>
-            </a>
-          </li>
-          <li data-keywords="moegirl">
-            <a class="app-card" href="https://zh.moegirl.org.cn/">
-              <span class="app-icon" aria-hidden="true"><span>萌</span><img src="icons/moegirl.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://zh.moegirl.org.cn/"></span>
-              <span class="app-copy"><strong>萌娘百科</strong><span>动漫与游戏百科</span></span>
-            </a>
-          </li>
-          <li data-keywords="lo community">
-            <a class="app-card" href="https://apps.apple.com/cn/app/lo%E7%A0%94%E7%A4%BE/id6467809127?uo=4">
-              <span class="app-icon" aria-hidden="true"><span>L</span><img src="icons/lo-community.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/lo%E7%A0%94%E7%A4%BE/id6467809127?uo=4"></span>
-              <span class="app-copy"><strong>Lo研社</strong><span>洛丽塔服饰交流</span></span>
-            </a>
-          </li>
-        </ul>
+      <section class="app-section" data-category="media" aria-labelledby="heading-media">
+        <h2 id="heading-media">社交与内容</h2>
+        <div class="app-subcategory" data-subcategory="social-feed">
+          <h3 id="heading-media-social-feed">社交动态与讨论</h3>
+          <ul class="app-grid" aria-labelledby="heading-media-social-feed">
+            <li data-keywords="twitter 推特 社交 资讯" data-platform="common">
+              <a class="app-card" href="https://x.com/">
+                <span class="app-icon" aria-hidden="true"><span>X</span><img src="icons/x.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.twitter.android&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>X</strong><span>关注动态与公开讨论</span></span>
+              </a>
+            </li>
+            <li data-keywords="facebook" data-platform="common">
+              <a class="app-card" href="https://play.google.com/store/apps/details?id=com.facebook.katana&amp;hl=en&amp;gl=us">
+                <span class="app-icon" aria-hidden="true"><span>F</span><img src="icons/facebook.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.facebook.katana&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>Facebook</strong><span>好友动态与社群</span></span>
+              </a>
+            </li>
+            <li data-keywords="weibo" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E5%BE%AE%E5%8D%9A/id350962117?uo=4">
+                <span class="app-icon" aria-hidden="true"><span>微</span><img src="icons/weibo.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E5%BE%AE%E5%8D%9A/id350962117?uo=4"></span>
+                <span class="app-copy"><strong>微博</strong><span>关注资讯与话题</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="communities">
+          <h3 id="heading-media-communities">问答与兴趣社区</h3>
+          <ul class="app-grid" aria-labelledby="heading-media-communities">
+            <li data-keywords="zhihu" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E7%9F%A5%E4%B9%8E/id432274380?uo=4">
+                <span class="app-icon" aria-hidden="true"><span>知</span><img src="icons/zhihu.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E7%9F%A5%E4%B9%8E/id432274380?uo=4"></span>
+                <span class="app-copy"><strong>知乎</strong><span>问答与专栏</span></span>
+              </a>
+            </li>
+            <li data-keywords="tieba" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E7%99%BE%E5%BA%A6%E8%B4%B4%E5%90%A7/id477927812">
+                <span class="app-icon" aria-hidden="true"><span>百</span><img src="icons/tieba.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E7%99%BE%E5%BA%A6%E8%B4%B4%E5%90%A7/id477927812"></span>
+                <span class="app-copy"><strong>百度贴吧</strong><span>兴趣论坛</span></span>
+              </a>
+            </li>
+            <li data-keywords="reddit" data-platform="common">
+              <a class="app-card" href="https://play.google.com/store/apps/details?id=com.reddit.frontpage&amp;hl=en&amp;gl=us">
+                <span class="app-icon" aria-hidden="true"><span>R</span><img src="icons/reddit.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.reddit.frontpage&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>Reddit</strong><span>按主题浏览社区</span></span>
+              </a>
+            </li>
+            <li data-keywords="xiaohongshu" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E5%B0%8F%E7%BA%A2%E4%B9%A6-%E4%BD%A0%E7%9A%84%E7%94%9F%E6%B4%BB%E5%85%B4%E8%B6%A3%E7%A4%BE%E5%8C%BA/id741292507?uo=4">
+                <span class="app-icon" aria-hidden="true"><span>小</span><img src="icons/xiaohongshu.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E5%B0%8F%E7%BA%A2%E4%B9%A6-%E4%BD%A0%E7%9A%84%E7%94%9F%E6%B4%BB%E5%85%B4%E8%B6%A3%E7%A4%BE%E5%8C%BA/id741292507?uo=4"></span>
+                <span class="app-copy"><strong>小红书</strong><span>生活内容与经验分享</span></span>
+              </a>
+            </li>
+            <li data-keywords="lo community">
+              <a class="app-card" href="https://apps.apple.com/cn/app/lo%E7%A0%94%E7%A4%BE/id6467809127?uo=4">
+                <span class="app-icon" aria-hidden="true"><span>L</span><img src="icons/lo-community.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/lo%E7%A0%94%E7%A4%BE/id6467809127?uo=4"></span>
+                <span class="app-copy"><strong>Lo研社</strong><span>洛丽塔服饰交流</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="video">
+          <h3 id="heading-media-video">视频与直播</h3>
+          <ul class="app-grid" aria-labelledby="heading-media-video">
+            <li data-keywords="bilibili" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9-%E5%BC%B9%E5%B9%95%E7%95%AA%E5%89%A7%E7%9B%B4%E6%92%AD%E9%AB%98%E6%B8%85%E8%A7%86%E9%A2%91/id736536022?uo=4">
+                <span class="app-icon" aria-hidden="true"><span>哔</span><img src="icons/bilibili.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9-%E5%BC%B9%E5%B9%95%E7%95%AA%E5%89%A7%E7%9B%B4%E6%92%AD%E9%AB%98%E6%B8%85%E8%A7%86%E9%A2%91/id736536022?uo=4"></span>
+                <span class="app-copy"><strong>哔哩哔哩</strong><span>视频和直播</span></span>
+              </a>
+            </li>
+            <li data-keywords="youtube" data-platform="common">
+              <a class="app-card" href="https://play.google.com/store/apps/details?id=com.google.android.youtube&amp;hl=en&amp;gl=us">
+                <span class="app-icon" aria-hidden="true"><span>Y</span><img src="icons/youtube.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.google.android.youtube&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>YouTube</strong><span>观看与订阅视频</span></span>
+              </a>
+            </li>
+            <li data-keywords="twitch" data-platform="common">
+              <a class="app-card" href="https://play.google.com/store/apps/details?id=tv.twitch.android.app&amp;hl=en&amp;gl=us">
+                <span class="app-icon" aria-hidden="true"><span>T</span><img src="icons/twitch.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=tv.twitch.android.app&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>Twitch</strong><span>观看直播</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="music">
+          <h3 id="heading-media-music">音乐与播客</h3>
+          <ul class="app-grid" aria-labelledby="heading-media-music">
+            <li data-keywords="netease music" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90-%E6%95%B0%E4%BA%BF%E9%9F%B3%E4%B9%90%E7%95%85%E5%90%AC/id590338362">
+                <span class="app-icon" aria-hidden="true"><span>网</span><img src="icons/netease-music.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90-%E6%95%B0%E4%BA%BF%E9%9F%B3%E4%B9%90%E7%95%85%E5%90%AC/id590338362"></span>
+                <span class="app-copy"><strong>网易云音乐</strong><span>在线音乐与歌单</span></span>
+              </a>
+            </li>
+            <li data-keywords="spotify" data-platform="common">
+              <a class="app-card" href="https://play.google.com/store/apps/details?id=com.spotify.music&amp;hl=en&amp;gl=us">
+                <span class="app-icon" aria-hidden="true"><span>S</span><img src="icons/spotify.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.spotify.music&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>Spotify</strong><span>音乐与播客</span></span>
+              </a>
+            </li>
+            <li data-keywords="5sing">
+              <a class="app-card" href="https://apps.apple.com/cn/app/5sing%E9%9F%B3%E4%B9%90/id473613148">
+                <span class="app-icon" aria-hidden="true"><span>5</span><img src="icons/5sing.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/5sing%E9%9F%B3%E4%B9%90/id473613148"></span>
+                <span class="app-copy"><strong>5sing 音乐</strong><span>原创音乐与翻唱</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="illustration">
+          <h3 id="heading-media-illustration">插画、漫画与动漫百科</h3>
+          <ul class="app-grid" aria-labelledby="heading-media-illustration">
+            <li data-keywords="pixiv" data-platform="common">
+              <a class="app-card" href="https://play.google.com/store/apps/details?id=jp.pxv.android&amp;hl=en&amp;gl=us">
+                <span class="app-icon" aria-hidden="true"><span>p</span><img src="icons/pixiv.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=jp.pxv.android&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>pixiv</strong><span>插画与创作社区</span></span>
+              </a>
+            </li>
+            <li data-keywords="picacg">
+              <div class="app-card">
+                <span class="app-icon" aria-hidden="true"><span>P</span></span>
+                <span class="app-copy"><strong>PicACG</strong><span>漫画阅读</span></span>
+              </div>
+            </li>
+            <li data-keywords="moegirl">
+              <a class="app-card" href="https://zh.moegirl.org.cn/">
+                <span class="app-icon" aria-hidden="true"><span>萌</span><img src="icons/moegirl.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://zh.moegirl.org.cn/"></span>
+                <span class="app-copy"><strong>萌娘百科</strong><span>动漫与游戏百科</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="novels">
+          <h3 id="heading-media-novels">小说阅读</h3>
+          <ul class="app-grid" aria-labelledby="heading-media-novels">
+            <li data-keywords="douban read" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E8%B1%86%E7%93%A3%E9%98%85%E8%AF%BB/id560068813">
+                <span class="app-icon" aria-hidden="true"><span>豆</span><img src="icons/douban-read.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E8%B1%86%E7%93%A3%E9%98%85%E8%AF%BB/id560068813"></span>
+                <span class="app-copy"><strong>豆瓣阅读</strong><span>阅读原创小说与作品</span></span>
+              </a>
+            </li>
+            <li data-keywords="qidian" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E8%B5%B7%E7%82%B9%E8%AF%BB%E4%B9%A6-%E7%9C%8B%E5%B0%8F%E8%AF%B4%E5%90%AC%E4%B9%A6%E7%9A%84%E9%98%85%E8%AF%BB%E7%A5%9E%E5%99%A8/id534174796">
+                <span class="app-icon" aria-hidden="true"><span>起</span><img src="icons/qidian.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E8%B5%B7%E7%82%B9%E8%AF%BB%E4%B9%A6-%E7%9C%8B%E5%B0%8F%E8%AF%B4%E5%90%AC%E4%B9%A6%E7%9A%84%E9%98%85%E8%AF%BB%E7%A5%9E%E5%99%A8/id534174796"></span>
+                <span class="app-copy"><strong>起点读书</strong><span>阅读起点小说</span></span>
+              </a>
+            </li>
+            <li data-keywords="dingdian">
+              <div class="app-card">
+                <span class="app-icon" aria-hidden="true"><span>顶</span></span>
+                <span class="app-copy"><strong>顶点小说</strong><span>小说阅读</span></span>
+              </div>
+            </li>
+          </ul>
+        </div>
       </section>
-      <section class="app-section" data-category="learn" aria-labelledby="heading-learn">
-        <h2 id="heading-learn">学习与阅读</h2>
-        <ul class="app-grid">
-          <li data-keywords="有道 英语 字典 youdao" data-platform="common">
-            <a class="app-card" href="https://cidian.youdao.com/m/index.html">
-              <span class="app-icon" aria-hidden="true"><span>网</span><img src="icons/youdao.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/cn/app/%E7%BD%91%E6%98%93%E6%9C%89%E9%81%93%E8%AF%8D%E5%85%B8-%E4%B8%93%E4%B8%9A%E6%9F%A5%E8%AF%8D%E7%BF%BB%E8%AF%91%E5%AD%A6%E4%B9%A0%E5%8A%A9%E6%89%8B/id353115739"></span>
-              <span class="app-copy"><strong>网易有道词典</strong><span>查词、例句和发音</span></span>
-            </a>
-          </li>
-          <li data-keywords="古诗 文言文" data-platform="common">
-            <a class="app-card" href="https://www.gushiwen.cn/">
-              <span class="app-icon" aria-hidden="true"><span>古</span><img src="icons/gushiwen.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/cn/app/%E5%8F%A4%E8%AF%97%E6%96%87%E7%BD%91-%E5%94%90%E8%AF%97%E5%AE%8B%E8%AF%8D%E5%8F%A4%E6%96%87%E5%85%B8%E7%B1%8D/id964708975"></span>
-              <span class="app-copy"><strong>古诗文网</strong><span>查古诗词与古文</span></span>
-            </a>
-          </li>
-          <li data-keywords="多邻国 英语 日语 language" data-platform="common">
-            <a class="app-card" href="https://www.duolingo.com/">
-              <span class="app-icon" aria-hidden="true"><span>D</span><img src="icons/duolingo.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.duolingo&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>Duolingo</strong><span>多邻国语言练习</span></span>
-            </a>
-          </li>
-          <li data-keywords="数学 编程 数理逻辑" data-platform="common">
-            <a class="app-card" href="https://brilliant.org/help/using-brilliant/where-can-i-use-brilliant/">
-              <span class="app-icon" aria-hidden="true"><span>B</span><img src="icons/brilliant.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=org.brilliant.android&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>Brilliant</strong><span>互动练习数学与计算机科学</span></span>
-            </a>
-          </li>
-          <li data-keywords="声音 音高 pitch 声线" data-platform="common">
-            <a class="app-card" href="https://play.google.com/store/apps/details?id=com.DevExtras.VoiceTools">
-              <span class="app-icon" aria-hidden="true"><span>V</span><img src="icons/voice-tools.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.DevExtras.VoiceTools&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>Voice Tools</strong><span>查看音高和音量</span></span>
-            </a>
-          </li>
-          <li data-keywords="baidu wenku 资料 文档" data-platform="common">
-            <a class="app-card" href="https://wenku.baidu.com/">
-              <span class="app-icon" aria-hidden="true"><span>百</span><img src="icons/baidu-wenku.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/cn/app/%E7%99%BE%E5%BA%A6%E6%96%87%E5%BA%93-%E5%85%A8%E8%83%BDai%E5%86%85%E5%AE%B9%E8%8E%B7%E5%8F%96%E5%8F%8A%E5%88%9B%E4%BD%9C/id426340811"></span>
-              <span class="app-copy"><strong>百度文库</strong><span>查找文档与学习资料</span></span>
-            </a>
-          </li>
-          <li data-keywords="souti jiang" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E5%A4%A7%E5%AD%A6%E6%90%9C%E9%A2%98%E9%85%B1-%E8%81%8C%E4%B8%9A%E8%80%83%E8%AF%95%E5%8A%A9%E6%89%8B/id1519166316">
-              <span class="app-icon" aria-hidden="true"><span>大</span><img src="icons/souti-jiang.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E5%A4%A7%E5%AD%A6%E6%90%9C%E9%A2%98%E9%85%B1-%E8%81%8C%E4%B8%9A%E8%80%83%E8%AF%95%E5%8A%A9%E6%89%8B/id1519166316"></span>
-              <span class="app-copy"><strong>大学搜题酱</strong><span>查询大学课程题目</span></span>
-            </a>
-          </li>
-          <li data-keywords="courseblock">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E4%BA%A4%E8%AF%BE%E8%A1%A8/id1639135612?uo=4">
-              <span class="app-icon" aria-hidden="true"><span>交</span><img src="icons/courseblock.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E4%BA%A4%E8%AF%BE%E8%A1%A8/id1639135612?uo=4"></span>
-              <span class="app-copy"><strong>交课表 CourseBlock</strong><span>上海交大课表</span></span>
-            </a>
-          </li>
-          <li data-keywords="siyuan lite">
-            <a class="app-card" href="https://net.sjtu.edu.cn/info/1315/4688.htm">
-              <span class="app-icon" aria-hidden="true"><span>思</span></span>
-              <span class="app-copy"><strong>思源码 Lite</strong><span>交大电子校园卡入口</span></span>
-            </a>
-          </li>
-          <li data-keywords="chsi">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E5%AD%A6%E4%BF%A1%E7%BD%91/id1488854568">
-              <span class="app-icon" aria-hidden="true"><span>学</span><img src="icons/chsi.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E5%AD%A6%E4%BF%A1%E7%BD%91/id1488854568"></span>
-              <span class="app-copy"><strong>学信网</strong><span>查询学籍与学历信息</span></span>
-            </a>
-          </li>
-          <li data-keywords="sjtu app">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E4%BA%A4%E6%88%91%E5%8A%9E/id1464477153">
-              <span class="app-icon" aria-hidden="true"><span>交</span><img src="icons/sjtu-app.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E4%BA%A4%E6%88%91%E5%8A%9E/id1464477153"></span>
-              <span class="app-copy"><strong>交我办</strong><span>上海交大校园服务</span></span>
-            </a>
-          </li>
-        </ul>
-      </section>
-      <section class="app-section" data-category="daily" aria-labelledby="heading-daily">
-        <h2 id="heading-daily">地图与出行</h2>
-        <ul class="app-grid">
-          <li data-keywords="amap 交通 地图" data-platform="common">
-            <a class="app-card" href="https://www.amap.com/">
-              <span class="app-icon" aria-hidden="true"><span>高</span><img src="icons/amap.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/cn/app/%E9%AB%98%E5%BE%B7%E5%9C%B0%E5%9B%BE-%E9%AB%98%E5%BE%B7%E6%89%93%E8%BD%A6-%E5%AF%BC%E8%88%AA%E5%85%AC%E4%BA%A4%E5%9C%B0%E9%93%81%E5%87%BA%E8%A1%8C/id461703208"></span>
-              <span class="app-copy"><strong>高德地图</strong><span>国内导航与路线规划</span></span>
-            </a>
-          </li>
-          <li data-keywords="google maps 谷歌地图" data-platform="common">
-            <a class="app-card" href="https://www.google.com/maps/about/">
-              <span class="app-icon" aria-hidden="true"><span>G</span><img src="icons/google-maps.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/us/app/google-maps/id585027354"></span>
-              <span class="app-copy"><strong>Google 地图</strong><span>地图、地点与导航</span></span>
-            </a>
-          </li>
-          <li data-keywords="火车 高铁 购票" data-platform="common">
-            <a class="app-card" href="https://kyfw.12306.cn/otn/appDownload/init">
-              <span class="app-icon" aria-hidden="true"><span>铁</span><img src="icons/railway-12306.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/cn/app/%E9%93%81%E8%B7%AF12306/id564818797"></span>
-              <span class="app-copy"><strong>铁路 12306</strong><span>查询车次和购买车票</span></span>
-            </a>
-          </li>
-          <li data-keywords="ctrip" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E6%90%BA%E7%A8%8B%E6%97%85%E8%A1%8C-%E8%AE%A2%E9%85%92%E5%BA%97%E6%9C%BA%E7%A5%A8%E7%81%AB%E8%BD%A6%E7%A5%A8/id379395415?uo=4">
-              <span class="app-icon" aria-hidden="true"><span>携</span><img src="icons/ctrip.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E6%90%BA%E7%A8%8B%E6%97%85%E8%A1%8C-%E8%AE%A2%E9%85%92%E5%BA%97%E6%9C%BA%E7%A5%A8%E7%81%AB%E8%BD%A6%E7%A5%A8/id379395415?uo=4"></span>
-              <span class="app-copy"><strong>携程旅行</strong><span>预订酒店和交通</span></span>
-            </a>
-          </li>
-          <li data-keywords="china mobile" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E4%B8%AD%E5%9B%BD%E7%A7%BB%E5%8A%A8-%E6%89%8B%E6%9C%BA%E8%90%A5%E4%B8%9A%E5%8E%85/id583700738">
-              <span class="app-icon" aria-hidden="true"><span>中</span><img src="icons/china-mobile.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E4%B8%AD%E5%9B%BD%E7%A7%BB%E5%8A%A8-%E6%89%8B%E6%9C%BA%E8%90%A5%E4%B8%9A%E5%8E%85/id583700738"></span>
-              <span class="app-copy"><strong>中国移动</strong><span>查询话费与办理业务</span></span>
-            </a>
-          </li>
-          <li data-keywords="shanghai citizen cloud" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E9%9A%8F%E7%94%B3%E5%8A%9E%E5%B8%82%E6%B0%91%E4%BA%91/id732618720">
-              <span class="app-icon" aria-hidden="true"><span>随</span><img src="icons/shanghai-citizen-cloud.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E9%9A%8F%E7%94%B3%E5%8A%9E%E5%B8%82%E6%B0%91%E4%BA%91/id732618720"></span>
-              <span class="app-copy"><strong>随申办市民云</strong><span>上海政务和生活服务</span></span>
-            </a>
-          </li>
-          <li data-keywords="traffic 12123" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E4%BA%A4%E7%AE%A112123/id1039727169?uo=4">
-              <span class="app-icon" aria-hidden="true"><span>交</span><img src="icons/traffic-12123.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E4%BA%A4%E7%AE%A112123/id1039727169?uo=4"></span>
-              <span class="app-copy"><strong>交管 12123</strong><span>机动车与驾驶证业务</span></span>
-            </a>
-          </li>
-          <li data-keywords="national network id">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E5%9B%BD%E5%AE%B6%E7%BD%91%E7%BB%9C%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81/id1588080869">
-              <span class="app-icon" aria-hidden="true"><span>国</span><img src="icons/national-network-id.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E5%9B%BD%E5%AE%B6%E7%BD%91%E7%BB%9C%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81/id1588080869"></span>
-              <span class="app-copy"><strong>国家网络身份认证</strong><span>国家网络身份认证服务</span></span>
-            </a>
-          </li>
-        </ul>
+      <section class="app-section" data-category="learning" aria-labelledby="heading-learning">
+        <h2 id="heading-learning">学习、校园与求职</h2>
+        <div class="app-subcategory" data-subcategory="language">
+          <h3 id="heading-learning-language">语言与声音练习</h3>
+          <ul class="app-grid" aria-labelledby="heading-learning-language">
+            <li data-keywords="多邻国 英语 日语 language" data-platform="common">
+              <a class="app-card" href="https://www.duolingo.com/">
+                <span class="app-icon" aria-hidden="true"><span>D</span><img src="icons/duolingo.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.duolingo&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>Duolingo</strong><span>多邻国语言练习</span></span>
+              </a>
+            </li>
+            <li data-keywords="有道 英语 字典 youdao" data-platform="common">
+              <a class="app-card" href="https://cidian.youdao.com/m/index.html">
+                <span class="app-icon" aria-hidden="true"><span>网</span><img src="icons/youdao.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/cn/app/%E7%BD%91%E6%98%93%E6%9C%89%E9%81%93%E8%AF%8D%E5%85%B8-%E4%B8%93%E4%B8%9A%E6%9F%A5%E8%AF%8D%E7%BF%BB%E8%AF%91%E5%AD%A6%E4%B9%A0%E5%8A%A9%E6%89%8B/id353115739"></span>
+                <span class="app-copy"><strong>网易有道词典</strong><span>查词、例句和发音</span></span>
+              </a>
+            </li>
+            <li data-keywords="声音 音高 pitch 声线" data-platform="common">
+              <a class="app-card" href="https://play.google.com/store/apps/details?id=com.DevExtras.VoiceTools">
+                <span class="app-icon" aria-hidden="true"><span>V</span><img src="icons/voice-tools.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.DevExtras.VoiceTools&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>Voice Tools</strong><span>查看音高和音量</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="study">
+          <h3 id="heading-learning-study">课程练习与搜题</h3>
+          <ul class="app-grid" aria-labelledby="heading-learning-study">
+            <li data-keywords="数学 编程 数理逻辑" data-platform="common">
+              <a class="app-card" href="https://brilliant.org/help/using-brilliant/where-can-i-use-brilliant/">
+                <span class="app-icon" aria-hidden="true"><span>B</span><img src="icons/brilliant.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=org.brilliant.android&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>Brilliant</strong><span>互动练习数学与计算机科学</span></span>
+              </a>
+            </li>
+            <li data-keywords="souti jiang" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E5%A4%A7%E5%AD%A6%E6%90%9C%E9%A2%98%E9%85%B1-%E8%81%8C%E4%B8%9A%E8%80%83%E8%AF%95%E5%8A%A9%E6%89%8B/id1519166316">
+                <span class="app-icon" aria-hidden="true"><span>大</span><img src="icons/souti-jiang.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E5%A4%A7%E5%AD%A6%E6%90%9C%E9%A2%98%E9%85%B1-%E8%81%8C%E4%B8%9A%E8%80%83%E8%AF%95%E5%8A%A9%E6%89%8B/id1519166316"></span>
+                <span class="app-copy"><strong>大学搜题酱</strong><span>查询大学课程题目</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="references">
+          <h3 id="heading-learning-references">学习资料与古文</h3>
+          <ul class="app-grid" aria-labelledby="heading-learning-references">
+            <li data-keywords="baidu wenku 资料 文档" data-platform="common">
+              <a class="app-card" href="https://wenku.baidu.com/">
+                <span class="app-icon" aria-hidden="true"><span>百</span><img src="icons/baidu-wenku.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/cn/app/%E7%99%BE%E5%BA%A6%E6%96%87%E5%BA%93-%E5%85%A8%E8%83%BDai%E5%86%85%E5%AE%B9%E8%8E%B7%E5%8F%96%E5%8F%8A%E5%88%9B%E4%BD%9C/id426340811"></span>
+                <span class="app-copy"><strong>百度文库</strong><span>查找文档与学习资料</span></span>
+              </a>
+            </li>
+            <li data-keywords="古诗 文言文" data-platform="common">
+              <a class="app-card" href="https://www.gushiwen.cn/">
+                <span class="app-icon" aria-hidden="true"><span>古</span><img src="icons/gushiwen.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/cn/app/%E5%8F%A4%E8%AF%97%E6%96%87%E7%BD%91-%E5%94%90%E8%AF%97%E5%AE%8B%E8%AF%8D%E5%8F%A4%E6%96%87%E5%85%B8%E7%B1%8D/id964708975"></span>
+                <span class="app-copy"><strong>古诗文网</strong><span>查古诗词与古文</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="campus">
+          <h3 id="heading-learning-campus">校园与学籍服务</h3>
+          <ul class="app-grid" aria-labelledby="heading-learning-campus">
+            <li data-keywords="courseblock">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E4%BA%A4%E8%AF%BE%E8%A1%A8/id1639135612?uo=4">
+                <span class="app-icon" aria-hidden="true"><span>交</span><img src="icons/courseblock.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E4%BA%A4%E8%AF%BE%E8%A1%A8/id1639135612?uo=4"></span>
+                <span class="app-copy"><strong>交课表 CourseBlock</strong><span>上海交大课表</span></span>
+              </a>
+            </li>
+            <li data-keywords="siyuan lite">
+              <a class="app-card" href="https://net.sjtu.edu.cn/info/1315/4688.htm">
+                <span class="app-icon" aria-hidden="true"><span>思</span></span>
+                <span class="app-copy"><strong>思源码 Lite</strong><span>交大电子校园卡入口</span></span>
+              </a>
+            </li>
+            <li data-keywords="sjtu app">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E4%BA%A4%E6%88%91%E5%8A%9E/id1464477153">
+                <span class="app-icon" aria-hidden="true"><span>交</span><img src="icons/sjtu-app.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E4%BA%A4%E6%88%91%E5%8A%9E/id1464477153"></span>
+                <span class="app-copy"><strong>交我办</strong><span>上海交大校园服务</span></span>
+              </a>
+            </li>
+            <li data-keywords="chsi">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E5%AD%A6%E4%BF%A1%E7%BD%91/id1488854568">
+                <span class="app-icon" aria-hidden="true"><span>学</span><img src="icons/chsi.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E5%AD%A6%E4%BF%A1%E7%BD%91/id1488854568"></span>
+                <span class="app-copy"><strong>学信网</strong><span>查询学籍与学历信息</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="career">
+          <h3 id="heading-learning-career">求职与面试</h3>
+          <ul class="app-grid" aria-labelledby="heading-learning-career">
+            <li data-keywords="boss" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/boss%E7%9B%B4%E8%81%98-%E6%8B%9B%E8%81%98%E6%B1%82%E8%81%8C%E6%89%BE%E5%B7%A5%E4%BD%9C%E6%8B%9B%E4%BA%BA/id887314963">
+                <span class="app-icon" aria-hidden="true"><span>B</span><img src="icons/boss.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/boss%E7%9B%B4%E8%81%98-%E6%8B%9B%E8%81%98%E6%B1%82%E8%81%8C%E6%89%BE%E5%B7%A5%E4%BD%9C%E6%8B%9B%E4%BA%BA/id887314963"></span>
+                <span class="app-copy"><strong>BOSS 直聘</strong><span>求职与招聘沟通</span></span>
+              </a>
+            </li>
+            <li data-keywords="offershow" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/offershow-%E6%8B%9B%E8%81%98%E6%B1%82%E8%81%8C%E6%9F%A5%E8%96%AA%E8%B5%84/id1671115110?uo=4">
+                <span class="app-icon" aria-hidden="true"><span>O</span><img src="icons/offershow.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/offershow-%E6%8B%9B%E8%81%98%E6%B1%82%E8%81%8C%E6%9F%A5%E8%96%AA%E8%B5%84/id1671115110?uo=4"></span>
+                <span class="app-copy"><strong>OfferShow</strong><span>薪资查询与求职信息</span></span>
+              </a>
+            </li>
+            <li data-keywords="nowcoder" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E7%89%9B%E5%AE%A2-%E5%A4%A7%E5%AD%A6%E7%94%9F%E5%AE%9E%E4%B9%A0%E6%B1%82%E8%81%8C%E6%89%BE%E5%B7%A5%E4%BD%9C%E7%A5%9E%E5%99%A8/id962209511">
+                <span class="app-icon" aria-hidden="true"><span>牛</span><img src="icons/nowcoder.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E7%89%9B%E5%AE%A2-%E5%A4%A7%E5%AD%A6%E7%94%9F%E5%AE%9E%E4%B9%A0%E6%B1%82%E8%81%8C%E6%89%BE%E5%B7%A5%E4%BD%9C%E7%A5%9E%E5%99%A8/id962209511"></span>
+                <span class="app-copy"><strong>牛客网</strong><span>招聘、面经与题库</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </section>
       <section class="app-section" data-category="shopping" aria-labelledby="heading-shopping">
         <h2 id="heading-shopping">购物、物流与找房</h2>
-        <ul class="app-grid">
-          <li data-keywords="taobao" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E6%B7%98%E5%AE%9D-%E4%B8%87%E8%83%BD%E7%9A%84%E6%B7%98%E5%AE%9D/id387682726">
-              <span class="app-icon" aria-hidden="true"><span>淘</span><img src="icons/taobao.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E6%B7%98%E5%AE%9D-%E4%B8%87%E8%83%BD%E7%9A%84%E6%B7%98%E5%AE%9D/id387682726"></span>
-              <span class="app-copy"><strong>淘宝</strong><span>综合购物</span></span>
-            </a>
-          </li>
-          <li data-keywords="jd" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E4%BA%AC%E4%B8%9C-%E5%8F%88%E5%A5%BD%E5%8F%88%E4%BE%BF%E5%AE%9C/id414245413?uo=4">
-              <span class="app-icon" aria-hidden="true"><span>京</span><img src="icons/jd.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E4%BA%AC%E4%B8%9C-%E5%8F%88%E5%A5%BD%E5%8F%88%E4%BE%BF%E5%AE%9C/id414245413?uo=4"></span>
-              <span class="app-copy"><strong>京东</strong><span>综合购物与配送</span></span>
-            </a>
-          </li>
-          <li data-keywords="pinduoduo" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E6%8B%BC%E5%A4%9A%E5%A4%9A-%E5%A4%9A%E5%A4%9A%E4%B9%B0%E8%8F%9C-%E7%99%BE%E4%BA%BF%E8%A1%A5%E8%B4%B4/id1044283059?uo=4">
-              <span class="app-icon" aria-hidden="true"><span>拼</span><img src="icons/pinduoduo.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E6%8B%BC%E5%A4%9A%E5%A4%9A-%E5%A4%9A%E5%A4%9A%E4%B9%B0%E8%8F%9C-%E7%99%BE%E4%BA%BF%E8%A1%A5%E8%B4%B4/id1044283059?uo=4"></span>
-              <span class="app-copy"><strong>拼多多</strong><span>商品购物与拼单</span></span>
-            </a>
-          </li>
-          <li data-keywords="xianyu" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E9%97%B2%E9%B1%BC-%E4%B8%8A%E9%97%B2%E9%B1%BC-%E8%B5%9A%E4%B8%80%E7%AC%94/id510909506">
-              <span class="app-icon" aria-hidden="true"><span>闲</span><img src="icons/xianyu.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E9%97%B2%E9%B1%BC-%E4%B8%8A%E9%97%B2%E9%B1%BC-%E8%B5%9A%E4%B8%80%E7%AC%94/id510909506"></span>
-              <span class="app-copy"><strong>闲鱼</strong><span>二手购物与闲置交易</span></span>
-            </a>
-          </li>
-          <li data-keywords="freshippo" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E7%9B%92%E9%A9%AC-%E9%B2%9C%E7%BE%8E%E7%94%9F%E6%B4%BB/id1063183999">
-              <span class="app-icon" aria-hidden="true"><span>盒</span><img src="icons/freshippo.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E7%9B%92%E9%A9%AC-%E9%B2%9C%E7%BE%8E%E7%94%9F%E6%B4%BB/id1063183999"></span>
-              <span class="app-copy"><strong>盒马</strong><span>生鲜购物与配送</span></span>
-            </a>
-          </li>
-          <li data-keywords="cainiao" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E8%8F%9C%E9%B8%9F-%E5%BF%AB%E9%80%92%E7%89%A9%E6%B5%81%E8%BD%BB%E6%9D%BE%E6%9F%A5%E5%AF%84%E5%8F%96/id951610982">
-              <span class="app-icon" aria-hidden="true"><span>菜</span><img src="icons/cainiao.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E8%8F%9C%E9%B8%9F-%E5%BF%AB%E9%80%92%E7%89%A9%E6%B5%81%E8%BD%BB%E6%9D%BE%E6%9F%A5%E5%AF%84%E5%8F%96/id951610982"></span>
-              <span class="app-copy"><strong>菜鸟</strong><span>查快递与管理包裹</span></span>
-            </a>
-          </li>
-          <li data-keywords="magic market lite">
-            <a class="app-card" href="https://www.masadora-trustee.com/announce/20240227_01.pdf">
-              <span class="app-icon" aria-hidden="true"><span>魔</span><img src="icons/magic-market-lite.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://lite-jknvym.appstor.io/"></span>
-              <span class="app-copy"><strong>魔法集市 Lite</strong><span>日本商品代购与转运 · 原版停运</span></span>
-            </a>
-          </li>
-          <li data-keywords="magic market global">
-            <a class="app-card" href="https://www.masadora-trustee.com/announce/20240227_01.pdf">
-              <span class="app-icon" aria-hidden="true"><span>魔</span></span>
-              <span class="app-copy"><strong>魔法集市 Global</strong><span>跨境购买日本商品 · 原版停运</span></span>
-            </a>
-          </li>
-          <li data-keywords="beike" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E8%B4%9D%E5%A3%B3-%E4%B9%B0%E6%88%BF%E8%A3%85%E4%BF%AE%E6%96%B0%E6%88%BF%E4%BA%8C%E6%89%8B%E6%88%BF%E7%A7%9F%E6%88%BF%E5%B9%B3%E5%8F%B0/id1347663353?uo=4">
-              <span class="app-icon" aria-hidden="true"><span>贝</span><img src="icons/beike.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E8%B4%9D%E5%A3%B3-%E4%B9%B0%E6%88%BF%E8%A3%85%E4%BF%AE%E6%96%B0%E6%88%BF%E4%BA%8C%E6%89%8B%E6%88%BF%E7%A7%9F%E6%88%BF%E5%B9%B3%E5%8F%B0/id1347663353?uo=4"></span>
-              <span class="app-copy"><strong>贝壳找房</strong><span>查询租房和买房房源</span></span>
-            </a>
-          </li>
-        </ul>
+        <div class="app-subcategory" data-subcategory="retail">
+          <h3 id="heading-shopping-retail">综合电商与生鲜</h3>
+          <ul class="app-grid" aria-labelledby="heading-shopping-retail">
+            <li data-keywords="taobao" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E6%B7%98%E5%AE%9D-%E4%B8%87%E8%83%BD%E7%9A%84%E6%B7%98%E5%AE%9D/id387682726">
+                <span class="app-icon" aria-hidden="true"><span>淘</span><img src="icons/taobao.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E6%B7%98%E5%AE%9D-%E4%B8%87%E8%83%BD%E7%9A%84%E6%B7%98%E5%AE%9D/id387682726"></span>
+                <span class="app-copy"><strong>淘宝</strong><span>综合购物</span></span>
+              </a>
+            </li>
+            <li data-keywords="jd" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E4%BA%AC%E4%B8%9C-%E5%8F%88%E5%A5%BD%E5%8F%88%E4%BE%BF%E5%AE%9C/id414245413?uo=4">
+                <span class="app-icon" aria-hidden="true"><span>京</span><img src="icons/jd.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E4%BA%AC%E4%B8%9C-%E5%8F%88%E5%A5%BD%E5%8F%88%E4%BE%BF%E5%AE%9C/id414245413?uo=4"></span>
+                <span class="app-copy"><strong>京东</strong><span>综合购物与配送</span></span>
+              </a>
+            </li>
+            <li data-keywords="pinduoduo" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E6%8B%BC%E5%A4%9A%E5%A4%9A-%E5%A4%9A%E5%A4%9A%E4%B9%B0%E8%8F%9C-%E7%99%BE%E4%BA%BF%E8%A1%A5%E8%B4%B4/id1044283059?uo=4">
+                <span class="app-icon" aria-hidden="true"><span>拼</span><img src="icons/pinduoduo.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E6%8B%BC%E5%A4%9A%E5%A4%9A-%E5%A4%9A%E5%A4%9A%E4%B9%B0%E8%8F%9C-%E7%99%BE%E4%BA%BF%E8%A1%A5%E8%B4%B4/id1044283059?uo=4"></span>
+                <span class="app-copy"><strong>拼多多</strong><span>商品购物与拼单</span></span>
+              </a>
+            </li>
+            <li data-keywords="freshippo" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E7%9B%92%E9%A9%AC-%E9%B2%9C%E7%BE%8E%E7%94%9F%E6%B4%BB/id1063183999">
+                <span class="app-icon" aria-hidden="true"><span>盒</span><img src="icons/freshippo.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E7%9B%92%E9%A9%AC-%E9%B2%9C%E7%BE%8E%E7%94%9F%E6%B4%BB/id1063183999"></span>
+                <span class="app-copy"><strong>盒马</strong><span>生鲜购物与配送</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="resale">
+          <h3 id="heading-shopping-resale">二手交易</h3>
+          <ul class="app-grid" aria-labelledby="heading-shopping-resale">
+            <li data-keywords="xianyu" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E9%97%B2%E9%B1%BC-%E4%B8%8A%E9%97%B2%E9%B1%BC-%E8%B5%9A%E4%B8%80%E7%AC%94/id510909506">
+                <span class="app-icon" aria-hidden="true"><span>闲</span><img src="icons/xianyu.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E9%97%B2%E9%B1%BC-%E4%B8%8A%E9%97%B2%E9%B1%BC-%E8%B5%9A%E4%B8%80%E7%AC%94/id510909506"></span>
+                <span class="app-copy"><strong>闲鱼</strong><span>二手购物与闲置交易</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="parcels">
+          <h3 id="heading-shopping-parcels">快递与包裹</h3>
+          <ul class="app-grid" aria-labelledby="heading-shopping-parcels">
+            <li data-keywords="cainiao" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E8%8F%9C%E9%B8%9F-%E5%BF%AB%E9%80%92%E7%89%A9%E6%B5%81%E8%BD%BB%E6%9D%BE%E6%9F%A5%E5%AF%84%E5%8F%96/id951610982">
+                <span class="app-icon" aria-hidden="true"><span>菜</span><img src="icons/cainiao.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E8%8F%9C%E9%B8%9F-%E5%BF%AB%E9%80%92%E7%89%A9%E6%B5%81%E8%BD%BB%E6%9D%BE%E6%9F%A5%E5%AF%84%E5%8F%96/id951610982"></span>
+                <span class="app-copy"><strong>菜鸟</strong><span>查快递与管理包裹</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="housing">
+          <h3 id="heading-shopping-housing">租房与买房</h3>
+          <ul class="app-grid" aria-labelledby="heading-shopping-housing">
+            <li data-keywords="beike" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E8%B4%9D%E5%A3%B3-%E4%B9%B0%E6%88%BF%E8%A3%85%E4%BF%AE%E6%96%B0%E6%88%BF%E4%BA%8C%E6%89%8B%E6%88%BF%E7%A7%9F%E6%88%BF%E5%B9%B3%E5%8F%B0/id1347663353?uo=4">
+                <span class="app-icon" aria-hidden="true"><span>贝</span><img src="icons/beike.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E8%B4%9D%E5%A3%B3-%E4%B9%B0%E6%88%BF%E8%A3%85%E4%BF%AE%E6%96%B0%E6%88%BF%E4%BA%8C%E6%89%8B%E6%88%BF%E7%A7%9F%E6%88%BF%E5%B9%B3%E5%8F%B0/id1347663353?uo=4"></span>
+                <span class="app-copy"><strong>贝壳找房</strong><span>查询租房和买房房源</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="archived-shopping">
+          <h3 id="heading-shopping-archived-shopping">海淘历史条目</h3>
+          <ul class="app-grid" aria-labelledby="heading-shopping-archived-shopping">
+            <li data-keywords="magic market lite">
+              <a class="app-card" href="https://www.masadora-trustee.com/announce/20240227_01.pdf">
+                <span class="app-icon" aria-hidden="true"><span>魔</span><img src="icons/magic-market-lite.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://lite-jknvym.appstor.io/"></span>
+                <span class="app-copy"><strong>魔法集市 Lite</strong><span>日本商品代购与转运 · 原版停运</span></span>
+              </a>
+            </li>
+            <li data-keywords="magic market global">
+              <a class="app-card" href="https://www.masadora-trustee.com/announce/20240227_01.pdf">
+                <span class="app-icon" aria-hidden="true"><span>魔</span></span>
+                <span class="app-copy"><strong>魔法集市 Global</strong><span>跨境购买日本商品 · 原版停运</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </section>
-      <section class="app-section" data-category="music" aria-labelledby="heading-music">
-        <h2 id="heading-music">音乐与设备配套</h2>
-        <ul class="app-grid">
-          <li data-keywords="netease music" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90-%E6%95%B0%E4%BA%BF%E9%9F%B3%E4%B9%90%E7%95%85%E5%90%AC/id590338362">
-              <span class="app-icon" aria-hidden="true"><span>网</span><img src="icons/netease-music.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90-%E6%95%B0%E4%BA%BF%E9%9F%B3%E4%B9%90%E7%95%85%E5%90%AC/id590338362"></span>
-              <span class="app-copy"><strong>网易云音乐</strong><span>在线音乐与歌单</span></span>
-            </a>
-          </li>
-          <li data-keywords="5sing">
-            <a class="app-card" href="https://apps.apple.com/cn/app/5sing%E9%9F%B3%E4%B9%90/id473613148">
-              <span class="app-icon" aria-hidden="true"><span>5</span><img src="icons/5sing.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/5sing%E9%9F%B3%E4%B9%90/id473613148"></span>
-              <span class="app-copy"><strong>5sing 音乐</strong><span>原创音乐与翻唱</span></span>
-            </a>
-          </li>
-          <li data-keywords="spotify" data-platform="common">
-            <a class="app-card" href="https://play.google.com/store/apps/details?id=com.spotify.music&amp;hl=en&amp;gl=us">
-              <span class="app-icon" aria-hidden="true"><span>S</span><img src="icons/spotify.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.spotify.music&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>Spotify</strong><span>音乐与播客</span></span>
-            </a>
-          </li>
-          <li data-keywords="xiaomi speaker" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E5%B0%8F%E7%B1%B3%E9%9F%B3%E7%AE%B1/id1270594280">
-              <span class="app-icon" aria-hidden="true"><span>小</span><img src="icons/xiaomi-speaker.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E5%B0%8F%E7%B1%B3%E9%9F%B3%E7%AE%B1/id1270594280"></span>
-              <span class="app-copy"><strong>小米音箱</strong><span>管理小爱音箱与设备</span></span>
-            </a>
-          </li>
-          <li data-keywords="sony sound connect" data-platform="common">
-            <a class="app-card" href="https://play.google.com/store/apps/details?id=com.sony.songpal.mdr&amp;hl=en&amp;gl=us">
-              <span class="app-icon" aria-hidden="true"><span>索</span><img src="icons/sony-sound-connect.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.sony.songpal.mdr&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>索尼 Sound Connect</strong><span>管理索尼耳机和音效</span></span>
-            </a>
-          </li>
-          <li data-keywords="dg lab">
-            <a class="app-card" href="https://apps.apple.com/cn/app/dg-lab/id1480806144?uo=4">
-              <span class="app-icon" aria-hidden="true"><span>D</span><img src="icons/dg-lab.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/dg-lab/id1480806144?uo=4"></span>
-              <span class="app-copy"><strong>DG-Lab</strong><span>连接 DG-Lab 设备</span></span>
-            </a>
-          </li>
-        </ul>
-      </section>
-      <section class="app-section" data-category="media" aria-labelledby="heading-media">
-        <h2 id="heading-media">视频、插画与阅读</h2>
-        <ul class="app-grid">
-          <li data-keywords="bilibili" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9-%E5%BC%B9%E5%B9%95%E7%95%AA%E5%89%A7%E7%9B%B4%E6%92%AD%E9%AB%98%E6%B8%85%E8%A7%86%E9%A2%91/id736536022?uo=4">
-              <span class="app-icon" aria-hidden="true"><span>哔</span><img src="icons/bilibili.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9-%E5%BC%B9%E5%B9%95%E7%95%AA%E5%89%A7%E7%9B%B4%E6%92%AD%E9%AB%98%E6%B8%85%E8%A7%86%E9%A2%91/id736536022?uo=4"></span>
-              <span class="app-copy"><strong>哔哩哔哩</strong><span>视频和直播</span></span>
-            </a>
-          </li>
-          <li data-keywords="twitch" data-platform="common">
-            <a class="app-card" href="https://play.google.com/store/apps/details?id=tv.twitch.android.app&amp;hl=en&amp;gl=us">
-              <span class="app-icon" aria-hidden="true"><span>T</span><img src="icons/twitch.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=tv.twitch.android.app&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>Twitch</strong><span>观看直播</span></span>
-            </a>
-          </li>
-          <li data-keywords="youtube" data-platform="common">
-            <a class="app-card" href="https://play.google.com/store/apps/details?id=com.google.android.youtube&amp;hl=en&amp;gl=us">
-              <span class="app-icon" aria-hidden="true"><span>Y</span><img src="icons/youtube.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.google.android.youtube&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>YouTube</strong><span>观看与订阅视频</span></span>
-            </a>
-          </li>
-          <li data-keywords="pixiv" data-platform="common">
-            <a class="app-card" href="https://play.google.com/store/apps/details?id=jp.pxv.android&amp;hl=en&amp;gl=us">
-              <span class="app-icon" aria-hidden="true"><span>p</span><img src="icons/pixiv.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=jp.pxv.android&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>pixiv</strong><span>插画与创作社区</span></span>
-            </a>
-          </li>
-          <li data-keywords="douban read" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E8%B1%86%E7%93%A3%E9%98%85%E8%AF%BB/id560068813">
-              <span class="app-icon" aria-hidden="true"><span>豆</span><img src="icons/douban-read.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E8%B1%86%E7%93%A3%E9%98%85%E8%AF%BB/id560068813"></span>
-              <span class="app-copy"><strong>豆瓣阅读</strong><span>阅读原创小说与作品</span></span>
-            </a>
-          </li>
-          <li data-keywords="qidian" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E8%B5%B7%E7%82%B9%E8%AF%BB%E4%B9%A6-%E7%9C%8B%E5%B0%8F%E8%AF%B4%E5%90%AC%E4%B9%A6%E7%9A%84%E9%98%85%E8%AF%BB%E7%A5%9E%E5%99%A8/id534174796">
-              <span class="app-icon" aria-hidden="true"><span>起</span><img src="icons/qidian.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E8%B5%B7%E7%82%B9%E8%AF%BB%E4%B9%A6-%E7%9C%8B%E5%B0%8F%E8%AF%B4%E5%90%AC%E4%B9%A6%E7%9A%84%E9%98%85%E8%AF%BB%E7%A5%9E%E5%99%A8/id534174796"></span>
-              <span class="app-copy"><strong>起点读书</strong><span>阅读起点小说</span></span>
-            </a>
-          </li>
-          <li data-keywords="picacg">
-            <div class="app-card">
-              <span class="app-icon" aria-hidden="true"><span>P</span></span>
-              <span class="app-copy"><strong>PicACG</strong><span>漫画阅读</span></span>
-            </div>
-          </li>
-          <li data-keywords="dingdian">
-            <div class="app-card">
-              <span class="app-icon" aria-hidden="true"><span>顶</span></span>
-              <span class="app-copy"><strong>顶点小说</strong><span>小说阅读</span></span>
-            </div>
-          </li>
-        </ul>
-      </section>
-      <section class="app-section" data-category="games" aria-labelledby="heading-games">
-        <h2 id="heading-games">游戏与 VR</h2>
-        <ul class="app-grid">
-          <li data-keywords="steam" data-platform="common">
-            <a class="app-card" href="https://play.google.com/store/apps/details?id=com.valvesoftware.android.steam.community&amp;hl=en&amp;gl=us">
-              <span class="app-icon" aria-hidden="true"><span>S</span><img src="icons/steam.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.valvesoftware.android.steam.community&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>Steam</strong><span>商店、社区与账号验证</span></span>
-            </a>
-          </li>
-          <li data-keywords="taptap" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/taptap-%E5%8F%91%E7%8E%B0%E5%A5%BD%E6%B8%B8%E6%88%8F/id1444595166">
-              <span class="app-icon" aria-hidden="true"><span>T</span><img src="icons/taptap.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/taptap-%E5%8F%91%E7%8E%B0%E5%A5%BD%E6%B8%B8%E6%88%8F/id1444595166"></span>
-              <span class="app-copy"><strong>TapTap</strong><span>游戏发现与社区</span></span>
-            </a>
-          </li>
-          <li data-keywords="qooapp" data-platform="android">
-            <a class="app-card" href="https://apps.qqaoop.com/en/app/880">
-              <span class="app-icon" aria-hidden="true"><span>Q</span><img src="icons/qooapp.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.qqaoop.com/en/app/880"></span>
-              <span class="app-copy"><strong>QooApp</strong><span>二次元游戏商店</span></span>
-            </a>
-          </li>
-          <li data-keywords="heybox" data-platform="common">
-            <a class="app-card" href="https://play.google.com/store/apps/details?id=com.max.xiaoheihe&amp;hl=en&amp;gl=us">
-              <span class="app-icon" aria-hidden="true"><span>小</span><img src="icons/heybox.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.max.xiaoheihe&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>小黑盒</strong><span>游戏社区与战绩查询</span></span>
-            </a>
-          </li>
-          <li data-keywords="blue archive" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E8%94%9A%E8%93%9D%E6%A1%A3%E6%A1%88/id6447541184">
-              <span class="app-icon" aria-hidden="true"><span>碧</span><img src="icons/blue-archive.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E8%94%9A%E8%93%9D%E6%A1%A3%E6%A1%88/id6447541184"></span>
-              <span class="app-copy"><strong>碧蓝档案</strong><span>角色扮演游戏</span></span>
-            </a>
-          </li>
-          <li data-keywords="girls frontline">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E5%B0%91%E5%A5%B3%E5%89%8D%E7%BA%BF2-%E8%BF%BD%E6%94%BE/id1590274853">
-              <span class="app-icon" aria-hidden="true"><span>少</span><img src="icons/girls-frontline.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E5%B0%91%E5%A5%B3%E5%89%8D%E7%BA%BF2-%E8%BF%BD%E6%94%BE/id1590274853"></span>
-              <span class="app-copy"><strong>少女前线</strong><span>战术策略游戏</span></span>
-            </a>
-          </li>
-          <li data-keywords="maimai helper" data-platform="android">
-            <a class="app-card" href="https://github.com/bakapiano/maimaidx-prober-updater-android">
-              <span class="app-icon" aria-hidden="true"><span>m</span><img src="icons/maimai-helper.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://github.com/bakapiano/maimaidx-prober-updater-android"></span>
-              <span class="app-copy"><strong>maimai 查分助手</strong><span>查询舞萌 DX 成绩</span></span>
-            </a>
-          </li>
-          <li data-keywords="war thunder assistant">
-            <a class="app-card" href="https://play.google.com/store/apps/details?id=com.gaijinent.WarThunderCompanion&amp;hl=en&amp;gl=us">
-              <span class="app-icon" aria-hidden="true"><span>W</span><img src="icons/war-thunder-assistant.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.gaijinent.WarThunderCompanion&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>WTRAssistant（战争雷霆助手）</strong><span>查看游戏战绩与载具</span></span>
-            </a>
-          </li>
-          <li data-keywords="meta horizon" data-platform="common">
-            <a class="app-card" href="https://play.google.com/store/apps/details?id=com.oculus.twilight&amp;hl=en&amp;gl=us">
-              <span class="app-icon" aria-hidden="true"><span>M</span><img src="icons/meta-horizon.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.oculus.twilight&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>Meta Horizon</strong><span>管理 Meta Quest 与社交空间</span></span>
-            </a>
-          </li>
-        </ul>
-      </section>
-      <section class="app-section" data-category="store" aria-labelledby="heading-store">
-        <h2 id="heading-store">应用商店</h2>
-        <ul class="app-grid">
-          <li data-keywords="google play" data-platform="android">
-            <a class="app-card" href="https://play.google.com/store">
-              <span class="app-icon" aria-hidden="true"><span>G</span><img src="icons/google-play.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://commons.wikimedia.org/wiki/File:Google_Play_2022_icon.svg"></span>
-              <span class="app-copy"><strong>Google Play 商店</strong><span>Android 应用商店</span></span>
-            </a>
-          </li>
-          <li data-keywords="apkpure" data-platform="android">
-            <a class="app-card" href="https://apkpure.com/apkpure-app.html">
-              <span class="app-icon" aria-hidden="true"><span>A</span><img src="icons/apkpure.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apkpure.com/apkpure-app.html"></span>
-              <span class="app-copy"><strong>APKPure</strong><span>Android 应用下载与更新</span></span>
-            </a>
-          </li>
-          <li data-keywords="myapp" data-platform="android">
-            <a class="app-card" href="https://www.tencent.net.cn/zh-cn/products/yingyongbao/">
-              <span class="app-icon" aria-hidden="true"><span>腾</span><img src="icons/myapp.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://www.tencent.net.cn/zh-cn/products/yingyongbao/"></span>
-              <span class="app-copy"><strong>腾讯应用宝</strong><span>腾讯的 Android 应用商店</span></span>
-            </a>
-          </li>
-        </ul>
+      <section class="app-section" data-category="local" aria-labelledby="heading-local">
+        <h2 id="heading-local">出行与生活服务</h2>
+        <div class="app-subcategory" data-subcategory="maps">
+          <h3 id="heading-local-maps">地图与导航</h3>
+          <ul class="app-grid" aria-labelledby="heading-local-maps">
+            <li data-keywords="amap 交通 地图" data-platform="common">
+              <a class="app-card" href="https://www.amap.com/">
+                <span class="app-icon" aria-hidden="true"><span>高</span><img src="icons/amap.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/cn/app/%E9%AB%98%E5%BE%B7%E5%9C%B0%E5%9B%BE-%E9%AB%98%E5%BE%B7%E6%89%93%E8%BD%A6-%E5%AF%BC%E8%88%AA%E5%85%AC%E4%BA%A4%E5%9C%B0%E9%93%81%E5%87%BA%E8%A1%8C/id461703208"></span>
+                <span class="app-copy"><strong>高德地图</strong><span>国内导航与路线规划</span></span>
+              </a>
+            </li>
+            <li data-keywords="google maps 谷歌地图" data-platform="common">
+              <a class="app-card" href="https://www.google.com/maps/about/">
+                <span class="app-icon" aria-hidden="true"><span>G</span><img src="icons/google-maps.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/us/app/google-maps/id585027354"></span>
+                <span class="app-copy"><strong>Google 地图</strong><span>地图、地点与导航</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="travel">
+          <h3 id="heading-local-travel">交通与旅行预订</h3>
+          <ul class="app-grid" aria-labelledby="heading-local-travel">
+            <li data-keywords="火车 高铁 购票" data-platform="common">
+              <a class="app-card" href="https://kyfw.12306.cn/otn/appDownload/init">
+                <span class="app-icon" aria-hidden="true"><span>铁</span><img src="icons/railway-12306.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/cn/app/%E9%93%81%E8%B7%AF12306/id564818797"></span>
+                <span class="app-copy"><strong>铁路 12306</strong><span>查询车次和购买车票</span></span>
+              </a>
+            </li>
+            <li data-keywords="ctrip" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E6%90%BA%E7%A8%8B%E6%97%85%E8%A1%8C-%E8%AE%A2%E9%85%92%E5%BA%97%E6%9C%BA%E7%A5%A8%E7%81%AB%E8%BD%A6%E7%A5%A8/id379395415?uo=4">
+                <span class="app-icon" aria-hidden="true"><span>携</span><img src="icons/ctrip.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E6%90%BA%E7%A8%8B%E6%97%85%E8%A1%8C-%E8%AE%A2%E9%85%92%E5%BA%97%E6%9C%BA%E7%A5%A8%E7%81%AB%E8%BD%A6%E7%A5%A8/id379395415?uo=4"></span>
+                <span class="app-copy"><strong>携程旅行</strong><span>预订酒店和交通</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="public-services">
+          <h3 id="heading-local-public-services">政务与身份认证</h3>
+          <ul class="app-grid" aria-labelledby="heading-local-public-services">
+            <li data-keywords="shanghai citizen cloud" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E9%9A%8F%E7%94%B3%E5%8A%9E%E5%B8%82%E6%B0%91%E4%BA%91/id732618720">
+                <span class="app-icon" aria-hidden="true"><span>随</span><img src="icons/shanghai-citizen-cloud.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E9%9A%8F%E7%94%B3%E5%8A%9E%E5%B8%82%E6%B0%91%E4%BA%91/id732618720"></span>
+                <span class="app-copy"><strong>随申办市民云</strong><span>上海政务和生活服务</span></span>
+              </a>
+            </li>
+            <li data-keywords="traffic 12123" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E4%BA%A4%E7%AE%A112123/id1039727169?uo=4">
+                <span class="app-icon" aria-hidden="true"><span>交</span><img src="icons/traffic-12123.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E4%BA%A4%E7%AE%A112123/id1039727169?uo=4"></span>
+                <span class="app-copy"><strong>交管 12123</strong><span>机动车与驾驶证业务</span></span>
+              </a>
+            </li>
+            <li data-keywords="national network id">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E5%9B%BD%E5%AE%B6%E7%BD%91%E7%BB%9C%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81/id1588080869">
+                <span class="app-icon" aria-hidden="true"><span>国</span><img src="icons/national-network-id.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E5%9B%BD%E5%AE%B6%E7%BD%91%E7%BB%9C%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81/id1588080869"></span>
+                <span class="app-copy"><strong>国家网络身份认证</strong><span>国家网络身份认证服务</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="telecom">
+          <h3 id="heading-local-telecom">通信运营商服务</h3>
+          <ul class="app-grid" aria-labelledby="heading-local-telecom">
+            <li data-keywords="china mobile" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E4%B8%AD%E5%9B%BD%E7%A7%BB%E5%8A%A8-%E6%89%8B%E6%9C%BA%E8%90%A5%E4%B8%9A%E5%8E%85/id583700738">
+                <span class="app-icon" aria-hidden="true"><span>中</span><img src="icons/china-mobile.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E4%B8%AD%E5%9B%BD%E7%A7%BB%E5%8A%A8-%E6%89%8B%E6%9C%BA%E8%90%A5%E4%B8%9A%E5%8E%85/id583700738"></span>
+                <span class="app-copy"><strong>中国移动</strong><span>查询话费与办理业务</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="tickets">
+          <h3 id="heading-local-tickets">演出、电影与票券</h3>
+          <ul class="app-grid" aria-labelledby="heading-local-tickets">
+            <li data-keywords="showstart" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E7%A7%80%E5%8A%A8-%E7%9C%8B%E7%8E%B0%E5%9C%BA%E6%BC%94%E5%87%BA%E7%9A%84%E7%A7%BB%E5%8A%A8%E7%A5%A8%E5%8A%A1%E5%B9%B3%E5%8F%B0/id923912459">
+                <span class="app-icon" aria-hidden="true"><span>秀</span><img src="icons/showstart.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E7%A7%80%E5%8A%A8-%E7%9C%8B%E7%8E%B0%E5%9C%BA%E6%BC%94%E5%87%BA%E7%9A%84%E7%A7%BB%E5%8A%A8%E7%A5%A8%E5%8A%A1%E5%B9%B3%E5%8F%B0/id923912459"></span>
+                <span class="app-copy"><strong>秀动</strong><span>演出资讯与购票</span></span>
+              </a>
+            </li>
+            <li data-keywords="alading">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E9%98%BF%E6%8B%89%E8%AE%A2/id1000500016">
+                <span class="app-icon" aria-hidden="true"><span>阿</span><img src="icons/alading.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E9%98%BF%E6%8B%89%E8%AE%A2/id1000500016"></span>
+                <span class="app-copy"><strong>阿拉订</strong><span>票券与兑换服务</span></span>
+              </a>
+            </li>
+            <li data-keywords="damai" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E5%A4%A7%E9%BA%A6-%E7%94%B5%E5%BD%B1-%E6%BC%94%E5%87%BA-%E4%BD%93%E8%82%B2%E8%B4%AD%E7%A5%A8%E5%B9%B3%E5%8F%B0/id513829338">
+                <span class="app-icon" aria-hidden="true"><span>大</span><img src="icons/damai.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E5%A4%A7%E9%BA%A6-%E7%94%B5%E5%BD%B1-%E6%BC%94%E5%87%BA-%E4%BD%93%E8%82%B2%E8%B4%AD%E7%A5%A8%E5%B9%B3%E5%8F%B0/id513829338"></span>
+                <span class="app-copy"><strong>大麦</strong><span>演出与赛事票务</span></span>
+              </a>
+            </li>
+            <li data-keywords="taopiaopiao" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E6%B7%98%E7%A5%A8%E7%A5%A8-%E7%94%B5%E5%BD%B1-%E6%BC%94%E5%87%BA%E4%B8%80%E7%AB%99%E5%BC%8F%E8%B4%AD%E7%A5%A8%E5%B9%B3%E5%8F%B0/id566813949">
+                <span class="app-icon" aria-hidden="true"><span>淘</span><img src="icons/taopiaopiao.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E6%B7%98%E7%A5%A8%E7%A5%A8-%E7%94%B5%E5%BD%B1-%E6%BC%94%E5%87%BA%E4%B8%80%E7%AB%99%E5%BC%8F%E8%B4%AD%E7%A5%A8%E5%B9%B3%E5%8F%B0/id566813949"></span>
+                <span class="app-copy"><strong>淘票票</strong><span>电影排片与购票</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </section>
       <section class="app-section" data-category="finance" aria-labelledby="heading-finance">
         <h2 id="heading-finance">金融与支付</h2>
-        <ul class="app-grid">
-          <li data-keywords="bank of china" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E4%B8%AD%E5%9B%BD%E9%93%B6%E8%A1%8C/id399608199">
-              <span class="app-icon" aria-hidden="true"><span>中</span><img src="icons/bank-of-china.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E4%B8%AD%E5%9B%BD%E9%93%B6%E8%A1%8C/id399608199"></span>
-              <span class="app-copy"><strong>中国银行</strong><span>中国银行手机银行</span></span>
-            </a>
-          </li>
-          <li data-keywords="spdb" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E6%B5%A6%E5%8F%91%E9%93%B6%E8%A1%8C/id471855847?uo=4">
-              <span class="app-icon" aria-hidden="true"><span>浦</span><img src="icons/spdb.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E6%B5%A6%E5%8F%91%E9%93%B6%E8%A1%8C/id471855847?uo=4"></span>
-              <span class="app-copy"><strong>浦发银行</strong><span>浦发银行手机银行</span></span>
-            </a>
-          </li>
-          <li data-keywords="cmb" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E6%8B%9B%E5%95%86%E9%93%B6%E8%A1%8C/id392899425">
-              <span class="app-icon" aria-hidden="true"><span>招</span><img src="icons/cmb.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E6%8B%9B%E5%95%86%E9%93%B6%E8%A1%8C/id392899425"></span>
-              <span class="app-copy"><strong>招商银行</strong><span>招商银行手机银行</span></span>
-            </a>
-          </li>
-          <li data-keywords="unionpay" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E4%BA%91%E9%97%AA%E4%BB%98-%E9%93%B6%E8%A1%8C%E4%B8%9A%E7%BB%9F%E4%B8%80%E7%A7%BB%E5%8A%A8%E6%94%AF%E4%BB%98app/id600273928">
-              <span class="app-icon" aria-hidden="true"><span>云</span><img src="icons/unionpay.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E4%BA%91%E9%97%AA%E4%BB%98-%E9%93%B6%E8%A1%8C%E4%B8%9A%E7%BB%9F%E4%B8%80%E7%A7%BB%E5%8A%A8%E6%94%AF%E4%BB%98app/id600273928"></span>
-              <span class="app-copy"><strong>云闪付</strong><span>银联支付与银行卡管理</span></span>
-            </a>
-          </li>
-          <li data-keywords="paypal" data-platform="common">
-            <a class="app-card" href="https://play.google.com/store/apps/details?id=com.paypal.android.p2pmobile&amp;hl=en&amp;gl=us">
-              <span class="app-icon" aria-hidden="true"><span>P</span><img src="icons/paypal.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.paypal.android.p2pmobile&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>PayPal</strong><span>跨境收付款</span></span>
-            </a>
-          </li>
-          <li data-keywords="alipay" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E6%94%AF%E4%BB%98%E5%AE%9D-%E4%BD%A0%E7%9A%84ai%E7%94%9F%E6%B4%BB%E4%BC%99%E4%BC%B4/id333206289?uo=4">
-              <span class="app-icon" aria-hidden="true"><span>支</span><img src="icons/alipay.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E6%94%AF%E4%BB%98%E5%AE%9D-%E4%BD%A0%E7%9A%84ai%E7%94%9F%E6%B4%BB%E4%BC%99%E4%BC%B4/id333206289?uo=4"></span>
-              <span class="app-copy"><strong>支付宝</strong><span>移动支付与生活服务</span></span>
-            </a>
-          </li>
-          <li data-keywords="e cny" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E6%95%B0%E5%AD%97%E4%BA%BA%E6%B0%91%E5%B8%81/id1571652872">
-              <span class="app-icon" aria-hidden="true"><span>数</span><img src="icons/e-cny.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E6%95%B0%E5%AD%97%E4%BA%BA%E6%B0%91%E5%B8%81/id1571652872"></span>
-              <span class="app-copy"><strong>数字人民币（e-CNY）</strong><span>数字人民币钱包</span></span>
-            </a>
-          </li>
-          <li data-keywords="jd finance" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E4%BA%AC%E4%B8%9C%E9%87%91%E8%9E%8D-%E9%BB%84%E9%87%91%E5%9F%BA%E9%87%91%E7%90%86%E8%B4%A2%E5%80%9F%E8%B4%B7%E4%BF%9D%E9%99%A9%E4%B8%80%E7%AB%99%E5%BC%8F%E5%B9%B3%E5%8F%B0/id895682747">
-              <span class="app-icon" aria-hidden="true"><span>京</span><img src="icons/jd-finance.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E4%BA%AC%E4%B8%9C%E9%87%91%E8%9E%8D-%E9%BB%84%E9%87%91%E5%9F%BA%E9%87%91%E7%90%86%E8%B4%A2%E5%80%9F%E8%B4%B7%E4%BF%9D%E9%99%A9%E4%B8%80%E7%AB%99%E5%BC%8F%E5%B9%B3%E5%8F%B0/id895682747"></span>
-              <span class="app-copy"><strong>京东金融</strong><span>京东支付与金融服务</span></span>
-            </a>
-          </li>
-          <li data-keywords="eastmoney" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E4%B8%9C%E6%96%B9%E8%B4%A2%E5%AF%8C-%E8%82%A1%E7%A5%A8-%E7%82%92%E8%82%A1-%E7%90%86%E8%B4%A2/id423525686">
-              <span class="app-icon" aria-hidden="true"><span>东</span><img src="icons/eastmoney.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E4%B8%9C%E6%96%B9%E8%B4%A2%E5%AF%8C-%E8%82%A1%E7%A5%A8-%E7%82%92%E8%82%A1-%E7%90%86%E8%B4%A2/id423525686"></span>
-              <span class="app-copy"><strong>东方财富</strong><span>行情资讯与证券服务</span></span>
-            </a>
-          </li>
-          <li data-keywords="shanghai securities">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E4%B8%8A%E6%B5%B7%E8%AF%81%E5%88%B8%E6%8C%87e%E9%80%9A-%E8%82%A1%E7%A5%A8%E7%82%92%E8%82%A1%E5%BC%80%E6%88%B7/id1049248461">
-              <span class="app-icon" aria-hidden="true"><span>上</span><img src="icons/shanghai-securities.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E4%B8%8A%E6%B5%B7%E8%AF%81%E5%88%B8%E6%8C%87e%E9%80%9A-%E8%82%A1%E7%A5%A8%E7%82%92%E8%82%A1%E5%BC%80%E6%88%B7/id1049248461"></span>
-              <span class="app-copy"><strong>上海证券指 e 通</strong><span>上海证券手机客户端</span></span>
-            </a>
-          </li>
-          <li data-keywords="world app" data-platform="common">
-            <a class="app-card" href="https://play.google.com/store/apps/details?id=com.worldcoin&amp;hl=en&amp;gl=us">
-              <span class="app-icon" aria-hidden="true"><span>W</span><img src="icons/world-app.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.worldcoin&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>World App</strong><span>World 网络与钱包</span></span>
-            </a>
-          </li>
-          <li data-keywords="binance" data-platform="common">
-            <a class="app-card" href="https://play.google.com/store/apps/details?id=com.binance.dev&amp;hl=en&amp;gl=us">
-              <span class="app-icon" aria-hidden="true"><span>B</span><img src="icons/binance.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.binance.dev&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>Binance（币安）</strong><span>数字资产平台</span></span>
-            </a>
-          </li>
-          <li data-keywords="bitpay" data-platform="common">
-            <a class="app-card" href="https://play.google.com/store/apps/details?id=com.bitpay.wallet&amp;hl=en&amp;gl=us">
-              <span class="app-icon" aria-hidden="true"><span>B</span><img src="icons/bitpay.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.bitpay.wallet&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>BitPay</strong><span>数字资产支付与钱包</span></span>
-            </a>
-          </li>
-        </ul>
+        <div class="app-subcategory" data-subcategory="banking">
+          <h3 id="heading-finance-banking">银行与综合金融</h3>
+          <ul class="app-grid" aria-labelledby="heading-finance-banking">
+            <li data-keywords="bank of china" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E4%B8%AD%E5%9B%BD%E9%93%B6%E8%A1%8C/id399608199">
+                <span class="app-icon" aria-hidden="true"><span>中</span><img src="icons/bank-of-china.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E4%B8%AD%E5%9B%BD%E9%93%B6%E8%A1%8C/id399608199"></span>
+                <span class="app-copy"><strong>中国银行</strong><span>中国银行手机银行</span></span>
+              </a>
+            </li>
+            <li data-keywords="spdb" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E6%B5%A6%E5%8F%91%E9%93%B6%E8%A1%8C/id471855847?uo=4">
+                <span class="app-icon" aria-hidden="true"><span>浦</span><img src="icons/spdb.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E6%B5%A6%E5%8F%91%E9%93%B6%E8%A1%8C/id471855847?uo=4"></span>
+                <span class="app-copy"><strong>浦发银行</strong><span>浦发银行手机银行</span></span>
+              </a>
+            </li>
+            <li data-keywords="cmb" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E6%8B%9B%E5%95%86%E9%93%B6%E8%A1%8C/id392899425">
+                <span class="app-icon" aria-hidden="true"><span>招</span><img src="icons/cmb.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E6%8B%9B%E5%95%86%E9%93%B6%E8%A1%8C/id392899425"></span>
+                <span class="app-copy"><strong>招商银行</strong><span>招商银行手机银行</span></span>
+              </a>
+            </li>
+            <li data-keywords="jd finance" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E4%BA%AC%E4%B8%9C%E9%87%91%E8%9E%8D-%E9%BB%84%E9%87%91%E5%9F%BA%E9%87%91%E7%90%86%E8%B4%A2%E5%80%9F%E8%B4%B7%E4%BF%9D%E9%99%A9%E4%B8%80%E7%AB%99%E5%BC%8F%E5%B9%B3%E5%8F%B0/id895682747">
+                <span class="app-icon" aria-hidden="true"><span>京</span><img src="icons/jd-finance.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E4%BA%AC%E4%B8%9C%E9%87%91%E8%9E%8D-%E9%BB%84%E9%87%91%E5%9F%BA%E9%87%91%E7%90%86%E8%B4%A2%E5%80%9F%E8%B4%B7%E4%BF%9D%E9%99%A9%E4%B8%80%E7%AB%99%E5%BC%8F%E5%B9%B3%E5%8F%B0/id895682747"></span>
+                <span class="app-copy"><strong>京东金融</strong><span>京东支付与金融服务</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="payments">
+          <h3 id="heading-finance-payments">支付与电子钱包</h3>
+          <ul class="app-grid" aria-labelledby="heading-finance-payments">
+            <li data-keywords="unionpay" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E4%BA%91%E9%97%AA%E4%BB%98-%E9%93%B6%E8%A1%8C%E4%B8%9A%E7%BB%9F%E4%B8%80%E7%A7%BB%E5%8A%A8%E6%94%AF%E4%BB%98app/id600273928">
+                <span class="app-icon" aria-hidden="true"><span>云</span><img src="icons/unionpay.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E4%BA%91%E9%97%AA%E4%BB%98-%E9%93%B6%E8%A1%8C%E4%B8%9A%E7%BB%9F%E4%B8%80%E7%A7%BB%E5%8A%A8%E6%94%AF%E4%BB%98app/id600273928"></span>
+                <span class="app-copy"><strong>云闪付</strong><span>银联支付与银行卡管理</span></span>
+              </a>
+            </li>
+            <li data-keywords="paypal" data-platform="common">
+              <a class="app-card" href="https://play.google.com/store/apps/details?id=com.paypal.android.p2pmobile&amp;hl=en&amp;gl=us">
+                <span class="app-icon" aria-hidden="true"><span>P</span><img src="icons/paypal.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.paypal.android.p2pmobile&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>PayPal</strong><span>跨境收付款</span></span>
+              </a>
+            </li>
+            <li data-keywords="alipay" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E6%94%AF%E4%BB%98%E5%AE%9D-%E4%BD%A0%E7%9A%84ai%E7%94%9F%E6%B4%BB%E4%BC%99%E4%BC%B4/id333206289?uo=4">
+                <span class="app-icon" aria-hidden="true"><span>支</span><img src="icons/alipay.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E6%94%AF%E4%BB%98%E5%AE%9D-%E4%BD%A0%E7%9A%84ai%E7%94%9F%E6%B4%BB%E4%BC%99%E4%BC%B4/id333206289?uo=4"></span>
+                <span class="app-copy"><strong>支付宝</strong><span>移动支付与生活服务</span></span>
+              </a>
+            </li>
+            <li data-keywords="e cny" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E6%95%B0%E5%AD%97%E4%BA%BA%E6%B0%91%E5%B8%81/id1571652872">
+                <span class="app-icon" aria-hidden="true"><span>数</span><img src="icons/e-cny.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E6%95%B0%E5%AD%97%E4%BA%BA%E6%B0%91%E5%B8%81/id1571652872"></span>
+                <span class="app-copy"><strong>数字人民币（e-CNY）</strong><span>数字人民币钱包</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="securities">
+          <h3 id="heading-finance-securities">证券与行情</h3>
+          <ul class="app-grid" aria-labelledby="heading-finance-securities">
+            <li data-keywords="eastmoney" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E4%B8%9C%E6%96%B9%E8%B4%A2%E5%AF%8C-%E8%82%A1%E7%A5%A8-%E7%82%92%E8%82%A1-%E7%90%86%E8%B4%A2/id423525686">
+                <span class="app-icon" aria-hidden="true"><span>东</span><img src="icons/eastmoney.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E4%B8%9C%E6%96%B9%E8%B4%A2%E5%AF%8C-%E8%82%A1%E7%A5%A8-%E7%82%92%E8%82%A1-%E7%90%86%E8%B4%A2/id423525686"></span>
+                <span class="app-copy"><strong>东方财富</strong><span>行情资讯与证券服务</span></span>
+              </a>
+            </li>
+            <li data-keywords="shanghai securities">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E4%B8%8A%E6%B5%B7%E8%AF%81%E5%88%B8%E6%8C%87e%E9%80%9A-%E8%82%A1%E7%A5%A8%E7%82%92%E8%82%A1%E5%BC%80%E6%88%B7/id1049248461">
+                <span class="app-icon" aria-hidden="true"><span>上</span><img src="icons/shanghai-securities.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E4%B8%8A%E6%B5%B7%E8%AF%81%E5%88%B8%E6%8C%87e%E9%80%9A-%E8%82%A1%E7%A5%A8%E7%82%92%E8%82%A1%E5%BC%80%E6%88%B7/id1049248461"></span>
+                <span class="app-copy"><strong>上海证券指 e 通</strong><span>上海证券手机客户端</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="digital-assets">
+          <h3 id="heading-finance-digital-assets">数字资产</h3>
+          <ul class="app-grid" aria-labelledby="heading-finance-digital-assets">
+            <li data-keywords="world app" data-platform="common">
+              <a class="app-card" href="https://play.google.com/store/apps/details?id=com.worldcoin&amp;hl=en&amp;gl=us">
+                <span class="app-icon" aria-hidden="true"><span>W</span><img src="icons/world-app.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.worldcoin&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>World App</strong><span>World 网络与钱包</span></span>
+              </a>
+            </li>
+            <li data-keywords="binance" data-platform="common">
+              <a class="app-card" href="https://play.google.com/store/apps/details?id=com.binance.dev&amp;hl=en&amp;gl=us">
+                <span class="app-icon" aria-hidden="true"><span>B</span><img src="icons/binance.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.binance.dev&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>Binance（币安）</strong><span>数字资产平台</span></span>
+              </a>
+            </li>
+            <li data-keywords="bitpay" data-platform="common">
+              <a class="app-card" href="https://play.google.com/store/apps/details?id=com.bitpay.wallet&amp;hl=en&amp;gl=us">
+                <span class="app-icon" aria-hidden="true"><span>B</span><img src="icons/bitpay.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.bitpay.wallet&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>BitPay</strong><span>数字资产支付与钱包</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </section>
+      <section class="app-section" data-category="games" aria-labelledby="heading-games">
+        <h2 id="heading-games">游戏与 VR</h2>
+        <div class="app-subcategory" data-subcategory="game-stores">
+          <h3 id="heading-games-game-stores">游戏商店与社区</h3>
+          <ul class="app-grid" aria-labelledby="heading-games-game-stores">
+            <li data-keywords="steam" data-platform="common">
+              <a class="app-card" href="https://play.google.com/store/apps/details?id=com.valvesoftware.android.steam.community&amp;hl=en&amp;gl=us">
+                <span class="app-icon" aria-hidden="true"><span>S</span><img src="icons/steam.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.valvesoftware.android.steam.community&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>Steam</strong><span>商店、社区与账号验证</span></span>
+              </a>
+            </li>
+            <li data-keywords="taptap" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/taptap-%E5%8F%91%E7%8E%B0%E5%A5%BD%E6%B8%B8%E6%88%8F/id1444595166">
+                <span class="app-icon" aria-hidden="true"><span>T</span><img src="icons/taptap.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/taptap-%E5%8F%91%E7%8E%B0%E5%A5%BD%E6%B8%B8%E6%88%8F/id1444595166"></span>
+                <span class="app-copy"><strong>TapTap</strong><span>游戏发现与社区</span></span>
+              </a>
+            </li>
+            <li data-keywords="qooapp" data-platform="android">
+              <a class="app-card" href="https://apps.qqaoop.com/en/app/880">
+                <span class="app-icon" aria-hidden="true"><span>Q</span><img src="icons/qooapp.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.qqaoop.com/en/app/880"></span>
+                <span class="app-copy"><strong>QooApp</strong><span>二次元游戏商店</span></span>
+              </a>
+            </li>
+            <li data-keywords="heybox" data-platform="common">
+              <a class="app-card" href="https://play.google.com/store/apps/details?id=com.max.xiaoheihe&amp;hl=en&amp;gl=us">
+                <span class="app-icon" aria-hidden="true"><span>小</span><img src="icons/heybox.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.max.xiaoheihe&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>小黑盒</strong><span>游戏社区与战绩查询</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="mobile-games">
+          <h3 id="heading-games-mobile-games">手机游戏</h3>
+          <ul class="app-grid" aria-labelledby="heading-games-mobile-games">
+            <li data-keywords="blue archive" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E8%94%9A%E8%93%9D%E6%A1%A3%E6%A1%88/id6447541184">
+                <span class="app-icon" aria-hidden="true"><span>碧</span><img src="icons/blue-archive.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E8%94%9A%E8%93%9D%E6%A1%A3%E6%A1%88/id6447541184"></span>
+                <span class="app-copy"><strong>碧蓝档案</strong><span>角色扮演游戏</span></span>
+              </a>
+            </li>
+            <li data-keywords="girls frontline">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E5%B0%91%E5%A5%B3%E5%89%8D%E7%BA%BF2-%E8%BF%BD%E6%94%BE/id1590274853">
+                <span class="app-icon" aria-hidden="true"><span>少</span><img src="icons/girls-frontline.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E5%B0%91%E5%A5%B3%E5%89%8D%E7%BA%BF2-%E8%BF%BD%E6%94%BE/id1590274853"></span>
+                <span class="app-copy"><strong>少女前线</strong><span>战术策略游戏</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="stats">
+          <h3 id="heading-games-stats">查分与战绩</h3>
+          <ul class="app-grid" aria-labelledby="heading-games-stats">
+            <li data-keywords="maimai helper" data-platform="android">
+              <a class="app-card" href="https://github.com/bakapiano/maimaidx-prober-updater-android">
+                <span class="app-icon" aria-hidden="true"><span>m</span><img src="icons/maimai-helper.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://github.com/bakapiano/maimaidx-prober-updater-android"></span>
+                <span class="app-copy"><strong>maimai 查分助手</strong><span>查询舞萌 DX 成绩</span></span>
+              </a>
+            </li>
+            <li data-keywords="war thunder assistant">
+              <a class="app-card" href="https://play.google.com/store/apps/details?id=com.gaijinent.WarThunderCompanion&amp;hl=en&amp;gl=us">
+                <span class="app-icon" aria-hidden="true"><span>W</span><img src="icons/war-thunder-assistant.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.gaijinent.WarThunderCompanion&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>WTRAssistant（战争雷霆助手）</strong><span>查看游戏战绩与载具</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="vr">
+          <h3 id="heading-games-vr">VR 设备与社交</h3>
+          <ul class="app-grid" aria-labelledby="heading-games-vr">
+            <li data-keywords="meta horizon" data-platform="common">
+              <a class="app-card" href="https://play.google.com/store/apps/details?id=com.oculus.twilight&amp;hl=en&amp;gl=us">
+                <span class="app-icon" aria-hidden="true"><span>M</span><img src="icons/meta-horizon.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.oculus.twilight&amp;hl=en&amp;gl=us"></span>
+                <span class="app-copy"><strong>Meta Horizon</strong><span>管理 Meta Quest 与社交空间</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </section>
       <section class="app-section" data-category="health" aria-labelledby="heading-health">
         <h2 id="heading-health">健康与饮食</h2>
-        <ul class="app-grid">
-          <li data-keywords="boohee" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E8%96%84%E8%8D%B7%E5%81%A5%E5%BA%B7-ai%E5%87%8F%E8%82%A5%E5%81%A5%E8%BA%AB%E8%BD%BB%E6%96%AD%E9%A3%9F%E4%BD%93%E9%87%8D%E7%AE%A1%E7%90%86%E5%B9%B3%E5%8F%B0/id457856023">
-              <span class="app-icon" aria-hidden="true"><span>薄</span><img src="icons/boohee.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E8%96%84%E8%8D%B7%E5%81%A5%E5%BA%B7-ai%E5%87%8F%E8%82%A5%E5%81%A5%E8%BA%AB%E8%BD%BB%E6%96%AD%E9%A3%9F%E4%BD%93%E9%87%8D%E7%AE%A1%E7%90%86%E5%B9%B3%E5%8F%B0/id457856023"></span>
-              <span class="app-copy"><strong>薄荷健康</strong><span>饮食记录与营养管理</span></span>
-            </a>
-          </li>
-          <li data-keywords="haodf" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E5%A5%BD%E5%A4%A7%E5%A4%AB%E5%9C%A8%E7%BA%BF/id919502358">
-              <span class="app-icon" aria-hidden="true"><span>好</span><img src="icons/haodf.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E5%A5%BD%E5%A4%A7%E5%A4%AB%E5%9C%A8%E7%BA%BF/id919502358"></span>
-              <span class="app-copy"><strong>好大夫在线</strong><span>问诊与挂号服务</span></span>
-            </a>
-          </li>
-          <li data-keywords="yowell">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E4%BC%98%E6%B8%A5/id1474974839?uo=4">
-              <span class="app-icon" aria-hidden="true"><span>Y</span><img src="icons/yowell.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E4%BC%98%E6%B8%A5/id1474974839?uo=4"></span>
-              <span class="app-copy"><strong>Yowell</strong><span>健康管理</span></span>
-            </a>
-          </li>
-          <li data-keywords="xiaomi health">
-            <a class="app-card" href="https://watch.xiaomiwear.com/html/privacy/index.html?locale=zh_cn&amp;model=app&amp;type=sport_healthy_privacy">
-              <span class="app-icon" aria-hidden="true"><span>小</span></span>
-              <span class="app-copy"><strong>小米健康</strong><span>记录运动与健康数据</span></span>
-            </a>
-          </li>
-          <li data-keywords="haoqing" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E5%A5%BD%E8%BD%BB-ai%E5%87%8F%E8%82%A5%E7%83%AD%E9%87%8F%E8%AE%B0%E5%BD%95%E4%B8%8E%E4%BD%93%E9%87%8D%E7%AE%A1%E7%90%86/id889565307">
-              <span class="app-icon" aria-hidden="true"><span>好</span><img src="icons/haoqing.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E5%A5%BD%E8%BD%BB-ai%E5%87%8F%E8%82%A5%E7%83%AD%E9%87%8F%E8%AE%B0%E5%BD%95%E4%B8%8E%E4%BD%93%E9%87%8D%E7%AE%A1%E7%90%86/id889565307"></span>
-              <span class="app-copy"><strong>好轻</strong><span>体重与体脂记录</span></span>
-            </a>
-          </li>
-          <li data-keywords="fanju" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E9%A5%AD%E6%A9%98-%E6%87%92%E4%BA%BA%E4%B8%93%E5%B1%9E%E7%98%A6%E8%BA%AB%E9%A3%9F%E8%B0%B1-%E6%8B%92%E7%BB%9D%E8%8A%82%E9%A3%9F%E4%B9%9F%E8%83%BD%E8%BD%BB%E6%9D%BE%E7%98%A6%E8%BA%AB/id1578413253">
-              <span class="app-icon" aria-hidden="true"><span>饭</span><img src="icons/fanju.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E9%A5%AD%E6%A9%98-%E6%87%92%E4%BA%BA%E4%B8%93%E5%B1%9E%E7%98%A6%E8%BA%AB%E9%A3%9F%E8%B0%B1-%E6%8B%92%E7%BB%9D%E8%8A%82%E9%A3%9F%E4%B9%9F%E8%83%BD%E8%BD%BB%E6%9D%BE%E7%98%A6%E8%BA%AB/id1578413253"></span>
-              <span class="app-copy"><strong>饭橘</strong><span>饮食与热量记录</span></span>
-            </a>
-          </li>
-        </ul>
+        <div class="app-subcategory" data-subcategory="food">
+          <h3 id="heading-health-food">营养与饮食记录</h3>
+          <ul class="app-grid" aria-labelledby="heading-health-food">
+            <li data-keywords="boohee" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E8%96%84%E8%8D%B7%E5%81%A5%E5%BA%B7-ai%E5%87%8F%E8%82%A5%E5%81%A5%E8%BA%AB%E8%BD%BB%E6%96%AD%E9%A3%9F%E4%BD%93%E9%87%8D%E7%AE%A1%E7%90%86%E5%B9%B3%E5%8F%B0/id457856023">
+                <span class="app-icon" aria-hidden="true"><span>薄</span><img src="icons/boohee.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E8%96%84%E8%8D%B7%E5%81%A5%E5%BA%B7-ai%E5%87%8F%E8%82%A5%E5%81%A5%E8%BA%AB%E8%BD%BB%E6%96%AD%E9%A3%9F%E4%BD%93%E9%87%8D%E7%AE%A1%E7%90%86%E5%B9%B3%E5%8F%B0/id457856023"></span>
+                <span class="app-copy"><strong>薄荷健康</strong><span>饮食记录与营养管理</span></span>
+              </a>
+            </li>
+            <li data-keywords="fanju" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E9%A5%AD%E6%A9%98-%E6%87%92%E4%BA%BA%E4%B8%93%E5%B1%9E%E7%98%A6%E8%BA%AB%E9%A3%9F%E8%B0%B1-%E6%8B%92%E7%BB%9D%E8%8A%82%E9%A3%9F%E4%B9%9F%E8%83%BD%E8%BD%BB%E6%9D%BE%E7%98%A6%E8%BA%AB/id1578413253">
+                <span class="app-icon" aria-hidden="true"><span>饭</span><img src="icons/fanju.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E9%A5%AD%E6%A9%98-%E6%87%92%E4%BA%BA%E4%B8%93%E5%B1%9E%E7%98%A6%E8%BA%AB%E9%A3%9F%E8%B0%B1-%E6%8B%92%E7%BB%9D%E8%8A%82%E9%A3%9F%E4%B9%9F%E8%83%BD%E8%BD%BB%E6%9D%BE%E7%98%A6%E8%BA%AB/id1578413253"></span>
+                <span class="app-copy"><strong>饭橘</strong><span>饮食与热量记录</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="fitness">
+          <h3 id="heading-health-fitness">运动、体重与健康记录</h3>
+          <ul class="app-grid" aria-labelledby="heading-health-fitness">
+            <li data-keywords="yowell">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E4%BC%98%E6%B8%A5/id1474974839?uo=4">
+                <span class="app-icon" aria-hidden="true"><span>Y</span><img src="icons/yowell.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E4%BC%98%E6%B8%A5/id1474974839?uo=4"></span>
+                <span class="app-copy"><strong>Yowell</strong><span>健康管理</span></span>
+              </a>
+            </li>
+            <li data-keywords="xiaomi health">
+              <a class="app-card" href="https://watch.xiaomiwear.com/html/privacy/index.html?locale=zh_cn&amp;model=app&amp;type=sport_healthy_privacy">
+                <span class="app-icon" aria-hidden="true"><span>小</span></span>
+                <span class="app-copy"><strong>小米健康</strong><span>记录运动与健康数据</span></span>
+              </a>
+            </li>
+            <li data-keywords="haoqing" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E5%A5%BD%E8%BD%BB-ai%E5%87%8F%E8%82%A5%E7%83%AD%E9%87%8F%E8%AE%B0%E5%BD%95%E4%B8%8E%E4%BD%93%E9%87%8D%E7%AE%A1%E7%90%86/id889565307">
+                <span class="app-icon" aria-hidden="true"><span>好</span><img src="icons/haoqing.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E5%A5%BD%E8%BD%BB-ai%E5%87%8F%E8%82%A5%E7%83%AD%E9%87%8F%E8%AE%B0%E5%BD%95%E4%B8%8E%E4%BD%93%E9%87%8D%E7%AE%A1%E7%90%86/id889565307"></span>
+                <span class="app-copy"><strong>好轻</strong><span>体重与体脂记录</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="care">
+          <h3 id="heading-health-care">问诊与挂号</h3>
+          <ul class="app-grid" aria-labelledby="heading-health-care">
+            <li data-keywords="haodf" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E5%A5%BD%E5%A4%A7%E5%A4%AB%E5%9C%A8%E7%BA%BF/id919502358">
+                <span class="app-icon" aria-hidden="true"><span>好</span><img src="icons/haodf.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E5%A5%BD%E5%A4%A7%E5%A4%AB%E5%9C%A8%E7%BA%BF/id919502358"></span>
+                <span class="app-copy"><strong>好大夫在线</strong><span>问诊与挂号服务</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </section>
-      <section class="app-section" data-category="photos" aria-labelledby="heading-photos">
-        <h2 id="heading-photos">相机与修图</h2>
-        <ul class="app-grid">
-          <li data-keywords="meitu" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E7%BE%8E%E5%9B%BE%E7%A7%80%E7%A7%80-%E8%A7%86%E9%A2%91-%E5%9B%BE%E7%89%87-live%E4%BA%BA%E5%83%8F%E7%B2%BE%E4%BF%AE%E5%B7%A5%E5%85%B7/id416048305">
-              <span class="app-icon" aria-hidden="true"><span>美</span><img src="icons/meitu.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E7%BE%8E%E5%9B%BE%E7%A7%80%E7%A7%80-%E8%A7%86%E9%A2%91-%E5%9B%BE%E7%89%87-live%E4%BA%BA%E5%83%8F%E7%B2%BE%E4%BF%AE%E5%B7%A5%E5%85%B7/id416048305"></span>
-              <span class="app-copy"><strong>美图秀秀</strong><span>照片美化与修图</span></span>
-            </a>
-          </li>
-          <li data-keywords="wuta camera" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E6%97%A0%E4%BB%96%E7%9B%B8%E6%9C%BA-%E6%80%8E%E4%B9%88%E6%8B%8D%E9%83%BD%E5%A5%BD%E7%9C%8B/id1061534032">
-              <span class="app-icon" aria-hidden="true"><span>无</span><img src="icons/wuta-camera.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E6%97%A0%E4%BB%96%E7%9B%B8%E6%9C%BA-%E6%80%8E%E4%B9%88%E6%8B%8D%E9%83%BD%E5%A5%BD%E7%9C%8B/id1061534032"></span>
-              <span class="app-copy"><strong>无他相机</strong><span>人像拍摄与滤镜</span></span>
-            </a>
-          </li>
-          <li data-keywords="qingyan camera" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E8%BD%BB%E9%A2%9C-%E8%AE%B0%E5%BD%95%E7%BE%8E%E4%B8%80%E5%88%BB/id1375390276?uo=4">
-              <span class="app-icon" aria-hidden="true"><span>轻</span><img src="icons/qingyan-camera.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E8%BD%BB%E9%A2%9C-%E8%AE%B0%E5%BD%95%E7%BE%8E%E4%B8%80%E5%88%BB/id1375390276?uo=4"></span>
-              <span class="app-copy"><strong>轻颜相机</strong><span>人像拍摄与美颜</span></span>
-            </a>
-          </li>
-        </ul>
-      </section>
-      <section class="app-section" data-category="jobs" aria-labelledby="heading-jobs">
-        <h2 id="heading-jobs">求职</h2>
-        <ul class="app-grid">
-          <li data-keywords="boss" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/boss%E7%9B%B4%E8%81%98-%E6%8B%9B%E8%81%98%E6%B1%82%E8%81%8C%E6%89%BE%E5%B7%A5%E4%BD%9C%E6%8B%9B%E4%BA%BA/id887314963">
-              <span class="app-icon" aria-hidden="true"><span>B</span><img src="icons/boss.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/boss%E7%9B%B4%E8%81%98-%E6%8B%9B%E8%81%98%E6%B1%82%E8%81%8C%E6%89%BE%E5%B7%A5%E4%BD%9C%E6%8B%9B%E4%BA%BA/id887314963"></span>
-              <span class="app-copy"><strong>BOSS 直聘</strong><span>求职与招聘沟通</span></span>
-            </a>
-          </li>
-          <li data-keywords="offershow" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/offershow-%E6%8B%9B%E8%81%98%E6%B1%82%E8%81%8C%E6%9F%A5%E8%96%AA%E8%B5%84/id1671115110?uo=4">
-              <span class="app-icon" aria-hidden="true"><span>O</span><img src="icons/offershow.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/offershow-%E6%8B%9B%E8%81%98%E6%B1%82%E8%81%8C%E6%9F%A5%E8%96%AA%E8%B5%84/id1671115110?uo=4"></span>
-              <span class="app-copy"><strong>OfferShow</strong><span>薪资查询与求职信息</span></span>
-            </a>
-          </li>
-          <li data-keywords="nowcoder" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E7%89%9B%E5%AE%A2-%E5%A4%A7%E5%AD%A6%E7%94%9F%E5%AE%9E%E4%B9%A0%E6%B1%82%E8%81%8C%E6%89%BE%E5%B7%A5%E4%BD%9C%E7%A5%9E%E5%99%A8/id962209511">
-              <span class="app-icon" aria-hidden="true"><span>牛</span><img src="icons/nowcoder.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E7%89%9B%E5%AE%A2-%E5%A4%A7%E5%AD%A6%E7%94%9F%E5%AE%9E%E4%B9%A0%E6%B1%82%E8%81%8C%E6%89%BE%E5%B7%A5%E4%BD%9C%E7%A5%9E%E5%99%A8/id962209511"></span>
-              <span class="app-copy"><strong>牛客网</strong><span>招聘、面经与题库</span></span>
-            </a>
-          </li>
-        </ul>
-      </section>
-      <section class="app-section" data-category="tickets" aria-labelledby="heading-tickets">
-        <h2 id="heading-tickets">演出与电影票务</h2>
-        <ul class="app-grid">
-          <li data-keywords="showstart" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E7%A7%80%E5%8A%A8-%E7%9C%8B%E7%8E%B0%E5%9C%BA%E6%BC%94%E5%87%BA%E7%9A%84%E7%A7%BB%E5%8A%A8%E7%A5%A8%E5%8A%A1%E5%B9%B3%E5%8F%B0/id923912459">
-              <span class="app-icon" aria-hidden="true"><span>秀</span><img src="icons/showstart.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E7%A7%80%E5%8A%A8-%E7%9C%8B%E7%8E%B0%E5%9C%BA%E6%BC%94%E5%87%BA%E7%9A%84%E7%A7%BB%E5%8A%A8%E7%A5%A8%E5%8A%A1%E5%B9%B3%E5%8F%B0/id923912459"></span>
-              <span class="app-copy"><strong>秀动</strong><span>演出资讯与购票</span></span>
-            </a>
-          </li>
-          <li data-keywords="alading">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E9%98%BF%E6%8B%89%E8%AE%A2/id1000500016">
-              <span class="app-icon" aria-hidden="true"><span>阿</span><img src="icons/alading.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E9%98%BF%E6%8B%89%E8%AE%A2/id1000500016"></span>
-              <span class="app-copy"><strong>阿拉订</strong><span>票券与兑换服务</span></span>
-            </a>
-          </li>
-          <li data-keywords="damai" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E5%A4%A7%E9%BA%A6-%E7%94%B5%E5%BD%B1-%E6%BC%94%E5%87%BA-%E4%BD%93%E8%82%B2%E8%B4%AD%E7%A5%A8%E5%B9%B3%E5%8F%B0/id513829338">
-              <span class="app-icon" aria-hidden="true"><span>大</span><img src="icons/damai.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E5%A4%A7%E9%BA%A6-%E7%94%B5%E5%BD%B1-%E6%BC%94%E5%87%BA-%E4%BD%93%E8%82%B2%E8%B4%AD%E7%A5%A8%E5%B9%B3%E5%8F%B0/id513829338"></span>
-              <span class="app-copy"><strong>大麦</strong><span>演出与赛事票务</span></span>
-            </a>
-          </li>
-          <li data-keywords="taopiaopiao" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E6%B7%98%E7%A5%A8%E7%A5%A8-%E7%94%B5%E5%BD%B1-%E6%BC%94%E5%87%BA%E4%B8%80%E7%AB%99%E5%BC%8F%E8%B4%AD%E7%A5%A8%E5%B9%B3%E5%8F%B0/id566813949">
-              <span class="app-icon" aria-hidden="true"><span>淘</span><img src="icons/taopiaopiao.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E6%B7%98%E7%A5%A8%E7%A5%A8-%E7%94%B5%E5%BD%B1-%E6%BC%94%E5%87%BA%E4%B8%80%E7%AB%99%E5%BC%8F%E8%B4%AD%E7%A5%A8%E5%B9%B3%E5%8F%B0/id566813949"></span>
-              <span class="app-copy"><strong>淘票票</strong><span>电影排片与购票</span></span>
-            </a>
-          </li>
-        </ul>
-      </section>
-      <section class="app-section" data-category="browser" aria-labelledby="heading-browser">
-        <h2 id="heading-browser">浏览器</h2>
-        <ul class="app-grid">
-          <li data-keywords="谷歌 浏览器 browser" data-platform="common">
-            <a class="app-card" href="https://www.google.com/chrome/">
-              <span class="app-icon" aria-hidden="true"><span>C</span><img src="icons/chrome.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.android.chrome&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>Chrome</strong><span>Google 浏览器</span></span>
-            </a>
-          </li>
-          <li data-keywords="火狐 浏览器 mozilla" data-platform="common">
-            <a class="app-card" href="https://www.mozilla.org/firefox/browsers/mobile/android/">
-              <span class="app-icon" aria-hidden="true"><span>F</span><img src="icons/firefox.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=org.mozilla.firefox&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>Firefox</strong><span>Mozilla 浏览器</span></span>
-            </a>
-          </li>
-          <li data-keywords="bing" data-platform="common">
-            <a class="app-card" href="https://play.google.com/store/apps/details?id=com.microsoft.bing&amp;hl=en&amp;gl=us">
-              <span class="app-icon" aria-hidden="true"><span>M</span><img src="icons/bing.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.microsoft.bing&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>Microsoft Bing</strong><span>微软搜索客户端</span></span>
-            </a>
-          </li>
-          <li data-keywords="edge" data-platform="common">
-            <a class="app-card" href="https://play.google.com/store/apps/details?id=com.microsoft.emmx&amp;hl=en&amp;gl=us">
-              <span class="app-icon" aria-hidden="true"><span>M</span><img src="icons/edge.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.microsoft.emmx&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>Microsoft Edge</strong><span>微软浏览器</span></span>
-            </a>
-          </li>
-          <li data-keywords="qq browser" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/qq%E6%B5%8F%E8%A7%88%E5%99%A8-%E8%85%BE%E8%AE%AFai%E6%B5%8F%E8%A7%88%E5%99%A8/id370139302">
-              <span class="app-icon" aria-hidden="true"><span>Q</span><img src="icons/qq-browser.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/qq%E6%B5%8F%E8%A7%88%E5%99%A8-%E8%85%BE%E8%AE%AFai%E6%B5%8F%E8%A7%88%E5%99%A8/id370139302"></span>
-              <span class="app-copy"><strong>QQ 浏览器</strong><span>腾讯浏览器和内容搜索</span></span>
-            </a>
-          </li>
-          <li data-keywords="baidu" data-platform="common">
-            <a class="app-card" href="https://apps.apple.com/cn/app/%E7%99%BE%E5%BA%A6-ai%E6%99%BA%E8%83%BD%E6%90%9C%E7%B4%A2/id382201985?uo=4">
-              <span class="app-icon" aria-hidden="true"><span>百</span><img src="icons/baidu.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E7%99%BE%E5%BA%A6-ai%E6%99%BA%E8%83%BD%E6%90%9C%E7%B4%A2/id382201985?uo=4"></span>
-              <span class="app-copy"><strong>百度</strong><span>搜索与资讯</span></span>
-            </a>
-          </li>
-          <li data-keywords="google" data-platform="common">
-            <a class="app-card" href="https://play.google.com/store/apps/details?id=com.google.android.googlequicksearchbox&amp;hl=en&amp;gl=us">
-              <span class="app-icon" aria-hidden="true"><span>G</span><img src="icons/google.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.google.android.googlequicksearchbox&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>Google</strong><span>搜索与发现</span></span>
-            </a>
-          </li>
-        </ul>
-      </section>
-      <section class="app-section" data-category="system" aria-labelledby="heading-system">
-        <h2 id="heading-system">系统与计时</h2>
-        <ul class="app-grid">
-          <li data-keywords="timeview">
-            <a class="app-card" href="https://app.mi.com/details?id=cn.geekapp.timeview">
-              <span class="app-icon" aria-hidden="true"><span>T</span><img src="icons/timeview.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://app.mi.com/details?id=cn.geekapp.timeview"></span>
-              <span class="app-copy"><strong>TimeView</strong><span>桌面悬浮计时</span></span>
-            </a>
-          </li>
-          <li data-keywords="itime" data-platform="common">
-            <a class="app-card" href="https://play.google.com/store/apps/details?id=com.wisdom.itime&amp;hl=en&amp;gl=us">
-              <span class="app-icon" aria-hidden="true"><span>i</span><img src="icons/itime.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.wisdom.itime&amp;hl=en&amp;gl=us"></span>
-              <span class="app-copy"><strong>iTime</strong><span>倒计时和纪念日</span></span>
-            </a>
-          </li>
-        </ul>
+      <section class="app-section" data-category="creation" aria-labelledby="heading-creation">
+        <h2 id="heading-creation">拍摄与内容创作</h2>
+        <div class="app-subcategory" data-subcategory="photos">
+          <h3 id="heading-creation-photos">相机与修图</h3>
+          <ul class="app-grid" aria-labelledby="heading-creation-photos">
+            <li data-keywords="meitu" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E7%BE%8E%E5%9B%BE%E7%A7%80%E7%A7%80-%E8%A7%86%E9%A2%91-%E5%9B%BE%E7%89%87-live%E4%BA%BA%E5%83%8F%E7%B2%BE%E4%BF%AE%E5%B7%A5%E5%85%B7/id416048305">
+                <span class="app-icon" aria-hidden="true"><span>美</span><img src="icons/meitu.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E7%BE%8E%E5%9B%BE%E7%A7%80%E7%A7%80-%E8%A7%86%E9%A2%91-%E5%9B%BE%E7%89%87-live%E4%BA%BA%E5%83%8F%E7%B2%BE%E4%BF%AE%E5%B7%A5%E5%85%B7/id416048305"></span>
+                <span class="app-copy"><strong>美图秀秀</strong><span>照片美化与修图</span></span>
+              </a>
+            </li>
+            <li data-keywords="wuta camera" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E6%97%A0%E4%BB%96%E7%9B%B8%E6%9C%BA-%E6%80%8E%E4%B9%88%E6%8B%8D%E9%83%BD%E5%A5%BD%E7%9C%8B/id1061534032">
+                <span class="app-icon" aria-hidden="true"><span>无</span><img src="icons/wuta-camera.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E6%97%A0%E4%BB%96%E7%9B%B8%E6%9C%BA-%E6%80%8E%E4%B9%88%E6%8B%8D%E9%83%BD%E5%A5%BD%E7%9C%8B/id1061534032"></span>
+                <span class="app-copy"><strong>无他相机</strong><span>人像拍摄与滤镜</span></span>
+              </a>
+            </li>
+            <li data-keywords="qingyan camera" data-platform="common">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E8%BD%BB%E9%A2%9C-%E8%AE%B0%E5%BD%95%E7%BE%8E%E4%B8%80%E5%88%BB/id1375390276?uo=4">
+                <span class="app-icon" aria-hidden="true"><span>轻</span><img src="icons/qingyan-camera.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E8%BD%BB%E9%A2%9C-%E8%AE%B0%E5%BD%95%E7%BE%8E%E4%B8%80%E5%88%BB/id1375390276?uo=4"></span>
+                <span class="app-copy"><strong>轻颜相机</strong><span>人像拍摄与美颜</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="app-subcategory" data-subcategory="publishing">
+          <h3 id="heading-creation-publishing">内容账号运营</h3>
+          <ul class="app-grid" aria-labelledby="heading-creation-publishing">
+            <li data-keywords="wechat official accounts">
+              <a class="app-card" href="https://apps.apple.com/cn/app/%E5%85%AC%E4%BC%97%E5%8F%B7%E5%8A%A9%E6%89%8B/id1116013197">
+                <span class="app-icon" aria-hidden="true"><span>微</span><img src="icons/wechat-official-accounts.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E5%85%AC%E4%BC%97%E5%8F%B7%E5%8A%A9%E6%89%8B/id1116013197"></span>
+                <span class="app-copy"><strong>微信公众号助手</strong><span>管理公众号和消息</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </section>
     </div>
     <p class="empty" hidden>没有找到符合条件的应用。试试其他关键词或切换分类。</p>
@@ -1082,57 +1289,99 @@
     const search = document.querySelector('#app-search');
     const platformPicker = document.querySelector('.platform-picker');
     const platformSelect = document.querySelector('#app-platform');
-    const filters = Array.from(document.querySelectorAll('[data-filter]'));
+    const categoryButtons = document.querySelectorAll('[data-filter]');
+    const subcategoryControls = document.querySelector('#subcategory-controls');
+    const subcategoryButtons = subcategoryControls.querySelector('.subcategory-filters');
     const status = document.querySelector('.result-count');
     const empty = document.querySelector('.empty');
-    const sections = Array.from(document.querySelectorAll('[data-category]'), section => ({
-      section,
-      entries: Array.from(section.querySelectorAll('li'), element => ({
-        element,
-        keywords: (element.textContent + ' ' + element.dataset.keywords).toLowerCase()
-      }))
+
+    const directory = new Map(Array.from(document.querySelectorAll('[data-category]'), section => {
+      const categoryTitle = section.querySelector('h2').textContent;
+      const children = Array.from(section.querySelectorAll('[data-subcategory]'), child => {
+        const title = child.querySelector('h3').textContent;
+        const entries = Array.from(child.querySelectorAll('li'), element => ({
+          element,
+          keywords: [element.querySelector('.app-copy').textContent, element.dataset.keywords, categoryTitle, title]
+            .join(' ').toLowerCase(),
+        }));
+        return {child, title, entries};
+      });
+      return [section.dataset.category, {section, children}];
     }));
+    const hasIosOnlyApps = Boolean(document.querySelector('[data-platform="ios"]'));
     let category = 'all';
-    const hasIosOnlyApps = sections.some(({entries}) => entries.some(({element}) => element.dataset.platform === 'ios'));
+    let subcategory = 'all';
 
     function updateDirectory() {
       const platform = platformSelect.value;
       const terms = search.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
       let total = 0;
 
-      for (const {section, entries} of sections) {
-        const inCategory = category === 'all' || category === section.dataset.category;
-        let visibleCount = 0;
-        for (const {element, keywords} of entries) {
-          const inPlatform = platform === 'all' || element.dataset.platform === platform;
-          const matches = inCategory && inPlatform && terms.every(term => keywords.includes(term));
-          element.hidden = !matches;
-          if (matches) visibleCount += 1;
+      for (const [key, {section, children}] of directory) {
+        const inCategory = category === 'all' || category === key;
+        let sectionCount = 0;
+        for (const {child, entries} of children) {
+          const inSubcategory = subcategory === 'all' || subcategory === child.dataset.subcategory;
+          let childCount = 0;
+          for (const {element, keywords} of entries) {
+            const inPlatform = platform === 'all' || platform === element.dataset.platform;
+            const matches = inCategory && inSubcategory && inPlatform && terms.every(term => keywords.includes(term));
+            element.hidden = !matches;
+            if (matches) childCount += 1;
+          }
+          child.hidden = childCount === 0;
+          sectionCount += childCount;
         }
-        section.hidden = visibleCount === 0;
-        total += visibleCount;
+        section.hidden = sectionCount === 0;
+        total += sectionCount;
       }
 
       status.textContent = total + ' 个应用';
       if (total === 0) {
         empty.textContent = platform === 'ios' && !hasIosOnlyApps
           ? '目前没有已核实的 iOS 独占应用。双平台应用可以在「通用」查看。'
-          : '没有找到符合条件的应用。试试更换关键词、平台或用途。';
+          : '没有找到符合条件的应用。可以更换关键词、平台或用途。';
       }
       empty.hidden = total !== 0;
     }
 
-    search.addEventListener('input', updateDirectory);
-    platformSelect.addEventListener('change', updateDirectory);
-    for (const filter of filters) {
-      filter.addEventListener('click', () => {
-        category = filter.dataset.filter;
-        for (const button of filters) {
-          button.setAttribute('aria-pressed', String(button === filter));
-        }
+    function selectPressed(buttons, selection) {
+      for (const button of buttons) button.setAttribute('aria-pressed', String(button === selection));
+    }
+
+    function renderSubcategories() {
+      subcategoryButtons.replaceChildren();
+      subcategoryControls.hidden = category === 'all';
+      if (category === 'all') return;
+
+      const options = [['all', '全部子类'], ...directory.get(category).children.map(({child, title}) =>
+        [child.dataset.subcategory, title])];
+      for (const [key, title] of options) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.textContent = title;
+        button.setAttribute('aria-pressed', String(key === subcategory));
+        button.addEventListener('click', () => {
+          subcategory = key;
+          selectPressed(subcategoryButtons.children, button);
+          updateDirectory();
+        });
+        subcategoryButtons.append(button);
+      }
+    }
+
+    for (const button of categoryButtons) {
+      button.addEventListener('click', () => {
+        category = button.dataset.filter;
+        subcategory = 'all';
+        selectPressed(categoryButtons, button);
+        renderSubcategories();
         updateDirectory();
       });
     }
+
+    search.addEventListener('input', updateDirectory);
+    platformSelect.addEventListener('change', updateDirectory);
 
     for (const icon of document.querySelectorAll('.app-icon img')) {
       const useInitial = () => { icon.hidden = true; };
