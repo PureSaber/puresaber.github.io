@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Kurage 的手机实用工具，按用途整理的手机应用目录，涵盖办公、学习、购物、出行和娱乐。">
+  <meta name="theme-color" content="#f6f5ef">
+  <title>应用归档 · Kurage</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f6f5ef;
+      --ink: #192620;
+      --muted: #4e6055;
+      --accent: #215540;
+      --line: #d8dfd2;
+      --card: #fffefa;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 1rem/1.55 Inter, "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif; }
+    a { color: inherit; }
+    a:focus-visible, button:focus-visible, input:focus-visible, .platform-picker select:focus-visible { outline: 2px solid #307250; outline-offset: 4px; }
+    .shell { width: min(69rem, calc(100% - 3rem)); margin-inline: auto; }
+    .skip { position: absolute; top: 1rem; left: 1rem; padding: .55rem 1rem; color: var(--ink); background: var(--card); z-index: 2; }
+    .skip:not(:focus) { clip-path: inset(50%); }
+    .site-header { border-bottom: 1px solid var(--line); }
+    .header-row { min-height: 4.2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .header-actions { display: flex; align-items: center; gap: clamp(.55rem, 2vw, 1rem); }
+    .platform-picker { position: relative; }
+    .platform-picker::after { content: ""; position: absolute; inset-inline-end: .77rem; top: 50%; width: .35rem; height: .35rem; border: solid var(--accent); border-width: 0 1.5px 1.5px 0; transform: translateY(-70%) rotate(45deg); pointer-events: none; }
+    .platform-picker select { display: block; appearance: none; width: 7.1rem; min-height: 2.75rem; padding-block: .32rem; padding-inline: .58rem 1.55rem; border: 1px solid #cbd5c9; border-radius: .5rem; color: var(--accent); background: transparent; font: inherit; font-size: 1rem; font-weight: 600; line-height: 1.2; cursor: pointer; }
+    .platform-picker select:hover { background: var(--card); border-color: #7a9a85; }
+    .wordmark, .home-link { text-decoration: none; white-space: nowrap; }
+    .wordmark { display: inline-flex; align-items: center; gap: .55rem; font-weight: 750; }
+    .wordmark::before { content: "K"; display: grid; place-items: center; width: 1.75rem; height: 1.75rem; border-radius: .5rem; background: var(--accent); color: white; font-size: .95rem; }
+    .home-link { color: var(--accent); font-size: .92rem; font-weight: 650; }
+    .home-link:hover { text-decoration: underline; text-underline-offset: .25em; }
+    main { padding-block: 2rem 4rem; }
+    .hero { isolation: isolate; position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1.45fr) 1fr; align-items: center; min-height: 16rem; padding: clamp(1.35rem, 5vw, 3.2rem); gap: 1rem; background: #17392d; color: #fbfff9; border-radius: 1.35rem; }
+    h1 { margin: 0; font-size: clamp(2.25rem, 5.5vw, 4.1rem); line-height: 1.12; letter-spacing: -.05em; }
+    .hero p { margin: .85rem 0 0; color: #dbe9dc; }
+    .hero-art { position: relative; display: grid; place-items: center; min-height: 10rem; }
+    .hero-art::before { position: absolute; inset: -50% -28% -50% -10%; z-index: -1; content: ""; background: repeating-radial-gradient(ellipse at center, transparent 0 31px, #e0f8de24 32px, transparent 33px 44px); mask-image: radial-gradient(ellipse at center, black 30%, transparent 68%); }
+    .hero-icon { position: absolute; width: 4.7rem; height: 4.7rem; object-fit: contain; padding: .66rem; background: #fffefa; border: 1px solid #ffffffbf; border-radius: 1.2rem; box-shadow: 0 .8rem 1.8rem #05191190; }
+    .hero-icon:nth-child(1) { transform: translate(-4.5rem, .65rem) rotate(-12deg); }
+    .hero-icon:nth-child(2) { transform: translate(0, -.85rem) rotate(-4deg); z-index: 1; }
+    .hero-icon:nth-child(3) { transform: translate(4.65rem, .6rem) rotate(12deg); }
+    .controls { margin-top: 1.6rem; }
+    .search { position: relative; display: flex; align-items: center; gap: .85rem; min-width: 0; }
+    .search-icon { flex: none; position: absolute; width: .95rem; height: .95rem; border: 2px solid var(--muted); border-radius: 50%; inset-inline-start: 1rem; top: 50%; transform: translateY(-58%); pointer-events: none; }
+    .search-icon::after { content: ""; position: absolute; width: .52rem; height: 2px; right: -.36rem; bottom: -.16rem; transform: rotate(45deg); background: var(--muted); }
+    input[type="search"] { min-width: 0; flex: 1; min-height: 3.1rem; padding: .65rem .9rem .65rem 2.75rem; border: 1px solid #b5c5b9; border-radius: .75rem; color: var(--ink); background: var(--card); font: inherit; }
+    .filters { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+    .filters button { min-height: 2.6rem; padding: .35rem .8rem; border: 1px solid #c3d1c4; border-radius: 2rem; color: var(--accent); background: var(--card); font: inherit; font-size: .925rem; font-weight: 650; cursor: pointer; }
+    .filters button:hover { border-color: var(--accent); }
+    .filters button[aria-pressed="true"] { border-color: var(--accent); background: var(--accent); color: white; }
+    .result-count { color: var(--muted); margin: 1.25rem 0 0; font-size: .9rem; }
+    .app-section { margin-top: 1.55rem; }
+    .app-section + .app-section { padding-top: 1rem; border-top: 1px solid var(--line); }
+    .app-section h2 { margin: 0 0 .9rem; font-size: 1.24rem; line-height: 1.4; }
+    .app-subcategory + .app-subcategory { margin-top: 1.05rem; }
+    .app-subcategory h3 { margin: 0 0 .5rem; color: var(--accent); font-size: .98rem; line-height: 1.4; font-weight: 660; }
+    .taxonomy-row { display: grid; grid-template-columns: 2.45rem minmax(0, 1fr); align-items: start; gap: .55rem; margin-top: .8rem; }
+    .taxonomy-label { margin: .6rem 0 0; color: var(--muted); font-size: .85rem; font-weight: 650; }
+    .taxonomy-row .filters { margin: 0; }
+    .subcategory-filters button { min-height: 2.65rem; border-color: var(--line); }
+    .subcategory-filters button[aria-pressed="true"] { color: var(--accent); background: #e4eee4; border-color: #719582; }
+    @media (max-width: 30rem) {
+      .taxonomy-row { grid-template-columns: 1fr; gap: .4rem; }
+      .taxonomy-label { margin: 0; }
+    }
+    .app-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .68rem; list-style: none; margin: 0; padding: 0; }
+    .app-card { height: 100%; min-height: 5.1rem; display: flex; align-items: center; gap: .8rem; padding: .8rem .9rem; background: var(--card); border: 1px solid var(--line); border-radius: .8rem; text-decoration: none; }
+    a.app-card:hover { border-color: #6e987f; background: #fafffa; }
+    .app-icon { position: relative; display: grid; place-items: center; width: 2.75rem; height: 2.75rem; flex: 0 0 2.75rem; overflow: hidden; background: #e6efe7; color: #24543c; border-radius: .65rem; font-size: 1.17rem; font-weight: 780; }
+    .app-icon img { position: absolute; inset: 0; display: block; object-fit: contain; background: var(--card); }
+    .app-copy { display: flex; flex-direction: column; min-width: 0; }
+    .app-copy strong { overflow-wrap: anywhere; line-height: 1.34; }
+    .app-copy > span { margin-top: .25rem; color: var(--muted); font-size: .875rem; line-height: 1.35; }
+    .empty { margin-top: 1.4rem; padding: 1.35rem; background: var(--card); border: 1px solid var(--line); border-radius: .8rem; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+    @media (max-width: 51rem) {
+      .app-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .hero { min-height: 13.5rem; }
+    }
+    @media (max-width: 37rem) {
+      .shell { width: calc(100% - 2rem); }
+      .header-row { gap: .45rem; }
+      .wordmark { gap: .4rem; }
+      .wordmark::before { width: 1.5rem; height: 1.5rem; }
+      .home-link { font-size: .85rem; }
+      main { padding-top: 1.15rem; }
+      .hero { grid-template-columns: 1fr; min-height: 0; gap: 0; }
+      .hero-art { display: none; }
+      .hero p { margin-top: .6rem; }
+      .app-grid { grid-template-columns: 1fr; }
+      .app-card { min-height: 4.45rem; padding-block: .57rem; }
+    }
+    .archive-page { max-width: 60rem; }
+    .archive-page-heading { margin: 0; font-size: clamp(1.8rem, 4.6vw, 3rem); line-height: 1.15; letter-spacing: -.035em; }
+    .archive-page-summary { margin: .75rem 0 1.2rem; display: flex; align-items: baseline; gap: .85rem; flex-wrap: wrap; color: var(--muted); font-size: .92rem; }
+    .archive-all-link { color: var(--accent); text-underline-offset: .2em; }
+    .archive-page .app-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .archive-card { align-items: flex-start; }
+    .archive-meta { display: flex; align-items: center; flex-wrap: wrap; gap: .25rem .48rem; }
+    .archive-state { padding: .1rem .38rem; border-radius: .33rem; color: #744e26; background: #f6eddc; font-size: .75rem; }
+    .archive-meta time { font-size: .8rem; }
+    @media (max-width: 37rem) { .archive-page .app-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell header-row">
+      <span class="wordmark">Kurage</span>
+      <a class="home-link" href="../">返回手机应用</a>
+    </div>
+  </header>
+  <main id="archive-main" class="shell archive-page">
+    <h1 id="archive-page-heading" class="archive-page-heading" tabindex="-1">应用归档</h1>
+    <div class="archive-page-summary">
+      <span id="archive-page-count" role="status">2 项</span>
+      <a class="archive-all-link" id="archive-page-all" href="./" hidden>查看全部归档</a>
+    </div>
+    <section class="app-section" id="archive-category" aria-labelledby="archive-category-heading">
+      <h2 id="archive-category-heading">购物、物流与找房</h2>
+      <div class="app-subcategory">
+        <h3 id="archive-subcategory-heading">海淘与代购</h3>
+        <ul class="app-grid" id="archive-apps" aria-labelledby="archive-subcategory-heading">
+          <li data-keywords="magic market lite">
+            <a class="app-card archive-card" href="https://www.masadora-trustee.com/announce/20240227_01.pdf">
+              <span class="app-icon" aria-hidden="true"><span>魔</span><img src="../icons/magic-market-lite.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://lite-jknvym.appstor.io/"></span>
+              <span class="app-copy"><strong>魔法集市 Lite</strong><span>日本商品代购与转运</span>
+                <span class="archive-meta"><span class="archive-state">已停运</span><time datetime="2024-02">2024 年 2 月公告</time></span>
+              </span>
+            </a>
+          </li>
+          <li data-keywords="magic market global">
+            <a class="app-card archive-card" href="https://www.masadora-trustee.com/announce/20240227_01.pdf">
+              <span class="app-icon" aria-hidden="true"><span>魔</span><img src="../icons/masadora-global.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apkpure.com/masadora/com.masadoraandroid"></span>
+              <span class="app-copy"><strong>魔法集市 Global</strong><span>跨境购买日本商品</span>
+                <span class="archive-meta"><span class="archive-state">已停运</span><time datetime="2024-02">2024 年 2 月公告</time></span>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <p class="empty" id="archive-page-empty" hidden>没有匹配的归档应用。</p>
+  </main>
+  <script>
+    (() => {
+      const archiveCards = document.querySelectorAll('#archive-apps li');
+      const archivePageCount = document.querySelector('#archive-page-count');
+      const archivePageAll = document.querySelector('#archive-page-all');
+      const archivePageEmpty = document.querySelector('#archive-page-empty');
+      const category = document.querySelector('#archive-category');
+      const archiveAliases = "海淘与代购 归档 Masadora";
+
+      function filterArchivePage(query) {
+        const terms = (query || '').trim().toLowerCase().split(/\s+/).filter(Boolean);
+        let resultCount = 0;
+        for (const card of archiveCards) {
+          const copy = card.querySelector('.app-copy').textContent;
+          const searchable = [copy, card.dataset.keywords, archiveAliases].join(' ').toLowerCase();
+          const matches = terms.every(term => searchable.includes(term));
+          card.hidden = !matches;
+          if (matches) resultCount += 1;
+        }
+        archivePageCount.textContent = resultCount + ' 项';
+        archivePageAll.hidden = terms.length === 0;
+        category.hidden = resultCount === 0;
+        archivePageEmpty.hidden = resultCount !== 0;
+      }
+
+      filterArchivePage(new URLSearchParams(location.search).get('q'));
+    })();
+  </script>
+</body>
+</html>

@@ -97,6 +97,14 @@
       .app-grid { grid-template-columns: 1fr; }
       .app-card { min-height: 4.45rem; padding-block: .57rem; }
     }
+    .archive-footer { margin-top: 2.15rem; border-top: 1px solid var(--line); }
+    .archive-footer-link {
+      display: flex; align-items: center; gap: .72rem; min-height: 3.45rem;
+      padding: .45rem 0; text-decoration: none; color: var(--accent); font-weight: 700;
+    }
+    .archive-footer-link:hover .archive-footer-name { text-decoration: underline; text-underline-offset: .2em; }
+    .archive-footer-count { margin-inline-start: auto; color: var(--muted); font-size: .875rem; font-weight: 500; white-space: nowrap; }
+    .archive-arrow { font-size: 1.1rem; }
   </style>
 </head>
 <body>
@@ -894,23 +902,6 @@
             </li>
           </ul>
         </div>
-        <div class="app-subcategory" data-subcategory="archived-shopping">
-          <h3 id="heading-shopping-archived-shopping">海淘历史条目</h3>
-          <ul class="app-grid" aria-labelledby="heading-shopping-archived-shopping">
-            <li data-keywords="magic market lite">
-              <a class="app-card" href="https://www.masadora-trustee.com/announce/20240227_01.pdf">
-                <span class="app-icon" aria-hidden="true"><span>魔</span><img src="icons/magic-market-lite.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://lite-jknvym.appstor.io/"></span>
-                <span class="app-copy"><strong>魔法集市 Lite</strong><span>日本商品代购与转运 · 原版停运</span></span>
-              </a>
-            </li>
-            <li data-keywords="magic market global">
-              <a class="app-card" href="https://www.masadora-trustee.com/announce/20240227_01.pdf">
-                <span class="app-icon" aria-hidden="true"><span>魔</span><img src="icons/masadora-global.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apkpure.com/masadora/com.masadoraandroid"></span>
-                <span class="app-copy"><strong>魔法集市 Global</strong><span>跨境购买日本商品 · 原版停运</span></span>
-              </a>
-            </li>
-          </ul>
-        </div>
       </section>
       <section class="app-section" data-category="local" aria-labelledby="heading-local">
         <h2 id="heading-local">出行与生活服务</h2>
@@ -1283,6 +1274,13 @@
       </section>
     </div>
     <p class="empty" hidden>没有找到符合条件的应用。试试其他关键词或切换分类。</p>
+    <footer class="archive-footer">
+      <a class="archive-footer-link" id="archive-link" href="archive/">
+        <span id="archive-link-label" class="archive-footer-name">应用归档</span>
+        <span id="archive-link-count" class="archive-footer-count">2 项</span>
+        <span class="archive-arrow" aria-hidden="true">→</span>
+      </a>
+    </footer>
   </main>
   <script>
     const controls = document.querySelector('.controls');
@@ -1294,6 +1292,11 @@
     const subcategoryButtons = subcategoryControls.querySelector('.subcategory-filters');
     const status = document.querySelector('.result-count');
     const empty = document.querySelector('.empty');
+    const archiveLink = document.querySelector('#archive-link');
+    const archiveLabel = document.querySelector('#archive-link-label');
+    const archiveCount = document.querySelector('#archive-link-count');
+    const archiveHome = archiveLink.getAttribute('href');
+    const archiveKeywords = ["魔法集市 lite日本商品代购与转运 已停运2024 年 2 月公告 magic market lite 海淘与代购 归档 masadora", "魔法集市 global跨境购买日本商品 已停运2024 年 2 月公告 magic market global 海淘与代购 归档 masadora"];
 
     const directory = new Map(Array.from(document.querySelectorAll('[data-category]'), section => {
       const categoryTitle = section.querySelector('h2').textContent;
@@ -1336,13 +1339,22 @@
         total += sectionCount;
       }
 
-      status.textContent = total + ' 个应用';
-      if (total === 0) {
+      const archivedCount = terms.length
+        ? archiveKeywords.filter(keywords => terms.every(term => keywords.includes(term))).length
+        : 0;
+      archiveLabel.textContent = archivedCount ? '查看归档结果' : '应用归档';
+      archiveCount.textContent = (archivedCount || archiveKeywords.length) + ' 项';
+      archiveLink.href = archivedCount
+        ? archiveHome + '?' + new URLSearchParams({q: terms.join(' ')})
+        : archiveHome;
+      status.textContent = total + ' 个应用' + (archivedCount ? ' · ' + archivedCount + ' 项归档' : '');
+      const noResults = total === 0 && archivedCount === 0;
+      if (noResults) {
         empty.textContent = platform === 'ios' && !hasIosOnlyApps
           ? '目前没有已核实的 iOS 独占应用。双平台应用可以在「通用」查看。'
           : '没有找到符合条件的应用。可以更换关键词、平台或用途。';
       }
-      empty.hidden = total !== 0;
+      empty.hidden = !noResults;
     }
 
     function selectPressed(buttons, selection) {
