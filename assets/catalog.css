@@ -212,19 +212,72 @@ code { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .91em; 
   border-color: var(--green);
   color: #fff;
 }
-.masthead .home-entries { margin-top: 1.15rem; }
-.masthead .home-entries ul {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+.home-page {
+  width: min(46rem, calc(100% - 3rem));
+  padding-block-start: clamp(2rem, 6vw, 3.5rem);
 }
-.masthead .home-entries a {
-  padding: .78rem .95rem;
+.home-page h1 { font-size: clamp(1.78rem, 4.6vw, 2.75rem); }
+.home-page .catalog-search { margin-top: 1rem; }
+.home-page .catalog-search > label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
+}
+.home-page .search-row { position: relative; max-width: 29rem; }
+.home-page .search-row input { padding-inline-start: 2.55rem; min-height: 2.9rem; }
+.home-search-icon {
+  position: absolute;
+  inset-inline-start: .8rem;
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  pointer-events: none;
+}
+.home-entries { margin-top: 1.15rem; }
+.home-entries ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .7rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.home-entries a {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: .75rem;
+  height: 100%;
+  min-height: 5.25rem;
+  padding: .8rem .9rem;
+  border: 1px solid var(--line);
   border-radius: .65rem;
   background: var(--card);
-  font-size: 1rem;
+  color: var(--ink);
+  text-decoration: none;
 }
-.masthead .home-entries a:hover { background: #e7eee3; }
+.home-entries a:hover { border-color: var(--green); }
+.home-entry-icon {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: .45rem;
+  background: #e7eee3;
+  color: var(--green);
+}
+.home-entry-copy { display: grid; gap: .18rem; line-height: 1.45; }
+.home-entry-copy span { color: var(--muted); font-size: .8rem; }
+.home-entry-arrow { align-self: start; color: var(--green); }
 .home-results { margin-top: 1rem; }
-@media (max-width: 38rem) {
-  .masthead .home-entries ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 35rem) {
+  .home-page { width: calc(100% - 2rem); }
+}
+@media (max-width: 32.5rem) {
+  .home-entries a { grid-template-columns: minmax(0, 1fr) auto; gap: .5rem; }
+  .home-entry-copy { grid-column: 1 / -1; grid-row: 2; }
+  .home-entry-arrow { grid-column: 2; grid-row: 1; }
 }

@@ -1,7 +1,8 @@
 <div class="catalog-search" id="catalog-search" role="search" hidden>
   <label for="catalog-query">{{ include.label }}</label>
   <div class="search-row">
-    <input id="catalog-query" type="search" placeholder="例如 Git、Python、回测" autocomplete="off">
+    {% if include.home %}<svg class="home-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.2 15.2 4.8 4.8"/></svg>{% endif %}
+    <input id="catalog-query" type="search" placeholder="{% if include.home %}搜索工具和资源{% else %}例如 Git、Python、回测{% endif %}" autocomplete="off">
     <button id="clear-search" type="button" hidden>清除</button>
   </div>
   <p class="search-status" id="search-status" role="status"></p>

@@ -14,28 +14,45 @@ layout: null
 </head>
 <body>
   <a class="skip" href="#main">跳到正文</a>
-  <header class="masthead">
-    <div class="wrap">
-      <h1>我的实用工具箱</h1>
-      <p class="intro">我常用的工具、参考资料和自己做的项目。</p>
-      <nav class="home-entries" aria-label="站点导航">
-        <ul>
-          <li><a id="tools-entry" href="{{ '/tools/' | relative_url }}">工具</a></li>
-          <li><a id="resources-entry" href="{{ '/resources/' | relative_url }}">资源</a></li>
-          <li><a href="{{ '/learn/' | relative_url }}">学习路线</a></li>
-          <li><a href="{{ '/projects/' | relative_url }}">项目与服务</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-  <main id="main" class="wrap"
+  <main id="main" class="wrap home-page"
         data-navigation="{{ site.data.catalog_navigation | jsonify | escape }}"
         data-index="{{ '/assets/catalog-index.json' | relative_url }}"
         data-icon-base="{{ '/assets/tool-icons/' | relative_url }}">
-    <div class="catalog-controls">
-      {% include catalog-search.html label="搜索工具和资源" %}
-      <ul id="search-results" class="resources home-results" aria-label="搜索结果" hidden></ul>
-    </div>
+    <h1>我的实用工具箱</h1>
+    {% include catalog-search.html label="搜索工具和资源" home=true %}
+    <nav class="home-entries" aria-label="站点导航">
+      <ul>
+        <li>
+          <a id="tools-entry" href="{{ '/tools/' | relative_url }}">
+            <span class="home-entry-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.8 3.3a5.8 5.8 0 0 0-6 7.4L3.8 16a2.4 2.4 0 1 0 3.4 3.4l5.2-5.2a5.8 5.8 0 0 0 7.3-6l-3.4 3.2-3.6-3.6Z"/></svg></span>
+            <span class="home-entry-copy"><strong>工具</strong><span>AI 编程、开发和量化工具</span></span>
+            <span class="home-entry-arrow" aria-hidden="true">→</span>
+          </a>
+        </li>
+        <li>
+          <a id="resources-entry" href="{{ '/resources/' | relative_url }}">
+            <span class="home-entry-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6.1C9.4 4.3 6 4.1 3 5.1v13c3-1 6.4-.8 9 1.1 2.6-1.9 6-2.1 9-1.1v-13c-3-1-6.4-.8-9 1Z"/><path d="M12 6.3v12.8"/></svg></span>
+            <span class="home-entry-copy"><strong>资源</strong><span>教程、市场数据和导航站</span></span>
+            <span class="home-entry-arrow" aria-hidden="true">→</span>
+          </a>
+        </li>
+        <li>
+          <a href="{{ '/learn/' | relative_url }}">
+            <span class="home-entry-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18h8a3 3 0 0 0 0-6h-9a3 3 0 0 1 0-6h8"/></svg></span>
+            <span class="home-entry-copy"><strong>学习路线</strong><span>Python、SQL 和 Git 练习</span></span>
+            <span class="home-entry-arrow" aria-hidden="true">→</span>
+          </a>
+        </li>
+        <li>
+          <a href="{{ '/projects/' | relative_url }}">
+            <span class="home-entry-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 4 9 4.7-9 4.7-9-4.7Z"/><path d="m3 12.4 9 4.7 9-4.7M3 16.1l9 4.7 9-4.7"/></svg></span>
+            <span class="home-entry-copy"><strong>项目与服务</strong><span>我的开源项目和在线工具</span></span>
+            <span class="home-entry-arrow" aria-hidden="true">→</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <ul id="search-results" class="resources home-results" aria-label="搜索结果" hidden></ul>
   </main>
 </body>
 </html>
