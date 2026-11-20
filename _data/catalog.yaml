@@ -224,6 +224,13 @@ runtimes:
   summary: 用于服务端开发和命令行应用。
   type: 语言
 
+game-development:
+- name: Unity Hub
+  icon: vendor-065.svg
+  url: https://docs.unity.com/en-us/hub/install-hub-win-mac
+  summary: 管理 Unity 编辑器版本和项目。
+  type: 桌面工具
+
 deployment:
 - name: Docker
   icon: docker.svg
@@ -658,11 +665,6 @@ file-transfer:
   alias: snapdrop.net
 
 remote-desktop:
-- name: Bitwarden CLI
-  icon: vendor-062.svg
-  url: https://bitwarden.com/help/cli/
-  summary: 从终端操作 Bitwarden 密码库。
-  type: CLI
 - name: UU 远程
   icon: retry-uu-remote.png
   url: https://uuyc.163.com/
@@ -680,6 +682,8 @@ remote-desktop:
   summary: 管理代理配置和规则的图形客户端。
   type: 桌面工具
   alias: Clash Verge
+
+virtualization:
 - name: VMware Workstation
   icon: vendor-064.svg
   url: https://knowledge.broadcom.com/external/article/368667/download-and-license-vmware-desktop-hype.html
@@ -695,11 +699,13 @@ remote-desktop:
   url: https://syzs.qq.com/
   summary: 在 Windows 上运行部分 Android 手游。
   type: 桌面工具
-- name: Unity Hub
-  icon: vendor-065.svg
-  url: https://docs.unity.com/en-us/hub/install-hub-win-mac
-  summary: 管理 Unity 编辑器版本和项目。
-  type: 桌面工具
+
+password-management:
+- name: Bitwarden CLI
+  icon: vendor-062.svg
+  url: https://bitwarden.com/help/cli/
+  summary: 从终端操作 Bitwarden 密码库。
+  type: CLI
 
 browsers:
 - name: Google Chrome
