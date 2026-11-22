@@ -30,7 +30,7 @@ tools:
         productivity: 文档、笔记与效率
         communication: 即时通信与会议
     desktop:
-      title: 桌面与媒体
+      title: 桌面工具与媒体
       groups:
         file-transfer: 文件传输
         remote-desktop: 网络与远程连接
