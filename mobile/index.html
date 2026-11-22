@@ -29,7 +29,7 @@
     .header-actions { display: flex; align-items: center; gap: clamp(.55rem, 2vw, 1rem); }
     .platform-picker { position: relative; }
     .platform-picker::after { content: ""; position: absolute; inset-inline-end: .77rem; top: 50%; width: .35rem; height: .35rem; border: solid var(--accent); border-width: 0 1.5px 1.5px 0; transform: translateY(-70%) rotate(45deg); pointer-events: none; }
-    .platform-picker select { display: block; appearance: none; width: 7.1rem; min-height: 2.75rem; padding-block: .32rem; padding-inline: .58rem 1.55rem; border: 1px solid #cbd5c9; border-radius: .5rem; color: var(--accent); background: transparent; font: inherit; font-size: 1rem; font-weight: 600; line-height: 1.2; cursor: pointer; }
+    .platform-picker select { display: block; appearance: none; min-width: 7.1rem; min-height: 2.75rem; padding-block: .32rem; padding-inline: .58rem 1.55rem; border: 1px solid #cbd5c9; border-radius: .5rem; color: var(--accent); background: transparent; font: inherit; font-size: 1rem; font-weight: 600; line-height: 1.2; cursor: pointer; }
     .platform-picker select:hover { background: var(--card); border-color: #7a9a85; }
     .wordmark, .home-link { text-decoration: none; white-space: nowrap; }
     .wordmark { display: inline-flex; align-items: center; gap: .55rem; font-weight: 750; }
@@ -117,11 +117,13 @@
           <label class="sr-only" for="app-platform">按平台筛选</label>
           <select id="app-platform" aria-controls="app-directory" aria-describedby="platform-note">
             <option value="all">全部平台</option>
+            <option value="ios-available">iOS 可用</option>
+            <option value="android-available">Android 可用</option>
             <option value="common">通用</option>
             <option value="android">仅 Android</option>
             <option value="ios">仅 iOS</option>
           </select>
-          <span class="sr-only" id="platform-note">通用包含双平台应用。平台待核对的条目可在「全部平台」查看。</span>
+          <span class="sr-only" id="platform-note">「iOS 可用」和「Android 可用」都包含双平台应用。「通用」只显示双平台应用。平台待核对的条目可在「全部平台」查看。</span>
         </div>
         <a class="home-link" href="/">实用工具箱</a>
       </div>
@@ -343,6 +345,23 @@
             </li>
           </ul>
         </div>
+        <div class="app-subcategory" data-subcategory="cloud-storage">
+          <h3 id="heading-tools-cloud-storage">云盘与备份</h3>
+          <ul class="app-grid" aria-labelledby="heading-tools-cloud-storage">
+            <li data-keywords="谷歌云盘 谷歌硬盘 google drive 网盘 文件备份" data-platform="common">
+              <a class="app-card" href="https://workspace.google.com/products/drive/">
+                <span class="app-icon" aria-hidden="true"><span>G</span><img src="icons/google-drive.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/us/app/google-drive/id507874739"></span>
+                <span class="app-copy"><strong>Google Drive</strong><span>云端存储、分享与协作文件</span></span>
+              </a>
+            </li>
+            <li data-keywords="alipan aliyun drive 网盘 相册 备份 文件备份" data-platform="common">
+              <a class="app-card" href="https://www.alipan.com/download">
+                <span class="app-icon" aria-hidden="true"><span>阿</span><img src="icons/alipan.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E9%98%BF%E9%87%8C%E4%BA%91%E7%9B%98/id1494661473"></span>
+                <span class="app-copy"><strong>阿里云盘</strong><span>云端文件分享与相册备份</span></span>
+              </a>
+            </li>
+          </ul>
+        </div>
         <div class="app-subcategory" data-subcategory="email">
           <h3 id="heading-communication-email">邮件与日历</h3>
           <ul class="app-grid" aria-labelledby="heading-communication-email">
@@ -367,7 +386,7 @@
           </ul>
         </div>
         <div class="app-subcategory" data-subcategory="planning">
-          <h3 id="heading-communication-planning">待办与计时</h3>
+          <h3 id="heading-communication-planning">待办与倒计时</h3>
           <ul class="app-grid" aria-labelledby="heading-communication-planning">
             <li data-keywords="microsoft todo" data-platform="common">
               <a class="app-card" href="https://play.google.com/store/apps/details?id=com.microsoft.todos&amp;hl=en&amp;gl=us">
@@ -500,23 +519,6 @@
               <a class="app-card" href="https://localsend.org/">
                 <span class="app-icon" aria-hidden="true"><span>L</span><img src="icons/localsend.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=org.localsend.localsend_app&amp;hl=en&amp;gl=us"></span>
                 <span class="app-copy"><strong>LocalSend</strong><span>手机和电脑局域网传文件</span></span>
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div class="app-subcategory" data-subcategory="cloud-storage">
-          <h3 id="heading-tools-cloud-storage">云盘与备份</h3>
-          <ul class="app-grid" aria-labelledby="heading-tools-cloud-storage">
-            <li data-keywords="谷歌云盘 谷歌硬盘 google drive 网盘" data-platform="common">
-              <a class="app-card" href="https://workspace.google.com/products/drive/">
-                <span class="app-icon" aria-hidden="true"><span>G</span><img src="icons/google-drive.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/us/app/google-drive/id507874739"></span>
-                <span class="app-copy"><strong>Google Drive</strong><span>云端存储、分享与协作文件</span></span>
-              </a>
-            </li>
-            <li data-keywords="alipan aliyun drive 网盘 相册 备份" data-platform="common">
-              <a class="app-card" href="https://www.alipan.com/download">
-                <span class="app-icon" aria-hidden="true"><span>阿</span><img src="icons/alipan.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E9%98%BF%E9%87%8C%E4%BA%91%E7%9B%98/id1494661473"></span>
-                <span class="app-copy"><strong>阿里云盘</strong><span>云端文件分享与相册备份</span></span>
               </a>
             </li>
           </ul>
@@ -913,7 +915,7 @@
                 <span class="app-copy"><strong>拼多多</strong><span>商品购物与拼单</span></span>
               </a>
             </li>
-            <li data-keywords="freshippo" data-platform="common">
+            <li data-keywords="freshippo 买菜" data-platform="common">
               <a class="app-card" href="https://apps.apple.com/cn/app/%E7%9B%92%E9%A9%AC-%E9%B2%9C%E7%BE%8E%E7%94%9F%E6%B4%BB/id1063183999">
                 <span class="app-icon" aria-hidden="true"><span>盒</span><img src="icons/freshippo.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E7%9B%92%E9%A9%AC-%E9%B2%9C%E7%BE%8E%E7%94%9F%E6%B4%BB/id1063183999"></span>
                 <span class="app-copy"><strong>盒马</strong><span>生鲜购物与配送</span></span>
@@ -1443,16 +1445,26 @@
     const archiveCount = document.querySelector('#archive-link-count');
     const archiveHome = archiveLink.getAttribute('href');
     const archiveKeywords = ["魔法集市 lite日本商品代购与转运 已停运2024 年 2 月公告 magic market lite 海淘与代购 归档 masadora", "魔法集市 global跨境购买日本商品 已停运2024 年 2 月公告 magic market global 海淘与代购 归档 masadora"];
+    const availablePlatforms = {
+      'ios-available': ['common', 'ios'],
+      'android-available': ['common', 'android'],
+    };
+    const noMatch = Infinity;
 
     const directory = new Map(Array.from(document.querySelectorAll('[data-category]'), section => {
       const categoryTitle = section.querySelector('h2').textContent;
       const children = Array.from(section.querySelectorAll('[data-subcategory]'), child => {
         const title = child.querySelector('h3').textContent;
-        const entries = Array.from(child.querySelectorAll('li'), element => ({
-          element,
-          keywords: [element.querySelector('.app-copy').textContent, element.dataset.keywords, categoryTitle, title]
-            .join(' ').toLowerCase(),
-        }));
+        const entries = Array.from(child.querySelectorAll('li'), element => {
+          const copy = element.querySelector('.app-copy');
+          const fields = [
+            copy.querySelector('strong').textContent,
+            copy.querySelector('span').textContent + ' ' + (element.dataset.keywords ?? ''),
+            title,
+            categoryTitle,
+          ].map(field => field.toLowerCase());
+          return {element, fields};
+        });
         return {child, title, entries};
       });
       return [section.dataset.category, {section, children}];
@@ -1461,29 +1473,61 @@
     let category = 'all';
     let subcategory = 'all';
 
+    function matchRank(terms, fields) {
+      let rank = 0;
+      for (const term of terms) {
+        const field = fields.findIndex(value => value.includes(term));
+        if (field === -1) return noMatch;
+        rank = Math.max(rank, field);
+      }
+      return rank;
+    }
+
+    function orderResults(results) {
+      results.sort((a, b) => a.rank - b.rank);
+      for (let i = results.length - 2; i >= 0; i -= 1) {
+        const element = results[i].element;
+        const next = results[i + 1].element;
+        if (element.nextElementSibling !== next) next.before(element);
+      }
+    }
+
     function updateDirectory() {
       const platform = platformSelect.value;
+      const platforms = availablePlatforms[platform] ?? [platform];
       const terms = search.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+      const sectionResults = [];
       let total = 0;
 
       for (const [key, {section, children}] of directory) {
         const inCategory = category === 'all' || category === key;
+        const childResults = [];
         let sectionCount = 0;
         for (const {child, entries} of children) {
           const inSubcategory = subcategory === 'all' || subcategory === child.dataset.subcategory;
+          const entryResults = [];
           let childCount = 0;
-          for (const {element, keywords} of entries) {
-            const inPlatform = platform === 'all' || platform === element.dataset.platform;
-            const matches = inCategory && inSubcategory && inPlatform && terms.every(term => keywords.includes(term));
-            element.hidden = !matches;
-            if (matches) childCount += 1;
+          let childRank = noMatch;
+          for (const {element, fields} of entries) {
+            const inPlatform = platform === 'all' || platforms.includes(element.dataset.platform);
+            const rank = inCategory && inSubcategory && inPlatform ? matchRank(terms, fields) : noMatch;
+            element.hidden = rank === noMatch;
+            if (!element.hidden) childCount += 1;
+            childRank = Math.min(childRank, rank);
+            entryResults.push({element, rank: terms.length ? rank : 0});
           }
+          orderResults(entryResults);
           child.hidden = childCount === 0;
           sectionCount += childCount;
+          childResults.push({element: child, rank: terms.length ? childRank : 0});
         }
+        orderResults(childResults);
         section.hidden = sectionCount === 0;
+        const sectionRank = Math.min(...childResults.map(result => result.rank));
+        sectionResults.push({element: section, rank: sectionRank});
         total += sectionCount;
       }
+      orderResults(sectionResults);
 
       const archivedCount = terms.length
         ? archiveKeywords.filter(keywords => terms.every(term => keywords.includes(term))).length
