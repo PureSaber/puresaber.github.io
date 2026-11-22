@@ -97,6 +97,9 @@
       .app-grid { grid-template-columns: 1fr; }
       .app-card { min-height: 4.45rem; padding-block: .57rem; }
     }
+    @media (max-width: 21rem) {
+      .header-row { width: calc(100% - 1rem); gap: .35rem; flex-wrap: wrap; }
+    }
     .archive-footer { margin-top: 2.15rem; border-top: 1px solid var(--line); }
     .archive-footer-link {
       display: flex; align-items: center; gap: .72rem; min-height: 3.45rem;
