@@ -997,6 +997,13 @@ media:
   url: https://ffmpeg.org/
   summary: 处理音视频编码、裁剪和转换。
   type: CLI
+- name: 迅捷视频转换器
+  platforms: [Windows, macOS]
+  icon_url: https://www.xunjieshipin.com/wp-content/themes/project-shipin_v7.2.2/img/nav/logo_1.png
+  url: https://www.xunjieshipin.com/video-converter
+  summary: 面向日常办公的音视频格式转换软件，支持批量转码、视频压缩与简单编辑。
+  type: 桌面软件
+  alias: 迅捷视频转换 Xunjie Video Converter
 
 computer-learning:
 - name: CS 自学指南
