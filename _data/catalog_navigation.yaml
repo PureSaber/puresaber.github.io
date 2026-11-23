@@ -32,7 +32,7 @@ tools:
     desktop:
       title: 桌面工具与媒体
       groups:
-        file-transfer: 文件传输
+        file-transfer: 文件传输与云存储
         remote-desktop: 网络与远程连接
         virtualization: 虚拟机与模拟器
         password-management: 密码管理
