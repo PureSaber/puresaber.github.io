@@ -10,6 +10,7 @@ tools:
         git-open-source: Git 与开源协作
         runtimes: 编程语言、运行时与包管理
         game-development: 游戏开发
+        game-platforms: 游戏平台与客户端
     infrastructure:
       title: 部署与基础设施
       groups:
@@ -37,7 +38,7 @@ tools:
         virtualization: 虚拟机与模拟器
         password-management: 密码管理
         browsers: 浏览器
-        media: 媒体制作
+        media: 设计与媒体制作
 resources:
   title: 资源
   description: 查找学习资料、市场数据来源和工具合集。
@@ -46,10 +47,17 @@ resources:
       title: 学习资料
       groups:
         computer-learning: 计算机与编程自学
+        general-courses: 在线课程与语言学习
     market-research-resources:
       title: 市场与研究资料
       groups:
         research: 市场数据与官方核对
+        academic-library: 学术论文与检索
+        market-news: 财经资讯
+    content-communities:
+      title: 内容与社区
+      groups:
+        community-media: 游戏与视频社区
     web-resources:
       title: 工具发现
       groups:
