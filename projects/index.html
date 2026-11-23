@@ -3,11 +3,68 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Kurage 的开源软件、量化研究项目与在线工具。">
+  <meta name="description" content="Kurage 的个人项目目录，收录软件、量化研究、AI、游戏和在线服务。">
   <meta name="theme-color" content="#f6f5ef">
   <title>项目与服务 · Kurage</title>
   <link rel="icon" type="image/png" sizes="96x96" href="../assets/site-toolbox-icon.png">
   <link rel="stylesheet" href="../assets/sections.css">
+  <style>
+    .portfolio-summary { margin-top:1.1rem; display:flex; flex-wrap:wrap; gap:.45rem 1.4rem; font-size:.94rem; color:var(--muted); }
+    .portfolio-summary strong { font-variant-numeric:tabular-nums; color:var(--ink); }
+    .portfolio-note { margin-top:.6rem; color:var(--muted); font-size:.9rem; line-height:1.6; }
+    .portfolio-controls { display:grid; gap:.7rem; margin:1.35rem 0 1.2rem; }
+    .portfolio-controls input { width:100%; padding:.7rem .85rem; min-height:3rem; background:var(--card); border:1px solid #b7c7b9; border-radius:.7rem; font:inherit; color:var(--ink); }
+    .portfolio-filters { display:flex; flex-wrap:wrap; gap:.5rem; }
+    .portfolio-filters button { padding:.4rem .85rem; border:1px solid #b7c7b9; border-radius:2rem; background:var(--card); color:var(--green); font:inherit; font-size:.9rem; cursor:pointer; }
+    .portfolio-filters button[aria-pressed="true"] { background:var(--green); border-color:var(--green); color:#fff; }
+    .portfolio-count { color:var(--muted); font-size:.91rem; }
+    .section-links { margin-top:.75rem; }
+    .section-links a { text-decoration:none; font-size:.94rem; }
+    .section-links a:hover { text-decoration:underline; }
+    .section { margin-top:1.5rem; }
+    .project-head { display:flex; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; gap:.35rem; }
+    .project-head h3 { flex:1 1 9rem; overflow-wrap:anywhere; }
+    .repo-tags { display:inline-flex; flex-wrap:wrap; gap:.3rem; }
+    .repo-tag { display:inline-block; padding:.16rem .45rem; border-radius:.4rem; border:1px solid #c9d6ca; font-size:.73rem; line-height:1.4; font-weight:650; background:#f3f6f0; color:var(--muted); white-space:nowrap; }
+    .repo-tag-private { background:#f8f0e3; border-color:#e4d4b9; color:#72552b; }
+    .repo-tag-archived { background:#efedf2; border-color:#d8d0df; color:#6d6276; }
+    .section-count { color:var(--muted); font-size:.75em; font-weight:450; }
+    .section[hidden], .project[hidden] { display:none !important; }
+    .no-projects { margin-top:1.3rem; color:var(--muted); }
+  </style>
+  <script defer>
+    document.addEventListener('DOMContentLoaded', () => {
+      const search = document.querySelector('#project-search');
+      const cards = [...document.querySelectorAll('.project[data-repo]')];
+      const sections = [...document.querySelectorAll('.section[data-project-category]')];
+      const buttons = [...document.querySelectorAll('[data-portfolio-filter]')];
+      const count = document.querySelector('#project-count');
+      let filter = 'all';
+      const apply = () => {
+        const q = search.value.trim().toLocaleLowerCase();
+        let shown = 0;
+        cards.forEach(card => {
+          const matchesStatus = filter === 'all' || (filter === 'archived' ? card.dataset.archived === 'true' : card.dataset.visibility === filter);
+          card.hidden = !matchesStatus || (!!q && !card.textContent.toLocaleLowerCase().includes(q));
+          if (!card.hidden) shown++;
+        });
+        sections.forEach(section => {
+          const n = section.querySelectorAll('.project:not([hidden])').length;
+          section.hidden = n === 0;
+          section.querySelector('.section-count').textContent = '(' + n + ')';
+        });
+        count.textContent = '当前显示 ' + shown + ' / ' + cards.length + ' 个仓库';
+        document.querySelector('#no-projects').hidden = shown !== 0;
+      };
+      search.addEventListener('input', apply);
+      buttons.forEach(b => b.addEventListener('click', () => {
+        filter = b.dataset.portfolioFilter;
+        buttons.forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+        apply();
+      }));
+      apply();
+    });
+  </script>
 </head>
 <body>
   <a class="skip" href="#main">跳到正文</a>
@@ -27,137 +84,540 @@
     </div>
   </header>
   <main id="main" class="wrap">
+    <div class="portfolio-summary" aria-label="仓库总览"><span>全部 <strong>89</strong></span><span>公开 <strong>33</strong></span><span>私有 <strong>56</strong></span><span>已归档 <strong>2</strong></span></div>
+    <p class="portfolio-note">本网页公开可见，包括私有仓库的名称和以下简要介绍；私有仓库的代码与 README 未被公开，私有仓库链接仅限有 GitHub 权限的账号访问。收录不代表均已发布，第三方参考仓库已特别注明。</p>
+    <div class="portfolio-controls" role="search" aria-label="筛选项目仓库">
+      <label for="project-search">搜索项目</label>
+      <input id="project-search" type="search" placeholder="搜索仓库名或功能" autocomplete="off">
+      <div class="portfolio-filters" role="group" aria-label="按公开状态筛选">
+        <button type="button" data-portfolio-filter="all" aria-pressed="true">全部</button>
+        <button type="button" data-portfolio-filter="public" aria-pressed="false">公开</button>
+        <button type="button" data-portfolio-filter="private" aria-pressed="false">私有</button>
+        <button type="button" data-portfolio-filter="archived" aria-pressed="false">已归档</button>
+      </div>
+      <p id="project-count" class="portfolio-count" role="status" aria-live="polite">当前显示 89 / 89 个仓库</p>
+    </div>
     <nav class="section-links" aria-label="本页分类">
-      <a href="#open-source">开源软件</a>
-      <a href="#quant-research">量化研究</a>
-      <a href="#online">在线工具</a>
+      <a href="#open-source">软件与实用工具</a>
+      <a href="#quant-research">量化研究与交易工程</a>
+      <a href="#ai">AI 与自动化</a>
+      <a href="#games">游戏与互动创作</a>
+      <a href="#learning">学习与竞赛</a>
+      <a href="#online">网站与在线服务</a>
+      <a href="#records">个人记录与项目维护</a>
     </nav>
-    <section id="open-source" class="section" aria-labelledby="open-source-title">
-      <h2 id="open-source-title">开源软件</h2>
+    <p id="no-projects" class="no-projects" hidden>没有符合条件的项目，请调整搜索词或筛选条件。</p>
+    <section id="open-source" class="section" data-project-category="open-source" aria-labelledby="open-source-title">
+      <h2 id="open-source-title">软件与实用工具 <span class="section-count">(16)</span></h2>
       <div class="project-grid">
-        <article class="project">
-          <h3>Vault Unified</h3>
+<article class="project" data-repo="vault-unified" data-visibility="public" data-archived="false">
+          <div class="project-head"><h3>Vault Unified</h3><span class="repo-tags"><span class="repo-tag repo-tag-public">公开</span></span></div>
           <p>面向个人的 Windows 密码管理器，支持本机加密存储和加密备份。</p>
           <div class="project-links">
             <a href="https://github.com/PureSaber/vault-unified">源码与使用说明</a>
             <a href="https://github.com/PureSaber/vault-unified/releases">发布版本</a>
           </div>
         </article>
-        <article class="project">
-          <h3>Currency Converter</h3>
+<article class="project" data-repo="currency-converter" data-visibility="public" data-archived="false">
+          <div class="project-head"><h3>Currency Converter</h3><span class="repo-tags"><span class="repo-tag repo-tag-public">公开</span></span></div>
           <p>一个命令行货币换算工具，可以切换汇率提供方，也可以用本地静态汇率表运行。</p>
           <div class="project-links">
             <a href="https://github.com/PureSaber/currency-converter">源码与使用说明</a>
           </div>
         </article>
-        <article class="project">
-          <h3>Blog Weekly Reporter</h3>
+<article class="project" data-repo="blog-weekly-reporter" data-visibility="public" data-archived="false">
+          <div class="project-head"><h3>Blog Weekly Reporter</h3><span class="repo-tags"><span class="repo-tag repo-tag-public">公开</span></span></div>
           <p>博客周报生成工具：扫描 Markdown 文章，汇总每周发布数量、字数与标签，并生成可发布的周报文件。</p>
           <div class="project-links">
             <a href="https://github.com/PureSaber/blog-weekly-reporter">源码与使用说明</a>
           </div>
         </article>
-        <article class="project">
-          <h3>Cambridge Dictionary Crawler</h3>
+<article class="project" data-repo="cambridge_dic_crawler" data-visibility="public" data-archived="false">
+          <div class="project-head"><h3>Cambridge Dictionary Crawler</h3><span class="repo-tags"><span class="repo-tag repo-tag-public">公开</span></span></div>
           <p>剑桥英汉词典数据采集工具，提取音标、词性、释义和例句，支持 CSV／JSON 导出与断点续采。</p>
           <div class="project-links">
             <a href="https://github.com/PureSaber/cambridge_dic_crawler">源码与使用说明</a>
           </div>
         </article>
+        <article class="project" data-repo="MySUES" data-visibility="public" data-archived="false">
+          <div class="project-head"><h3>MySUES</h3><span class="repo-tags"><span class="repo-tag repo-tag-public">公开</span></span></div>
+          <p>校园生活助手应用，提供课表、成绩及考试信息查询。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/MySUES">查看 GitHub 仓库</a></div>
+        </article>
+        <article class="project" data-repo="flash_card_Ebbinghaus" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>flash_card_Ebbinghaus</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>支持间隔复习、主动回忆和离线学习的个人背单词应用。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/flash_card_Ebbinghaus">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="Todo-Router" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>Todo-Router</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>将邮件、Planner 与其他来源中的任务整理到 Microsoft To Do。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/Todo-Router">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="menu-manager" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>menu-manager</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>个人厨房管理应用，整合菜谱、餐计划、库存和采购记录。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/menu-manager">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="senyuki" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>senyuki</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>Android 本地订阅与固定支出管理 App。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/senyuki">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="benefit-ledger" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>benefit-ledger</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>会员权益、剩余额度、有效期和核销凭证管理工具。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/benefit-ledger">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="travel-monitor" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>travel-monitor</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>个人机票与酒店查价、记录和监测工具，尚非预订服务。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/travel-monitor">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="folio" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>folio</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>本地漫画收藏与阅读应用，整理来源和阅读记录。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/folio">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="tencent-multi-instance" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>tencent-multi-instance</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>Windows 多账号隔离与游戏运行环境配置研究。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/tencent-multi-instance">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="autoglm-checkins" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>autoglm-checkins</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>基于上游 AutoGLM 扩展的本地签到任务管理原型。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/autoglm-checkins">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="career-opportunity-radar" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>career-opportunity-radar</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>本地求职机会管理工作台，记录岗位、申请状态和行动安排。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/career-opportunity-radar">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="clash-verge-rev-migration" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>clash-verge-rev-migration</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>个人网络客户端配置与跨设备迁移维护仓库。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/clash-verge-rev-migration">打开私有仓库（需权限）</a></div>
+        </article>
       </div>
     </section>
-    <section id="quant-research" class="section" aria-labelledby="quant-research-title">
-      <h2 id="quant-research-title">量化研究</h2>
+    <section id="quant-research" class="section" data-project-category="quant-research" aria-labelledby="quant-research-title">
+      <h2 id="quant-research-title">量化研究与交易工程 <span class="section-count">(34)</span></h2>
       <div class="project-grid">
-        <article class="project">
-          <h3>Quant Studio</h3>
+<article class="project" data-repo="quant-studio" data-visibility="public" data-archived="false">
+          <div class="project-head"><h3>Quant Studio</h3><span class="repo-tags"><span class="repo-tag repo-tag-public">公开</span></span></div>
           <p>本地量化研究工作台，按研究问题组织数据、实验方案、Notebook 和结果。</p>
           <div class="project-links">
             <a href="https://github.com/PureSaber/quant-studio">源码与研究工作流</a>
           </div>
         </article>
-        <article class="project">
-          <h3>Quant Data Kit</h3>
+<article class="project" data-repo="quant-data-kit" data-visibility="public" data-archived="false">
+          <div class="project-head"><h3>Quant Data Kit</h3><span class="repo-tags"><span class="repo-tag repo-tag-public">公开</span></span></div>
           <p>市场数据工具包，负责保存原始数据、校验数据口径，并按固定版本重放研究数据。</p>
           <div class="project-links">
             <a href="https://github.com/PureSaber/quant-data-kit">源码与数据文档</a>
           </div>
         </article>
-        <article class="project">
-          <h3>A-Share Multifactor</h3>
+<article class="project" data-repo="a-share-multifactor" data-visibility="public" data-archived="false">
+          <div class="project-head"><h3>A-Share Multifactor</h3><span class="repo-tags"><span class="repo-tag repo-tag-public">公开</span></span></div>
           <p>A 股多因子选股研究，包含因子计算、IC 分析、分层回测和组合模拟。</p>
           <div class="project-links">
             <a href="https://github.com/PureSaber/a-share-multifactor">源码与研究方法</a>
           </div>
         </article>
-        <article class="project">
-          <h3>Quant Regime</h3>
+<article class="project" data-repo="quant-regime" data-visibility="public" data-archived="false">
+          <div class="project-head"><h3>Quant Regime</h3><span class="repo-tags"><span class="repo-tag repo-tag-public">公开</span></span></div>
           <p>规则型市场状态识别工具，根据波动率和收益特征标记风险环境，并给出研究用仓位缩放建议。</p>
           <div class="project-links">
             <a href="https://github.com/PureSaber/quant-regime">源码与研究方法</a>
           </div>
         </article>
-        <article class="project">
-          <h3>Quant Timing</h3>
+<article class="project" data-repo="quant-timing" data-visibility="public" data-archived="false">
+          <div class="project-head"><h3>Quant Timing</h3><span class="repo-tags"><span class="repo-tag repo-tag-public">公开</span></span></div>
           <p>指数与风格择时研究，探索仓位调整以及大小盘、价值成长风格倾斜，不负责实际下单。</p>
           <div class="project-links">
             <a href="https://github.com/PureSaber/quant-timing">源码与研究方法</a>
           </div>
         </article>
-        <article class="project">
-          <h3>Quant Futures Spread</h3>
+<article class="project" data-repo="quant-futures-spread" data-visibility="public" data-archived="false">
+          <div class="project-head"><h3>Quant Futures Spread</h3><span class="repo-tags"><span class="repo-tag repo-tag-public">公开</span></span></div>
           <p>期货价差研究与确定性回测框架，模拟多腿信号、交易成本、换月和保证金等环节。</p>
           <div class="project-links">
             <a href="https://github.com/PureSaber/quant-futures-spread">源码与回测说明</a>
           </div>
         </article>
-        <article class="project">
-          <h3>Quant Portfolio</h3>
+<article class="project" data-repo="quant-portfolio" data-visibility="public" data-archived="false">
+          <div class="project-head"><h3>Quant Portfolio</h3><span class="repo-tags"><span class="repo-tag repo-tag-public">公开</span></span></div>
           <p>多策略投资组合研究与工程示例，涵盖策略资金分配、持仓汇总和交易成本，使用合成示例数据。</p>
           <div class="project-links">
             <a href="https://github.com/PureSaber/quant-portfolio">源码与研究说明</a>
           </div>
         </article>
-        <article class="project">
-          <h3>Quant Fund</h3>
+<article class="project" data-repo="quant-fund" data-visibility="public" data-archived="false">
+          <div class="project-head"><h3>Quant Fund</h3><span class="repo-tags"><span class="repo-tag repo-tag-public">公开</span></span></div>
           <p>基金与 FOF 量化研究工作台，支持基金分析、申赎模拟、组合监控与费用模型研究。</p>
           <div class="project-links">
             <a href="https://github.com/PureSaber/quant-fund">源码与使用说明</a>
           </div>
         </article>
-        <article class="project">
-          <h3>Quant Pipeline</h3>
+<article class="project" data-repo="quant-pipeline" data-visibility="public" data-archived="false">
+          <div class="project-head"><h3>Quant Pipeline</h3><span class="repo-tags"><span class="repo-tag repo-tag-public">公开</span></span></div>
           <p>量化研究流程编排工具，连接不同研究模块，按确定性流程运行回测和模拟交易任务。</p>
           <div class="project-links">
             <a href="https://github.com/PureSaber/quant-pipeline">源码与流程说明</a>
           </div>
         </article>
-        <article class="project">
-          <h3>Quant Execution</h3>
+<article class="project" data-repo="quant-execution" data-visibility="public" data-archived="false">
+          <div class="project-head"><h3>Quant Execution</h3><span class="repo-tags"><span class="repo-tag repo-tag-public">公开</span></span></div>
           <p>量化回测与模拟交易执行层，提供撮合、交易规则、风险检查和多币种账本，不发送实盘订单。</p>
           <div class="project-links">
             <a href="https://github.com/PureSaber/quant-execution">源码与执行说明</a>
           </div>
         </article>
-        <article class="project">
-          <h3>Quant Report Hub</h3>
+<article class="project" data-repo="quant-report-hub" data-visibility="public" data-archived="false">
+          <div class="project-head"><h3>Quant Report Hub</h3><span class="repo-tags"><span class="repo-tag repo-tag-public">公开</span></span></div>
           <p>量化研究结果可视化与报告中心，汇总回测产物、组合归因、风险指标和只读研究看板。</p>
           <div class="project-links">
             <a href="https://github.com/PureSaber/quant-report-hub">源码与报告说明</a>
           </div>
         </article>
+        <article class="project" data-repo="sklearn-stock-trend" data-visibility="public" data-archived="false">
+          <div class="project-head"><h3>sklearn-stock-trend</h3><span class="repo-tags"><span class="repo-tag repo-tag-public">公开</span></span></div>
+          <p>基于传统机器学习的股票趋势特征、模型训练与评估研究。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/sklearn-stock-trend">查看 GitHub 仓库</a></div>
+        </article>
+        <article class="project" data-repo="QuantLib" data-visibility="public" data-archived="false">
+          <div class="project-head"><h3>QuantLib</h3><span class="repo-tags"><span class="repo-tag repo-tag-public">公开</span></span></div>
+          <p>第三方开源量化金融计算库的代码参考仓库，非个人原创项目声明。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/QuantLib">查看 GitHub 仓库</a></div>
+        </article>
+        <article class="project" data-repo="quant-lab" data-visibility="public" data-archived="false">
+          <div class="project-head"><h3>quant-lab</h3><span class="repo-tags"><span class="repo-tag repo-tag-public">公开</span></span></div>
+          <p>跨项目量化研究结果索引与标准化实验产物验证组件。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/quant-lab">查看 GitHub 仓库</a></div>
+        </article>
+        <article class="project" data-repo="quant-research-notes" data-visibility="public" data-archived="false">
+          <div class="project-head"><h3>quant-research-notes</h3><span class="repo-tags"><span class="repo-tag repo-tag-public">公开</span></span></div>
+          <p>量化研究的知识库、研发路线和验收记录。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/quant-research-notes">查看 GitHub 仓库</a></div>
+        </article>
+        <article class="project" data-repo="quant-kit" data-visibility="private" data-archived="true">
+          <div class="project-head"><h3>quant-kit</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span><span class="repo-tag repo-tag-archived">已归档</span></span></div>
+          <p>早期 A 股研究数据层，已归档并合并至 Quant Data Kit。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/quant-kit">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="quant-risk-monitor" data-visibility="public" data-archived="false">
+          <div class="project-head"><h3>quant-risk-monitor</h3><span class="repo-tags"><span class="repo-tag repo-tag-public">公开</span></span></div>
+          <p>组合风险、因子暴露与资金压力研究组件。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/quant-risk-monitor">查看 GitHub 仓库</a></div>
+        </article>
+        <article class="project" data-repo="quant-agent" data-visibility="public" data-archived="false">
+          <div class="project-head"><h3>quant-agent</h3><span class="repo-tags"><span class="repo-tag repo-tag-public">公开</span></span></div>
+          <p>研究结果复核与证据整理的量化 AI 辅助组件。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/quant-agent">查看 GitHub 仓库</a></div>
+        </article>
+        <article class="project" data-repo="quant-paper-sim" data-visibility="public" data-archived="false">
+          <div class="project-head"><h3>quant-paper-sim</h3><span class="repo-tags"><span class="repo-tag repo-tag-public">公开</span></span></div>
+          <p>基于统一执行层的确定性模拟交易命令行适配器。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/quant-paper-sim">查看 GitHub 仓库</a></div>
+        </article>
+        <article class="project" data-repo="quant-workspace" data-visibility="public" data-archived="false">
+          <div class="project-head"><h3>quant-workspace</h3><span class="repo-tags"><span class="repo-tag repo-tag-public">公开</span></span></div>
+          <p>多量化仓库的环境管理、版本约束与研究集成工作区。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/quant-workspace">查看 GitHub 仓库</a></div>
+        </article>
+        <article class="project" data-repo="quant-factors" data-visibility="public" data-archived="false">
+          <div class="project-head"><h3>quant-factors</h3><span class="repo-tags"><span class="repo-tag repo-tag-public">公开</span></span></div>
+          <p>跨仓共享的量化因子计算与定义库。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/quant-factors">查看 GitHub 仓库</a></div>
+        </article>
+        <article class="project" data-repo="quant-infra-workspace" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>quant-infra-workspace</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>量化工程维护与跨仓核验的私有工作区。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/quant-infra-workspace">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="spread-backtest-viz" data-visibility="public" data-archived="true">
+          <div class="project-head"><h3>spread-backtest-viz</h3><span class="repo-tags"><span class="repo-tag repo-tag-public">公开</span><span class="repo-tag repo-tag-archived">已归档</span></span></div>
+          <p>期货价差可视化旧入口，已并入 Quant Report Hub。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/spread-backtest-viz">查看 GitHub 仓库</a></div>
+        </article>
+        <article class="project" data-repo="research-workspace" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>research-workspace</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>跨品种套利研究的个人工作区与编排配置。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/research-workspace">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="vibe-trading-lab" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>vibe-trading-lab</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>独立的探索性交易研究沙盒。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/vibe-trading-lab">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="quant-crypto-basis" data-visibility="public" data-archived="false">
+          <div class="project-head"><h3>quant-crypto-basis</h3><span class="repo-tags"><span class="repo-tag repo-tag-public">公开</span></span></div>
+          <p>BTC／ETH 现货与永续合约基差及资金费率的离线研究。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/quant-crypto-basis">查看 GitHub 仓库</a></div>
+        </article>
+        <article class="project" data-repo="saber-market-bot" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>saber-market-bot</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>行情查询、图表、自选标的和价格提醒的个人机器人。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/saber-market-bot">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="quant-hk-equity" data-visibility="public" data-archived="false">
+          <div class="project-head"><h3>quant-hk-equity</h3><span class="repo-tags"><span class="repo-tag repo-tag-public">公开</span></span></div>
+          <p>港股日频研究，结合整手交易、费用与交收约束。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/quant-hk-equity">查看 GitHub 仓库</a></div>
+        </article>
+        <article class="project" data-repo="quant-us-equity" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>quant-us-equity</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>美股与 ETF 策略的离线研究应用。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/quant-us-equity">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="quant-stat-arb" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>quant-stat-arb</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>协整配对、对冲比例与交易成本的统计套利研究。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/quant-stat-arb">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="quant-options" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>quant-options</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>期权理论、情景分析和历史回放研究工具。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/quant-options">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="quant-swaps" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>quant-swaps</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>利率互换现金流、曲线、风险和模拟敞口研究。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/quant-swaps">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="quant-strategy-adapters" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>quant-strategy-adapters</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>策略研究模块与统一回测执行层之间的适配工具。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/quant-strategy-adapters">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="quant-report-replication" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>quant-report-replication</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>量化研报规则、独立复现、差异分析与证据记录。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/quant-report-replication">打开私有仓库（需权限）</a></div>
+        </article>
       </div>
     </section>
-    <section id="online" class="section" aria-labelledby="online-title">
-      <h2 id="online-title">在线工具</h2>
+    <section id="ai" class="section" data-project-category="ai" aria-labelledby="ai-title">
+      <h2 id="ai-title">AI 与自动化 <span class="section-count">(10)</span></h2>
       <div class="project-grid">
-        <article class="project">
-          <h3>实用工具箱</h3>
+        <article class="project" data-repo="deepface" data-visibility="public" data-archived="false">
+          <div class="project-head"><h3>deepface</h3><span class="repo-tags"><span class="repo-tag repo-tag-public">公开</span></span></div>
+          <p>第三方开源人脸分析项目的代码参考仓库。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/deepface">查看 GitHub 仓库</a></div>
+        </article>
+        <article class="project" data-repo="nonebot2" data-visibility="public" data-archived="false">
+          <div class="project-head"><h3>nonebot2</h3><span class="repo-tags"><span class="repo-tag repo-tag-public">公开</span></span></div>
+          <p>第三方 Python 异步机器人框架的代码参考仓库。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/nonebot2">查看 GitHub 仓库</a></div>
+        </article>
+        <article class="project" data-repo="React_TaskSolver" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>React_TaskSolver</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>AI Agent 多轮任务编排、验收和运行管理工具。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/React_TaskSolver">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="agent-toolkit" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>agent-toolkit</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>个人 AI 技能、角色、规则和工具配置库。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/agent-toolkit">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="saberbot" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>saberbot</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>基于 NoneBot2 的个人 QQ 机器人，整合对话和提醒。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/saberbot">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="gemini-web-gateway" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>gemini-web-gateway</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>个人本地 Gemini 网关实验，提供访问接口和诊断。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/gemini-web-gateway">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="gemini-spark-command-bridge" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>gemini-spark-command-bridge</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>通过受控命令队列对接 Gemini Spark 的自动化桥接研究。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/gemini-spark-command-bridge">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="ai-control-plane" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>ai-control-plane</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>多模型接口、智能体安全和可观测性的私有基础设施。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/ai-control-plane">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="omni-media-operator" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>omni-media-operator</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>多平台内容创作、素材管理和人工审核工作台。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/omni-media-operator">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="hermes-personal-hub" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>hermes-personal-hub</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>个人 AI 助手管理服务，整合任务、检索和研究流程。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/hermes-personal-hub">打开私有仓库（需权限）</a></div>
+        </article>
+      </div>
+    </section>
+    <section id="games" class="section" data-project-category="games" aria-labelledby="games-title">
+      <h2 id="games-title">游戏与互动创作 <span class="section-count">(10)</span></h2>
+      <div class="project-grid">
+        <article class="project" data-repo="Capybara_HotSpring_Web" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>Capybara_HotSpring_Web</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>水豚温泉旅馆浏览器放置经营小游戏原型。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/Capybara_HotSpring_Web">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="Capybara_HotSpring_CrossPlatform" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>Capybara_HotSpring_CrossPlatform</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>水豚温泉旅馆的跨平台游戏工程。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/Capybara_HotSpring_CrossPlatform">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="station-zero-coop" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>station-zero-coop</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>空间站多人协作抢修游戏的浏览器原型。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/station-zero-coop">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="relic-relay-fabric" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>relic-relay-fabric</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>Minecraft Fabric 多人合作解谜 Mod。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/relic-relay-fabric">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="EventForge" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>EventForge</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>Minecraft Paper 服务器的可配置互动事件插件。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/EventForge">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="marching_bastions" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>marching_bastions</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>围绕建造、征募与战场演变的短局战争策略游戏。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/marching_bastions">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="Game_Opencv" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>Game_Opencv</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>基于视觉识别的游戏任务自动化实验。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/Game_Opencv">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="mc_building_gen" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>mc_building_gen</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>Minecraft 参数化建筑生成器，支持预览和导出。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/mc_building_gen">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="mc_building_gen-private" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>mc_building_gen-private</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>Minecraft 建筑生成器的私有开发版本。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/mc_building_gen-private">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="luanti-editor-private" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>luanti-editor-private</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>Luanti 体素世界编辑器与 3D 预览工具。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/luanti-editor-private">打开私有仓库（需权限）</a></div>
+        </article>
+      </div>
+    </section>
+    <section id="learning" class="section" data-project-category="learning" aria-labelledby="learning-title">
+      <h2 id="learning-title">学习与竞赛 <span class="section-count">(10)</span></h2>
+      <div class="project-grid">
+        <article class="project" data-repo="academic-gnn-slides-v2" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>academic-gnn-slides-v2</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>图神经网络与推荐系统的课程展示材料。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/academic-gnn-slides-v2">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="learnpath" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>learnpath</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>结合知识图谱和 AI 助手的交互式学习路线平台。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/learnpath">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="arc-prize-2026-kaggle" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>arc-prize-2026-kaggle</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>ARC-AGI 推理竞赛的研究与提交工程。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/arc-prize-2026-kaggle">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="pokemon-tcg-kaggle" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>pokemon-tcg-kaggle</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>宝可梦卡牌 AI 对战竞赛的实验和策略记录。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/pokemon-tcg-kaggle">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="rsna-knee-mri-kaggle" data-visibility="public" data-archived="false">
+          <div class="project-head"><h3>rsna-knee-mri-kaggle</h3><span class="repo-tags"><span class="repo-tag repo-tag-public">公开</span></span></div>
+          <p>Kaggle 膝关节 MRI 检测竞赛的 Notebook 研究工作流。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/rsna-knee-mri-kaggle">查看 GitHub 仓库</a></div>
+        </article>
+        <article class="project" data-repo="quiz-collection" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>quiz-collection</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>题目与练习资料的个人整理仓库，详细用途待完善。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/quiz-collection">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="quant-interview-intelligence" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>quant-interview-intelligence</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>量化面试题、岗位和经验资料的个人检索系统。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/quant-interview-intelligence">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="gpt-english-speaking-journal" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>gpt-english-speaking-journal</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>英语口语学习日志，追踪表达、错误和练习计划。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/gpt-english-speaking-journal">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="arc-agi2-cleanroom-research-20260827" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>arc-agi2-cleanroom-research-20260827</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>ARC-AGI-2 独立推理实验与研究工程。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/arc-agi2-cleanroom-research-20260827">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="College-Essay" data-visibility="public" data-archived="false">
+          <div class="project-head"><h3>College-Essay</h3><span class="repo-tags"><span class="repo-tag repo-tag-public">公开</span></span></div>
+          <p>港新大学申请文书要求与公开案例的索引及拆解库。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/College-Essay">查看 GitHub 仓库</a></div>
+        </article>
+      </div>
+    </section>
+    <section id="online" class="section" data-project-category="online" aria-labelledby="online-title">
+      <h2 id="online-title">网站与在线服务 <span class="section-count">(2)</span></h2>
+      <div class="project-grid">
+<article class="project" data-repo="puresaber.github.io" data-visibility="public" data-archived="false">
+          <div class="project-head"><h3>实用工具箱</h3><span class="repo-tags"><span class="repo-tag repo-tag-public">公开</span></span></div>
           <p>一个可搜索的工具与资源目录，收录我整理的开发工具、量化软件、学习资料和数据入口。</p>
           <div class="project-links">
             <a href="../">打开工具箱</a>
             <a href="https://github.com/PureSaber/puresaber.github.io">网站源码</a>
           </div>
+        </article>
+        <article class="project" data-repo="blog-game-style" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>blog-game-style</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>个人游戏风格博客，记录生活、文章和作品。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/blog-game-style">打开私有仓库（需权限）</a></div>
+        </article>
+      </div>
+    </section>
+    <section id="records" class="section" data-project-category="records" aria-labelledby="records-title">
+      <h2 id="records-title">个人记录与项目维护 <span class="section-count">(7)</span></h2>
+      <div class="project-grid">
+        <article class="project" data-repo="Saber" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>Saber</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>早期个人 GitHub 主页说明的维护仓库。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/Saber">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="cursor-chat-backup" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>cursor-chat-backup</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>个人开发工具会话备份；仅展示用途，不公开内容。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/cursor-chat-backup">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="ops-notes" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>ops-notes</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>个人服务部署、运维知识和维护方案记录。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/ops-notes">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="knowledge-vault" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>knowledge-vault</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>私人学习、工作与研究知识库；不展示内部内容。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/knowledge-vault">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="Saber-Resume" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>Saber-Resume</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>个人简历源码及自动化构建工作区。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/Saber-Resume">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="github-profile-preview" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>github-profile-preview</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>GitHub 个人主页 README 的设计预览和生成工具。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/github-profile-preview">打开私有仓库（需权限）</a></div>
+        </article>
+        <article class="project" data-repo="private-bookmarks" data-visibility="private" data-archived="false">
+          <div class="project-head"><h3>private-bookmarks</h3><span class="repo-tags"><span class="repo-tag repo-tag-private">私有</span></span></div>
+          <p>私人收藏备份；不展示仓库中的链接或内容。</p>
+          <div class="project-links"><a href="https://github.com/PureSaber/private-bookmarks">打开私有仓库（需权限）</a></div>
         </article>
       </div>
     </section>
