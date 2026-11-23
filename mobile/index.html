@@ -122,6 +122,12 @@
       color: var(--accent); text-decoration: none; font-size: .78rem; font-weight: 650;
     }
     .app-counterpart:hover { text-decoration: underline; background: #f0f5ec; }
+    /* Independent corner link: the main application card remains one click target. */
+    .app-grid li:has(> .app-desktop-link) { position: relative; }
+    .app-grid li:has(> .app-desktop-link) > .app-card .app-copy strong { padding-inline-end: 3.85rem; }
+    .app-desktop-link { position: absolute; top: .32rem; right: .4rem; z-index: 1; padding: .08rem .32rem; border-radius: .32rem; color: var(--accent); background: #edf4eb; font-size: .69rem; line-height: 1.55; font-weight: 650; text-decoration: none; white-space: nowrap; }
+    .app-desktop-link:hover { text-decoration: underline; background: #deebdc; }
+    .app-desktop-link:focus-visible { outline: 2px solid #307250; outline-offset: 2px; }
     .app-grid li:target { scroll-margin-top: 1.15rem; outline: 2px solid #537f61; outline-offset: 4px; }
   </style>
 </head>
@@ -217,6 +223,7 @@
                 <span class="app-icon" aria-hidden="true"><span>C</span><img src="icons/claude.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.anthropic.claude&amp;hl=en&amp;gl=us"></span>
                 <span class="app-copy"><strong>Claude</strong><span>写作与长文档阅读</span></span>
               </a>
+              <a class="app-desktop-link" href="https://claude.com/download" target="_blank" rel="noopener noreferrer" title="Windows / macOS / Linux（beta） · 官方页面" aria-label="Claude：电脑端，Windows / macOS / Linux（beta）">电脑端 ↗</a>
             </li>
             <li data-keywords="深度求索 深度搜索 人工智能" data-platform="common">
               <a class="app-card" href="https://www.deepseek.com/en/download/">
@@ -320,6 +327,7 @@
                 <span class="app-icon" aria-hidden="true"><span>钉</span><img src="icons/dingtalk.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/cn/app/%E9%92%89%E9%92%89/id930368978"></span>
                 <span class="app-copy"><strong>钉钉</strong><span>团队沟通、会议与审批</span></span>
               </a>
+              <a class="app-desktop-link" href="https://www.dingtalk.com/download" target="_blank" rel="noopener noreferrer" title="Windows / macOS · 官方页面" aria-label="钉钉：电脑端，Windows / macOS">电脑端 ↗</a>
             </li>
             <li id="app-meeting" data-keywords="voov meeting" data-platform="common">
               <a class="app-card" href="https://meeting.tencent.com/">
@@ -351,12 +359,14 @@
                 <span class="app-icon" aria-hidden="true"><span>W</span><img src="icons/wps.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/wps-office-%E6%99%BA%E8%83%BDai%E5%8A%9E%E5%85%AC%E5%8A%A9%E6%89%8B/id599852710?uo=4"></span>
                 <span class="app-copy"><strong>WPS Office</strong><span>编辑办公文档与表格</span></span>
               </a>
+              <a class="app-desktop-link" href="https://www.wps.cn/" target="_blank" rel="noopener noreferrer" title="Windows / macOS / Linux · 官方页面" aria-label="WPS Office：电脑端，Windows / macOS / Linux">电脑端 ↗</a>
             </li>
             <li data-keywords="camscanner 扫描 pdf" data-platform="common">
               <a class="app-card" href="https://www.intsig.com/camscanner/">
                 <span class="app-icon" aria-hidden="true"><span>扫</span><img src="icons/camscanner.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.intsig.camscanner&amp;hl=en&amp;gl=us"></span>
                 <span class="app-copy"><strong>扫描全能王</strong><span>把纸质文档扫描成 PDF</span></span>
               </a>
+              <a class="app-desktop-link" href="https://www.camscanner.com/zh/download" target="_blank" rel="noopener noreferrer" title="Windows / macOS · 官方页面" aria-label="扫描全能王：电脑端，Windows / macOS">电脑端 ↗</a>
             </li>
           </ul>
         </div>
@@ -368,6 +378,7 @@
                 <span class="app-icon" aria-hidden="true"><span>O</span><img src="icons/obsidian.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/us/app/obsidian-connected-notes/id1557175442"></span>
                 <span class="app-copy"><strong>Obsidian</strong><span>用 Markdown 记录笔记与建立双向链接</span></span>
               </a>
+              <a class="app-desktop-link" href="https://obsidian.md/download" target="_blank" rel="noopener noreferrer" title="Windows / macOS / Linux · 官方页面" aria-label="Obsidian：电脑端，Windows / macOS / Linux">电脑端 ↗</a>
             </li>
             <li id="app-notion" data-keywords="笔记 知识库 wiki 数据库" data-platform="common">
               <a class="app-card" href="https://www.notion.com/mobile">
@@ -386,12 +397,14 @@
                 <span class="app-icon" aria-hidden="true"><span>G</span><img src="icons/google-drive.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/us/app/google-drive/id507874739"></span>
                 <span class="app-copy"><strong>Google Drive</strong><span>云端存储、分享与协作文件</span></span>
               </a>
+              <a class="app-desktop-link" href="https://support.google.com/a/users/answer/13022292?hl=zh-Hans" target="_blank" rel="noopener noreferrer" title="Windows / macOS · 桌面同步 · 官方页面" aria-label="Google Drive：桌面同步，Windows / macOS · 桌面同步">桌面同步 ↗</a>
             </li>
             <li data-keywords="alipan aliyun drive 网盘 相册 备份 文件备份" data-platform="common">
               <a class="app-card" href="https://www.alipan.com/download">
                 <span class="app-icon" aria-hidden="true"><span>阿</span><img src="icons/alipan.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E9%98%BF%E9%87%8C%E4%BA%91%E7%9B%98/id1494661473"></span>
                 <span class="app-copy"><strong>阿里云盘</strong><span>云端文件分享与相册备份</span></span>
               </a>
+              <a class="app-desktop-link" href="https://www.alipan.com/download" target="_blank" rel="noopener noreferrer" title="Windows / macOS · 官方页面" aria-label="阿里云盘：电脑端，Windows / macOS">电脑端 ↗</a>
             </li>
           </ul>
         </div>
@@ -415,6 +428,7 @@
                 <span class="app-icon" aria-hidden="true"><span>O</span><img src="icons/outlook.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.microsoft.office.outlook&amp;hl=en&amp;gl=us"></span>
                 <span class="app-copy"><strong>Outlook</strong><span>电子邮件与日历</span></span>
               </a>
+              <a class="app-desktop-link" href="https://www.microsoft.com/en-us/microsoft-365/outlook/email-and-calendar-software-microsoft-outlook" target="_blank" rel="noopener noreferrer" title="Windows / macOS · 官方页面" aria-label="Outlook：电脑端，Windows / macOS">电脑端 ↗</a>
             </li>
           </ul>
         </div>
@@ -426,6 +440,7 @@
                 <span class="app-icon" aria-hidden="true"><span>M</span><img src="icons/microsoft-todo.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.microsoft.todos&amp;hl=en&amp;gl=us"></span>
                 <span class="app-copy"><strong>Microsoft To Do</strong><span>个人待办与清单</span></span>
               </a>
+              <a class="app-desktop-link" href="https://www.microsoft.com/en-us/microsoft-365/microsoft-to-do-list-app" target="_blank" rel="noopener noreferrer" title="Windows · 官方页面" aria-label="Microsoft To Do：电脑端，Windows">电脑端 ↗</a>
             </li>
             <li data-keywords="timeview" data-platform="android">
               <a class="app-card" href="https://app.mi.com/details?id=cn.geekapp.timeview">
@@ -594,12 +609,14 @@
                 <span class="app-icon" aria-hidden="true"><span>F</span><img src="icons/flclash.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://github.com/chen08209/FlClash"></span>
                 <span class="app-copy"><strong>FlClash</strong><span>跨平台代理客户端</span></span>
               </a>
+              <a class="app-desktop-link" href="https://github.com/chen08209/FlClash/releases" target="_blank" rel="noopener noreferrer" title="Windows / macOS / Linux · 官方页面" aria-label="FlClash：电脑端，Windows / macOS / Linux">电脑端 ↗</a>
             </li>
             <li data-keywords="clashmi mihomo 代理" data-platform="common">
               <a class="app-card" href="https://github.com/KaringX/clashmi">
                 <span class="app-icon" aria-hidden="true"><span>C</span><img src="icons/clash-mi.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/us/app/clash-mi/id6744321968"></span>
                 <span class="app-copy"><strong>Clash Mi</strong><span>基于 Mihomo 内核的手机代理客户端</span></span>
               </a>
+              <a class="app-desktop-link" href="https://github.com/KaringX/clashmi/releases" target="_blank" rel="noopener noreferrer" title="Windows / macOS / Linux · 官方页面" aria-label="Clash Mi：电脑端，Windows / macOS / Linux">电脑端 ↗</a>
             </li>
           </ul>
         </div>
@@ -752,12 +769,14 @@
                 <span class="app-icon" aria-hidden="true"><span>网</span><img src="icons/netease-music.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90-%E6%95%B0%E4%BA%BF%E9%9F%B3%E4%B9%90%E7%95%85%E5%90%AC/id590338362"></span>
                 <span class="app-copy"><strong>网易云音乐</strong><span>在线音乐与歌单</span></span>
               </a>
+              <a class="app-desktop-link" href="https://music.163.com/" target="_blank" rel="noopener noreferrer" title="Windows / macOS · 官方页面" aria-label="网易云音乐：电脑端，Windows / macOS">电脑端 ↗</a>
             </li>
             <li data-keywords="spotify" data-platform="common">
               <a class="app-card" href="https://play.google.com/store/apps/details?id=com.spotify.music&amp;hl=en&amp;gl=us">
                 <span class="app-icon" aria-hidden="true"><span>S</span><img src="icons/spotify.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.spotify.music&amp;hl=en&amp;gl=us"></span>
                 <span class="app-copy"><strong>Spotify</strong><span>音乐与播客</span></span>
               </a>
+              <a class="app-desktop-link" href="https://www.spotify.com/us/download/other/" target="_blank" rel="noopener noreferrer" title="Windows / macOS / Linux · 官方页面" aria-label="Spotify：电脑端，Windows / macOS / Linux">电脑端 ↗</a>
             </li>
             <li data-keywords="5sing" data-platform="common">
               <a class="app-card" href="https://apps.apple.com/cn/app/5sing%E9%9F%B3%E4%B9%90/id473613148">
@@ -830,6 +849,7 @@
                 <span class="app-icon" aria-hidden="true"><span>网</span><img src="icons/youdao.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/cn/app/%E7%BD%91%E6%98%93%E6%9C%89%E9%81%93%E8%AF%8D%E5%85%B8-%E4%B8%93%E4%B8%9A%E6%9F%A5%E8%AF%8D%E7%BF%BB%E8%AF%91%E5%AD%A6%E4%B9%A0%E5%8A%A9%E6%89%8B/id353115739"></span>
                 <span class="app-copy"><strong>网易有道词典</strong><span>查词、例句和发音</span></span>
               </a>
+              <a class="app-desktop-link" href="https://cidian.youdao.com/multi.html" target="_blank" rel="noopener noreferrer" title="Windows / macOS · 官方页面" aria-label="网易有道词典：电脑端，Windows / macOS">电脑端 ↗</a>
             </li>
             <li data-keywords="声音 音高 pitch 声线" data-platform="common">
               <a class="app-card" href="https://play.google.com/store/apps/details?id=com.DevExtras.VoiceTools">
@@ -1247,6 +1267,7 @@
                 <span class="app-icon" aria-hidden="true"><span>富</span><img src="icons/futubull.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/hk/app/%E5%AF%8C%E9%80%94%E7%89%9B%E7%89%9B-%E6%B8%AF%E8%82%A1%E7%BE%8E%E8%82%A1-crypto-%E6%9C%9F%E6%AC%8A-etf-%E5%AF%A6%E6%99%82%E5%A0%B1%E5%83%B9/id592031984"></span>
                 <span class="app-copy"><strong>富途牛牛</strong><span>查看港美股行情与资讯，体验模拟交易</span></span>
               </a>
+              <a class="app-desktop-link" href="https://www.futunn.com/download" target="_blank" rel="noopener noreferrer" title="Windows / macOS · 官方页面" aria-label="富途牛牛：电脑端，Windows / macOS">电脑端 ↗</a>
             </li>
             <li data-keywords="嘉信理财 schwab charles schwab 美国券商 美股" data-platform="common">
               <a class="app-card" href="https://international.schwab.com/online-trading-platforms">
@@ -1302,12 +1323,14 @@
                 <span class="app-icon" aria-hidden="true"><span>S</span><img src="icons/steam.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.valvesoftware.android.steam.community&amp;hl=en&amp;gl=us"></span>
                 <span class="app-copy"><strong>Steam</strong><span>商店、社区与账号验证</span></span>
               </a>
+              <a class="app-desktop-link" href="https://store.steampowered.com/about/" target="_blank" rel="noopener noreferrer" title="Windows / macOS / Linux · 官方页面" aria-label="Steam：电脑客户端，Windows / macOS / Linux">电脑客户端 ↗</a>
             </li>
             <li data-keywords="taptap" data-platform="common">
               <a class="app-card" href="https://apps.apple.com/cn/app/taptap-%E5%8F%91%E7%8E%B0%E5%A5%BD%E6%B8%B8%E6%88%8F/id1444595166">
                 <span class="app-icon" aria-hidden="true"><span>T</span><img src="icons/taptap.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/taptap-%E5%8F%91%E7%8E%B0%E5%A5%BD%E6%B8%B8%E6%88%8F/id1444595166"></span>
                 <span class="app-copy"><strong>TapTap</strong><span>游戏发现与社区</span></span>
               </a>
+              <a class="app-desktop-link" href="https://www.taptap.cn/download" target="_blank" rel="noopener noreferrer" title="Windows · 官方页面" aria-label="TapTap：电脑客户端，Windows">电脑客户端 ↗</a>
             </li>
             <li data-keywords="qooapp" data-platform="android">
               <a class="app-card" href="https://apps.qqaoop.com/en/app/880">
