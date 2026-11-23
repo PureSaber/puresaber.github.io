@@ -1,7 +1,7 @@
 <li{% if include.entry.alias %} data-alias="{{ include.entry.alias | escape }}"{% endif %}{% if include.entry.anchor %} id="tool-{{ include.entry.anchor | escape }}"{% endif %}{% if include.entry.platforms %} data-platforms="{{ include.entry.platforms | join: ' ' | escape }}"{% endif %}>
   <div class="catalog-card-heading">
-    <{{ include.heading }}{% if include.entry.icon %} class="card-title-with-icon"{% endif %}>
-      {% if include.entry.icon %}<img class="tool-icon" src="{{ include.entry.icon | prepend: '/assets/tool-icons/' | relative_url | escape }}" width="20" height="20" alt="" loading="lazy" decoding="async">{% endif %}
+    <{{ include.heading }}{% if include.entry.icon or include.entry.icon_url %} class="card-title-with-icon"{% endif %}>
+      {% if include.entry.icon or include.entry.icon_url %}<img class="tool-icon" src="{% if include.entry.icon_url %}{{ include.entry.icon_url | escape }}{% else %}{{ include.entry.icon | prepend: '/assets/tool-icons/' | relative_url | escape }}{% endif %}" width="20" height="20" alt="" loading="lazy" decoding="async">{% endif %}
       <a href="{{ include.entry.url | escape }}">{{ include.entry.name }}</a>
     </{{ include.heading }}>
     {% if include.entry.mobile.size == 1 %}
