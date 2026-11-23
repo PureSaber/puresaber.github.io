@@ -10,7 +10,6 @@ tools:
         git-open-source: Git 与开源协作
         runtimes: 编程语言、运行时与包管理
         game-development: 游戏开发
-        game-platforms: 游戏平台与客户端
     infrastructure:
       title: 部署与基础设施
       groups:
@@ -39,6 +38,7 @@ tools:
         password-management: 密码管理
         browsers: 浏览器
         media: 设计与媒体制作
+        game-platforms: 游戏平台与客户端
 resources:
   title: 资源
   description: 查找学习资料、市场数据来源和工具合集。
