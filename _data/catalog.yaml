@@ -437,6 +437,10 @@ research-data:
   summary: 清洗行情表、合并交易日并计算滚动指标。适合把原始数据整理成回测需要的表格。
   type: Python 库
 - name: DuckDB
+  platforms: [Windows, macOS, Linux]
+  linux:
+    note: 平台标签指独立 DuckDB CLI，官方提供安装包
+    url: https://duckdb.org/docs/current/installation
   icon: vendor-031.svg
   url: https://duckdb.org/docs/stable/data/csv/overview
   summary: 用 SQL 查询本地 CSV 或 Parquet，适合快速抽取样本、查重复行和对比文件字段。
@@ -572,6 +576,10 @@ nlp:
   summary: 中文分词与关键词提取。
   type: Python 库
 - name: OpenCC
+  platforms: [Windows, macOS, Linux]
+  linux:
+    note: 平台标签指 OpenCC 命令行工具；不同发行版安装方式不同
+    url: https://github.com/BYVoid/OpenCC
   icon: retry-opencc.png
   url: https://github.com/BYVoid/OpenCC
   summary: 转换简繁中文及地区词汇。
