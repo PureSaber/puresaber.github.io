@@ -46,8 +46,8 @@ ai:
 - name: CodexManager
   platforms: [Windows, macOS, Linux]
   linux:
-    note: Linux 安装包见项目发布页
-    url: https://github.com/qxcnm/Codex-Manager/releases
+    note: 提供 Linux 安装包，但作者表示目前仅对 Windows 桌面版作充分验证
+    url: https://github.com/qxcnm/Codex-Manager
   icon: vendor-068.png
   url: https://github.com/qxcnm/Codex-Manager
   summary: 管理 Codex CLI 账号和本地网关。
@@ -706,8 +706,8 @@ productivity:
 - name: Mendeley
   platforms: [Windows, macOS, Linux, Web]
   linux:
-    note: 官方提供 Linux x86-64 版本（如 Debian、Ubuntu），其他发行版需核对兼容性
-    url: https://www.mendeley.com/the-future-of-mendeley
+    note: 官方 Linux 版本以 x86-64 AppImage 分发；需按发行版确认运行依赖
+    url: https://www.elsevier.support/mendeley/answer/how-do-i-run-mendeley-reference-manager-on-linux
   icon: vendor-054.svg
   url: https://www.mendeley.com/
   summary: 整理参考资料和 PDF 阅读记录。
@@ -749,7 +749,7 @@ communication:
     name: 腾讯 TIM
   icon: tencent-tim.png
   url: https://tim.qq.com/
-  summary: 基于 QQ 的办公沟通应用。
+  summary: 基于 QQ 的办公沟通应用。Windows 端有用户报告“版本过低”导致无法登录，尚未找到腾讯正式停用公告。
   type: 桌面 / 移动
 - name: 微信（WeChat）
   platforms: [Windows, macOS, Linux]
