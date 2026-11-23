@@ -851,6 +851,19 @@ communication:
   type: 桌面 / 移动
 
 file-transfer:
+- name: 百度网盘
+  platforms: [Windows, macOS, Web]
+  anchor: baidu-netdisk
+  mobile:
+  - id: baidu-netdisk
+    name: 百度网盘
+  icon: baidu-netdisk.svg
+  url: https://pan.baidu.com/
+  summary: 存储、同步和分享云端文件，可通过网页或桌面客户端访问。
+  type: Web / 桌面
+  docs:
+    label: 客户端下载
+    url: https://yun.baidu.com/download
 - name: LocalSend
   platforms: [Windows, macOS, Linux]
   anchor: localsend
