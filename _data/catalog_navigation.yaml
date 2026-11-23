@@ -48,10 +48,13 @@ resources:
       groups:
         computer-learning: 计算机与编程自学
         general-courses: 在线课程与语言学习
+        language-reference: 英语词典与语言参考
     market-research-resources:
       title: 市场与研究资料
       groups:
         research: 市场数据与官方核对
+        financial-data: 金融数据接口
+        quant-platforms: 量化研究与数据科学平台
         academic-library: 学术论文与检索
         market-news: 财经资讯
     content-communities:
