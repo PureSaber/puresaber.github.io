@@ -559,7 +559,7 @@ modeling:
 - name: Weights &amp; Biases（W&amp;B）
   platforms: [Web]
   icon: vendor-044.svg
-  url: https://docs.wandb.ai/
+  url: https://docs.coreweave.com/products/wandb
   summary: 跟踪训练指标、参数和模型实验。
   type: Web / Python SDK
 - name: MLflow
