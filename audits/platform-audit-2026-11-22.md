@@ -28,6 +28,7 @@
 | Jules | 2026-11-11 起只读、计划 2026-12-31 结束 | 当前工具页已有停用信息，保持 |
 
 新的交叉核验证据：
+- WT Assistant：Google Play https://play.google.com/store/apps/details?id=com.gaijinent.WarThunderCompanion 和 App Store https://apps.apple.com/us/app/wt-assistant/id899236988（官方名称不是 WTRAssistant）
 - PicACG 官方公开频道：https://t.me/s/PicACG
 - iTime Google Play：https://play.google.com/store/apps/details?id=com.wisdom.itime；iOS 版本使用相同 bundle id 与 https://itime.fun/help/privacy
 - Lo研社 App Store：https://apps.apple.com/cn/app/id6467809127（开发者冯晓磊）；Android 商店版本包名 uni.lolita
@@ -340,7 +341,7 @@
 | games | 碧蓝档案 | 通用 | — |
 | games | 少女前线 2：追放 | 通用 | — |
 | games | maimai 查分助手 | 仅 Android | — |
-| games | WTRAssistant（战争雷霆助手） | 通用 | — |
+| games | WT Assistant（战争雷霆助手） | 通用 | — |
 | games | Meta Horizon | 通用 | — |
 | health | 薄荷健康 | 通用 | — |
 | health | 饭橘 | 通用 | — |
