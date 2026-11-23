@@ -749,7 +749,7 @@ communication:
     name: 腾讯 TIM
   icon: tencent-tim.png
   url: https://tim.qq.com/
-  summary: 基于 QQ 的办公沟通应用。Windows 端有用户报告“版本过低”导致无法登录，尚未找到腾讯正式停用公告。
+  summary: 基于 QQ 的办公沟通应用。
   type: 桌面 / 移动
 - name: 微信（WeChat）
   platforms: [Windows, macOS, Linux]
