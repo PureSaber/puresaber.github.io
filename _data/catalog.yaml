@@ -1,27 +1,38 @@
 ai:
 - name: OpenCode
+  platforms: [Windows, macOS, Linux]
   icon: opencode.svg
   url: https://opencode.ai/docs/
   summary: 在终端里读项目、梳理代码和辅助修改。接手一个新仓库时，可以先用它找项目入口、测试命令和关键配置。
   type: CLI
   alias: opencode cli
 - name: Claude Code
+  platforms: [Windows, macOS, Linux]
   icon: claude-code.svg
   url: https://code.claude.com/docs/
   summary: 在终端读代码、修改文件和运行项目命令。
   type: CLI
 - name: Codex
+  platforms: [Windows, macOS, Linux]
+  linux:
+    note: 这里指 Codex CLI
+    url: https://developers.openai.com/codex/cli/
   icon: codex.svg
   url: https://developers.openai.com/codex/
   summary: 在终端或桌面应用中协作开发、审查和修改代码。
   type: CLI / 桌面
 - name: Google Antigravity（agy）
+  platforms: [Windows, macOS, Linux]
+  linux:
+    note: Linux 有 glibc 等系统要求
+    url: https://antigravity.google/download
   icon: vendor-001.svg
   url: https://antigravity.google/
   summary: Google 的 AI 开发环境与命令行工具。
   type: IDE / CLI
   alias: agy
 - name: Jules
+  platforms: [Web]
   icon: vendor-002.svg
   url: https://jules.google/docs/changelog/
   summary: Google 的异步编程代理。现已只读，计划于 2026 年 12 月 31 日结束服务。
@@ -33,11 +44,20 @@ ai:
   checked_at: '2026-11-19'
   checked_source: https://jules.google/docs/changelog/2026-10-29
 - name: CodexManager
+  platforms: [Windows, macOS, Linux]
+  linux:
+    note: Linux 安装包见项目发布页
+    url: https://github.com/qxcnm/Codex-Manager/releases
   icon: vendor-068.png
   url: https://github.com/qxcnm/Codex-Manager
   summary: 管理 Codex CLI 账号和本地网关。
   type: 桌面工具
 - name: ChatGPT
+  platforms: [Windows, macOS, Web]
+  anchor: chatgpt
+  mobile:
+  - id: chatgpt
+    name: ChatGPT
   icon: chatgpt.svg
   url: https://chatgpt.com/download/
   summary: 用于写作、资料整理、代码讨论和文件分析。
@@ -47,6 +67,11 @@ ai:
     label: 网页版
     url: https://chatgpt.com/
 - name: Gemini
+  platforms: [Web]
+  anchor: gemini
+  mobile:
+  - id: gemini
+    name: Gemini
   icon: gemini.svg
   url: https://gemini.google.com/
   summary: Google 的网页助手，用于问答、资料整理和代码讨论。
@@ -54,6 +79,10 @@ ai:
 
 development:
 - name: Visual Studio Code
+  platforms: [Windows, macOS, Linux, Web]
+  linux:
+    note: 官方 .deb / .rpm / Snap；Arch 为社区包
+    url: https://code.visualstudio.com/docs/setup/linux
   icon: vscode.svg
   url: https://code.visualstudio.com/docs
   summary: 在编辑器里浏览仓库、修改文件和调试代码。想在同一个窗口里看代码、终端和 Git 改动时可以用它。
@@ -106,26 +135,31 @@ development:
     summary: 将 Markdown 文件导出为 PDF。
     type: 扩展
 - name: Cursor
+  platforms: [Windows, macOS, Linux]
   icon: cursor.svg
   url: https://cursor.com/
   summary: 带 AI 补全和编程代理的代码编辑器。
   type: IDE
 - name: IntelliJ IDEA
+  platforms: [Windows, macOS, Linux]
   icon: intellij.svg
   url: https://www.jetbrains.com/idea/
   summary: JetBrains 的 Java 和 Kotlin IDE。
   type: IDE
 - name: PyCharm
+  platforms: [Windows, macOS, Linux]
   icon: pycharm.svg
   url: https://www.jetbrains.com/pycharm/
   summary: JetBrains 的 Python IDE。
   type: IDE
 - name: DataGrip
+  platforms: [Windows, macOS, Linux]
   icon: datagrip.svg
   url: https://www.jetbrains.com/datagrip/
   summary: JetBrains 的数据库与 SQL IDE。
   type: IDE
 - name: Visual Studio
+  platforms: [Windows]
   icon: visualstudio.svg
   url: https://visualstudio.microsoft.com/
   summary: Microsoft 的 .NET 与 C++ 开发环境。
@@ -133,6 +167,12 @@ development:
 
 git-open-source:
 - name: GitHub CLI（<code>gh</code>）
+  platforms: [Windows, macOS, Linux]
+  anchor: github
+  mobile:
+  - id: github
+    name: GitHub
+    related: true
   icon: vendor-003.svg
   url: https://cli.github.com/manual/
   summary: 在终端查看 Pull Request、Issue 和 Actions 状态。维护多个仓库时，常用 <code>gh pr list</code> 和 <code>gh run list</code> 快速切换检查。
@@ -142,6 +182,7 @@ git-open-source:
     label: 用法示例
     example: 跨仓看待审 PR 时，用 <code>gh pr list -R OWNER/REPO</code> 指定仓库，省去来回切目录。
 - name: Git
+  platforms: [Windows, macOS, Linux]
   icon: vendor-004.svg
   url: https://git-scm.com/
   summary: 管理版本、分支和提交历史。
@@ -149,76 +190,94 @@ git-open-source:
 
 runtimes:
 - name: uv
+  platforms: [Windows, macOS, Linux]
   icon: vendor-005.svg
   url: https://docs.astral.sh/uv/
   summary: 管理 Python 环境和项目依赖。把同一套依赖带到另一台机器或 CI 时，可以用锁文件同步环境。
   type: 包管理器
 - name: Node.js
+  platforms: [Windows, macOS, Linux]
   icon: vendor-006.svg
   url: https://nodejs.org/
   summary: 在浏览器以外运行 JavaScript。
   type: 运行时
 - name: npm
+  platforms: [Windows, macOS, Linux]
   icon: vendor-007.svg
   url: https://docs.npmjs.com/
   summary: 管理 JavaScript 包和项目脚本。
   type: 包管理器
 - name: npx
+  platforms: [Windows, macOS, Linux]
   icon: vendor-007.svg
   url: https://docs.npmjs.com/cli/commands/npx
   summary: 直接运行 npm 包提供的命令。
   type: CLI
 - name: pnpm
+  platforms: [Windows, macOS, Linux]
   icon: vendor-008.svg
   url: https://pnpm.io/
   summary: 安装和管理 JavaScript 项目依赖。
   type: 包管理器
 - name: Python
+  platforms: [Windows, macOS, Linux]
   icon: vendor-009.svg
   url: https://www.python.org/
   summary: 编写脚本、数据分析程序和自动化工具。
   type: 语言
 - name: pip
+  platforms: [Windows, macOS, Linux]
   icon: pip-pypi.svg
   url: https://pip.pypa.io/
   summary: 安装和管理 Python 包。
   type: 包管理器
 - name: conda
+  platforms: [Windows, macOS, Linux]
   icon: vendor-010.svg
   url: https://docs.conda.io/
   summary: 管理跨语言依赖和隔离环境。
   type: 包管理器
 - name: Rust
+  platforms: [Windows, macOS, Linux]
   icon: vendor-011.svg
   url: https://rust-lang.org/
   summary: 用于系统软件、CLI 与性能敏感程序。
   type: 语言
 - name: rust-analyzer
+  platforms: [Windows, macOS, Linux]
   icon: vendor-076.svg
   url: https://rust-analyzer.github.io/
   summary: 为编辑器提供 Rust 补全、跳转和诊断。
   type: 语言服务器
 - name: Java（OpenJDK）
+  platforms: [Windows, macOS, Linux]
   icon: vendor-012.svg
   url: https://github.com/openjdk/jdk
   summary: Java 语言和虚拟机的开源实现。
   type: 语言 / SDK
 - name: .NET SDK
+  platforms: [Windows, macOS, Linux]
   icon: vendor-013.svg
   url: https://dotnet.microsoft.com/download
   summary: 构建、运行和打包 .NET 应用。
   type: SDK
 - name: GCC（C/C++）
+  platforms: [Windows, macOS, Linux]
+  linux:
+    note: Windows 可通过 MinGW；macOS 可通过 Homebrew
+    url: https://gcc.gnu.org/install/binaries.html
   icon: vendor-014.svg
   url: https://gcc.gnu.org/
   summary: 编译 C、C++ 等语言的 GNU 工具链。
   type: 编译器
 - name: MSVC（C/C++）
+  platforms: [Windows]
   icon: visualstudio.svg
   url: https://learn.microsoft.com/cpp/build/reference/compiling-a-c-cpp-program
   summary: Microsoft 的 C 和 C++ 编译工具链。
   type: 编译器
 - name: Go
+  platforms: [Windows, macOS, Linux]
   icon: vendor-015.svg
   url: https://go.dev/
   summary: 用于服务端开发和命令行应用。
@@ -226,6 +285,10 @@ runtimes:
 
 game-development:
 - name: Unity Hub
+  platforms: [Windows, macOS, Linux]
+  linux:
+    note: 请按发行版查看官方安装和支持说明
+    url: https://docs.unity.com/en-us/hub/install-hub-linux
   icon: vendor-065.svg
   url: https://docs.unity.com/en-us/hub/install-hub-win-mac
   summary: 管理 Unity 编辑器版本和项目。
@@ -233,41 +296,55 @@ game-development:
 
 deployment:
 - name: Docker
+  platforms: [Linux]
+  linux:
+    note: Docker Engine 可直接部署于 Linux；Mac／Windows 可看 Docker Desktop
+    url: https://docs.docker.com/engine/install/
   icon: docker.svg
   url: https://docs.docker.com/engine/
   summary: 构建镜像并运行容器。
   type: 容器工具
 - name: Docker Desktop
+  platforms: [Windows, macOS, Linux]
+  linux:
+    note: 官方 Ubuntu、Debian、Fedora、RHEL（x86-64）；Arch 包为实验版
+    url: https://docs.docker.com/desktop/setup/install/linux/
   icon: docker.svg
   url: https://www.docker.com/products/docker-desktop/
   summary: 在桌面系统中运行和管理 Docker。
   type: 桌面工具
 - name: Docker Compose
+  platforms: [Windows, macOS, Linux]
   icon: docker.svg
   url: https://docs.docker.com/compose/
   summary: 用一个配置文件定义和运行多容器应用。
   type: CLI
 - name: kubectl
+  platforms: [Windows, macOS, Linux]
   icon: vendor-016.svg
   url: https://kubernetes.io/docs/reference/kubectl/
   summary: 查看和管理 Kubernetes 资源。
   type: CLI
 - name: Vercel CLI
+  platforms: [Windows, macOS, Linux]
   icon: vendor-017.svg
   url: https://vercel.com/docs/cli
   summary: 在终端预览、配置和部署 Vercel 项目。
   type: CLI
 - name: GitHub Actions
+  platforms: [Web]
   icon: vendor-018.svg
   url: https://docs.github.com/actions
   summary: 运行仓库的测试、构建和发布流程。
   type: Web
 - name: GitHub Pages
+  platforms: [Web]
   icon: vendor-019.svg
   url: https://docs.github.com/pages
   summary: 从 GitHub 仓库发布静态网站。
   type: Web
 - name: IIS
+  platforms: [Windows]
   icon: retry-iis.png
   url: https://learn.microsoft.com/iis/
   summary: Windows 的 Web 服务器和站点管理工具。
@@ -285,6 +362,10 @@ api-development:
   summary: 用 Python 构建带交互式文档的 API。
   type: Python 框架
 - name: Apifox
+  platforms: [Windows, macOS, Linux, Web]
+  linux:
+    note: 官方提供 AppImage
+    url: https://docs.apifox.com/download
   icon: vendor-022.svg
   url: https://docs.apifox.com/download
   summary: 设计 API、调试请求、生成文档和模拟响应。
@@ -292,36 +373,49 @@ api-development:
 
 databases:
 - name: MySQL
+  platforms: [Windows, macOS, Linux]
   icon: vendor-023.svg
   url: https://dev.mysql.com/doc/
   summary: 关系型数据库。
   type: 数据库
 - name: MySQL Workbench
+  platforms: [Windows, macOS, Linux]
+  linux:
+    note: 发行版及支持版本见官方文档
+    url: https://dev.mysql.com/doc/workbench/en/wb-installing-linux.html
   icon: vendor-023.svg
   url: https://dev.mysql.com/downloads/workbench/
   summary: 管理 MySQL 连接、查询和数据库结构。
   type: 桌面工具
 - name: SQLite（sqlite3）
+  platforms: [Windows, macOS, Linux]
   icon: vendor-024.svg
   url: https://www.sqlite.org/cli.html
   summary: 用命令行查询本地 SQLite 数据库文件。
   type: 数据库 / CLI
 - name: Microsoft SQL Server
+  platforms: [Windows, Linux]
+  linux:
+    note: 按官方支持的 Linux 发行版安装
+    url: https://learn.microsoft.com/sql/linux/sql-server-linux-setup
   icon: vendor-025.svg
   url: https://learn.microsoft.com/sql/sql-server/
   summary: Microsoft 的关系型数据库。
   type: 数据库
 - name: psql
+  platforms: [Windows, macOS, Linux]
   icon: vendor-026.svg
   url: https://www.postgresql.org/docs/current/app-psql.html
   summary: 从终端执行 PostgreSQL 查询和脚本。
   type: CLI
 - name: redis-cli
+  platforms: [macOS, Linux]
   icon: vendor-027.svg
   url: https://redis.io/docs/latest/develop/tools/cli/
   summary: 从终端连接和管理 Redis。
   type: CLI
 - name: Turso
+  platforms: [Web]
   icon: vendor-028.svg
   url: https://docs.turso.tech/
   summary: 使用兼容 SQLite 的数据库与云服务。
@@ -329,6 +423,10 @@ databases:
 
 research-data:
 - name: JupyterLab
+  platforms: [Windows, macOS, Linux]
+  linux:
+    note: 安装后通过浏览器访问本地界面
+    url: https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html
   icon: vendor-029.svg
   url: https://jupyter.org/
   summary: 用 Notebook 做策略复现的单步检查，例如抽查信号计算、对齐交易日、对照研报图表。
@@ -359,6 +457,7 @@ research-data:
   summary: 以表达式方式处理表格和列式数据。
   type: 数据框架
 - name: Minitab
+  platforms: [Windows, Web]
   icon: vendor-035.svg
   url: https://www.minitab.com/en-us/products/minitab/
   summary: 用于统计分析、质量控制和实验设计。
@@ -450,6 +549,7 @@ modeling:
   summary: 构建、训练和部署机器学习模型。
   type: Python 库
 - name: Weights &amp; Biases（W&amp;B）
+  platforms: [Web]
   icon: vendor-044.svg
   url: https://docs.wandb.ai/
   summary: 跟踪训练指标、参数和模型实验。
@@ -507,12 +607,14 @@ nlp:
   summary: 在不同硬件平台运行 ONNX 模型。
   type: 推理运行时
 - name: Hugging Face Hub
+  platforms: [Web]
   icon: vendor-048.svg
   url: https://huggingface.co/docs/hub/
   summary: 查找和共享模型、数据集和演示。
   type: Web / SDK
   alias: huggingface_hub
 - name: Buzz
+  platforms: [Windows, macOS, Linux]
   icon: vendor-050.svg
   url: https://github.com/chidiwilliams/buzz
   summary: 使用本地语音模型转写音频。
@@ -520,56 +622,81 @@ nlp:
 
 productivity:
 - name: Microsoft Office
+  platforms: [Windows, macOS, Web]
   icon: vendor-051.svg
   url: https://www.microsoft.com/microsoft-365
   summary: 处理文档、表格和演示文稿。
   type: Web / 桌面
 - name: Notion
+  platforms: [Windows, macOS, Web]
+  anchor: notion
+  mobile:
+  - id: notion
+    name: Notion
   icon: notion.svg
   url: https://www.notion.com/
   summary: 组织笔记、团队文档和数据库。
   type: Web / 桌面
 - name: Todoist
+  platforms: [Windows, macOS, Linux, Web]
+  linux:
+    note: 官方 AppImage 与 Snap
+    url: https://www.todoist.com/help/articles/install-todoist-on-linux-Mh4Sjc3F
   icon: todoist.svg
   url: https://www.todoist.com/
   summary: 组织任务、项目和重复提醒。
   type: Web / 桌面
 - name: Evernote
+  platforms: [Windows, macOS, Web]
   icon: evernote.svg
   url: https://evernote.com/
   summary: 收集和查找笔记、网页剪藏。
   type: Web / 桌面
 - name: uTools
+  platforms: [Windows, macOS, Linux]
   icon: retry-utools-favicon.png
   url: https://www.u-tools.cn/
   summary: 用快捷搜索启动应用和插件。
   type: 桌面工具
 - name: Typeless
+  platforms: [Windows, macOS, Linux]
+  linux:
+    note: 官方版本见发布说明（Beta）
+    url: https://www.typeless.com/help/release-notes/linux
+  anchor: typeless
+  mobile:
+  - id: typeless
+    name: Typeless
   icon: retry-typeless.png
   url: https://www.typeless.com/
   summary: 语音输入和文字整理。
   type: 桌面工具
 - name: MiKTeX
+  platforms: [Windows, macOS, Linux]
   icon: vendor-082.png
   url: https://miktex.org/
   summary: 安装和管理 TeX 与 LaTeX 工具。
   type: 排版工具
 - name: Pandoc
+  platforms: [Windows, macOS, Linux]
   icon: vendor-052.svg
   url: https://pandoc.org/
   summary: 在 Markdown、Word、HTML 等文档格式间转换。
   type: CLI
 - name: EndNote
+  platforms: [Windows, macOS]
   icon: retry-endnote.png
   url: https://endnote.com/
   summary: 管理参考文献和插入引文。
   type: 文献工具
 - name: Zotero
+  platforms: [Windows, macOS, Linux, Web]
   icon: vendor-053.svg
   url: https://www.zotero.org/
   summary: 收集论文、管理书目和导出引文。
   type: 文献工具
 - name: Mendeley
+  platforms: [Windows, macOS, Linux, Web]
   icon: vendor-054.svg
   url: https://www.mendeley.com/
   summary: 整理参考资料和 PDF 阅读记录。
@@ -577,33 +704,74 @@ productivity:
 
 communication:
 - name: 腾讯会议
+  platforms: [Windows, macOS, Linux, Web]
+  linux:
+    note: 需从官方页面选择 Linux 客户端
+    url: https://meeting.tencent.com/download/
+  anchor: meeting
+  mobile:
+  - id: meeting
+    name: 腾讯会议
   icon: retry-tencent-meeting.png
   url: https://meeting.tencent.com/
   summary: 参加视频会议和共享屏幕。
   type: Web / 桌面
 - name: QQ（QQNT）
+  platforms: [Windows, macOS, Linux]
+  linux:
+    note: 下载按发行版和架构选择
+    url: https://im.qq.com/linuxqq/index.shtml
+  anchor: qq
+  mobile:
+  - id: qq
+    name: QQ
   icon: vendor-055.svg
   url: https://im.qq.com/
   summary: 腾讯即时通信客户端，QQNT 为新版桌面客户端。
   type: 桌面 / 移动
   alias: QQNT
 - name: TIM
+  platforms: [Windows]
+  anchor: tim
+  mobile:
+  - id: tim
+    name: 腾讯 TIM
   icon: tencent-tim.png
   url: https://tim.qq.com/
   summary: 基于 QQ 的办公沟通应用。
   type: 桌面 / 移动
 - name: 微信（WeChat）
+  platforms: [Windows, macOS, Linux]
+  linux:
+    note: 下载按系统架构选择
+    url: https://linux.weixin.qq.com/
+  anchor: wechat
+  mobile:
+  - id: wechat
+    name: 微信
   icon: wechat.svg
   url: https://weixin.qq.com/
   summary: 用于聊天、文件分享和跨设备沟通。
   type: 桌面 / 移动
   alias: xwechat
 - name: Telegram Desktop
+  platforms: [Windows, macOS, Linux, Web]
+  anchor: telegram
+  mobile:
+  - id: telegram
+    name: Telegram
   icon: telegram.svg
   url: https://desktop.telegram.org/
   summary: Telegram 的桌面客户端。
   type: 桌面工具
 - name: 飞书（Lark）
+  platforms: [Windows, macOS, Linux, Web]
+  anchor: feishu
+  mobile:
+  - id: feishu
+    name: 飞书
+  - id: lark
+    name: Lark
   icon: vendor-056.svg
   url: https://www.feishu.cn/
   summary: 将消息、文档、会议和团队协作放在一起。
@@ -613,21 +781,31 @@ communication:
     label: Lark 国际版
     url: https://www.larksuite.com/
 - name: Slack
+  platforms: [Windows, macOS, Linux, Web]
+  linux:
+    note: 官方 .deb / .rpm；Linux 客户端标为 Beta
+    url: https://slack.com/downloads/linux
   icon: slack.svg
   url: https://slack.com/
   summary: 用频道组织团队沟通。
   type: Web / 桌面
 - name: Discord
+  platforms: [Windows, macOS, Linux, Web]
   icon: discord.svg
   url: https://discord.com/
   summary: 用于社群文字和语音沟通。
   type: Web / 桌面
 - name: Zoom
+  platforms: [Windows, macOS, Linux, Web]
+  linux:
+    note: 按发行版选择官方安装包
+    url: https://zoom.us/download?os=linux
   icon: zoom.svg
   url: https://www.zoom.com/
   summary: 视频会议和线上活动。
   type: Web / 桌面
 - name: Microsoft Teams
+  platforms: [Windows, macOS, Web]
   icon: vendor-057.svg
   url: https://www.microsoft.com/microsoft-teams/
   summary: 团队聊天、会议与协作。
@@ -638,11 +816,20 @@ communication:
   summary: 原 Skype 消费者服务已退役，可查看 Microsoft 的迁移说明。
   type: 历史工具
 - name: WhatsApp
+  platforms: [Windows, macOS, Web]
+  anchor: whatsapp
+  mobile:
+  - id: whatsapp
+    name: WhatsApp
   icon: vendor-059.svg
   url: https://www.whatsapp.com/
   summary: 即时通信和通话。
   type: Web / 桌面
 - name: Signal
+  platforms: [Windows, macOS, Linux]
+  linux:
+    note: 官方 Linux 安装说明适用于支持 APT 的 64 位 Debian 系发行版
+    url: https://signal.org/download/
   icon: vendor-060.svg
   url: https://signal.org/
   summary: 端到端加密的消息和语音通话。
@@ -650,6 +837,11 @@ communication:
 
 file-transfer:
 - name: LocalSend
+  platforms: [Windows, macOS, Linux]
+  anchor: localsend
+  mobile:
+  - id: localsend
+    name: LocalSend
   icon: localsend.png
   url: https://localsend.org/
   summary: 在同一局域网的设备间传输文件。
@@ -658,6 +850,7 @@ file-transfer:
     label: 用法示例
     example: 手机和电脑连同一 Wi-Fi，在手机端选照片或文件，点电脑的设备名，再到电脑上确认接收。
 - name: Snapdrop
+  platforms: [Web]
   icon: vendor-061.svg
   url: https://snapdrop.net/
   summary: 通过浏览器在设备间发送文件。
@@ -666,17 +859,34 @@ file-transfer:
 
 remote-desktop:
 - name: UU 远程
+  platforms: [Windows, macOS, Linux]
+  linux:
+    note: Linux 内测面向 Ubuntu 18.04 及以上，查看官方开放状态
+    url: https://uuyc.163.com/
+  anchor: uuremote
+  mobile:
+  - id: uuremote
+    name: UU 远程
   icon: retry-uu-remote.png
   url: https://uuyc.163.com/
   summary: 用于远程桌面和游戏串流。
   type: 桌面 / 移动
   alias: UU远程
 - name: Tailscale
+  platforms: [Windows, macOS, Linux]
+  linux:
+    note: 按发行版选择安装方式
+    url: https://tailscale.com/kb/1031/install-linux
+  anchor: tailscale
+  mobile:
+  - id: tailscale
+    name: Tailscale
   icon: vendor-063.svg
   url: https://tailscale.com/
   summary: 将自己的设备接入同一个私有网络。
   type: 网络工具
 - name: Clash Verge Rev
+  platforms: [Windows, macOS, Linux]
   icon: vendor-083.png
   url: https://github.com/clash-verge-rev/clash-verge-rev
   summary: 管理代理配置和规则的图形客户端。
@@ -685,16 +895,19 @@ remote-desktop:
 
 virtualization:
 - name: VMware Workstation
+  platforms: [Windows, Linux]
   icon: vendor-064.svg
   url: https://knowledge.broadcom.com/external/article/368667/download-and-license-vmware-desktop-hype.html
   summary: 在桌面系统运行虚拟机。
   type: 桌面工具
 - name: MuMu 模拟器
+  platforms: [Windows, macOS]
   icon: retry-mumu.png
   url: https://mumu.163.com/
   summary: 在电脑上运行 Android 应用。
   type: 桌面工具
 - name: 腾讯手游助手
+  platforms: [Windows]
   icon: retry-tencent-mobile.png
   url: https://syzs.qq.com/
   summary: 在 Windows 上运行部分 Android 手游。
@@ -702,6 +915,7 @@ virtualization:
 
 password-management:
 - name: Bitwarden CLI
+  platforms: [Windows, macOS, Linux]
   icon: vendor-062.svg
   url: https://bitwarden.com/help/cli/
   summary: 从终端操作 Bitwarden 密码库。
@@ -709,16 +923,31 @@ password-management:
 
 browsers:
 - name: Google Chrome
+  platforms: [Windows, macOS, Linux]
+  anchor: chrome
+  mobile:
+  - id: chrome
+    name: Chrome
   icon: chrome.svg
   url: https://www.google.com/chrome/
   summary: Google 浏览器，内置网页开发和调试工具。
   type: 浏览器
 - name: Microsoft Edge
+  platforms: [Windows, macOS, Linux]
+  anchor: edge
+  mobile:
+  - id: edge
+    name: Microsoft Edge
   icon: edge.svg
   url: https://www.microsoft.com/edge
   summary: Microsoft 浏览器。
   type: 浏览器
 - name: Mozilla Firefox
+  platforms: [Windows, macOS, Linux]
+  anchor: firefox
+  mobile:
+  - id: firefox
+    name: Firefox
   icon: firefox.svg
   url: https://www.firefox.com/
   summary: Mozilla 浏览器，可用于跨浏览器测试。
@@ -726,11 +955,16 @@ browsers:
 
 media:
 - name: OBS Studio
+  platforms: [Windows, macOS, Linux]
+  linux:
+    note: 官方 Flatpak；另有 Ubuntu PPA
+    url: https://obsproject.com/download
   icon: obsstudio.svg
   url: https://obsproject.com/
   summary: 录制屏幕及音频，或进行直播。
   type: 桌面工具
 - name: FFmpeg
+  platforms: [Windows, macOS, Linux]
   icon: vendor-066.svg
   url: https://ffmpeg.org/
   summary: 处理音视频编码、裁剪和转换。

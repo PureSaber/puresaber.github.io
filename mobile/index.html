@@ -31,11 +31,11 @@
     .platform-picker::after { content: ""; position: absolute; inset-inline-end: .77rem; top: 50%; width: .35rem; height: .35rem; border: solid var(--accent); border-width: 0 1.5px 1.5px 0; transform: translateY(-70%) rotate(45deg); pointer-events: none; }
     .platform-picker select { display: block; appearance: none; min-width: 7.1rem; min-height: 2.75rem; padding-block: .32rem; padding-inline: .58rem 1.55rem; border: 1px solid #cbd5c9; border-radius: .5rem; color: var(--accent); background: transparent; font: inherit; font-size: 1rem; font-weight: 600; line-height: 1.2; cursor: pointer; }
     .platform-picker select:hover { background: var(--card); border-color: #7a9a85; }
-    .wordmark, .home-link { text-decoration: none; white-space: nowrap; }
+    .wordmark, .tools-link { text-decoration: none; white-space: nowrap; }
     .wordmark { display: inline-flex; align-items: center; gap: .55rem; font-weight: 750; }
     .wordmark::before { content: "K"; display: grid; place-items: center; width: 1.75rem; height: 1.75rem; border-radius: .5rem; background: var(--accent); color: white; font-size: .95rem; }
-    .home-link { color: var(--accent); font-size: .92rem; font-weight: 650; }
-    .home-link:hover { text-decoration: underline; text-underline-offset: .25em; }
+    .tools-link { color: var(--accent); font-size: .92rem; font-weight: 650; }
+    .tools-link:hover { text-decoration: underline; text-underline-offset: .25em; }
     main { padding-block: 2rem 4rem; }
     .hero { isolation: isolate; position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1.45fr) 1fr; align-items: center; min-height: 16rem; padding: clamp(1.35rem, 5vw, 3.2rem); gap: 1rem; background: #17392d; color: #fbfff9; border-radius: 1.35rem; }
     h1 { margin: 0; font-size: clamp(2.25rem, 5.5vw, 4.1rem); line-height: 1.12; letter-spacing: -.05em; }
@@ -89,7 +89,7 @@
       .header-row { gap: .45rem; }
       .wordmark { gap: .4rem; }
       .wordmark::before { width: 1.5rem; height: 1.5rem; }
-      .home-link { font-size: .85rem; }
+      .tools-link { font-size: .85rem; }
       main { padding-top: 1.15rem; }
       .hero { grid-template-columns: 1fr; min-height: 0; gap: 0; }
       .hero-art { display: none; }
@@ -108,13 +108,29 @@
     .archive-footer-link:hover .archive-footer-name { text-decoration: underline; text-underline-offset: .2em; }
     .archive-footer-count { margin-inline-start: auto; color: var(--muted); font-size: .875rem; font-weight: 500; white-space: nowrap; }
     .archive-arrow { font-size: 1.1rem; }
+    .app-grid li:has(> .app-counterpart) {
+      display: flex; flex-direction: column;
+      background: var(--card); border: 1px solid var(--line); border-radius: .8rem;
+    }
+    .app-grid li:has(> .app-counterpart):hover { border-color: #6e987f; }
+    .app-grid li:has(> .app-counterpart) > .app-card {
+      height: auto; flex: 1; min-height: 0;
+      border: 0; border-radius: .8rem .8rem 0 0;
+    }
+    .app-counterpart {
+      display: block; padding: .3rem .9rem .4rem;
+      border-top: 1px solid var(--line); border-radius: 0 0 .8rem .8rem;
+      color: var(--accent); text-decoration: none; font-size: .78rem; font-weight: 650;
+    }
+    .app-counterpart:hover { text-decoration: underline; background: #f0f5ec; }
+    .app-grid li:target { scroll-margin-top: 1.15rem; outline: 2px solid #537f61; outline-offset: 4px; }
   </style>
 </head>
 <body>
   <a class="skip" href="#main">跳到正文</a>
   <header class="site-header">
     <div class="shell header-row">
-      <span class="wordmark">Kurage</span>
+      <a class="wordmark" href="/" aria-label="Kurage · 返回实用工具箱首页">Kurage</a>
       <div class="header-actions">
         <div class="platform-picker" hidden>
           <label class="sr-only" for="app-platform">按平台筛选</label>
@@ -128,7 +144,7 @@
           </select>
           <span class="sr-only" id="platform-note">「iOS 可用」和「Android 可用」都包含双平台应用。「通用」只显示双平台应用。平台待核对的条目可在「全部平台」查看。</span>
         </div>
-        <a class="home-link" href="/">实用工具箱</a>
+        <a class="tools-link" href="/tools/">工具</a>
       </div>
     </div>
   </header>
@@ -180,17 +196,19 @@
         <div class="app-subcategory" data-subcategory="assistants">
           <h3 id="heading-ai-assistants">AI 助手与模型客户端</h3>
           <ul class="app-grid" aria-labelledby="heading-ai-assistants">
-            <li data-keywords="openai gpt 人工智能" data-platform="common">
+            <li id="app-chatgpt" data-keywords="openai gpt 人工智能" data-platform="common">
               <a class="app-card" href="https://chatgpt.com/download/">
                 <span class="app-icon" aria-hidden="true"><span>C</span><img src="icons/chatgpt.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.openai.chatgpt&amp;hl=en&amp;gl=us"></span>
                 <span class="app-copy"><strong>ChatGPT</strong><span>问答与文件分析</span></span>
               </a>
+              <a class="app-counterpart" href="/tools/#tool-chatgpt">电脑端／网页端 ↗</a>
             </li>
-            <li data-keywords="google bard 谷歌 人工智能" data-platform="common">
+            <li id="app-gemini" data-keywords="google bard 谷歌 人工智能" data-platform="common">
               <a class="app-card" href="https://gemini.google.com/">
                 <span class="app-icon" aria-hidden="true"><span>G</span><img src="icons/gemini.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.google.android.apps.bard&amp;hl=en&amp;gl=us"></span>
                 <span class="app-copy"><strong>Gemini</strong><span>Google 的 AI 助手</span></span>
               </a>
+              <a class="app-counterpart" href="/tools/#tool-gemini">网页端 ↗</a>
             </li>
             <li data-keywords="anthropic 人工智能" data-platform="common">
               <a class="app-card" href="https://claude.com/download">
@@ -221,11 +239,12 @@
         <div class="app-subcategory" data-subcategory="input">
           <h3 id="heading-ai-input">输入法与语音听写</h3>
           <ul class="app-grid" aria-labelledby="heading-ai-input">
-            <li data-keywords="语音输入法 dictation" data-platform="common">
+            <li id="app-typeless" data-keywords="语音输入法 dictation" data-platform="common">
               <a class="app-card" href="https://www.typeless.com/">
                 <span class="app-icon" aria-hidden="true"><span>T</span><img src="icons/typeless.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/us/app/typeless-ai-voice-keyboard/id6749257650"></span>
                 <span class="app-copy"><strong>Typeless</strong><span>语音转文字</span></span>
               </a>
+              <a class="app-counterpart" href="/tools/#tool-typeless">电脑端 ↗</a>
             </li>
             <li data-keywords="iflytek keyboard" data-platform="common">
               <a class="app-card" href="https://m.app.mi.com/details?id=com.iflytek.inputmethod">
@@ -241,29 +260,33 @@
         <div class="app-subcategory" data-subcategory="messaging">
           <h3 id="heading-communication-messaging">即时通讯与通话</h3>
           <ul class="app-grid" aria-labelledby="heading-communication-messaging">
-            <li data-keywords="qq" data-platform="common">
+            <li id="app-qq" data-keywords="qq" data-platform="common">
               <a class="app-card" href="https://apps.apple.com/cn/app/qq/id444934666?uo=4">
                 <span class="app-icon" aria-hidden="true"><span>Q</span><img src="icons/qq.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/qq/id444934666?uo=4"></span>
                 <span class="app-copy"><strong>QQ</strong><span>腾讯即时通讯</span></span>
               </a>
+              <a class="app-counterpart" href="/tools/#tool-qq">电脑端 ↗</a>
             </li>
-            <li data-keywords="wechat" data-platform="common">
+            <li id="app-wechat" data-keywords="wechat" data-platform="common">
               <a class="app-card" href="https://apps.apple.com/cn/app/%E5%BE%AE%E4%BF%A1/id414478124?uo=4">
                 <span class="app-icon" aria-hidden="true"><span>微</span><img src="icons/wechat.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/%E5%BE%AE%E4%BF%A1/id414478124?uo=4"></span>
                 <span class="app-copy"><strong>微信</strong><span>聊天、公众号和小程序</span></span>
               </a>
+              <a class="app-counterpart" href="/tools/#tool-wechat">电脑端 ↗</a>
             </li>
-            <li data-keywords="tg 聊天" data-platform="common">
+            <li id="app-telegram" data-keywords="tg 聊天" data-platform="common">
               <a class="app-card" href="https://telegram.org/apps">
                 <span class="app-icon" aria-hidden="true"><span>T</span><img src="icons/telegram.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=org.telegram.messenger&amp;hl=en&amp;gl=us"></span>
                 <span class="app-copy"><strong>Telegram</strong><span>消息与频道</span></span>
               </a>
+              <a class="app-counterpart" href="/tools/#tool-telegram">电脑端／网页端 ↗</a>
             </li>
-            <li data-keywords="whatsapp" data-platform="common">
+            <li id="app-whatsapp" data-keywords="whatsapp" data-platform="common">
               <a class="app-card" href="https://play.google.com/store/apps/details?id=com.whatsapp&amp;hl=en&amp;gl=us">
                 <span class="app-icon" aria-hidden="true"><span>W</span><img src="icons/whatsapp.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.whatsapp&amp;hl=en&amp;gl=us"></span>
                 <span class="app-copy"><strong>WhatsApp</strong><span>跨国即时通讯</span></span>
               </a>
+              <a class="app-counterpart" href="/tools/#tool-whatsapp">电脑端／网页端 ↗</a>
             </li>
             <li data-keywords="skyphone" data-platform="common">
               <a class="app-card" href="https://apps.apple.com/jp/app/skyphone-%E9%AB%98%E9%9F%B3%E8%B3%AA%E9%80%9A%E8%A9%B1%E3%82%A2%E3%83%97%E3%83%AA/id789570237">
@@ -276,17 +299,19 @@
         <div class="app-subcategory" data-subcategory="collaboration">
           <h3 id="heading-communication-collaboration">团队协作与会议</h3>
           <ul class="app-grid" aria-labelledby="heading-communication-collaboration">
-            <li data-keywords="feishu" data-platform="common">
+            <li id="app-feishu" data-keywords="feishu" data-platform="common">
               <a class="app-card" href="https://www.feishu.cn/">
                 <span class="app-icon" aria-hidden="true"><span>飞</span><img src="icons/feishu.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/cn/app/%E9%A3%9E%E4%B9%A6-%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E6%97%97%E4%B8%8B-ai-%E5%B7%A5%E4%BD%9C%E5%B9%B3%E5%8F%B0/id1401729613"></span>
                 <span class="app-copy"><strong>飞书</strong><span>团队消息与文档</span></span>
               </a>
+              <a class="app-counterpart" href="/tools/#tool-feishu">电脑端／网页端 ↗</a>
             </li>
-            <li data-keywords="飞书 国际版" data-platform="common">
+            <li id="app-lark" data-keywords="飞书 国际版" data-platform="common">
               <a class="app-card" href="https://www.larksuite.com/">
                 <span class="app-icon" aria-hidden="true"><span>L</span><img src="icons/lark.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.larksuite.suite&amp;hl=en&amp;gl=us"></span>
                 <span class="app-copy"><strong>Lark</strong><span>国际版团队协作</span></span>
               </a>
+              <a class="app-counterpart" href="/tools/#tool-feishu">电脑端／网页端 ↗</a>
             </li>
             <li data-keywords="dingtalk 阿里 协作" data-platform="common">
               <a class="app-card" href="https://www.dingtalk.com/download">
@@ -294,17 +319,19 @@
                 <span class="app-copy"><strong>钉钉</strong><span>团队沟通、会议与审批</span></span>
               </a>
             </li>
-            <li data-keywords="voov meeting" data-platform="common">
+            <li id="app-meeting" data-keywords="voov meeting" data-platform="common">
               <a class="app-card" href="https://meeting.tencent.com/">
                 <span class="app-icon" aria-hidden="true"><span>腾</span><img src="icons/tencent-meeting.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/cn/app/%E8%85%BE%E8%AE%AF%E4%BC%9A%E8%AE%AE-%E5%A4%9A%E4%BA%BA%E5%AE%9E%E6%97%B6%E8%A7%86%E9%A2%91%E4%BC%9A%E8%AE%AE%E8%BD%AF%E4%BB%B6/id1484048379"></span>
                 <span class="app-copy"><strong>腾讯会议</strong><span>视频会议与共享屏幕</span></span>
               </a>
+              <a class="app-counterpart" href="/tools/#tool-meeting">电脑端／网页端 ↗</a>
             </li>
-            <li data-keywords="tim" data-platform="common">
+            <li id="app-tim" data-keywords="tim" data-platform="common">
               <a class="app-card" href="https://apps.apple.com/cn/app/tim-qq%E5%8A%9E%E5%85%AC%E7%AE%80%E6%B4%81%E7%89%88/id1175213887">
                 <span class="app-icon" aria-hidden="true"><span>腾</span><img src="icons/tim.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/cn/app/tim-qq%E5%8A%9E%E5%85%AC%E7%AE%80%E6%B4%81%E7%89%88/id1175213887"></span>
                 <span class="app-copy"><strong>腾讯 TIM</strong><span>轻量聊天和办公协作</span></span>
               </a>
+              <a class="app-counterpart" href="/tools/#tool-tim">电脑端 ↗</a>
             </li>
           </ul>
         </div>
@@ -340,11 +367,12 @@
                 <span class="app-copy"><strong>Obsidian</strong><span>用 Markdown 记录笔记与建立双向链接</span></span>
               </a>
             </li>
-            <li data-keywords="笔记 知识库 wiki 数据库" data-platform="common">
+            <li id="app-notion" data-keywords="笔记 知识库 wiki 数据库" data-platform="common">
               <a class="app-card" href="https://www.notion.com/mobile">
                 <span class="app-icon" aria-hidden="true"><span>N</span><img src="icons/notion.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://apps.apple.com/us/app/notion-notes-tasks-ai/id1232780281"></span>
                 <span class="app-copy"><strong>Notion</strong><span>整理笔记、知识库与协作项目</span></span>
               </a>
+              <a class="app-counterpart" href="/tools/#tool-notion">电脑端／网页端 ↗</a>
             </li>
           </ul>
         </div>
@@ -423,23 +451,26 @@
         <div class="app-subcategory" data-subcategory="browsers">
           <h3 id="heading-web-browsers">浏览器</h3>
           <ul class="app-grid" aria-labelledby="heading-web-browsers">
-            <li data-keywords="谷歌 浏览器 browser" data-platform="common">
+            <li id="app-chrome" data-keywords="谷歌 浏览器 browser" data-platform="common">
               <a class="app-card" href="https://www.google.com/chrome/">
                 <span class="app-icon" aria-hidden="true"><span>C</span><img src="icons/chrome.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.android.chrome&amp;hl=en&amp;gl=us"></span>
                 <span class="app-copy"><strong>Chrome</strong><span>Google 浏览器</span></span>
               </a>
+              <a class="app-counterpart" href="/tools/#tool-chrome">电脑端 ↗</a>
             </li>
-            <li data-keywords="火狐 浏览器 mozilla" data-platform="common">
+            <li id="app-firefox" data-keywords="火狐 浏览器 mozilla" data-platform="common">
               <a class="app-card" href="https://www.mozilla.org/firefox/browsers/mobile/android/">
                 <span class="app-icon" aria-hidden="true"><span>F</span><img src="icons/firefox.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=org.mozilla.firefox&amp;hl=en&amp;gl=us"></span>
                 <span class="app-copy"><strong>Firefox</strong><span>Mozilla 浏览器</span></span>
               </a>
+              <a class="app-counterpart" href="/tools/#tool-firefox">电脑端 ↗</a>
             </li>
-            <li data-keywords="edge" data-platform="common">
+            <li id="app-edge" data-keywords="edge" data-platform="common">
               <a class="app-card" href="https://play.google.com/store/apps/details?id=com.microsoft.emmx&amp;hl=en&amp;gl=us">
                 <span class="app-icon" aria-hidden="true"><span>M</span><img src="icons/edge.webp" alt="" width="44" height="44" loading="lazy" data-icon-source="https://play.google.com/store/apps/details?id=com.microsoft.emmx&amp;hl=en&amp;gl=us"></span>
                 <span class="app-copy"><strong>Microsoft Edge</strong><span>微软浏览器</span></span>
               </a>
+              <a class="app-counterpart" href="/tools/#tool-edge">电脑端 ↗</a>
             </li>
             <li data-keywords="qq browser" data-platform="common">
               <a class="app-card" href="https://apps.apple.com/cn/app/qq%E6%B5%8F%E8%A7%88%E5%99%A8-%E8%85%BE%E8%AE%AFai%E6%B5%8F%E8%A7%88%E5%99%A8/id370139302">
@@ -478,11 +509,12 @@
         <div class="app-subcategory" data-subcategory="development">
           <h3 id="heading-tools-development">代码仓库与开发</h3>
           <ul class="app-grid" aria-labelledby="heading-tools-development">
-            <li data-keywords="github mobile 开源 代码" data-platform="common">
+            <li id="app-github" data-keywords="github mobile 开源 代码" data-platform="common">
               <a class="app-card" href="https://github.com/mobile">
                 <span class="app-icon" aria-hidden="true"><span>G</span><img src="icons/github.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.github.android&amp;hl=en&amp;gl=us"></span>
                 <span class="app-copy"><strong>GitHub</strong><span>浏览仓库、Issue 和 PR</span></span>
               </a>
+              <a class="app-counterpart" href="/tools/#tool-github">相关工具 · GitHub CLI ↗</a>
             </li>
           </ul>
         </div>
@@ -518,28 +550,31 @@
                 <span class="app-copy"><strong>MT 管理器</strong><span>管理文件和压缩包</span></span>
               </a>
             </li>
-            <li data-keywords="传输 局域网 LAN 跨设备" data-platform="common">
+            <li id="app-localsend" data-keywords="传输 局域网 LAN 跨设备" data-platform="common">
               <a class="app-card" href="https://localsend.org/">
                 <span class="app-icon" aria-hidden="true"><span>L</span><img src="icons/localsend.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=org.localsend.localsend_app&amp;hl=en&amp;gl=us"></span>
                 <span class="app-copy"><strong>LocalSend</strong><span>手机和电脑局域网传文件</span></span>
               </a>
+              <a class="app-counterpart" href="/tools/#tool-localsend">电脑端 ↗</a>
             </li>
           </ul>
         </div>
         <div class="app-subcategory" data-subcategory="remote">
           <h3 id="heading-tools-remote">远程访问与组网</h3>
           <ul class="app-grid" aria-labelledby="heading-tools-remote">
-            <li data-keywords="网易 uuyc 远程桌面" data-platform="common">
+            <li id="app-uuremote" data-keywords="网易 uuyc 远程桌面" data-platform="common">
               <a class="app-card" href="https://uuyc.163.com/">
                 <span class="app-icon" aria-hidden="true"><span>U</span><img src="icons/uu-remote.webp" alt="" width="44" height="44" data-icon-source="https://apps.apple.com/cn/app/uu%E8%BF%9C%E7%A8%8B-%E6%B5%81%E7%95%85%E5%8F%AF%E9%9D%A0-%E5%B0%B1%E6%98%AF%E5%A5%BD%E7%94%A8/id1642306791"></span>
                 <span class="app-copy"><strong>UU 远程</strong><span>手机远程操作电脑</span></span>
               </a>
+              <a class="app-counterpart" href="/tools/#tool-uuremote">电脑端 ↗</a>
             </li>
-            <li data-keywords="组网 远程" data-platform="common">
+            <li id="app-tailscale" data-keywords="组网 远程" data-platform="common">
               <a class="app-card" href="https://tailscale.com/download">
                 <span class="app-icon" aria-hidden="true"><span>T</span><img src="icons/tailscale.webp" alt="" width="44" height="44" data-icon-source="https://play.google.com/store/apps/details?id=com.tailscale.ipn&amp;hl=en&amp;gl=us"></span>
                 <span class="app-copy"><strong>Tailscale</strong><span>将设备连入同一个私有网络</span></span>
               </a>
+              <a class="app-counterpart" href="/tools/#tool-tailscale">电脑端 ↗</a>
             </li>
           </ul>
         </div>
@@ -1594,9 +1629,26 @@
       if (icon.complete && icon.naturalWidth === 0) useInitial();
     }
 
+    function revealLinkedApp() {
+      const target = document.getElementById(location.hash.slice(1));
+      if (!target?.matches('.app-grid li')) return;
+      if (target.closest('[hidden]')) {
+        search.value = '';
+        platformSelect.value = 'all';
+        category = 'all';
+        subcategory = 'all';
+        selectPressed(categoryButtons, categoryButtons[0]);
+        renderSubcategories();
+        updateDirectory();
+      }
+      target.scrollIntoView();
+    }
+
+    window.addEventListener('hashchange', revealLinkedApp);
     platformPicker.hidden = false;
     controls.hidden = false;
     updateDirectory();
+    revealLinkedApp();
   </script>
 </body>
 </html>

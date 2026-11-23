@@ -1,6 +1,7 @@
 const search = document.querySelector("#catalog-search");
 const query = document.querySelector("#catalog-query");
 const clear = document.querySelector("#clear-search");
+const platformSelect = document.querySelector("#tool-platform");
 const status = document.querySelector("#search-status");
 const extensions = document.querySelector("#extensions");
 const extensionsSummary = document.querySelector("#extensions-title");
@@ -9,14 +10,15 @@ const normalize = (text) => text.normalize("NFKC").toLowerCase();
 let filtering = false;
 let extensionsWereOpen = false;
 
-function indexCard(card, labels) {
+function indexCard(card, labels, inheritedPlatforms = []) {
   const content = Array.from(card.children)
-    .filter((child) => child !== extensions)
-    .map((child) => child.textContent)
+    .filter((child) => child !== extensions && !child.matches(".tool-platforms, .tool-linux-note"))
+    .map((child) => (child.matches(".catalog-card-heading") ? child.firstElementChild : child).textContent)
     .join(" ");
   const link = card.querySelector("a");
   return {
     element: card,
+    platforms: card.dataset.platforms?.split(" ") ?? inheritedPlatforms,
     keywords: normalize([...labels, content, card.dataset.alias ?? "", link.getAttribute("href")].join(" ")),
   };
 }
@@ -37,7 +39,7 @@ const sections = Array.from(document.querySelectorAll(".catalog-section"), (sect
           const host = card.querySelector("h5").textContent;
           const extensionLabels = [...labels, host, defaultExtensionsLabel];
           record.extensions = Array.from(extensions.querySelectorAll(".extension-list > li"), (extension) =>
-            indexCard(extension, extensionLabels));
+            indexCard(extension, extensionLabels, record.platforms));
         }
         return record;
       });
@@ -46,12 +48,13 @@ const sections = Array.from(document.querySelectorAll(".catalog-section"), (sect
   })),
 }));
 
-function filterCard(card, terms) {
-  const matches = terms.every((term) => card.keywords.includes(term));
+function filterCard(card, terms, platform) {
+  const matches = (!platform || card.platforms.includes(platform))
+    && terms.every((term) => card.keywords.includes(term));
   let extensionCount = 0;
   if (card.extensions) {
     for (const extension of card.extensions) {
-      extensionCount += filterCard(extension, terms);
+      extensionCount += filterCard(extension, terms, platform);
     }
     extensions.hidden = extensionCount === 0;
     extensionsSummary.textContent = terms.length && extensionCount > 0
@@ -68,6 +71,7 @@ function filterCard(card, terms) {
 }
 
 function filterCatalog() {
+  const platform = platformSelect?.value;
   const terms = normalize(query.value).trim().split(/\s+/).filter(Boolean);
   if (extensions && terms.length && !filtering) extensionsWereOpen = extensions.open;
   let total = 0;
@@ -79,7 +83,7 @@ function filterCatalog() {
       for (const group of category.groups) {
         let groupCount = 0;
         for (const card of group.cards) {
-          groupCount += filterCard(card, terms);
+          groupCount += filterCard(card, terms, platform);
         }
         group.element.hidden = groupCount === 0;
         categoryCount += groupCount;
@@ -93,7 +97,7 @@ function filterCatalog() {
 
   filtering = terms.length > 0;
   clear.hidden = query.value === "";
-  if (!filtering) {
+  if (!filtering && !platform) {
     status.textContent = "共 " + total + " 项";
   } else if (total === 0) {
     status.textContent = "没有匹配的条目";
@@ -108,6 +112,7 @@ function revealTarget(hash) {
   const wasHidden = target?.closest("[hidden]");
   if (wasHidden) {
     query.value = "";
+    if (platformSelect) platformSelect.value = "";
     filterCatalog();
   }
   if (target && extensions?.contains(target)) extensions.open = true;
@@ -279,6 +284,7 @@ function initializeSidebar() {
 }
 
 query.addEventListener("input", filterCatalog);
+platformSelect?.addEventListener("change", filterCatalog);
 clear.addEventListener("click", () => {
   query.value = "";
   filterCatalog();

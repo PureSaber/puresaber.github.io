@@ -1,10 +1,33 @@
-<li{% if include.entry.alias %} data-alias="{{ include.entry.alias | escape }}"{% endif %}>
-  <{{ include.heading }}{% if include.entry.icon %} class="card-title-with-icon"{% endif %}>
-    {% if include.entry.icon %}<img class="tool-icon" src="{{ include.entry.icon | prepend: '/assets/tool-icons/' | relative_url | escape }}" width="20" height="20" alt="" loading="lazy" decoding="async">{% endif %}
-    <a href="{{ include.entry.url | escape }}">{{ include.entry.name }}</a>
-  </{{ include.heading }}>
+<li{% if include.entry.alias %} data-alias="{{ include.entry.alias | escape }}"{% endif %}{% if include.entry.anchor %} id="tool-{{ include.entry.anchor | escape }}"{% endif %}{% if include.entry.platforms %} data-platforms="{{ include.entry.platforms | join: ' ' | escape }}"{% endif %}>
+  <div class="catalog-card-heading">
+    <{{ include.heading }}{% if include.entry.icon %} class="card-title-with-icon"{% endif %}>
+      {% if include.entry.icon %}<img class="tool-icon" src="{{ include.entry.icon | prepend: '/assets/tool-icons/' | relative_url | escape }}" width="20" height="20" alt="" loading="lazy" decoding="async">{% endif %}
+      <a href="{{ include.entry.url | escape }}">{{ include.entry.name }}</a>
+    </{{ include.heading }}>
+    {% if include.entry.mobile.size == 1 %}
+      {% assign mobile_app = include.entry.mobile.first %}
+      <a class="tool-mobile-link" href="{{ '/mobile/' | relative_url }}#app-{{ mobile_app.id | escape }}">{% if mobile_app.related %}手机端 · {{ mobile_app.name | escape }}{% else %}手机端{% endif %} <span aria-hidden="true">↗</span></a>
+    {% elsif include.entry.mobile %}
+      <details class="tool-mobile-link tool-mobile-picker">
+        <summary>手机端</summary>
+        <div class="tool-mobile-options">
+          {% for mobile_app in include.entry.mobile %}
+            <a href="{{ '/mobile/' | relative_url }}#app-{{ mobile_app.id | escape }}">{{ mobile_app.name | escape }} <span aria-hidden="true">↗</span></a>
+          {% endfor %}
+        </div>
+      </details>
+    {% endif %}
+  </div>
   <p>{{ include.entry.summary }}</p>
   <div class="card-details"><span>{{ include.entry.type | escape }}</span>{% if include.entry.docs %}<a href="{{ include.entry.docs.url | escape }}">{{ include.entry.docs.label }}</a>{% endif %}</div>
+  {% if include.entry.platforms %}
+    <ul class="tool-platforms" aria-label="可用平台">
+      {% for platform in include.entry.platforms %}<li>{{ platform | escape }}</li>{% endfor %}
+    </ul>
+  {% endif %}
+  {% if include.entry.linux %}
+    <div class="tool-linux-note">Linux：{{ include.entry.linux.note | escape }} <a href="{{ include.entry.linux.url | escape }}">安装说明</a></div>
+  {% endif %}
   {% if include.entry.usage %}
     <div class="usage-example">
       <strong>{{ include.entry.usage.label }}</strong>

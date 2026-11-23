@@ -4,6 +4,16 @@
     {% if include.home %}<svg class="home-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.2 15.2 4.8 4.8"/></svg>{% endif %}
     <input id="catalog-query" type="search" placeholder="{% if include.home %}搜索工具和资源{% else %}例如 Git、Python、回测{% endif %}" autocomplete="off">
     <button id="clear-search" type="button" hidden>清除</button>
+    {% if page.catalog == 'tools' %}
+    <select id="tool-platform" aria-label="按电脑平台筛选" aria-controls="tools" aria-describedby="tool-platform-note">
+      <option value="">全部平台</option>
+      <option value="Windows">Windows 可用</option>
+      <option value="macOS">macOS 可用</option>
+      <option value="Linux">Linux 可用</option>
+      <option value="Web">Web 可用</option>
+    </select>
+    {% endif %}
   </div>
   <p class="search-status" id="search-status" role="status"></p>
+  {% if page.catalog == 'tools' %}<p id="tool-platform-note">指定平台仅显示已标注条目。通用代码库可在「全部平台」查看。</p>{% endif %}
 </div>
