@@ -538,6 +538,10 @@ modeling:
   summary: 求解排程、路径规划和约束优化问题。
   type: 优化库
 - name: Gurobi（gurobipy）
+  platforms: [Windows, macOS, Linux]
+  linux:
+    note: 标签指独立 Gurobi Optimizer 求解器；按官方平台与 CPU 架构选择安装包
+    url: https://docs.gurobi.com/projects/optimizer/en/current/reference/releasenotes/platforms.html
   icon: vendor-041.svg
   url: https://docs.gurobi.com/projects/optimizer/en/current/reference/python.html
   summary: 从 Python 构建和求解数学规划模型。
@@ -705,6 +709,9 @@ productivity:
   type: 文献工具
 - name: Mendeley
   platforms: [Windows, macOS, Linux, Web]
+  linux:
+    note: 官方提供通用 64 位 Linux 版本，重点覆盖 Debian、Ubuntu
+    url: https://www.mendeley.com/download-reference-manager/linux
   icon: vendor-054.svg
   url: https://www.mendeley.com/
   summary: 整理参考资料和 PDF 阅读记录。
