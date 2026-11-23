@@ -669,8 +669,8 @@ productivity:
 - name: Typeless
   platforms: [Windows, macOS, Linux]
   linux:
-    note: 官方版本见发布说明（Beta）
-    url: https://www.typeless.com/help/release-notes/linux
+    note: Linux 为测试版／早期访问，安装可能需要获得测试资格
+    url: https://www.typeless.com/help/faqs
   anchor: typeless
   mobile:
   - id: typeless
@@ -705,6 +705,9 @@ productivity:
   type: 文献工具
 - name: Mendeley
   platforms: [Windows, macOS, Linux, Web]
+  linux:
+    note: 官方提供 Linux x86-64 版本（如 Debian、Ubuntu），其他发行版需核对兼容性
+    url: https://www.mendeley.com/the-future-of-mendeley
   icon: vendor-054.svg
   url: https://www.mendeley.com/
   summary: 整理参考资料和 PDF 阅读记录。
@@ -867,9 +870,9 @@ file-transfer:
 
 remote-desktop:
 - name: UU 远程
-  platforms: [Windows, macOS, Linux]
+  platforms: [Windows, macOS]
   linux:
-    note: Linux 内测面向 Ubuntu 18.04 及以上，查看官方开放状态
+    note: Linux 目前仅开放内测预约（Ubuntu 18.04 及以上），暂不计入正式可用平台
     url: https://uuyc.163.com/
   anchor: uuremote
   mobile:
