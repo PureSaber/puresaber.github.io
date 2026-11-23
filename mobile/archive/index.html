@@ -6,6 +6,7 @@
   <meta name="description" content="Kurage 的手机实用工具，按用途整理的手机应用目录，涵盖办公、学习、购物、出行和娱乐。">
   <meta name="theme-color" content="#f6f5ef">
   <title>应用归档 · Kurage</title>
+  <link rel="icon" type="image/png" sizes="96x96" href="../../assets/site-mobile-icon.png">
   <style>
     :root {
       color-scheme: light;
@@ -33,7 +34,6 @@
     .platform-picker select:hover { background: var(--card); border-color: #7a9a85; }
     .wordmark, .home-link { text-decoration: none; white-space: nowrap; }
     .wordmark { display: inline-flex; align-items: center; gap: .55rem; font-weight: 750; }
-    .wordmark::before { content: "K"; display: grid; place-items: center; width: 1.75rem; height: 1.75rem; border-radius: .5rem; background: var(--accent); color: white; font-size: .95rem; }
     .home-link { color: var(--accent); font-size: .92rem; font-weight: 650; }
     .home-link:hover { text-decoration: underline; text-underline-offset: .25em; }
     main { padding-block: 2rem 4rem; }
@@ -88,7 +88,6 @@
       .shell { width: calc(100% - 2rem); }
       .header-row { gap: .45rem; }
       .wordmark { gap: .4rem; }
-      .wordmark::before { width: 1.5rem; height: 1.5rem; }
       .home-link { font-size: .85rem; }
       main { padding-top: 1.15rem; }
       .hero { grid-template-columns: 1fr; min-height: 0; gap: 0; }
@@ -112,7 +111,10 @@
 <body>
   <header class="site-header">
     <div class="shell header-row">
-      <span class="wordmark">Kurage</span>
+      <span class="wordmark">
+        <img src="../../assets/site-mobile-icon.png" alt="" width="24" height="24">
+        Kurage
+      </span>
       <a class="home-link" href="../">返回手机应用</a>
     </div>
   </header>

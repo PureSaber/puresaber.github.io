@@ -9,6 +9,7 @@ layout: null
   <meta name="theme-color" content="#f6f5ef">
   <meta name="description" content="Kurage 的实用工具箱，收录开发与量化工具、编程学习资料和市场数据来源。">
   <title>我的实用工具箱 · Kurage</title>
+  <link rel="icon" type="image/png" sizes="96x96" href="{{ '/assets/site-toolbox-icon.png' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/catalog.css' | relative_url }}?v=home-cards">
   <script defer src="{{ '/assets/home-search.js' | relative_url }}"></script>
   <style>
@@ -27,6 +28,9 @@ layout: null
     .home-header a { color: #375146; text-decoration: none; }
     .home-header a:hover { text-decoration: underline; text-underline-offset: .24em; }
     .home-header .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
       color: #1c382e;
       font-size: 1.2rem;
       font-weight: 750;
@@ -220,7 +224,10 @@ layout: null
 <body>
   <a class="skip" href="#main">跳到正文</a>
   <header class="home-shell home-header">
-    <a class="brand" href="{{ '/' | relative_url }}" aria-current="page">Kurage</a>
+    <a class="brand" href="{{ '/' | relative_url }}" aria-current="page">
+      <img src="{{ '/assets/site-toolbox-icon.png' | relative_url }}" alt="" width="24" height="24">
+      Kurage
+    </a>
   </header>
   <main id="main" class="home-shell banner-home home-page"
         data-navigation="{{ site.data.catalog_navigation | jsonify | escape }}"
