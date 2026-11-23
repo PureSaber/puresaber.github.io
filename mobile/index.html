@@ -107,28 +107,19 @@
     .archive-footer-link:hover .archive-footer-name { text-decoration: underline; text-underline-offset: .2em; }
     .archive-footer-count { margin-inline-start: auto; color: var(--muted); font-size: .875rem; font-weight: 500; white-space: nowrap; }
     .archive-arrow { font-size: 1.1rem; }
-    .app-grid li:has(> .app-counterpart) {
-      display: flex; flex-direction: column;
-      background: var(--card); border: 1px solid var(--line); border-radius: .8rem;
-    }
-    .app-grid li:has(> .app-counterpart):hover { border-color: #6e987f; }
-    .app-grid li:has(> .app-counterpart) > .app-card {
-      height: auto; flex: 1; min-height: 0;
-      border: 0; border-radius: .8rem .8rem 0 0;
-    }
-    .app-counterpart {
-      display: block; padding: .3rem .9rem .4rem;
-      border-top: 1px solid var(--line); border-radius: 0 0 .8rem .8rem;
-      color: var(--accent); text-decoration: none; font-size: .78rem; font-weight: 650;
-    }
-    .app-counterpart:hover { text-decoration: underline; background: #f0f5ec; }
-    /* Independent corner link: the main application card remains one click target. */
-    .app-grid li:has(> .app-desktop-link) { position: relative; }
-    .app-grid li:has(> .app-desktop-link) > .app-card .app-copy strong { padding-inline-end: 3.85rem; }
-    .app-desktop-link { position: absolute; top: .32rem; right: .4rem; z-index: 1; padding: .08rem .32rem; border-radius: .32rem; color: var(--accent); background: #edf4eb; font-size: .69rem; line-height: 1.55; font-weight: 650; text-decoration: none; white-space: nowrap; }
-    .app-desktop-link:hover { text-decoration: underline; background: #deebdc; }
-    .app-desktop-link:focus-visible { outline: 2px solid #307250; outline-offset: 2px; }
+    /* Internal toolbox shortcuts and official desktop links share the same corner-chip style. */
+    .app-grid li:has(> :is(.app-counterpart, .app-desktop-link)) { position: relative; }
+    .app-grid li:has(> :is(.app-counterpart, .app-desktop-link)) > .app-card .app-copy strong { padding-inline-end: 3.85rem; }
+    .app-grid li:has(> .app-counterpart) > .app-card .app-copy strong { padding-inline-end: 7rem; }
     .app-grid li:has(> .app-desktop-link[data-wide]) > .app-card .app-copy strong { padding-inline-end: 5.4rem; }
+    .app-counterpart, .app-desktop-link {
+      position: absolute; top: .32rem; inset-inline-end: .4rem; z-index: 1;
+      padding: .08rem .32rem; border-radius: .32rem; color: var(--accent);
+      background: #edf4eb; font-size: .69rem; line-height: 1.55;
+      font-weight: 650; text-decoration: none; white-space: nowrap;
+    }
+    .app-counterpart:hover, .app-desktop-link:hover { text-decoration: underline; background: #deebdc; }
+    .app-counterpart:focus-visible, .app-desktop-link:focus-visible { outline: 2px solid #307250; outline-offset: 2px; }
     .app-grid li:target { scroll-margin-top: 1.15rem; outline: 2px solid #537f61; outline-offset: 4px; }
   </style>
 </head>
