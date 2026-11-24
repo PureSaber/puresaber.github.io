@@ -1570,7 +1570,7 @@
         </div>
       </section>
     </div>
-    <p class="empty" hidden>没有找到符合条件的应用。试试其他关键词或切换分类。</p>
+    <p class="empty" hidden>没有匹配的应用。</p>
     <footer class="archive-footer">
       <a class="archive-footer-link" id="archive-link" href="archive/">
         <span id="archive-link-label" class="archive-footer-name">应用归档</span>
@@ -1618,7 +1618,6 @@
       });
       return [section.dataset.category, {section, children}];
     }));
-    const hasIosOnlyApps = Boolean(document.querySelector('[data-platform="ios"]'));
     let category = 'all';
     let subcategory = 'all';
 
@@ -1688,11 +1687,6 @@
         : archiveHome;
       status.textContent = total + ' 个应用' + (archivedCount ? ' · ' + archivedCount + ' 项归档' : '');
       const noResults = total === 0 && archivedCount === 0;
-      if (noResults) {
-        empty.textContent = platform === 'ios' && !hasIosOnlyApps
-          ? '目前没有已核实的 iOS 独占应用。双平台应用可以在「通用」查看。'
-          : '没有找到符合条件的应用。可以更换关键词、平台或用途。';
-      }
       empty.hidden = !noResults;
     }
 
