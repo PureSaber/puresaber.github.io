@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="计算机科学与工程的十一大学习板块、学习顺序与课程资源。">
+  <meta name="theme-color" content="#f6f5ef">
+  <title>计算机学习路线 · Kurage</title>
+  <link rel="icon" type="image/png" sizes="96x96" href="../../assets/site-toolbox-icon.png">
+  <link rel="stylesheet" href="../../assets/sections.css">
+  <style>
+    .back-link { margin-bottom: .65rem; font-size: .9rem; }
+    .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .topic-number { color: var(--green); font-size: .83em; font-variant-numeric: tabular-nums; }
+    .project .english { font-size: .85rem; margin-top: .2rem; }
+    .project .goal { color: var(--ink); border-top: 1px solid var(--line); padding-top: .55rem; margin-top: .7rem; font-size: .93rem; }
+    .resource-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem 1.25rem; padding-left: 1.25rem; }
+    @media (max-width: 40rem) { .project-grid, .resource-links { grid-template-columns: minmax(0, 1fr); } }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">跳到正文</a>
+  <header class="masthead">
+    <div class="wrap">
+      <p class="back-link"><a href="../">← 学习路线</a></p>
+      <h1>计算机学习路线</h1>
+      <p class="intro">Computer Science &amp; Engineering · 基础理论、工程技术与专业拓展</p>
+      <nav class="site-nav" aria-label="站点导航">
+        <ul>
+          <li><a href="../../">首页</a></li>
+          <li><a href="../../tools/">工具</a></li>
+          <li><a href="../../resources/">资源</a></li>
+          <li><a href="../">学习路线</a></li>
+          <li><a href="../../projects/">项目与服务</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="wrap">
+    <nav class="section-links" aria-label="本页目录">
+      <a href="#foundation">基础理论</a>
+      <a href="#engineering">工程技术</a>
+      <a href="#specializations">专业拓展</a>
+      <a href="#sequence">学习顺序</a>
+      <a href="#resources">学习资源</a>
+    </nav>
+    <section id="foundation" class="section" aria-labelledby="foundation-title">
+      <h2 id="foundation-title">基础理论</h2>
+      <div class="project-grid">
+        <article class="project" id="math">
+          <h3><span class="topic-number">01</span> 数学与计算理论</h3>
+          <p class="english">Mathematics &amp; Theory of Computation</p>
+          <p>离散数学、线性代数、概率统计、数值计算、数学优化、形式语言、自动机、可计算性与计算复杂度。</p>
+          <p class="goal">理解计算的数学基础与理论边界。</p>
+        </article>
+        <article class="project" id="programming">
+          <h3><span class="topic-number">02</span> 编程语言与编程能力</h3>
+          <p class="english">Programming Languages</p>
+          <p>Python、C/C++、JavaScript、TypeScript、Rust；编程范式、类型系统、内存管理、编译器与解释器。</p>
+          <p class="goal">理解如何表达计算，以及语言如何运行。</p>
+        </article>
+        <article class="project" id="algorithms">
+          <h3><span class="topic-number">03</span> 数据结构与算法</h3>
+          <p class="english">Data Structures &amp; Algorithms</p>
+          <p>数组、链表、树、图、哈希表、排序、搜索、动态规划、贪心、时间与空间复杂度。</p>
+          <p class="goal">选择合适的数据结构与算法，高效求解。</p>
+        </article>
+        <article class="project" id="systems">
+          <h3><span class="topic-number">04</span> 计算机系统</h3>
+          <p class="english">Computer Systems</p>
+          <p>数字逻辑、计算机组成、CPU/GPU、指令集、汇编、操作系统、进程、线程、内存与文件系统。</p>
+          <p class="goal">理解程序如何在计算机上执行。</p>
+        </article>
+      </div>
+    </section>
+    <section id="engineering" class="section" aria-labelledby="engineering-title">
+      <h2 id="engineering-title">工程技术</h2>
+      <div class="project-grid">
+        <article class="project" id="networks">
+          <h3><span class="topic-number">05</span> 网络与分布式系统</h3>
+          <p class="english">Networking &amp; Distributed Systems</p>
+          <p>TCP/IP、HTTP、DNS、WebSocket、RPC、负载均衡、消息队列、分布式一致性与系统设计。</p>
+          <p class="goal">理解计算机如何通信与协作。</p>
+        </article>
+        <article class="project" id="data">
+          <h3><span class="topic-number">06</span> 数据库与数据工程</h3>
+          <p class="english">Databases &amp; Data Engineering</p>
+          <p>SQL、关系型数据库、NoSQL、索引、事务、缓存、数据仓库、ETL、数据管道与流式计算。</p>
+          <p class="goal">组织、存储、处理和利用数据。</p>
+        </article>
+        <article class="project" id="software">
+          <h3><span class="topic-number">07</span> 软件工程与开发架构</h3>
+          <p class="english">Software Engineering</p>
+          <p>Git、设计模式、软件架构、前端、后端、移动端、桌面开发、测试、代码审查与项目管理。</p>
+          <p class="goal">构建可维护、可协作的软件。</p>
+        </article>
+        <article class="project" id="infra">
+          <h3><span class="topic-number">08</span> 基础设施与运维</h3>
+          <p class="english">Infrastructure &amp; DevOps</p>
+          <p>Linux、Shell、服务器、Docker、Kubernetes、CI/CD、云计算、域名、部署、日志、监控与 SRE。</p>
+          <p class="goal">让软件可靠地部署与持续运行。</p>
+        </article>
+      </div>
+    </section>
+    <section id="specializations" class="section" aria-labelledby="specializations-title">
+      <h2 id="specializations-title">专业拓展</h2>
+      <div class="project-grid">
+        <article class="project" id="ai">
+          <h3><span class="topic-number">09</span> 人工智能与机器学习</h3>
+          <p class="english">Artificial Intelligence &amp; Machine Learning</p>
+          <p>传统机器学习、深度学习、强化学习、NLP、计算机视觉、时序模型、Transformer、LLM、Agent 与 MLOps。</p>
+          <p class="goal">学习模型原理、训练、评估与应用。</p>
+        </article>
+        <article class="project" id="security">
+          <h3><span class="topic-number">10</span> 计算机安全</h3>
+          <p class="english">Cybersecurity</p>
+          <p>密码学、身份认证、权限管理、Web 安全、网络安全、供应链安全、隐私保护与安全开发。</p>
+          <p class="goal">理解并降低系统安全风险。</p>
+        </article>
+        <article class="project" id="graphics">
+          <h3><span class="topic-number">11</span> 图形学与交互计算</h3>
+          <p class="english">Computer Graphics &amp; Interactive Computing</p>
+          <p>图形学、渲染、游戏引擎、人机交互、UI/UX、物理模拟、三维建模与 AR/VR。</p>
+          <p class="goal">构建视觉与交互系统。</p>
+        </article>
+      </div>
+    </section>
+    <section id="sequence" class="section route" aria-labelledby="sequence-title">
+      <h2 id="sequence-title">学习顺序</h2>
+      <ol class="steps">
+        <li><strong>编程与基础工具：</strong> 编程、数据结构、离散数学；<a href="../#python">Python</a>、<a href="../#git">Git</a>、Linux、<a href="../#sql">SQL</a>。</li>
+        <li><strong>系统与应用：</strong> 操作系统、计算机组成、网络；前后端、API 与数据库。</li>
+        <li><strong>完整软件工程：</strong> 软件架构、数据库原理、测试、CI/CD 与完整项目。</li>
+        <li><strong>数据与智能系统：</strong> 分布式系统、机器学习、数据管道、AI 应用与云部署。</li>
+        <li><strong>高级专题：</strong> 高级算法、编译原理、安全、高性能计算或图形学；参与开源项目。</li>
+      </ol>
+      <p class="completion"><strong>综合实践：</strong> 开源项目、Web 应用、独立软件、游戏开发、AI 应用及量化系统。理论学习与项目实践并行，计算机与投资量化共享技术基础、独立发展。</p>
+    </section>
+    <section id="resources" class="section route" aria-labelledby="resources-title">
+      <h2 id="resources-title">学习资源</h2>
+      <ul class="resource-links">
+        <li><a href="https://github.com/ossu/computer-science">OSSU Computer Science</a> · 本科知识体系</li>
+        <li><a href="https://teachyourselfcs.com/">Teach Yourself CS</a> · 核心理论</li>
+        <li><a href="https://roadmap.sh/">Roadmap.sh</a> · 工程学习路线</li>
+        <li><a href="https://cs50.harvard.edu/">CS50</a> · 计算机科学基础</li>
+        <li><a href="https://ocw.mit.edu/">MIT OpenCourseWare</a> · 大学课程</li>
+        <li><a href="https://missing.csail.mit.edu/">Missing Semester</a> · 开发工具</li>
+        <li><a href="https://neetcode.io/">NeetCode</a> · 数据结构与算法</li>
+        <li><a href="https://huggingface.co/learn">Hugging Face Learn</a> · AI 与大模型</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
