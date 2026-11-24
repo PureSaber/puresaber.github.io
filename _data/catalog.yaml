@@ -501,7 +501,7 @@ research-data:
 - name: DuckDB
   platforms: [Windows, macOS, Linux]
   linux:
-    note: 平台标签指独立 DuckDB CLI，官方提供安装包
+    note: DuckDB CLI 提供官方安装包
     url: https://duckdb.org/docs/current/installation
   icon: vendor-031.svg
   url: https://duckdb.org/docs/stable/data/csv/overview
@@ -632,7 +632,7 @@ modeling:
 - name: Gurobi（gurobipy）
   platforms: [Windows, macOS, Linux]
   linux:
-    note: 标签指独立 Gurobi Optimizer 求解器；按官方平台与 CPU 架构选择安装包
+    note: 按系统与 CPU 架构选择安装包
     url: https://docs.gurobi.com/projects/optimizer/en/current/reference/releasenotes/platforms.html
   icon: vendor-041.svg
   url: https://docs.gurobi.com/projects/optimizer/en/current/reference/python.html
@@ -674,7 +674,7 @@ nlp:
 - name: OpenCC
   platforms: [Windows, macOS, Linux]
   linux:
-    note: 平台标签指 OpenCC 命令行工具；不同发行版安装方式不同
+    note: 不同 Linux 发行版安装方式不同
     url: https://github.com/BYVoid/OpenCC
   icon: retry-opencc.png
   url: https://github.com/BYVoid/OpenCC
