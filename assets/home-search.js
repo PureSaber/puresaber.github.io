@@ -67,10 +67,10 @@ function resultCard({ entry, label, target, summary }) {
   const card = document.createElement("li");
   const title = document.createElement("h3");
   title.className = "card-title-with-icon";
-  if (entry.icon) {
+  if (entry.icon || entry.icon_url) {
     const icon = document.createElement("img");
     icon.className = "tool-icon";
-    icon.src = main.dataset.iconBase + entry.icon;
+    icon.src = entry.icon_url || main.dataset.iconBase + entry.icon;
     icon.alt = "";
     icon.width = 20;
     icon.height = 20;
