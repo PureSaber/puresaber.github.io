@@ -118,52 +118,7 @@ development:
   summary: 在编辑器里浏览仓库、修改文件和调试代码。想在同一个窗口里看代码、终端和 Git 改动时可以用它。
   type: IDE
   alias: VS Code VSCode
-  extensions:
-  - name: Slidev
-    icon: vendor-069.png
-    url: https://marketplace.visualstudio.com/items?itemName=antfu.slidev
-    summary: 编写和预览 Slidev 演示文稿。
-    type: 扩展
-  - name: Prettier
-    icon: vendor-070.png
-    url: https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
-    summary: 格式化 JavaScript、HTML、CSS 等文件。
-    type: 扩展
-  - name: GitHub Theme
-    icon: vendor-071.png
-    url: https://marketplace.visualstudio.com/items?itemName=GitHub.github-vscode-theme
-    summary: 在 VS Code 使用 GitHub 配色主题。
-    type: 扩展
-  - name: LaTeX Workshop
-    icon: vendor-072.png
-    url: https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop
-    summary: 编译、预览和编辑 LaTeX 文档。
-    type: 扩展
-  - name: MarsCode
-    icon: retry-marscode.png
-    url: https://marketplace.visualstudio.com/items?itemName=MarsCode.marscode-extension
-    summary: 用于代码补全和问答的编程助手扩展。
-    type: 扩展
-  - name: Live Server
-    icon: vendor-073.png
-    url: https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer
-    summary: 启动带自动刷新的本地网页服务器。
-    type: 扩展
-  - name: Markdown Preview Enhanced
-    icon: vendor-086.png
-    url: https://marketplace.visualstudio.com/items?itemName=shd101wyy.markdown-preview-enhanced
-    summary: 预览带公式和图表的 Markdown。
-    type: 扩展
-  - name: vscode-icons
-    icon: vendor-074.svg
-    url: https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons
-    summary: 按文件类型显示不同图标。
-    type: 扩展
-  - name: Markdown PDF
-    icon: vendor-075.png
-    url: https://marketplace.visualstudio.com/items?itemName=yzane.markdown-pdf
-    summary: 将 Markdown 文件导出为 PDF。
-    type: 扩展
+  extension_host: VS Code
 - name: Cursor
   platforms: [Windows, macOS, Linux]
   icon: cursor.svg
@@ -1299,3 +1254,86 @@ community-media:
   url: https://www.3dmgame.com/
   summary: 查阅 PC 游戏资讯、攻略与讨论。
   type: 游戏资讯社区
+
+editor-extensions:
+- name: Slidev
+  icon: vendor-069.png
+  url: https://marketplace.visualstudio.com/items?itemName=antfu.slidev
+  summary: 编写和预览 Slidev 演示文稿。
+  type: 演示文稿
+  anchor: extension-slidev
+  integrations:
+  - host: VS Code
+    url: https://marketplace.visualstudio.com/items?itemName=antfu.slidev
+- name: Prettier
+  icon: vendor-070.png
+  url: https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
+  summary: 格式化 JavaScript、HTML、CSS 等文件。
+  type: 代码格式化
+  anchor: extension-prettier
+  integrations:
+  - host: VS Code
+    url: https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
+- name: GitHub Theme
+  icon: vendor-071.png
+  url: https://marketplace.visualstudio.com/items?itemName=GitHub.github-vscode-theme
+  summary: 在 VS Code 使用 GitHub 配色主题。
+  type: 主题
+  anchor: extension-github-theme
+  integrations:
+  - host: VS Code
+    url: https://marketplace.visualstudio.com/items?itemName=GitHub.github-vscode-theme
+- name: LaTeX Workshop
+  icon: vendor-072.png
+  url: https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop
+  summary: 编译、预览和编辑 LaTeX 文档。
+  type: 文档排版
+  anchor: extension-latex-workshop
+  integrations:
+  - host: VS Code
+    url: https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop
+- name: MarsCode
+  icon: retry-marscode.png
+  url: https://marketplace.visualstudio.com/items?itemName=MarsCode.marscode-extension
+  summary: 用于代码补全和问答的编程助手扩展。
+  type: AI 编程
+  anchor: extension-marscode
+  integrations:
+  - host: VS Code
+    url: https://marketplace.visualstudio.com/items?itemName=MarsCode.marscode-extension
+- name: Live Server
+  icon: vendor-073.png
+  url: https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer
+  summary: 启动带自动刷新的本地网页服务器。
+  type: Web 开发
+  anchor: extension-live-server
+  integrations:
+  - host: VS Code
+    url: https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer
+- name: Markdown Preview Enhanced
+  icon: vendor-086.png
+  url: https://marketplace.visualstudio.com/items?itemName=shd101wyy.markdown-preview-enhanced
+  summary: 预览带公式和图表的 Markdown。
+  type: Markdown
+  anchor: extension-markdown-preview-enhanced
+  integrations:
+  - host: VS Code
+    url: https://marketplace.visualstudio.com/items?itemName=shd101wyy.markdown-preview-enhanced
+- name: vscode-icons
+  icon: vendor-074.svg
+  url: https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons
+  summary: 按文件类型显示不同图标。
+  type: 图标主题
+  anchor: extension-vscode-icons
+  integrations:
+  - host: VS Code
+    url: https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons
+- name: Markdown PDF
+  icon: vendor-075.png
+  url: https://marketplace.visualstudio.com/items?itemName=yzane.markdown-pdf
+  summary: 将 Markdown 文件导出为 PDF。
+  type: 文档导出
+  anchor: extension-markdown-pdf
+  integrations:
+  - host: VS Code
+    url: https://marketplace.visualstudio.com/items?itemName=yzane.markdown-pdf
