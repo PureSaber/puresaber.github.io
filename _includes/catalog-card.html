@@ -39,17 +39,40 @@
       {% for integration in include.entry.integrations %}<a href="{{ integration.url | escape }}">{{ integration.host | escape }} · 安装入口</a>{% endfor %}
     </div>
   {% endif %}
-  {% if include.entry.extension_host %}
-    <div class="card-details" id="extensions"><a href="{{ '/plugins/' | relative_url }}?host={{ include.entry.extension_host | uri_escape }}">查看 {{ include.entry.extension_host | escape }} 扩展 ↗</a></div>
-  {% endif %}
-  {% if include.entry.extensions %}
-    <details id="extensions" class="extensions">
-      <summary id="extensions-title">VS Code 扩展（{{ include.entry.extensions | size }}）</summary>
-      <ul class="extension-list">
-        {% for extension in include.entry.extensions %}
-          {% include catalog-card.html entry=extension heading="h6" %}
+  {% if page.catalog == 'tools' %}
+    {% assign extension_host = include.entry.extension_host | default: include.entry.name %}
+    {% assign extension_count = 0 %}
+    {% capture extension_items %}
+      {% for category in site.data.catalog_navigation.plugins.categories %}
+        {% for group in category[1].groups %}
+          {% assign plugin_group_id = group[0] %}
+          {% for plugin in site.data.catalog[plugin_group_id] %}
+            {% assign matching_installation = plugin.integrations | where: 'host', extension_host | first %}
+            {% if matching_installation %}
+              {% assign extension_count = extension_count | plus: 1 %}
+              <li data-plugin-anchor="{{ plugin.anchor | escape }}">
+                <div class="catalog-card-heading">
+                  <h6{% if plugin.icon or plugin.icon_url %} class="card-title-with-icon"{% endif %}>
+                    {% if plugin.icon or plugin.icon_url %}<img class="tool-icon" src="{% if plugin.icon_url %}{{ plugin.icon_url | escape }}{% else %}{{ plugin.icon | prepend: '/assets/tool-icons/' | relative_url | escape }}{% endif %}" width="20" height="20" alt="" loading="lazy" decoding="async">{% endif %}
+                    <a href="{{ matching_installation.url | escape }}">{{ plugin.name }}</a>
+                  </h6>
+                </div>
+                <p>{{ plugin.summary }}</p>
+                <div class="card-details"><span>{{ plugin.type | escape }}</span><a href="{{ matching_installation.url | escape }}">安装入口</a></div>
+              </li>
+            {% endif %}
+          {% endfor %}
         {% endfor %}
-      </ul>
-    </details>
+      {% endfor %}
+    {% endcapture %}
+    {% if extension_count > 0 %}
+      {% assign extension_id = include.entry.anchor | default: extension_host | slugify | prepend: 'extensions-' %}
+      {% if extension_host == 'VS Code' %}{% assign extension_id = 'extensions' %}{% endif %}
+      <details id="{{ extension_id | escape }}" class="extensions">
+        <summary id="{{ extension_id | escape }}-title">{{ extension_host | escape }} 扩展（{{ extension_count }}）</summary>
+        <ul class="extension-list">{{ extension_items }}</ul>
+        <div class="card-details"><a href="{{ '/plugins/' | relative_url }}?host={{ extension_host | uri_escape }}">在插件中心查看 ↗</a></div>
+      </details>
+    {% endif %}
   {% endif %}
 </li>
