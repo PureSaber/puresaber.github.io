@@ -66,3 +66,11 @@ resources:
       groups:
         tool-directories: 工具合集与导航站
         online-tools: 在线工具合集
+plugins:
+  title: 插件与扩展
+  description: 按宿主平台浏览和搜索软件插件、编辑器扩展与集成。
+  categories:
+    ide-extensions:
+      title: IDE 与编辑器
+      groups:
+        editor-extensions: 编辑器扩展
