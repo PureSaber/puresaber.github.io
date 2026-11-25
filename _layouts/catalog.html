@@ -82,6 +82,11 @@
       </section>
       {% endfor %}
     </section>
+    {% if page.catalog == "tools" %}
+    <footer style="margin-block:2rem;border-top:1px solid var(--line);padding-block:1rem">
+      <a href="{{ '/tools/archive/' | relative_url }}">工具归档 · {{ site.data.tool_archive | size }} 项 ↗</a>
+    </footer>
+    {% endif %}
   </main>
 </body>
 </html>

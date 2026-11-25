@@ -8,6 +8,7 @@ const results = document.querySelector("#search-results");
 const routes = new Map();
 const catalogs = new Map();
 const normalize = (value) => value.normalize("NFKC").toLowerCase();
+const plainText = (value) => value.replace(/<\/?code>/g, "");
 let indexRequest;
 
 for (const [id, catalog] of Object.entries(navigation)) {
@@ -35,9 +36,9 @@ function toResult(entry, catalog, category, group, anchor, parentName = "") {
   const target = new URL(catalog.url);
   target.hash = anchor;
   const label = catalog.title + " · " + group;
-  const summary = entry.summary.replace(/<\/?code>/g, "");
+  const summary = plainText(entry.summary);
   const keywords = normalize([
-    label, category.title, parentName, entry.name, entry.alias, summary, entry.type, entry.url,
+    label, category.title, parentName, plainText(entry.name), entry.alias, summary, entry.type, entry.url,
     entry.docs?.label, entry.usage?.example,
   ].join(" "));
   return { entry, label, target, summary, keywords };
@@ -79,7 +80,7 @@ function resultCard({ entry, label, target, summary }) {
   }
   const link = document.createElement("a");
   link.href = entry.url;
-  link.textContent = entry.name;
+  link.textContent = plainText(entry.name);
   title.append(link);
 
   const description = document.createElement("p");
@@ -113,7 +114,7 @@ async function searchCatalog() {
     const entries = await indexRequest;
     if (query.value !== value) return;
     const rank = ({ entry }) => {
-      const name = normalize(entry.name);
+      const name = normalize(plainText(entry.name));
       if (name === phrase) return 0;
       return name.startsWith(phrase) ? 1 : 2;
     };

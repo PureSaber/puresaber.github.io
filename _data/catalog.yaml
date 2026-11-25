@@ -204,13 +204,19 @@ development:
   alias: Trae AI IDE
 
 git-open-source:
-- name: GitHub CLI（<code>gh</code>）
-  platforms: [Windows, macOS, Linux]
+- name: GitHub
+  platforms: [Web]
   anchor: github
   mobile:
   - id: github
     name: GitHub
-    related: true
+  icon: vendor-003.svg
+  url: https://github.com/
+  summary: 浏览和维护代码仓库、Issue、Pull Request 与项目协作。
+  type: Web
+- name: GitHub CLI（<code>gh</code>）
+  platforms: [Windows, macOS, Linux]
+  anchor: github-cli
   icon: vendor-003.svg
   url: https://cli.github.com/manual/
   summary: 在终端查看 Pull Request、Issue 和 Actions 状态。维护多个仓库时，常用 <code>gh pr list</code> 和 <code>gh run list</code> 快速切换检查。
@@ -929,11 +935,6 @@ communication:
   url: https://www.microsoft.com/microsoft-teams/
   summary: 团队聊天、会议与协作。
   type: Web / 桌面
-- name: Skype
-  icon: vendor-058.svg
-  url: https://support.microsoft.com/skype
-  summary: 原 Skype 消费者服务已退役，可查看 Microsoft 的迁移说明。
-  type: 历史工具
 - name: WhatsApp
   platforms: [Windows, macOS, Web]
   anchor: whatsapp
