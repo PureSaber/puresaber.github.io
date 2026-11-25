@@ -1,0 +1,20 @@
+---
+layout: null
+---
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>工具归档 · Kurage</title>
+<link rel="icon" type="image/png" href="{{ '/assets/site-toolbox-icon.png' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/catalog.css' | relative_url }}">
+</head>
+<body>
+<header class="masthead"><div class="wrap"><h1>工具归档</h1><nav aria-label="站点导航"><ul><li><a href="{{ '/' | relative_url }}">首页</a></li><li><a href="{{ '/tools/' | relative_url }}">返回工具</a></li></ul></nav></div></header>
+<main class="wrap" id="main"><section class="catalog-section"><h2>已停用工具 · {{ site.data.tool_archive | size }} 项</h2><ul class="resources">
+{% for entry in site.data.tool_archive %}
+<li><h3 class="card-title-with-icon"><img class="tool-icon" src="{{ entry.icon | prepend: '/assets/tool-icons/' | relative_url }}" width="20" height="20" alt=""><a href="{{ entry.url | escape }}">{{ entry.name | escape }}</a></h3><p>{{ entry.summary }}</p><div class="card-details"><span>已停用 · {{ entry.retired_at }}</span></div></li>
+{% endfor %}
+</ul></section></main>
+</body></html>

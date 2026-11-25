@@ -78,31 +78,31 @@ ai:
   type: Web
 - name: 千问（Qwen）
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=chat.qwen.ai&sz=128
+  icon: local-qwen.svg
   url: https://chat.qwen.ai/
   summary: 用于 AI 问答、写作和代码讨论。
   type: 在线 AI 助手
 - name: Grok
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=grok.com&sz=128
+  icon: local-grok.svg
   url: https://grok.com/
   summary: AI 对话、搜索与内容分析。
   type: 在线 AI 助手
 - name: 豆包
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=doubao.com&sz=128
+  icon: local-doubao.svg
   url: https://www.doubao.com/
   summary: 使用 AI 进行问答、写作与资料整理。
   type: 在线 AI 助手
 - name: Ollama
   platforms: [Windows, macOS, Linux]
-  icon_url: https://www.google.com/s2/favicons?domain=ollama.com&sz=128
+  icon: local-ollama.svg
   url: https://ollama.com/
   summary: 在本地下载、运行和管理开源模型。
   type: 本地模型工具
 - name: OpenRouter
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=openrouter.ai&sz=128
+  icon: local-openrouter.svg
   url: https://openrouter.ai/
   summary: 通过统一 API 调用不同供应商的 AI 模型。
   type: 云端 API 服务
@@ -197,20 +197,26 @@ development:
 
 - name: TRAE
   platforms: [Windows, macOS]
-  icon_url: https://www.google.com/s2/favicons?domain=trae.ai&sz=128
+  icon: local-trae.svg
   url: https://www.trae.ai/
   summary: 在 AI IDE 中理解项目、修改代码并协助完成编程任务。
   type: IDE
   alias: Trae AI IDE
 
 git-open-source:
-- name: GitHub CLI（<code>gh</code>）
-  platforms: [Windows, macOS, Linux]
+- name: GitHub
+  platforms: [Web]
   anchor: github
   mobile:
   - id: github
     name: GitHub
-    related: true
+  icon: vendor-003.svg
+  url: https://github.com/
+  summary: 浏览和维护代码仓库、Issue、Pull Request 与项目协作。
+  type: Web
+- name: GitHub CLI（<code>gh</code>）
+  platforms: [Windows, macOS, Linux]
+  anchor: github-cli
   icon: vendor-003.svg
   url: https://cli.github.com/manual/
   summary: 在终端查看 Pull Request、Issue 和 Actions 状态。维护多个仓库时，常用 <code>gh pr list</code> 和 <code>gh run list</code> 快速切换检查。
@@ -227,7 +233,7 @@ git-open-source:
   type: CLI
 - name: GitLab
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=gitlab.com&sz=128
+  icon: local-gitlab.svg
   url: https://gitlab.com/
   summary: 托管代码仓库并管理 CI/CD 和开发协作。
   type: 代码协作平台
@@ -400,19 +406,19 @@ deployment:
   type: Python 库
 - name: Supabase
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=supabase.com&sz=128
+  icon: local-supabase.svg
   url: https://supabase.com/
   summary: 提供 PostgreSQL 数据库、认证、存储和后端能力。
   type: 云端后端服务
 - name: Cloudflare
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=cloudflare.com&sz=128
+  icon: local-cloudflare.svg
   url: https://www.cloudflare.com/
   summary: 管理域名、DNS、CDN 和边缘应用部署。
   type: 网络与云服务
 - name: Netlify
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=netlify.com&sz=128
+  icon: local-netlify.svg
   url: https://www.netlify.com/
   summary: 构建、部署和托管前端与静态网站。
   type: 部署服务
@@ -530,7 +536,7 @@ research-data:
   type: 桌面工具
 - name: MATLAB
   platforms: [Windows, macOS, Linux, Web]
-  icon_url: https://www.google.com/s2/favicons?domain=mathworks.com&sz=128
+  icon: local-matlab.svg
   url: https://www.mathworks.com/products/matlab.html
   summary: 进行数值计算、仿真与矩阵分析。
   type: 科学计算软件
@@ -558,7 +564,7 @@ market-tools:
   type: Python 库
 - name: TradingView
   platforms: [Web, Windows, macOS]
-  icon_url: https://www.google.com/s2/favicons?domain=tradingview.com&sz=128
+  icon: local-tradingview.svg
   url: https://www.tradingview.com/
   summary: 查看市场行情、技术图表并编写 Pine Script 指标。
   type: 行情与图表平台
@@ -810,13 +816,13 @@ productivity:
   type: 文献工具
 - name: Overleaf
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=overleaf.com&sz=128
+  icon: local-overleaf.svg
   url: https://www.overleaf.com/
   summary: 在线编写、编译与协作编辑 LaTeX 文档。
   type: 在线排版工具
 - name: Microsoft OneNote
   platforms: [Windows, macOS, Web]
-  icon_url: https://www.google.com/s2/favicons?domain=onenote.com&sz=128
+  icon: local-onenote.svg
   url: https://www.onenote.com/
   summary: 按笔记本、分区和页面收集资料与笔记。
   type: 笔记应用
@@ -929,11 +935,6 @@ communication:
   url: https://www.microsoft.com/microsoft-teams/
   summary: 团队聊天、会议与协作。
   type: Web / 桌面
-- name: Skype
-  icon: vendor-058.svg
-  url: https://support.microsoft.com/skype
-  summary: 原 Skype 消费者服务已退役，可查看 Microsoft 的迁移说明。
-  type: 历史工具
 - name: WhatsApp
   platforms: [Windows, macOS, Web]
   anchor: whatsapp
@@ -1110,13 +1111,13 @@ media:
   alias: 迅捷视频转换 Xunjie Video Converter
 - name: Figma
   platforms: [Web, Windows, macOS]
-  icon_url: https://www.google.com/s2/favicons?domain=figma.com&sz=128
+  icon: local-figma.svg
   url: https://www.figma.com/
   summary: 制作界面原型、组件并协同设计。
   type: 在线设计工具
 - name: Canva
   platforms: [Web, Windows, macOS]
-  icon_url: https://www.google.com/s2/favicons?domain=canva.com&sz=128
+  icon: local-canva.svg
   url: https://www.canva.com/
   summary: 制作海报、图文、演示稿与视觉素材。
   type: 在线设计工具
@@ -1153,14 +1154,14 @@ computer-learning:
   type: 交互练习
 - name: LeetCode
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=leetcode.com&sz=128
+  icon: local-leetcode.svg
   url: https://leetcode.com/
   summary: 练习算法与数据结构，准备编程技术面试。
   type: 在线练习平台
 
 - name: Roadmap.sh
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=roadmap.sh&sz=128
+  icon: local-roadmapdotsh.svg
   url: https://roadmap.sh/
   summary: 按开发领域查看技术学习路线和技能结构。
   type: 学习路线
@@ -1190,7 +1191,7 @@ financial-data:
 quant-platforms:
 - name: Kaggle
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=kaggle.com&sz=128
+  icon: local-kaggle.svg
   url: https://www.kaggle.com/
   summary: 参加数据科学竞赛、获取公开数据集并运行 Notebook。
   type: 竞赛与研究平台
@@ -1230,7 +1231,7 @@ online-tools:
 game-platforms:
 - name: Epic Games Store
   platforms: [Windows, macOS, Web]
-  icon_url: https://www.google.com/s2/favicons?domain=store.epicgames.com&sz=128
+  icon: local-epicgames.svg
   url: https://store.epicgames.com/
   summary: 购买、领取与管理 PC 游戏。
   type: 游戏商店／客户端
@@ -1238,13 +1239,13 @@ game-platforms:
 academic-library:
 - name: arXiv
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=arxiv.org&sz=128
+  icon: local-arxiv.svg
   url: https://arxiv.org/
   summary: 查阅开放获取的数学、计算机与其他领域研究论文。
   type: 论文资料库
 - name: Google Scholar
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=scholar.google.com&sz=128
+  icon: local-googlescholar.svg
   url: https://scholar.google.com/
   summary: 检索学术论文、作者与引文关系。
   type: 学术搜索
@@ -1260,7 +1261,7 @@ market-news:
 general-courses:
 - name: Coursera
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=coursera.org&sz=128
+  icon: local-coursera.svg
   url: https://www.coursera.org/
   summary: 学习大学与机构提供的在线课程。
   type: 在线课程平台

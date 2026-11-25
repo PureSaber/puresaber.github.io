@@ -1,0 +1,6 @@
+- name: Skype
+  icon: vendor-058.svg
+  url: https://support.microsoft.com/en-us/skype/skype-is-retiring-in-may-2025-what-you-need-to-know
+  summary: 原 Skype 消费者服务已退役，可查看 Microsoft 的迁移说明。
+  type: 历史工具
+  retired_at: "2025-05-05"
