@@ -37,6 +37,14 @@
       <div class="category-links" role="navigation" aria-label="按分类浏览">
         <ul class="category-index">
           {% for category in catalog.categories %}
+          {% if page.catalog == 'plugins' %}
+            {% assign category_count = 0 %}
+            {% for plugin_group in category[1].groups %}
+              {% assign group_count = site.data.catalog[plugin_group[0]] | size %}
+              {% assign category_count = category_count | plus: group_count %}
+            {% endfor %}
+            {% if category_count == 0 %}{% continue %}{% endif %}
+          {% endif %}
           <li>
             <a href="#{{ category[0] }}">{{ category[1].title }}</a>
             <ul>
@@ -71,6 +79,14 @@
         {% endif %}
       </div>
       {% for category in catalog.categories %}
+          {% if page.catalog == 'plugins' %}
+            {% assign category_count = 0 %}
+            {% for plugin_group in category[1].groups %}
+              {% assign group_count = site.data.catalog[plugin_group[0]] | size %}
+              {% assign category_count = category_count | plus: group_count %}
+            {% endfor %}
+            {% if category_count == 0 %}{% continue %}{% endif %}
+          {% endif %}
       <section id="{{ category[0] }}" class="catalog-category" aria-labelledby="{{ category[0] }}-title">
         <h3 id="{{ category[0] }}-title">{{ category[1].title }}</h3>
         {% for group in category[1].groups %}
