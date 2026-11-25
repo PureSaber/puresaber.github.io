@@ -40,7 +40,9 @@
           {% if page.catalog == 'plugins' %}
             {% assign category_count = 0 %}
             {% for plugin_group in category[1].groups %}
-              {% assign group_count = site.data.catalog[plugin_group[0]] | size %}
+              {% assign plugin_group_id = plugin_group[0] %}
+              {% assign plugin_entries = site.data.catalog[plugin_group_id] %}
+              {% assign group_count = plugin_entries | size %}
               {% assign category_count = category_count | plus: group_count %}
             {% endfor %}
             {% if category_count == 0 %}{% continue %}{% endif %}
@@ -84,7 +86,9 @@
           {% if page.catalog == 'plugins' %}
             {% assign category_count = 0 %}
             {% for plugin_group in category[1].groups %}
-              {% assign group_count = site.data.catalog[plugin_group[0]] | size %}
+              {% assign plugin_group_id = plugin_group[0] %}
+              {% assign plugin_entries = site.data.catalog[plugin_group_id] %}
+              {% assign group_count = plugin_entries | size %}
               {% assign category_count = category_count | plus: group_count %}
             {% endfor %}
             {% if category_count == 0 %}{% continue %}{% endif %}
