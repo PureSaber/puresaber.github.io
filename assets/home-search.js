@@ -39,7 +39,7 @@ function toResult(entry, catalog, category, group, anchor, parentName = "") {
   const summary = plainText(entry.summary);
   const keywords = normalize([
     label, category.title, parentName, plainText(entry.name), entry.alias, summary, entry.type, entry.url,
-    entry.docs?.label, entry.usage?.example,
+    entry.docs?.label, entry.usage?.example, ...(entry.integrations ?? []).map(integration => integration.host),
   ].join(" "));
   return { entry, label, target, summary, keywords };
 }
@@ -53,7 +53,7 @@ async function loadIndex() {
     for (const category of Object.values(catalog.categories)) {
       for (const [groupId, group] of Object.entries(category.groups)) {
         for (const entry of data[groupId]) {
-          entries.push(toResult(entry, catalog, category, group, groupId));
+          entries.push(toResult(entry, catalog, category, group, entry.anchor ? `tool-${entry.anchor}` : groupId));
           for (const extension of entry.extensions ?? []) {
             entries.push(toResult(extension, catalog, category, group, "extensions", entry.name));
           }
@@ -125,7 +125,7 @@ async function searchCatalog() {
     results.hidden = matches.length === 0;
     status.textContent = matches.length ? `找到 ${matches.length} 项` : "没有匹配的条目";
   } catch {
-    if (query.value === value) status.textContent = "搜索暂时不可用，可以直接打开工具或资源目录。";
+    if (query.value === value) status.textContent = "搜索暂时不可用，可以直接打开相应目录。";
   }
 }
 
