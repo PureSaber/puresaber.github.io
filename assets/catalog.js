@@ -3,16 +3,12 @@ const query = document.querySelector("#catalog-query");
 const clear = document.querySelector("#clear-search");
 const platformSelect = document.querySelector("#tool-platform");
 const status = document.querySelector("#search-status");
-const extensions = document.querySelector("details.extensions#extensions");
-const extensionsSummary = document.querySelector("#extensions-title");
-const defaultExtensionsLabel = extensionsSummary?.textContent;
 const requestedHost = new URLSearchParams(location.search).get("host");
 if (requestedHost && platformSelect && Array.from(platformSelect.options).some(option => option.value === requestedHost)) {
   platformSelect.value = requestedHost;
 }
 const normalize = (text) => text.normalize("NFKC").toLowerCase();
 let filtering = false;
-let extensionsWereOpen = false;
 
 // The original catalog remains the single source of truth. Group cards progressively.
 function groupProductFamilies() {
@@ -82,7 +78,7 @@ const familyRecords = new Map();
 
 function indexCard(card, labels, inheritedPlatforms = []) {
   const content = Array.from(card.children)
-    .filter((child) => child !== extensions && !child.matches(".tool-platforms, .tool-linux-note, .product-family"))
+    .filter((child) => !child.matches(".extensions, .tool-platforms, .tool-linux-note, .product-family"))
     .map((child) => (child.matches(".catalog-card-heading") ? child.firstElementChild : child).textContent)
     .join(" ");
   const link = card.querySelector("a");
@@ -91,6 +87,31 @@ function indexCard(card, labels, inheritedPlatforms = []) {
     platforms: card.dataset.hosts?.split("|") ?? card.dataset.platforms?.split(" ") ?? inheritedPlatforms,
     keywords: normalize([...labels, content, card.dataset.originalLabels ?? "", card.dataset.alias ?? "", link?.getAttribute("href")].join(" ")),
   };
+}
+
+function indexProduct(card, labels) {
+  if (card.classList.contains("family-shortcut")) return { element: card, shortcut: card.dataset.target };
+  const record = indexCard(card, labels);
+  record.ecosystem = card.classList.contains("family-ecosystem");
+  const family = card.querySelector(":scope > .product-family");
+  if (family) {
+    record.family = family;
+    record.members = Array.from(family.querySelectorAll(":scope > .family-members > li"), member => {
+      const child = indexProduct(member, [...labels, card.querySelector("h5").textContent]);
+      familyRecords.set(member.id, child);
+      return child;
+    });
+  }
+  const folder = card.querySelector(":scope > details.extensions");
+  if (folder) {
+    record.extensionFolder = folder;
+    record.extensionSummary = folder.querySelector("summary");
+    record.extensionLabel = record.extensionSummary.textContent;
+    const extensionLabels = [...labels, card.querySelector(".catalog-card-heading h5").textContent, record.extensionLabel];
+    record.extensions = Array.from(folder.querySelectorAll(":scope > .extension-list > li"), extension =>
+      indexCard(extension, extensionLabels, record.platforms));
+  }
+  return record;
 }
 
 const sections = Array.from(document.querySelectorAll(".catalog-section"), (section) => ({
@@ -103,27 +124,7 @@ const sections = Array.from(document.querySelectorAll(".catalog-section"), (sect
         category.querySelector("h3").textContent,
         group.querySelector("h4").textContent,
       ];
-      const cards = Array.from(group.querySelectorAll(":scope > .resources > li"), (card) => {
-        if (card.classList.contains("family-shortcut")) return { element: card, shortcut: card.dataset.target };
-        const record = indexCard(card, labels);
-        record.ecosystem = card.classList.contains("family-ecosystem");
-        const family = card.querySelector(":scope > .product-family");
-        if (family) {
-          record.family = family;
-          record.members = Array.from(family.querySelectorAll(".family-members > li"), member => {
-            const child = indexCard(member, [...labels, card.querySelector("h5").textContent]);
-            familyRecords.set(member.id, child);
-            return child;
-          });
-        }
-        if (card.contains(extensions)) {
-          const host = card.querySelector("h5").textContent;
-          const extensionLabels = [...labels, host, defaultExtensionsLabel];
-          record.extensions = Array.from(extensions.querySelectorAll(".extension-list > li"), (extension) =>
-            indexCard(extension, extensionLabels, record.platforms));
-        }
-        return record;
-      });
+      const cards = Array.from(group.querySelectorAll(":scope > .resources > li"), card => indexProduct(card, labels));
       return { element: group, cards };
     }),
   })),
@@ -132,7 +133,7 @@ const sections = Array.from(document.querySelectorAll(".catalog-section"), (sect
 function matchesCard(card, terms, platform) {
   return (!platform || card.platforms.includes(platform)) && terms.every(term => card.keywords.includes(term));
 }
-function filterCard(card, terms, platform) {
+function filterCard(card, terms, platform, matched) {
   if (card.shortcut) {
     const source = familyRecords.get(card.shortcut);
     card.element.hidden = !source || !matchesCard(source, terms, platform);
@@ -141,34 +142,36 @@ function filterCard(card, terms, platform) {
   const matches = !card.ecosystem && matchesCard(card, terms, platform);
   let memberCount = 0;
   if (card.members) {
-    for (const member of card.members) memberCount += filterCard(member, terms, platform);
+    for (const member of card.members) memberCount += filterCard(member, terms, platform, matched);
     card.family.hidden = memberCount === 0;
     if ((terms.length || platform) && memberCount) card.family.open = true;
   }
   let extensionCount = 0;
   if (card.extensions) {
+    const folder = card.extensionFolder;
+    if (terms.length && !filtering) card.extensionsWereOpen = folder.open;
     for (const extension of card.extensions) {
-      extensionCount += filterCard(extension, terms, platform);
+      extensionCount += filterCard(extension, terms, platform, matched);
     }
-    extensions.hidden = extensionCount === 0;
-    extensionsSummary.textContent = terms.length && extensionCount > 0
+    folder.hidden = extensionCount === 0;
+    card.extensionSummary.textContent = terms.length && extensionCount > 0
       ? `匹配 ${extensionCount} 个扩展 · 共 ${card.extensions.length} 个`
-      : defaultExtensionsLabel;
+      : card.extensionLabel;
     if (terms.length) {
-      extensions.open = extensionCount > 0;
+      folder.open = extensionCount > 0;
     } else if (filtering) {
-      extensions.open = extensionsWereOpen;
+      folder.open = Boolean(card.extensionsWereOpen);
     }
   }
   card.element.hidden = !matches && extensionCount === 0 && memberCount === 0;
+  if (matches) matched.add(card.element.dataset.pluginAnchor ? 'plugin:' + card.element.dataset.pluginAnchor : card.element);
   return Number(matches) + extensionCount + memberCount;
 }
 
 function filterCatalog() {
   const platform = platformSelect?.value;
   const terms = normalize(query.value).trim().split(/\s+/).filter(Boolean);
-  if (extensions && terms.length && !filtering) extensionsWereOpen = extensions.open;
-  let total = 0;
+  const matched = new Set();
 
   for (const section of sections) {
     let sectionCount = 0;
@@ -177,12 +180,11 @@ function filterCatalog() {
       for (const group of category.groups) {
         let groupCount = 0;
         for (const card of group.cards) {
-          groupCount += filterCard(card, terms, platform);
+          groupCount += filterCard(card, terms, platform, matched);
         }
         const shortcutsVisible = group.cards.some(card => card.shortcut && !card.element.hidden);
         group.element.hidden = groupCount === 0 && !shortcutsVisible;
         categoryCount += groupCount || Number(shortcutsVisible);
-        total += groupCount;
       }
       category.element.hidden = categoryCount === 0;
       sectionCount += categoryCount;
@@ -191,6 +193,7 @@ function filterCatalog() {
 
   }
 
+  const total = matched.size;
   filtering = terms.length > 0;
   clear.hidden = query.value === "";
   if (!filtering && !platform) {
@@ -211,10 +214,13 @@ function revealTarget(hash) {
     if (platformSelect) platformSelect.value = "";
     filterCatalog();
   }
-  if (target && extensions?.contains(target)) extensions.open = true;
-  const family = target?.closest('.product-family');
-  const wasClosed = family && !family.open;
-  if (family) family.open = true;
+  let wasClosed = false;
+  for (let parent = target; parent; parent = parent.parentElement) {
+    if (parent.matches("details.extensions, details.product-family") && !parent.open) {
+      parent.open = true;
+      wasClosed = true;
+    }
+  }
   return wasHidden || wasClosed ? target : null;
 }
 
