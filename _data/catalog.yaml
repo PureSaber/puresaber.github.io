@@ -1177,7 +1177,7 @@ research:
 financial-data:
 - name: Tushare
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=tushare.pro&sz=128
+  icon: local-tushare.png
   url: https://tushare.pro/
   summary: 通过 API 获取中国股票、指数、基金等金融市场数据。
   type: 金融数据服务

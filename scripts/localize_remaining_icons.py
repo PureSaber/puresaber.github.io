@@ -4,7 +4,10 @@ from concurrent.futures import ThreadPoolExecutor
 from io import BytesIO
 from pathlib import Path
 from urllib.request import Request, urlopen
-from urllib.parse import urlparse
+from urllib.parse import urlparse, urljoin
+from urllib.error import HTTPError
+from html.parser import HTMLParser
+import cairosvg
 import hashlib
 import re
 from PIL import Image, ImageOps
@@ -15,19 +18,50 @@ ICONS = ROOT / "assets/tool-icons"
 SOURCES = {
     "Wind 金融终端": ("wind", ["https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/a4/65/e6/a465e6fd-6f9a-91df-150d-442e1f20a2c9/AppIcon-85-220-5-0-0-2x-0-0.png/1200x630bb.png"]),
     "Choice 数据": ("choice", ["https://acem.sjtu.edu.cn/ec/static/data/20222/spe_202221816423942%E4%B8%9C%E6%96%B9%E8%B4%A2%E5%AF%8C.jpg"]),
-    "迅捷视频转换器": ("xunjie-video", []),
+    "迅捷视频转换器": ("xunjie-video", ["https://www.xunjieshipin.com/favicon.ico", "https://m.xunjieshipin.com/favicon.ico"]),
     "Tushare": ("tushare", ["https://tushare.pro/favicon.ico"]),
-    "Baostock": ("baostock", ["https://www.baostock.com/favicon.ico"]),
+    "Baostock": ("baostock", ["https://www.baostock.com/favicon.ico", "https://baostock.com/favicon.ico", "https://icons.duckduckgo.com/ip3/baostock.com.ico"]),
     "聚宽（JoinQuant）": ("joinquant", ["https://www.joinquant.com/favicon.ico"]),
-    "米筐（Ricequant）": ("ricequant", ["https://www.ricequant.com/favicon.ico"]),
+    "米筐（Ricequant）": ("ricequant", ["https://www.ricequant.com/favicon.ico", "https://icons.duckduckgo.com/ip3/ricequant.com.ico"]),
     "BigQuant": ("bigquant", ["https://bigquant.com/favicon.ico"]),
     "金十数据": ("jin10", ["https://static.oomol.com/logo/third-party/jin10.png"]),
     "Cambridge Dictionary": ("cambridge-dictionary", ["https://dictionary.cambridge.org/favicon.ico"]),
     "3DM 游戏网": ("3dmgame", ["https://www.3dmgame.com/favicon.ico"]),
 }
+PAGES = {
+    "迅捷视频转换器": ["https://www.xunjieshipin.com/video-converter", "https://m.xunjieshipin.com/video-converter", "https://app.xunjieshipin.com/download/"],
+    "Baostock": ["https://baostock.com/baostock/index.php", "https://www.baostock.com/baostock/index.php", "https://baostock.com/"],
+    "米筐（Ricequant）": ["https://www.ricequant.com/welcome/", "https://www.ricequant.com/doc/"],
+}
+class IconParser(HTMLParser):
+    def __init__(self, page):
+        super().__init__()
+        self.page = page
+        self.icons = []
+        self.logos = []
+    def handle_starttag(self, tag, attrs):
+        a = dict(attrs)
+        if tag == "link" and "icon" in a.get("rel", "").lower() and a.get("href"):
+            self.icons.append(urljoin(self.page, a["href"]))
+        if tag == "img" and a.get("src"):
+            src = a["src"]
+            description = " ".join([src, a.get("alt", ""), a.get("class", "")]).lower()
+            if "logo" in description or "icon" in description:
+                self.logos.append(urljoin(self.page, src))
+def discover(page):
+    with urlopen(Request(page, headers={"User-Agent": "Mozilla/5.0"}), timeout=8) as r:
+        p = IconParser(r.url)
+        p.feed(r.read(1_000_000).decode("utf-8", errors="replace"))
+        return list(dict.fromkeys(u for u in p.icons+p.logos if u.startswith("https://")))[:8]
 def download(url):
     req = Request(url, headers={"User-Agent": "Mozilla/5.0", "Accept": "image/*"})
-    with urlopen(req, timeout=18) as response:
+    try:
+        response = urlopen(req, timeout=10)
+    except HTTPError as exc:
+        if exc.code != 404 or "google.com/s2/favicons" not in url:
+            raise
+        response = exc
+    with response:
         if urlparse(response.url).scheme != "https":
             raise ValueError("non-HTTPS redirect")
         content = response.read(2_000_001)
@@ -35,6 +69,10 @@ def download(url):
         raise ValueError("image too large")
     return content
 def decode(content):
+    if b"<svg" in content[:1000]:
+        if b"<!DOCTYPE" in content or b"<!ENTITY" in content or re.search(rb'(?:href|url)\s*[=(]\s*["\']?https?://', content):
+            raise ValueError("external SVG resources")
+        content = cairosvg.svg2png(bytestring=content, output_width=128, output_height=128)
     with Image.open(BytesIO(content)) as source:
         if source.width < 16 or source.height < 16 or source.width * source.height > 16_000_000:
             raise ValueError("invalid image dimensions")
@@ -68,7 +106,13 @@ def run():
         slug, fallbacks = SOURCES[name]
         errors = []
         # Preserve existing icon first. Known alternative sources are used only on failure.
-        for url in [current, *fallbacks]:
+        candidates = [current, *fallbacks]
+        for page in PAGES.get(name, []):
+            try:
+                candidates.extend(discover(page))
+            except Exception as exc:
+                errors.append(f"{page}: {exc}")
+        for url in list(dict.fromkeys(candidates)):
             try:
                 png = decode(download(url))
                 if digest(png) in generic:
