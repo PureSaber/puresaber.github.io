@@ -96,13 +96,13 @@ ai:
   type: 在线 AI 助手
 - name: Ollama
   platforms: [Windows, macOS, Linux]
-  icon_url: https://www.google.com/s2/favicons?domain=ollama.com&sz=128
+  icon: local-ollama.svg
   url: https://ollama.com/
   summary: 在本地下载、运行和管理开源模型。
   type: 本地模型工具
 - name: OpenRouter
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=openrouter.ai&sz=128
+  icon: local-openrouter.svg
   url: https://openrouter.ai/
   summary: 通过统一 API 调用不同供应商的 AI 模型。
   type: 云端 API 服务
@@ -233,7 +233,7 @@ git-open-source:
   type: CLI
 - name: GitLab
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=gitlab.com&sz=128
+  icon: local-gitlab.svg
   url: https://gitlab.com/
   summary: 托管代码仓库并管理 CI/CD 和开发协作。
   type: 代码协作平台
@@ -406,19 +406,19 @@ deployment:
   type: Python 库
 - name: Supabase
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=supabase.com&sz=128
+  icon: local-supabase.svg
   url: https://supabase.com/
   summary: 提供 PostgreSQL 数据库、认证、存储和后端能力。
   type: 云端后端服务
 - name: Cloudflare
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=cloudflare.com&sz=128
+  icon: local-cloudflare.svg
   url: https://www.cloudflare.com/
   summary: 管理域名、DNS、CDN 和边缘应用部署。
   type: 网络与云服务
 - name: Netlify
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=netlify.com&sz=128
+  icon: local-netlify.svg
   url: https://www.netlify.com/
   summary: 构建、部署和托管前端与静态网站。
   type: 部署服务
@@ -564,7 +564,7 @@ market-tools:
   type: Python 库
 - name: TradingView
   platforms: [Web, Windows, macOS]
-  icon_url: https://www.google.com/s2/favicons?domain=tradingview.com&sz=128
+  icon: local-tradingview.svg
   url: https://www.tradingview.com/
   summary: 查看市场行情、技术图表并编写 Pine Script 指标。
   type: 行情与图表平台
@@ -816,7 +816,7 @@ productivity:
   type: 文献工具
 - name: Overleaf
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=overleaf.com&sz=128
+  icon: local-overleaf.svg
   url: https://www.overleaf.com/
   summary: 在线编写、编译与协作编辑 LaTeX 文档。
   type: 在线排版工具
@@ -1111,7 +1111,7 @@ media:
   alias: 迅捷视频转换 Xunjie Video Converter
 - name: Figma
   platforms: [Web, Windows, macOS]
-  icon_url: https://www.google.com/s2/favicons?domain=figma.com&sz=128
+  icon: local-figma.svg
   url: https://www.figma.com/
   summary: 制作界面原型、组件并协同设计。
   type: 在线设计工具
