@@ -411,3 +411,6 @@ code { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .91em; 
 .catalog-section[data-view="list"] .family-members .catalog-card-heading > h5 { display:flex; }
 .catalog-section[data-view="list"] .family-members .card-details { justify-content:flex-start; text-align:start; }
 .catalog-section[data-view="list"] .resources > .family-shortcut { display:block; padding:.5rem .2rem; }
+
+.catalog-section[data-view="list"] .resources > .family-ecosystem { grid-template-areas:"name name" "extensions extensions"; }
+.family-ecosystem > .product-family { margin-top:.45rem; }
