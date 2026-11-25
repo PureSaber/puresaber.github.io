@@ -160,6 +160,8 @@ development:
 
 git-open-source:
 - name: GitHub
+  family: github
+  family_role: parent
   platforms: [Web]
   anchor: github
   mobile:
@@ -170,6 +172,8 @@ git-open-source:
   summary: 浏览和维护代码仓库、Issue、Pull Request 与项目协作。
   type: Web
 - name: GitHub CLI（<code>gh</code>）
+  family: github
+  family_role: member
   platforms: [Windows, macOS, Linux]
   anchor: github-cli
   icon: vendor-003.svg
@@ -301,6 +305,9 @@ game-development:
 
 deployment:
 - name: Docker
+  family: docker
+  family_role: parent
+  anchor: docker
   platforms: [Linux]
   linux:
     note: Docker Engine 可直接部署于 Linux；Mac／Windows 可看 Docker Desktop
@@ -310,6 +317,9 @@ deployment:
   summary: 构建镜像并运行容器。
   type: 容器工具
 - name: Docker Desktop
+  family: docker
+  family_role: member
+  anchor: docker-desktop
   platforms: [Windows, macOS, Linux]
   linux:
     note: 官方 Ubuntu、Debian、Fedora、RHEL（x86-64）；Arch 包为实验版
@@ -319,6 +329,9 @@ deployment:
   summary: 在桌面系统中运行和管理 Docker。
   type: 桌面工具
 - name: Docker Compose
+  family: docker
+  family_role: member
+  anchor: docker-compose
   platforms: [Windows, macOS, Linux]
   icon: docker.svg
   url: https://docs.docker.com/compose/
@@ -337,12 +350,18 @@ deployment:
   summary: 在终端预览、配置和部署 Vercel 项目。
   type: CLI
 - name: GitHub Actions
+  family: github
+  family_role: member
+  anchor: github-actions
   platforms: [Web]
   icon: vendor-018.svg
   url: https://docs.github.com/actions
   summary: 运行仓库的测试、构建和发布流程。
   type: Web
 - name: GitHub Pages
+  family: github
+  family_role: member
+  anchor: github-pages
   platforms: [Web]
   icon: vendor-019.svg
   url: https://docs.github.com/pages

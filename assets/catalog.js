@@ -14,16 +14,62 @@ const normalize = (text) => text.normalize("NFKC").toLowerCase();
 let filtering = false;
 let extensionsWereOpen = false;
 
+// The original catalog remains the single source of truth. Group cards progressively.
+function groupProductFamilies() {
+  const all = Array.from(document.querySelectorAll("#tools .resources > li[data-family]"));
+  for (const parent of all.filter(card => card.dataset.familyRole === "parent")) {
+    const members = all.filter(card => card.dataset.family === parent.dataset.family && card.dataset.familyRole === "member");
+    if (!members.length) continue;
+    const parentGroup = parent.closest(".catalog-group");
+    const details = document.createElement("details");
+    details.className = "product-family";
+    details.open = true;
+    const summary = document.createElement("summary");
+    summary.textContent = "关联产品（" + members.length + "）";
+    const list = document.createElement("ul");
+    list.className = "family-members";
+    for (const member of members) {
+      const group = member.closest(".catalog-group");
+      const category = member.closest(".catalog-category");
+      member.dataset.originalLabels = category.querySelector("h3").textContent + " " + group.querySelector("h4").textContent;
+      if (group !== parentGroup) {
+        const shortcut = document.createElement("li");
+        shortcut.className = "family-shortcut";
+        shortcut.dataset.target = member.id;
+        const source = member.querySelector(".catalog-card-heading h5");
+        const link = document.createElement("a");
+        link.href = "#" + member.id;
+        const icon = source.querySelector("img")?.cloneNode(true);
+        if (icon) link.append(icon);
+        const name = document.createElement("span");
+        name.textContent = source.textContent.trim();
+        link.append(name);
+        link.className = "card-title-with-icon";
+        const note = document.createElement("p");
+        note.textContent = "查看 " + parent.querySelector("h5").textContent.trim() + " 产品家族";
+        shortcut.append(link, note);
+        member.before(shortcut);
+      }
+      list.append(member);
+    }
+    details.append(summary, list);
+    parent.append(details);
+    parent.classList.add("family-parent");
+  }
+}
+groupProductFamilies();
+const familyRecords = new Map();
+
 function indexCard(card, labels, inheritedPlatforms = []) {
   const content = Array.from(card.children)
-    .filter((child) => child !== extensions && !child.matches(".tool-platforms, .tool-linux-note"))
+    .filter((child) => child !== extensions && !child.matches(".tool-platforms, .tool-linux-note, .product-family"))
     .map((child) => (child.matches(".catalog-card-heading") ? child.firstElementChild : child).textContent)
     .join(" ");
   const link = card.querySelector("a");
   return {
     element: card,
     platforms: card.dataset.hosts?.split("|") ?? card.dataset.platforms?.split(" ") ?? inheritedPlatforms,
-    keywords: normalize([...labels, content, card.dataset.alias ?? "", link.getAttribute("href")].join(" ")),
+    keywords: normalize([...labels, content, card.dataset.originalLabels ?? "", card.dataset.alias ?? "", link.getAttribute("href")].join(" ")),
   };
 }
 
@@ -37,8 +83,18 @@ const sections = Array.from(document.querySelectorAll(".catalog-section"), (sect
         category.querySelector("h3").textContent,
         group.querySelector("h4").textContent,
       ];
-      const cards = Array.from(group.querySelectorAll(".resources > li"), (card) => {
+      const cards = Array.from(group.querySelectorAll(":scope > .resources > li"), (card) => {
+        if (card.classList.contains("family-shortcut")) return { element: card, shortcut: card.dataset.target };
         const record = indexCard(card, labels);
+        const family = card.querySelector(":scope > .product-family");
+        if (family) {
+          record.family = family;
+          record.members = Array.from(family.querySelectorAll(".family-members > li"), member => {
+            const child = indexCard(member, labels);
+            familyRecords.set(member.id, child);
+            return child;
+          });
+        }
         if (card.contains(extensions)) {
           const host = card.querySelector("h5").textContent;
           const extensionLabels = [...labels, host, defaultExtensionsLabel];
@@ -52,9 +108,22 @@ const sections = Array.from(document.querySelectorAll(".catalog-section"), (sect
   })),
 }));
 
+function matchesCard(card, terms, platform) {
+  return (!platform || card.platforms.includes(platform)) && terms.every(term => card.keywords.includes(term));
+}
 function filterCard(card, terms, platform) {
-  const matches = (!platform || card.platforms.includes(platform))
-    && terms.every((term) => card.keywords.includes(term));
+  if (card.shortcut) {
+    const source = familyRecords.get(card.shortcut);
+    card.element.hidden = !source || !matchesCard(source, terms, platform);
+    return 0;
+  }
+  const matches = matchesCard(card, terms, platform);
+  let memberCount = 0;
+  if (card.members) {
+    for (const member of card.members) memberCount += filterCard(member, terms, platform);
+    card.family.hidden = memberCount === 0;
+    if ((terms.length || platform) && memberCount) card.family.open = true;
+  }
   let extensionCount = 0;
   if (card.extensions) {
     for (const extension of card.extensions) {
@@ -70,8 +139,8 @@ function filterCard(card, terms, platform) {
       extensions.open = extensionsWereOpen;
     }
   }
-  card.element.hidden = !matches && extensionCount === 0;
-  return Number(matches) + extensionCount;
+  card.element.hidden = !matches && extensionCount === 0 && memberCount === 0;
+  return Number(matches) + extensionCount + memberCount;
 }
 
 function filterCatalog() {
@@ -89,14 +158,16 @@ function filterCatalog() {
         for (const card of group.cards) {
           groupCount += filterCard(card, terms, platform);
         }
-        group.element.hidden = groupCount === 0;
-        categoryCount += groupCount;
+        const shortcutsVisible = group.cards.some(card => card.shortcut && !card.element.hidden);
+        group.element.hidden = groupCount === 0 && !shortcutsVisible;
+        categoryCount += groupCount || Number(shortcutsVisible);
+        total += groupCount;
       }
       category.element.hidden = categoryCount === 0;
       sectionCount += categoryCount;
     }
     section.element.hidden = sectionCount === 0;
-    total += sectionCount;
+
   }
 
   filtering = terms.length > 0;
@@ -120,7 +191,10 @@ function revealTarget(hash) {
     filterCatalog();
   }
   if (target && extensions?.contains(target)) extensions.open = true;
-  return wasHidden ? target : null;
+  const family = target?.closest('.product-family');
+  const wasClosed = family && !family.open;
+  if (family) family.open = true;
+  return wasHidden || wasClosed ? target : null;
 }
 
 function initializeCatalogView(sidebar) {
