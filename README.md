@@ -20,3 +20,7 @@
 ## 工具归档
 
 已正式停用的工具移入 `_data/tool_archive.yaml`，保留名称、图标、官方说明和 `retired_at`，不再进入在用工具搜索。Jules 在 2026-12-31 正式停运前保留于工具目录，届时根据官方状态移入归档。
+
+## 工具图标维护
+
+优先采用 `assets/tool-icons/` 中的本地品牌图标。此次新增的本地 SVG 来源： [Simple Icons](https://github.com/simple-icons/simple-icons)（Canva 与 OneNote 使用 11.15.0 版）、[Lobe Icons](https://github.com/lobehub/lobe-icons)（Qwen、Grok、Doubao、TRAE）、[Devicon](https://github.com/devicons/devicon)（MATLAB）。未获得对应品牌文件的图标保留原 `icon_url`，加载失败时不显示破损图片。后续取得对应品牌图标后替换为本地文件。

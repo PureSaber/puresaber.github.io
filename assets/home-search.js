@@ -71,6 +71,7 @@ function resultCard({ entry, label, target, summary }) {
   if (entry.icon || entry.icon_url) {
     const icon = document.createElement("img");
     icon.className = "tool-icon";
+    icon.addEventListener("error", () => { icon.remove(); }, { once: true });
     icon.src = entry.icon_url || main.dataset.iconBase + entry.icon;
     icon.alt = "";
     icon.width = 20;

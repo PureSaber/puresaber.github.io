@@ -318,3 +318,10 @@ filterCatalog();
 revealTarget(location.hash);
 sidebar.followHash(location.hash);
 search.hidden = false;
+
+// Missing images must not leave broken-image placeholders in catalog titles.
+for (const icon of document.querySelectorAll("img.tool-icon")) {
+  const hideFailedIcon = () => icon.remove();
+  icon.addEventListener("error", hideFailedIcon, { once: true });
+  if (icon.complete && icon.naturalWidth === 0) hideFailedIcon();
+}
