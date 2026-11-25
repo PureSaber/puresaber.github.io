@@ -21,11 +21,13 @@ function groupProductFamilies() {
     const members = all.filter(card => card.dataset.family === parent.dataset.family && card.dataset.familyRole === "member");
     if (!members.length) continue;
     const parentGroup = parent.closest(".catalog-group");
+    const ecosystemTitle = parent.dataset.familyTitle;
+    const familyName = ecosystemTitle || parent.querySelector("h5").textContent.trim();
     const details = document.createElement("details");
     details.className = "product-family";
     details.open = true;
     const summary = document.createElement("summary");
-    summary.textContent = "关联产品（" + members.length + "）";
+    summary.textContent = "关联产品（" + (members.length + Number(Boolean(ecosystemTitle))) + "）";
     const list = document.createElement("ul");
     list.className = "family-members";
     for (const member of members) {
@@ -46,15 +48,33 @@ function groupProductFamilies() {
         link.append(name);
         link.className = "card-title-with-icon";
         const note = document.createElement("p");
-        note.textContent = "查看 " + parent.querySelector("h5").textContent.trim() + " 产品家族";
+        note.textContent = "查看 " + familyName + " 产品家族";
         shortcut.append(link, note);
         member.before(shortcut);
       }
       list.append(member);
     }
     details.append(summary, list);
-    parent.append(details);
-    parent.classList.add("family-parent");
+    if (ecosystemTitle) {
+      // An ecosystem is a presentation-only wrapper, not a product or a search result.
+      const wrapper = document.createElement("li");
+      wrapper.id = "family-" + parent.dataset.family;
+      wrapper.className = "family-parent family-ecosystem";
+      const heading = document.createElement("div");
+      heading.className = "catalog-card-heading";
+      const title = document.createElement("h5");
+      title.className = "card-title-with-icon";
+      const icon = parent.querySelector("h5 img")?.cloneNode(true);
+      if (icon) title.append(icon);
+      title.append(document.createTextNode(ecosystemTitle));
+      heading.append(title);
+      wrapper.append(heading, details);
+      parent.before(wrapper);
+      list.prepend(parent);
+    } else {
+      parent.append(details);
+      parent.classList.add("family-parent");
+    }
   }
 }
 groupProductFamilies();
@@ -69,7 +89,7 @@ function indexCard(card, labels, inheritedPlatforms = []) {
   return {
     element: card,
     platforms: card.dataset.hosts?.split("|") ?? card.dataset.platforms?.split(" ") ?? inheritedPlatforms,
-    keywords: normalize([...labels, content, card.dataset.originalLabels ?? "", card.dataset.alias ?? "", link.getAttribute("href")].join(" ")),
+    keywords: normalize([...labels, content, card.dataset.originalLabels ?? "", card.dataset.alias ?? "", link?.getAttribute("href")].join(" ")),
   };
 }
 
@@ -86,11 +106,12 @@ const sections = Array.from(document.querySelectorAll(".catalog-section"), (sect
       const cards = Array.from(group.querySelectorAll(":scope > .resources > li"), (card) => {
         if (card.classList.contains("family-shortcut")) return { element: card, shortcut: card.dataset.target };
         const record = indexCard(card, labels);
+        record.ecosystem = card.classList.contains("family-ecosystem");
         const family = card.querySelector(":scope > .product-family");
         if (family) {
           record.family = family;
           record.members = Array.from(family.querySelectorAll(".family-members > li"), member => {
-            const child = indexCard(member, labels);
+            const child = indexCard(member, [...labels, card.querySelector("h5").textContent]);
             familyRecords.set(member.id, child);
             return child;
           });
@@ -117,7 +138,7 @@ function filterCard(card, terms, platform) {
     card.element.hidden = !source || !matchesCard(source, terms, platform);
     return 0;
   }
-  const matches = matchesCard(card, terms, platform);
+  const matches = !card.ecosystem && matchesCard(card, terms, platform);
   let memberCount = 0;
   if (card.members) {
     for (const member of card.members) memberCount += filterCard(member, terms, platform);
