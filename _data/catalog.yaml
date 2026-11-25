@@ -14,7 +14,6 @@ ai:
   type: CLI
 - name: Codex
   family: chatgpt
-  family_role: member
   anchor: codex
   platforms: [Windows, macOS, Linux]
   linux:
@@ -57,7 +56,6 @@ ai:
   type: 桌面工具
 - name: ChatGPT
   family: chatgpt
-  family_role: parent
   platforms: [Windows, macOS, Web]
   anchor: chatgpt
   mobile:
@@ -164,9 +162,8 @@ development:
   alias: Trae AI IDE
 
 git-open-source:
-- name: GitHub
+- name: GitHub 平台
   family: github
-  family_role: parent
   platforms: [Web]
   anchor: github
   mobile:
@@ -178,7 +175,6 @@ git-open-source:
   type: Web
 - name: GitHub CLI（<code>gh</code>）
   family: github
-  family_role: member
   platforms: [Windows, macOS, Linux]
   anchor: github-cli
   icon: vendor-003.svg
@@ -211,7 +207,6 @@ runtimes:
   type: 包管理器
 - name: Node.js
   family: nodejs
-  family_role: parent
   anchor: nodejs
   platforms: [Windows, macOS, Linux]
   icon: vendor-006.svg
@@ -220,7 +215,6 @@ runtimes:
   type: 运行时
 - name: npm
   family: nodejs
-  family_role: member
   anchor: npm
   platforms: [Windows, macOS, Linux]
   icon: vendor-007.svg
@@ -229,7 +223,6 @@ runtimes:
   type: 包管理器
 - name: npx
   family: nodejs
-  family_role: member
   anchor: npx
   platforms: [Windows, macOS, Linux]
   icon: vendor-007.svg
@@ -244,7 +237,6 @@ runtimes:
   type: 包管理器
 - name: Python
   family: python
-  family_role: parent
   anchor: python
   platforms: [Windows, macOS, Linux]
   icon: vendor-009.svg
@@ -253,7 +245,6 @@ runtimes:
   type: 语言
 - name: pip
   family: python
-  family_role: member
   anchor: pip
   platforms: [Windows, macOS, Linux]
   icon: pip-pypi.svg
@@ -268,7 +259,6 @@ runtimes:
   type: 包管理器
 - name: Rust
   family: rust
-  family_role: parent
   anchor: rust
   platforms: [Windows, macOS, Linux]
   icon: vendor-011.svg
@@ -277,7 +267,6 @@ runtimes:
   type: 语言
 - name: rust-analyzer
   family: rust
-  family_role: member
   anchor: rust-analyzer
   platforms: [Windows, macOS, Linux]
   icon: vendor-076.svg
@@ -330,9 +319,8 @@ game-development:
   type: 桌面工具
 
 deployment:
-- name: Docker
+- name: Docker Engine
   family: docker
-  family_role: parent
   anchor: docker
   platforms: [Linux]
   linux:
@@ -344,7 +332,6 @@ deployment:
   type: 容器工具
 - name: Docker Desktop
   family: docker
-  family_role: member
   anchor: docker-desktop
   platforms: [Windows, macOS, Linux]
   linux:
@@ -356,7 +343,6 @@ deployment:
   type: 桌面工具
 - name: Docker Compose
   family: docker
-  family_role: member
   anchor: docker-compose
   platforms: [Windows, macOS, Linux]
   icon: docker.svg
@@ -377,7 +363,6 @@ deployment:
   type: CLI
 - name: GitHub Actions
   family: github
-  family_role: member
   anchor: github-actions
   platforms: [Web]
   icon: vendor-018.svg
@@ -386,7 +371,6 @@ deployment:
   type: Web
 - name: GitHub Pages
   family: github
-  family_role: member
   anchor: github-pages
   platforms: [Web]
   icon: vendor-019.svg
@@ -442,7 +426,6 @@ api-development:
 databases:
 - name: MySQL
   family: mysql
-  family_role: parent
   anchor: mysql
   platforms: [Windows, macOS, Linux]
   icon: vendor-023.svg
@@ -451,7 +434,6 @@ databases:
   type: 数据库
 - name: MySQL Workbench
   family: mysql
-  family_role: member
   anchor: mysql-workbench
   platforms: [Windows, macOS, Linux]
   linux:
@@ -657,7 +639,6 @@ modeling:
   type: Python 库
 - name: TensorFlow
   family: tensorflow
-  family_role: parent
   anchor: tensorflow
   icon: vendor-043.svg
   url: https://www.tensorflow.org/
@@ -676,7 +657,6 @@ modeling:
   type: 实验平台
 - name: TensorBoard
   family: tensorflow
-  family_role: member
   anchor: tensorboard
   icon: vendor-046.svg
   url: https://www.tensorflow.org/tensorboard
@@ -715,7 +695,6 @@ nlp:
   type: Python 库
 - name: Transformers
   family: hugging-face
-  family_role: member
   anchor: transformers
   icon: vendor-048.svg
   url: https://huggingface.co/docs/transformers/
@@ -723,7 +702,6 @@ nlp:
   type: Python 库
 - name: Tokenizers
   family: hugging-face
-  family_role: member
   anchor: tokenizers
   icon: vendor-048.svg
   url: https://huggingface.co/docs/tokenizers/
@@ -736,8 +714,6 @@ nlp:
   type: 推理运行时
 - name: Hugging Face Hub
   family: hugging-face
-  family_role: parent
-  family_title: Hugging Face
   anchor: hugging-face-hub
   platforms: [Web]
   icon: vendor-048.svg
@@ -755,7 +731,6 @@ nlp:
 productivity:
 - name: Microsoft Office
   family: microsoft-office
-  family_role: parent
   anchor: microsoft-office
   platforms: [Windows, macOS, Web]
   icon: vendor-051.svg
@@ -847,7 +822,6 @@ productivity:
   type: 在线排版工具
 - name: Microsoft OneNote
   family: microsoft-office
-  family_role: member
   anchor: onenote
   platforms: [Windows, macOS, Web]
   icon: local-onenote.svg
@@ -869,9 +843,8 @@ communication:
   url: https://meeting.tencent.com/
   summary: 参加视频会议和共享屏幕。
   type: Web / 桌面
-- name: QQ（QQNT）
+- name: QQNT（新版 QQ）
   family: qq
-  family_role: parent
   platforms: [Windows, macOS, Linux]
   linux:
     note: 下载按发行版和架构选择
@@ -887,7 +860,6 @@ communication:
   alias: QQNT NTQQ
 - name: TIM
   family: qq
-  family_role: member
   platforms: [Windows]
   anchor: tim
   mobile:
