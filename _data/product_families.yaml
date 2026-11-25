@@ -1,0 +1,33 @@
+chatgpt:
+  title: "ChatGPT"
+  placement: chatgpt
+github:
+  title: "GitHub"
+  placement: github
+nodejs:
+  title: "Node.js"
+  placement: nodejs
+python:
+  title: "Python"
+  placement: python
+rust:
+  title: "Rust"
+  placement: rust
+docker:
+  title: "Docker"
+  placement: docker
+mysql:
+  title: "MySQL"
+  placement: mysql
+tensorflow:
+  title: "TensorFlow"
+  placement: tensorflow
+hugging-face:
+  title: "Hugging Face"
+  placement: hugging-face-hub
+microsoft-office:
+  title: "Microsoft Office"
+  placement: microsoft-office
+qq:
+  title: "QQ"
+  placement: qq
