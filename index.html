@@ -11,7 +11,7 @@ layout: null
   <title>我的实用工具箱 · Kurage</title>
   <link rel="icon" type="image/png" sizes="96x96" href="{{ '/assets/site-toolbox-icon.png' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/catalog.css' | relative_url }}?v=home-cards">
-  <script defer src="{{ '/assets/home-search.js' | relative_url }}?v=catalog-polish"></script>
+  <script defer src="{{ '/assets/home-search.js' | relative_url }}?v=extension-hub"></script>
   <style>
     .home-shell {
       width: min(68rem, calc(100% - 3rem));
@@ -48,14 +48,14 @@ layout: null
     .home-nav { margin-top: 1.4rem; }
     .home-nav ul {
       display: grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
+      grid-template-columns: repeat(12, minmax(0, 1fr));
       gap: .9rem;
       padding: 0;
       margin: 0;
       list-style: none;
     }
-    .home-nav li { grid-column: span 2; min-width: 0; }
-    .home-nav li.featured { grid-column: span 3; }
+    .home-nav li { grid-column: span 3; min-width: 0; }
+    .home-nav li.featured { grid-column: span 6; }
     .home-banner {
       position: relative;
       isolation: isolate;
@@ -121,6 +121,17 @@ layout: null
       --banner-muted: #d9e9df;
       --banner-line: #345143;
       --banner-ring: #d9f5db2a;
+    }
+    .banner-plugins {
+      --banner-bg: #eee9f5;
+      --banner-edge: #e0d9ed;
+      --banner-ink: #453759;
+      --banner-muted: #625473;
+      --banner-line: #dcd3e8;
+      --banner-ring: #66508129;
+    }
+    @media (min-width: 44.01rem) and (max-width: 62rem) {
+      .home-nav li:not(.featured) { grid-column: span 6; }
     }
     .banner-resources {
       --banner-bg: #ebf1e7;
@@ -234,7 +245,7 @@ layout: null
         data-index="{{ '/assets/catalog-index.json' | relative_url }}"
         data-icon-base="{{ '/assets/tool-icons/' | relative_url }}">
     <h1>我的实用工具箱</h1>
-    {% include catalog-search.html label="搜索工具和资源" home=true %}
+    {% include catalog-search.html label="搜索工具、资源与插件" home=true %}
     <nav class="home-nav" aria-label="站点导航">
       <ul>
         <li class="featured">
@@ -254,6 +265,14 @@ layout: null
               <img src="{{ '/mobile/icons/localsend.webp' | relative_url }}" width="47" height="47" alt="">
               <img src="{{ '/mobile/icons/chatgpt.webp' | relative_url }}" width="47" height="47" alt="">
               <img src="{{ '/mobile/icons/telegram.webp' | relative_url }}" width="47" height="47" alt="">
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="home-banner banner-plugins" id="plugins-entry" href="{{ '/plugins/' | relative_url }}">
+            <span class="banner-copy"><strong>插件与扩展</strong><small>编辑器扩展与跨平台集成</small></span>
+            <span class="banner-art" aria-hidden="true">
+              <span class="banner-icon-tile"><svg class="banner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3H5a2 2 0 0 0-2 2v4h2a2 2 0 0 1 0 4H3v6a2 2 0 0 0 2 2h4v-2a2 2 0 0 1 4 0v2h6a2 2 0 0 0 2-2v-6h-2a2 2 0 0 1 0-4h2V5a2 2 0 0 0-2-2h-4v2a2 2 0 0 1-4 0V3Z"/></svg></span>
             </span>
           </a>
         </li>
