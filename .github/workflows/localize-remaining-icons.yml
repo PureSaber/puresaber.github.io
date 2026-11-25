@@ -1,0 +1,28 @@
+name: Complete catalog icon localization
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  localize:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'review/remaining-catalog-icons'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: review/remaining-catalog-icons
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install Pillow==11.3.0
+      - run: python scripts/localize_remaining_icons.py
+      - name: Save validated icons to review branch
+        run: |
+          git add _data/catalog.yaml assets/tool-icons/
+          if ! git diff --cached --quiet; then
+            git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'Localize all remaining catalog icons'
+            git push origin HEAD:review/remaining-catalog-icons
+          fi

@@ -582,7 +582,7 @@ market-tools:
   type: 金融数据终端
 
 - name: yfinance
-  icon_url: https://www.google.com/s2/favicons?domain=finance.yahoo.com&sz=128
+  icon: local-yahoo.svg
   url: https://github.com/ranaroussi/yfinance
   summary: 通过 Python 获取 Yahoo Finance 行情与金融数据；用于研究前需核验调整口径和数据质量。
   type: Python 库
@@ -1267,7 +1267,7 @@ general-courses:
   type: 在线课程平台
 - name: BBC Learning English
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=bbc.co.uk&sz=128
+  icon: local-bbc.svg
   url: https://www.bbc.co.uk/learningenglish
   summary: 通过视频、音频与短课程学习英语表达。
   type: 英语学习资源
@@ -1283,13 +1283,13 @@ language-reference:
 community-media:
 - name: NGA 玩家社区
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=nga.cn&sz=128
+  icon: local-nga.svg
   url: https://nga.cn/
   summary: 浏览游戏攻略并参与玩家论坛讨论。
   type: 游戏论坛
 - name: AcFun
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=acfun.cn&sz=128
+  icon: local-acfun.png
   url: https://www.acfun.cn/
   summary: 观看动漫、游戏相关的视频与弹幕内容。
   type: 视频社区
