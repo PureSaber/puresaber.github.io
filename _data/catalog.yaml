@@ -1154,14 +1154,14 @@ computer-learning:
   type: 交互练习
 - name: LeetCode
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=leetcode.com&sz=128
+  icon: local-leetcode.svg
   url: https://leetcode.com/
   summary: 练习算法与数据结构，准备编程技术面试。
   type: 在线练习平台
 
 - name: Roadmap.sh
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=roadmap.sh&sz=128
+  icon: local-roadmapdotsh.svg
   url: https://roadmap.sh/
   summary: 按开发领域查看技术学习路线和技能结构。
   type: 学习路线
@@ -1191,7 +1191,7 @@ financial-data:
 quant-platforms:
 - name: Kaggle
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=kaggle.com&sz=128
+  icon: local-kaggle.svg
   url: https://www.kaggle.com/
   summary: 参加数据科学竞赛、获取公开数据集并运行 Notebook。
   type: 竞赛与研究平台
@@ -1231,7 +1231,7 @@ online-tools:
 game-platforms:
 - name: Epic Games Store
   platforms: [Windows, macOS, Web]
-  icon_url: https://www.google.com/s2/favicons?domain=store.epicgames.com&sz=128
+  icon: local-epicgames.svg
   url: https://store.epicgames.com/
   summary: 购买、领取与管理 PC 游戏。
   type: 游戏商店／客户端
@@ -1239,13 +1239,13 @@ game-platforms:
 academic-library:
 - name: arXiv
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=arxiv.org&sz=128
+  icon: local-arxiv.svg
   url: https://arxiv.org/
   summary: 查阅开放获取的数学、计算机与其他领域研究论文。
   type: 论文资料库
 - name: Google Scholar
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=scholar.google.com&sz=128
+  icon: local-googlescholar.svg
   url: https://scholar.google.com/
   summary: 检索学术论文、作者与引文关系。
   type: 学术搜索
@@ -1261,7 +1261,7 @@ market-news:
 general-courses:
 - name: Coursera
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=coursera.org&sz=128
+  icon: local-coursera.svg
   url: https://www.coursera.org/
   summary: 学习大学与机构提供的在线课程。
   type: 在线课程平台
