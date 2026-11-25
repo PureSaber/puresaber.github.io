@@ -3,9 +3,13 @@ const query = document.querySelector("#catalog-query");
 const clear = document.querySelector("#clear-search");
 const platformSelect = document.querySelector("#tool-platform");
 const status = document.querySelector("#search-status");
-const extensions = document.querySelector("#extensions");
+const extensions = document.querySelector("details.extensions#extensions");
 const extensionsSummary = document.querySelector("#extensions-title");
 const defaultExtensionsLabel = extensionsSummary?.textContent;
+const requestedHost = new URLSearchParams(location.search).get("host");
+if (requestedHost && platformSelect && Array.from(platformSelect.options).some(option => option.value === requestedHost)) {
+  platformSelect.value = requestedHost;
+}
 const normalize = (text) => text.normalize("NFKC").toLowerCase();
 let filtering = false;
 let extensionsWereOpen = false;
@@ -18,7 +22,7 @@ function indexCard(card, labels, inheritedPlatforms = []) {
   const link = card.querySelector("a");
   return {
     element: card,
-    platforms: card.dataset.platforms?.split(" ") ?? inheritedPlatforms,
+    platforms: card.dataset.hosts?.split("|") ?? card.dataset.platforms?.split(" ") ?? inheritedPlatforms,
     keywords: normalize([...labels, content, card.dataset.alias ?? "", link.getAttribute("href")].join(" ")),
   };
 }
