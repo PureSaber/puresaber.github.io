@@ -570,13 +570,13 @@ market-tools:
   type: 行情与图表平台
 - name: Wind 金融终端
   platforms: [Windows, Web]
-  icon_url: https://www.google.com/s2/favicons?domain=wind.com.cn&sz=128
+  icon: local-wind.png
   url: https://www.wind.com.cn/
   summary: 查询专业金融数据并开展市场研究与分析。
   type: 金融数据终端
 - name: Choice 数据
   platforms: [Windows, Web]
-  icon_url: https://www.google.com/s2/favicons?domain=choice.eastmoney.com&sz=128
+  icon: local-choice.png
   url: https://choice.eastmoney.com/
   summary: 查询金融行情、财务数据、估值和研究资料。
   type: 金融数据终端
@@ -1104,7 +1104,7 @@ media:
   type: CLI
 - name: 迅捷视频转换器
   platforms: [Windows, macOS]
-  icon_url: https://www.xunjieshipin.com/wp-content/themes/project-shipin_v7.2.2/img/nav/logo_1.png
+  icon: local-xunjie-video.png
   url: https://www.xunjieshipin.com/video-converter
   summary: 面向日常办公的音视频格式转换软件，支持批量转码、视频压缩与简单编辑。
   type: 桌面软件
@@ -1183,7 +1183,7 @@ financial-data:
   type: 金融数据服务
 - name: Baostock
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=baostock.com&sz=128
+  icon: local-baostock.png
   url: https://www.baostock.com/
   summary: 提供证券历史行情与财务数据的 Python 数据接口。
   type: 金融数据服务
@@ -1197,19 +1197,19 @@ quant-platforms:
   type: 竞赛与研究平台
 - name: 聚宽（JoinQuant）
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=joinquant.com&sz=128
+  icon: local-joinquant.png
   url: https://www.joinquant.com/
   summary: 量化策略研究、回测、金融数据和学习社区。
   type: 量化研究平台
 - name: 米筐（Ricequant）
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=ricequant.com&sz=128
+  icon: local-ricequant.png
   url: https://www.ricequant.com/
   summary: 金融数据、量化策略研究与回测平台。
   type: 量化研究平台
 - name: BigQuant
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=bigquant.com&sz=128
+  icon: local-bigquant.png
   url: https://bigquant.com/
   summary: 基于 AI 的量化投研、因子研究与策略回测平台。
   type: AI 量化平台
@@ -1253,7 +1253,7 @@ academic-library:
 market-news:
 - name: 金十数据
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=jin10.com&sz=128
+  icon: local-jin10.png
   url: https://www.jin10.com/
   summary: 跟踪全球财经快讯、宏观数据与经济日历。
   type: 财经资讯
@@ -1275,7 +1275,7 @@ general-courses:
 language-reference:
 - name: Cambridge Dictionary
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=dictionary.cambridge.org&sz=128
+  icon: local-cambridge-dictionary.png
   url: https://dictionary.cambridge.org/
   summary: 查询英文单词释义、发音、例句与英英解释。
   type: 英语词典
@@ -1295,7 +1295,7 @@ community-media:
   type: 视频社区
 - name: 3DM 游戏网
   platforms: [Web]
-  icon_url: https://www.google.com/s2/favicons?domain=3dmgame.com&sz=128
+  icon: local-3dmgame.png
   url: https://www.3dmgame.com/
   summary: 查阅 PC 游戏资讯、攻略与讨论。
   type: 游戏资讯社区
