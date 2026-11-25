@@ -162,7 +162,7 @@ development:
   alias: Trae AI IDE
 
 git-open-source:
-- name: GitHub 平台
+- name: GitHub
   family: github
   platforms: [Web]
   anchor: github
@@ -319,7 +319,7 @@ game-development:
   type: 桌面工具
 
 deployment:
-- name: Docker Engine
+- name: Docker
   family: docker
   anchor: docker
   platforms: [Linux]
@@ -843,7 +843,7 @@ communication:
   url: https://meeting.tencent.com/
   summary: 参加视频会议和共享屏幕。
   type: Web / 桌面
-- name: QQNT（新版 QQ）
+- name: QQ（QQNT）
   family: qq
   platforms: [Windows, macOS, Linux]
   linux:
