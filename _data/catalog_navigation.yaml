@@ -68,9 +68,41 @@ resources:
         online-tools: 在线工具合集
 plugins:
   title: 插件与扩展
-  description: 按宿主平台浏览和搜索软件插件、编辑器扩展与集成。
+  description: 按宿主生态浏览插件与扩展，按具体宿主筛选，按功能用途搜索。
   categories:
     ide-extensions:
-      title: IDE 与编辑器
+      title: 开发环境与编辑器
       groups:
         editor-extensions: 编辑器扩展
+    browser-extensions:
+      title: 浏览器
+      groups:
+        browser-plugins: 浏览器扩展
+    knowledge-extensions:
+      title: 知识管理与笔记
+      groups:
+        knowledge-plugins: 知识管理插件
+    office-extensions:
+      title: 办公软件
+      groups:
+        office-plugins: 办公软件扩展
+    design-extensions:
+      title: 设计与媒体软件
+      groups:
+        design-plugins: 设计与媒体扩展
+    ai-extensions:
+      title: AI 应用与智能代理
+      groups:
+        ai-plugins: AI 应用扩展
+    desktop-extensions:
+      title: 桌面与系统工具
+      groups:
+        desktop-plugins: 桌面与系统扩展
+    cms-extensions:
+      title: 内容管理与网站
+      groups:
+        cms-plugins: 内容管理扩展
+    game-extensions:
+      title: 游戏与娱乐
+      groups:
+        game-plugins: 游戏扩展

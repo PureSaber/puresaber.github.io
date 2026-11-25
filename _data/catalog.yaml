@@ -1334,7 +1334,7 @@ editor-extensions:
   icon: vendor-071.png
   url: https://marketplace.visualstudio.com/items?itemName=GitHub.github-vscode-theme
   summary: 在 VS Code 使用 GitHub 配色主题。
-  type: 主题
+  type: 配色主题
   anchor: extension-github-theme
   integrations:
   - host: VS Code
@@ -1370,7 +1370,7 @@ editor-extensions:
   icon: vendor-086.png
   url: https://marketplace.visualstudio.com/items?itemName=shd101wyy.markdown-preview-enhanced
   summary: 预览带公式和图表的 Markdown。
-  type: Markdown
+  type: Markdown 预览
   anchor: extension-markdown-preview-enhanced
   integrations:
   - host: VS Code
@@ -1393,3 +1393,13 @@ editor-extensions:
   integrations:
   - host: VS Code
     url: https://marketplace.visualstudio.com/items?itemName=yzane.markdown-pdf
+
+# 插件生态分类：空目录保留配置，不在前端展示。
+browser-plugins: []
+knowledge-plugins: []
+office-plugins: []
+design-plugins: []
+ai-plugins: []
+desktop-plugins: []
+cms-plugins: []
+game-plugins: []

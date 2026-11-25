@@ -9,7 +9,7 @@
   <title>{{ catalog.title }} · Kurage</title>
   <link rel="icon" type="image/png" sizes="96x96" href="{{ '/assets/site-toolbox-icon.png' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/catalog.css' | relative_url }}?v=product-families-2">
-  <script defer src="{{ '/assets/catalog.js' | relative_url }}?v=product-families-2"></script>
+  <script defer src="{{ '/assets/catalog.js' | relative_url }}?v=plugin-ecosystems-1"></script>
 </head>
 <body>
   <a class="skip" href="#main">跳到正文</a>
@@ -37,13 +37,23 @@
       <div class="category-links" role="navigation" aria-label="按分类浏览">
         <ul class="category-index">
           {% for category in catalog.categories %}
+          {% if page.catalog == 'plugins' %}
+            {% assign category_count = 0 %}
+            {% for plugin_group in category[1].groups %}
+              {% assign group_count = site.data.catalog[plugin_group[0]] | size %}
+              {% assign category_count = category_count | plus: group_count %}
+            {% endfor %}
+            {% if category_count == 0 %}{% continue %}{% endif %}
+          {% endif %}
           <li>
             <a href="#{{ category[0] }}">{{ category[1].title }}</a>
+            {% unless page.catalog == 'plugins' %}
             <ul>
               {% for group in category[1].groups %}
               <li><a href="#{{ group[0] }}">{{ group[1] }}</a></li>
               {% endfor %}
             </ul>
+            {% endunless %}
           </li>
           {% endfor %}
         </ul>
@@ -71,12 +81,20 @@
         {% endif %}
       </div>
       {% for category in catalog.categories %}
+          {% if page.catalog == 'plugins' %}
+            {% assign category_count = 0 %}
+            {% for plugin_group in category[1].groups %}
+              {% assign group_count = site.data.catalog[plugin_group[0]] | size %}
+              {% assign category_count = category_count | plus: group_count %}
+            {% endfor %}
+            {% if category_count == 0 %}{% continue %}{% endif %}
+          {% endif %}
       <section id="{{ category[0] }}" class="catalog-category" aria-labelledby="{{ category[0] }}-title">
         <h3 id="{{ category[0] }}-title">{{ category[1].title }}</h3>
         {% for group in category[1].groups %}
         {% assign group_id = group[0] %}
         <section id="{{ group_id }}" class="catalog-group" aria-labelledby="{{ group_id }}-title">
-          <h4 id="{{ group_id }}-title">{{ group[1] }}</h4>
+          <h4 id="{{ group_id }}-title"{% if page.catalog == 'plugins' %} hidden{% endif %}>{{ group[1] }}</h4>
           {% include catalog-group.html group=group_id %}
         </section>
         {% endfor %}
