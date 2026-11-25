@@ -18,7 +18,7 @@ ICONS = ROOT / "assets/tool-icons"
 SOURCES = {
     "Wind 金融终端": ("wind", ["https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/a4/65/e6/a465e6fd-6f9a-91df-150d-442e1f20a2c9/AppIcon-85-220-5-0-0-2x-0-0.png/1200x630bb.png"]),
     "Choice 数据": ("choice", ["https://acem.sjtu.edu.cn/ec/static/data/20222/spe_202221816423942%E4%B8%9C%E6%96%B9%E8%B4%A2%E5%AF%8C.jpg"]),
-    "迅捷视频转换器": ("xunjie-video", ["https://www.xunjieshipin.com/favicon.ico", "https://m.xunjieshipin.com/favicon.ico"]),
+    "迅捷视频转换器": ("xunjie-video", ["https://i-cdn.apsgo.com/cdn/HT6kMMXwp9ymcZcx0d3g3aWxrjss4YW6fFMFIaUU.png", "https://www.google.com/s2/favicons?domain=xunjieshipin.com&sz=128", "https://icons.duckduckgo.com/ip3/xunjieshipin.com.ico"]),
     "Tushare": ("tushare", ["https://tushare.pro/favicon.ico"]),
     "Baostock": ("baostock", ["https://www.baostock.com/favicon.ico", "https://baostock.com/favicon.ico", "https://icons.duckduckgo.com/ip3/baostock.com.ico"]),
     "聚宽（JoinQuant）": ("joinquant", ["https://www.joinquant.com/favicon.ico"]),
@@ -106,8 +106,8 @@ def run():
         slug, fallbacks = SOURCES[name]
         errors = []
         # Preserve existing icon first. Known alternative sources are used only on failure.
-        candidates = [current, *fallbacks]
-        for page in PAGES.get(name, []):
+        candidates = [*fallbacks, current] if name == "迅捷视频转换器" else [current, *fallbacks]
+        for page in ([] if name in ("迅捷视频转换器", "Baostock", "米筐（Ricequant）") and generic else PAGES.get(name, [])):
             try:
                 candidates.extend(discover(page))
             except Exception as exc:
