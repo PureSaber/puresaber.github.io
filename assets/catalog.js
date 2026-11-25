@@ -286,6 +286,12 @@ function initializeSidebar() {
     for (const { element: category, groups } of section.categories) {
       const item = categoriesById.get(category.id);
       const [labelLink, children] = item.children;
+      if (section.element.id === "plugins") {
+        // Plugin ecology is a single navigation level; groups remain internal.
+        list.append(item);
+        register(category, labelLink);
+        continue;
+      }
       const details = document.createElement("details");
       const summary = document.createElement("summary");
       summary.textContent = labelLink.textContent;
