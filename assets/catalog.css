@@ -394,3 +394,20 @@ code { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .91em; 
   .home-entry-copy { grid-column: 1 / -1; grid-row: 2; }
   .home-entry-arrow { grid-column: 2; grid-row: 1; }
 }
+
+/* Product families: keep individual links, labels and platform details visible. */
+.product-family { margin-top:.8rem; padding-top:.65rem; border-top:1px solid var(--line); }
+.product-family > summary { cursor:pointer; color:var(--green); font-size:.875rem; font-weight:650; }
+.family-members { list-style:none; padding:0; margin:.45rem 0 0; display:grid; gap:.5rem; }
+.family-members > li { padding:.55rem 0 .55rem .7rem; border-inline-start:2px solid var(--line); min-width:0; }
+.family-members > li + li { border-top:1px solid var(--line); }
+.family-members > li > p { font-size:.85rem; }
+.family-members .card-details { margin-top:.35rem; }
+.family-shortcut > a { font-size:.95rem; font-weight:650; text-decoration-thickness:.08em; text-underline-offset:.22em; }
+.family-shortcut > p { font-size:.8rem; }
+.catalog-section[data-view="list"] li > .product-family { grid-area:extensions; }
+.catalog-section[data-view="list"] .family-members > li { position:relative; display:block; padding:.55rem 0 .55rem .7rem; border-inline-start:2px solid var(--line); }
+.catalog-section[data-view="list"] .family-members .catalog-card-heading .tool-icon { position:static; margin-block-start:.125rem; }
+.catalog-section[data-view="list"] .family-members .catalog-card-heading > h5 { display:flex; }
+.catalog-section[data-view="list"] .family-members .card-details { justify-content:flex-start; text-align:start; }
+.catalog-section[data-view="list"] .resources > .family-shortcut { display:block; padding:.5rem .2rem; }
