@@ -16,7 +16,9 @@
     {% assign hosts = '' | split: ',' %}
     {% for category in site.data.catalog_navigation.plugins.categories %}
       {% for group in category[1].groups %}
-        {% for plugin in site.data.catalog[group[0]] %}
+        {% assign plugin_group_id = group[0] %}
+        {% assign plugin_entries = site.data.catalog[plugin_group_id] %}
+        {% for plugin in plugin_entries %}
           {% assign plugin_hosts = plugin.integrations | map: 'host' %}
           {% assign hosts = hosts | concat: plugin_hosts %}
         {% endfor %}
