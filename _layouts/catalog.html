@@ -9,7 +9,7 @@
   <title>{{ catalog.title }} · Kurage</title>
   <link rel="icon" type="image/png" sizes="96x96" href="{{ '/assets/site-toolbox-icon.png' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/catalog.css' | relative_url }}?v=tool-platforms">
-  <script defer src="{{ '/assets/catalog.js' | relative_url }}?v=catalog-polish"></script>
+  <script defer src="{{ '/assets/catalog.js' | relative_url }}?v=extension-hub"></script>
 </head>
 <body>
   <a class="skip" href="#main">跳到正文</a>
@@ -22,6 +22,7 @@
         <ul>
           <li><a href="{{ '/' | relative_url }}">首页</a></li>
           <li><a href="{{ '/tools/' | relative_url }}"{% if page.catalog == 'tools' %} aria-current="page"{% endif %}>工具</a></li>
+          <li><a href="{{ '/plugins/' | relative_url }}"{% if page.catalog == 'plugins' %} aria-current="page"{% endif %}>插件与扩展</a></li>
           <li><a href="{{ '/resources/' | relative_url }}"{% if page.catalog == 'resources' %} aria-current="page"{% endif %}>资源</a></li>
           <li><a href="{{ '/learn/' | relative_url }}">学习路线</a></li>
           <li><a href="{{ '/projects/' | relative_url }}">项目与服务</a></li>
