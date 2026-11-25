@@ -23,4 +23,4 @@
 
 ## 工具图标维护
 
-优先采用 `assets/tool-icons/` 中的本地品牌图标。此次新增的本地 SVG 来源： [Simple Icons](https://github.com/simple-icons/simple-icons)（Canva 与 OneNote 使用 11.15.0 版）、[Lobe Icons](https://github.com/lobehub/lobe-icons)（Qwen、Grok、Doubao、TRAE）、[Devicon](https://github.com/devicons/devicon)（MATLAB）。未获得对应品牌文件的图标保留原 `icon_url`，加载失败时不显示破损图片。后续取得对应品牌图标后替换为本地文件。
+优先采用 `assets/tool-icons/` 中的本地品牌图标。此次新增的本地 SVG 来源： [Simple Icons](https://github.com/simple-icons/simple-icons)（Canva 与 OneNote 使用 11.15.0 版）、[Lobe Icons](https://github.com/lobehub/lobe-icons)（Qwen、Grok、Doubao、TRAE）、[Devicon](https://github.com/devicons/devicon)（MATLAB）。工具与资源目录的图标已全部改为本地文件，不再依赖浏览器访问第三方 favicon 服务。补充图标的来源见 [`assets/tool-icons/catalog-icon-sources.json`](assets/tool-icons/catalog-icon-sources.json)。新增条目时应提交实际图标文件并设置 `icon` 字段；加载失败时不显示破损图片。
