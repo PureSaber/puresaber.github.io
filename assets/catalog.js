@@ -14,35 +14,56 @@ const normalize = (text) => text.normalize("NFKC").toLowerCase();
 let filtering = false;
 let extensionsWereOpen = false;
 
-// The original catalog remains the single source of truth. Group cards progressively.
+// Families are separate presentation containers; placement is not a product hierarchy.
 function groupProductFamilies() {
   const all = Array.from(document.querySelectorAll("#tools .resources > li[data-family]"));
-  for (const parent of all.filter(card => card.dataset.familyRole === "parent")) {
-    const members = all.filter(card => card.dataset.family === parent.dataset.family && card.dataset.familyRole === "member");
-    if (!members.length) continue;
-    const parentGroup = parent.closest(".catalog-group");
-    const ecosystemTitle = parent.dataset.familyTitle;
-    const familyName = ecosystemTitle || parent.querySelector("h5").textContent.trim();
+  const families = new Map();
+  for (const card of all) {
+    if (!families.has(card.dataset.family)) families.set(card.dataset.family, []);
+    families.get(card.dataset.family).push(card);
+  }
+  for (const [id, products] of families) {
+    if (products.length < 2) continue;
+    const placement = products.find(card => card.id === "tool-" + card.dataset.familyPlacement);
+    if (!placement) continue;
+    const familyName = placement.dataset.familyTitle;
+    if (!familyName) continue;
+    const homeGroup = placement.closest(".catalog-group");
+    const wrapper = document.createElement("li");
+    wrapper.id = "family-" + id;
+    wrapper.className = "family-ecosystem";
     const details = document.createElement("details");
     details.className = "product-family";
     details.open = true;
     const summary = document.createElement("summary");
-    summary.textContent = "关联产品（" + (members.length + Number(Boolean(ecosystemTitle))) + "）";
+    summary.className = "family-heading";
+    const title = document.createElement("span");
+    title.className = "family-title";
+    const icon = placement.querySelector("h5 img")?.cloneNode(true);
+    if (icon) title.append(icon);
+    title.append(document.createTextNode(familyName));
+    const count = document.createElement("span");
+    count.className = "family-count";
+    count.textContent = products.length + " 个产品";
+    summary.append(title, count);
     const list = document.createElement("ul");
     list.className = "family-members";
-    for (const member of members) {
-      const group = member.closest(".catalog-group");
-      const category = member.closest(".catalog-category");
-      member.dataset.originalLabels = category.querySelector("h3").textContent + " " + group.querySelector("h4").textContent;
-      if (group !== parentGroup) {
+    details.append(summary, list);
+    wrapper.append(details);
+    placement.before(wrapper);
+    for (const product of [placement, ...products.filter(card => card !== placement)]) {
+      const group = product.closest(".catalog-group");
+      const category = product.closest(".catalog-category");
+      product.dataset.originalLabels = category.querySelector("h3").textContent + " " + group.querySelector("h4").textContent;
+      if (group !== homeGroup) {
         const shortcut = document.createElement("li");
         shortcut.className = "family-shortcut";
-        shortcut.dataset.target = member.id;
-        const source = member.querySelector(".catalog-card-heading h5");
+        shortcut.dataset.target = product.id;
+        const source = product.querySelector(".catalog-card-heading h5");
         const link = document.createElement("a");
-        link.href = "#" + member.id;
-        const icon = source.querySelector("img")?.cloneNode(true);
-        if (icon) link.append(icon);
+        link.href = "#" + product.id;
+        const productIcon = source.querySelector("img")?.cloneNode(true);
+        if (productIcon) link.append(productIcon);
         const name = document.createElement("span");
         name.textContent = source.textContent.trim();
         link.append(name);
@@ -50,30 +71,9 @@ function groupProductFamilies() {
         const note = document.createElement("p");
         note.textContent = "查看 " + familyName + " 产品家族";
         shortcut.append(link, note);
-        member.before(shortcut);
+        product.before(shortcut);
       }
-      list.append(member);
-    }
-    details.append(summary, list);
-    if (ecosystemTitle) {
-      // An ecosystem is a presentation-only wrapper, not a product or a search result.
-      const wrapper = document.createElement("li");
-      wrapper.id = "family-" + parent.dataset.family;
-      wrapper.className = "family-parent family-ecosystem";
-      const heading = document.createElement("div");
-      heading.className = "catalog-card-heading";
-      const title = document.createElement("h5");
-      title.className = "card-title-with-icon";
-      const icon = parent.querySelector("h5 img")?.cloneNode(true);
-      if (icon) title.append(icon);
-      title.append(document.createTextNode(ecosystemTitle));
-      heading.append(title);
-      wrapper.append(heading, details);
-      parent.before(wrapper);
-      list.prepend(parent);
-    } else {
-      parent.append(details);
-      parent.classList.add("family-parent");
+      list.append(product);
     }
   }
 }
@@ -111,7 +111,7 @@ const sections = Array.from(document.querySelectorAll(".catalog-section"), (sect
         if (family) {
           record.family = family;
           record.members = Array.from(family.querySelectorAll(".family-members > li"), member => {
-            const child = indexCard(member, [...labels, card.querySelector("h5").textContent]);
+            const child = indexCard(member, [...labels, card.querySelector(".family-title").textContent]);
             familyRecords.set(member.id, child);
             return child;
           });
@@ -421,6 +421,8 @@ window.addEventListener("hashchange", () => {
 
 filterCatalog();
 revealTarget(location.hash);
+const initialTarget = document.getElementById(location.hash.slice(1));
+if (initialTarget?.closest(".family-ecosystem")) initialTarget.scrollIntoView();
 sidebar.followHash(location.hash);
 search.hidden = false;
 
