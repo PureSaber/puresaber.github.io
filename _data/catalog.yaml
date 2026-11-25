@@ -13,6 +13,9 @@ ai:
   summary: 在终端读代码、修改文件和运行项目命令。
   type: CLI
 - name: Codex
+  family: chatgpt
+  family_role: member
+  anchor: codex
   platforms: [Windows, macOS, Linux]
   linux:
     note: 这里指 Codex CLI
@@ -53,6 +56,8 @@ ai:
   summary: 管理 Codex CLI 账号和本地网关。
   type: 桌面工具
 - name: ChatGPT
+  family: chatgpt
+  family_role: parent
   platforms: [Windows, macOS, Web]
   anchor: chatgpt
   mobile:
@@ -651,6 +656,9 @@ modeling:
   summary: 用张量与自动微分训练神经网络。
   type: Python 库
 - name: TensorFlow
+  family: tensorflow
+  family_role: parent
+  anchor: tensorflow
   icon: vendor-043.svg
   url: https://www.tensorflow.org/
   summary: 构建、训练和部署机器学习模型。
@@ -667,6 +675,9 @@ modeling:
   summary: 记录模型实验并管理模型产物。
   type: 实验平台
 - name: TensorBoard
+  family: tensorflow
+  family_role: member
+  anchor: tensorboard
   icon: vendor-046.svg
   url: https://www.tensorflow.org/tensorboard
   summary: 查看模型训练曲线与指标。
@@ -743,6 +754,9 @@ nlp:
 
 productivity:
 - name: Microsoft Office
+  family: microsoft-office
+  family_role: parent
+  anchor: microsoft-office
   platforms: [Windows, macOS, Web]
   icon: vendor-051.svg
   url: https://www.microsoft.com/microsoft-365
@@ -832,6 +846,9 @@ productivity:
   summary: 在线编写、编译与协作编辑 LaTeX 文档。
   type: 在线排版工具
 - name: Microsoft OneNote
+  family: microsoft-office
+  family_role: member
+  anchor: onenote
   platforms: [Windows, macOS, Web]
   icon: local-onenote.svg
   url: https://www.onenote.com/
@@ -853,6 +870,8 @@ communication:
   summary: 参加视频会议和共享屏幕。
   type: Web / 桌面
 - name: QQ（QQNT）
+  family: qq
+  family_role: parent
   platforms: [Windows, macOS, Linux]
   linux:
     note: 下载按发行版和架构选择
@@ -865,8 +884,10 @@ communication:
   url: https://im.qq.com/
   summary: 腾讯即时通信客户端，QQNT 为新版桌面客户端。
   type: 桌面 / 移动
-  alias: QQNT
+  alias: QQNT NTQQ
 - name: TIM
+  family: qq
+  family_role: member
   platforms: [Windows]
   anchor: tim
   mobile:
