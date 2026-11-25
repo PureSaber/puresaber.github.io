@@ -205,18 +205,27 @@ runtimes:
   summary: 管理 Python 环境和项目依赖。把同一套依赖带到另一台机器或 CI 时，可以用锁文件同步环境。
   type: 包管理器
 - name: Node.js
+  family: nodejs
+  family_role: parent
+  anchor: nodejs
   platforms: [Windows, macOS, Linux]
   icon: vendor-006.svg
   url: https://nodejs.org/
   summary: 在浏览器以外运行 JavaScript。
   type: 运行时
 - name: npm
+  family: nodejs
+  family_role: member
+  anchor: npm
   platforms: [Windows, macOS, Linux]
   icon: vendor-007.svg
   url: https://docs.npmjs.com/
   summary: 管理 JavaScript 包和项目脚本。
   type: 包管理器
 - name: npx
+  family: nodejs
+  family_role: member
+  anchor: npx
   platforms: [Windows, macOS, Linux]
   icon: vendor-007.svg
   url: https://docs.npmjs.com/cli/commands/npx
@@ -229,12 +238,18 @@ runtimes:
   summary: 安装和管理 JavaScript 项目依赖。
   type: 包管理器
 - name: Python
+  family: python
+  family_role: parent
+  anchor: python
   platforms: [Windows, macOS, Linux]
   icon: vendor-009.svg
   url: https://www.python.org/
   summary: 编写脚本、数据分析程序和自动化工具。
   type: 语言
 - name: pip
+  family: python
+  family_role: member
+  anchor: pip
   platforms: [Windows, macOS, Linux]
   icon: pip-pypi.svg
   url: https://pip.pypa.io/
@@ -247,12 +262,18 @@ runtimes:
   summary: 管理跨语言依赖和隔离环境。
   type: 包管理器
 - name: Rust
+  family: rust
+  family_role: parent
+  anchor: rust
   platforms: [Windows, macOS, Linux]
   icon: vendor-011.svg
   url: https://rust-lang.org/
   summary: 用于系统软件、CLI 与性能敏感程序。
   type: 语言
 - name: rust-analyzer
+  family: rust
+  family_role: member
+  anchor: rust-analyzer
   platforms: [Windows, macOS, Linux]
   icon: vendor-076.svg
   url: https://rust-analyzer.github.io/
@@ -415,12 +436,18 @@ api-development:
 
 databases:
 - name: MySQL
+  family: mysql
+  family_role: parent
+  anchor: mysql
   platforms: [Windows, macOS, Linux]
   icon: vendor-023.svg
   url: https://dev.mysql.com/doc/
   summary: 关系型数据库。
   type: 数据库
 - name: MySQL Workbench
+  family: mysql
+  family_role: member
+  anchor: mysql-workbench
   platforms: [Windows, macOS, Linux]
   linux:
     note: 发行版及支持版本见官方文档
@@ -676,11 +703,17 @@ nlp:
   summary: 在本地进行 Whisper 语音转写。
   type: Python 库
 - name: Transformers
+  family: hugging-face
+  family_role: member
+  anchor: transformers
   icon: vendor-048.svg
   url: https://huggingface.co/docs/transformers/
   summary: 使用或微调预训练模型。
   type: Python 库
 - name: Tokenizers
+  family: hugging-face
+  family_role: member
+  anchor: tokenizers
   icon: vendor-048.svg
   url: https://huggingface.co/docs/tokenizers/
   summary: 训练和运行文本分词器。
@@ -691,6 +724,10 @@ nlp:
   summary: 在不同硬件平台运行 ONNX 模型。
   type: 推理运行时
 - name: Hugging Face Hub
+  family: hugging-face
+  family_role: parent
+  family_title: Hugging Face
+  anchor: hugging-face-hub
   platforms: [Web]
   icon: vendor-048.svg
   url: https://huggingface.co/docs/hub/
