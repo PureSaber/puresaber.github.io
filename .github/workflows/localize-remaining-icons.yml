@@ -18,11 +18,11 @@ jobs:
         with:
           python-version: '3.12'
       - run: python -m pip install Pillow==11.3.0 CairoSVG==2.8.2
-      - run: python scripts/localize_remaining_icons.py
+      - run: python scripts/refine_local_icons.py
       - name: Save validated icons to review branch
         run: |
-          git add _data/catalog.yaml assets/tool-icons/
+          git add assets/tool-icons/ scripts/icon-refinement-sources.json
           if ! git diff --cached --quiet; then
-            git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'Localize all remaining catalog icons'
+            git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'Normalize icon artwork and correct brand mismatches'
             git push origin HEAD:review/remaining-catalog-icons
           fi
