@@ -4,7 +4,7 @@
 
 ## 维护目录
 
-在 [`_data/catalog.yaml`](_data/catalog.yaml) 找到对应的二级分类，编辑条目的 `name`、`url`、`summary` 和 `type`，或按相同格式新增条目。`alias` 用于补充搜索关键词。VS Code 的插件放在 `development` 下对应工具的 `extensions` 里。
+在 [`_data/catalog.yaml`](_data/catalog.yaml) 找到对应的二级分类，编辑条目的 `name`、`url`、`summary` 和 `type`，或按相同格式新增条目。`alias` 用于补充搜索关键词。编辑器扩展统一录入 `editor-extensions` 组，并在 `_data/component_catalog.yaml` 的同名分组登记组件类型；需要在具体宿主（如 VS Code）下折叠显示时，通过插件条目的 `integrations` 标注宿主及安装入口，不要重复录入。
 
 条目涉及服务状态、停服日期等易变信息时，用 `checked_at` 和 `checked_source` 记录核验日期和官方来源。GitHub Pages 从同一份 YAML 构建目录卡片和首页搜索索引。
 
@@ -12,7 +12,7 @@
 
 ## 页面维护位置
 
-- 首页：[`index.html`](index.html)。工具与资源入口对应 `/tools/`、`/resources/`。
+- 首页：[`index.html`](index.html)。主要目录入口包括 `/tools/`、`/components/`、`/resources/`；手机应用与学习路线另有独立页面。
 - 手机应用：[`mobile/index.html`](mobile/index.html)；停用应用归档见 [`mobile/archive/index.html`](mobile/archive/index.html)，图标见 `mobile/icons/`。
 - 项目与服务：[`projects/index.html`](projects/index.html)。学习路线见 [`learn/index.html`](learn/index.html)。
 - 网站样式与交互：公用样式在 `assets/`，修改对应页面后检查链接与 GitHub Pages 部署结果。

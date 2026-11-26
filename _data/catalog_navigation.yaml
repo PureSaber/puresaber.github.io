@@ -68,7 +68,7 @@ resources:
         online-tools: 在线工具合集
 components:
   title: 扩展与组件
-  description: 从现有工具目录查找可复用的软件库、开发框架、插件和 SDK，并查看技术生态与关联关系。
+  description: 从现有工具目录查找可复用的软件库、开发框架、插件和 SDK，并按技术生态与用途筛选。
   categories:
     libraries:
       title: 软件库
