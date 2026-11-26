@@ -8,8 +8,8 @@
   <meta name="theme-color" content="#f6f5ef">
   <title>{{ catalog.title }} · Kurage</title>
   <link rel="icon" type="image/png" sizes="96x96" href="{{ '/assets/site-toolbox-icon.png' | relative_url }}">
-  <link rel="stylesheet" href="{{ '/assets/catalog.css' | relative_url }}?v=components-v1">
-  <script defer src="{{ '/assets/catalog.js' | relative_url }}?v=components-v1"></script>
+  <link rel="stylesheet" href="{{ '/assets/catalog.css' | relative_url }}?v=entity-relations-v1">
+  <script defer src="{{ '/assets/catalog.js' | relative_url }}?v=entity-relations-v1"></script>
 </head>
 <body>
   <a class="skip" href="#main">跳到正文</a>
@@ -30,7 +30,7 @@
       </nav>
     </div>
   </header>
-  <main id="main" class="wrap">
+  <main id="main" class="wrap" data-entity-index="{{ '/assets/catalog-index.json' | relative_url }}" data-components-root="{{ '/components/' | relative_url }}" data-tools-root="{{ '/tools/' | relative_url }}" data-resources-root="{{ '/resources/' | relative_url }}">
     <div class="catalog-controls">
       {% capture search_label %}搜索{{ catalog.title }}{% endcapture %}
       {% include catalog-search.html label=search_label %}

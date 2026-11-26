@@ -2,7 +2,7 @@
   {% if page.catalog == 'components' %}
     {% for component in site.data.component_catalog[include.group] %}
       {% assign source_entries = site.data.catalog[component.source_group] %}
-      {% assign entry = source_entries | where: 'component_id', component.id | first %}
+      {% assign entry = source_entries | where: 'entity_id', component.id | first %}
       {% if entry %}{% include catalog-card.html entry=entry component=component heading="h5" %}{% endif %}
     {% endfor %}
   {% else %}
