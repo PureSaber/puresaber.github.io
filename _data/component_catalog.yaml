@@ -25,12 +25,12 @@ quant-libraries:
   source_group: market-tools
   kind: library
   ecosystems: ["Python"]
-  functions: ["量化研究","回测"]
+  functions: ["量化研究","数据获取"]
 - id: pandas-ta
   source_group: market-tools
   kind: library
   ecosystems: ["Python"]
-  functions: ["量化研究","回测"]
+  functions: ["量化研究","技术指标"]
 - id: backtrader
   source_group: market-tools
   kind: library
@@ -45,7 +45,7 @@ quant-libraries:
   source_group: market-tools
   kind: library
   ecosystems: ["Python"]
-  functions: ["量化研究","回测"]
+  functions: ["量化研究","数据获取"]
 
 visual-libraries:
 - id: matplotlib
@@ -74,27 +74,27 @@ ml-libraries:
   source_group: modeling
   kind: library
   ecosystems: ["Python"]
-  functions: ["机器学习","优化"]
+  functions: ["机器学习"]
 - id: lightgbm
   source_group: modeling
   kind: library
   ecosystems: ["Python"]
-  functions: ["机器学习","优化"]
+  functions: ["机器学习"]
 - id: xgboost
   source_group: modeling
   kind: library
   ecosystems: ["Python"]
-  functions: ["机器学习","优化"]
+  functions: ["机器学习"]
 - id: or-tools
   source_group: modeling
   kind: library
   ecosystems: ["Python"]
-  functions: ["机器学习","优化"]
+  functions: ["优化"]
 - id: gurobi
   source_group: modeling
   kind: library
   ecosystems: ["Python"]
-  functions: ["机器学习","优化"]
+  functions: ["优化"]
 
 nlp-libraries:
 - id: jieba
@@ -121,7 +121,7 @@ nlp-libraries:
   source_group: nlp
   kind: library
   ecosystems: ["Python"]
-  functions: ["自然语言处理"]
+  functions: ["语音识别"]
 - id: transformers
   source_group: nlp
   kind: library
@@ -169,29 +169,29 @@ sdk-components:
   source_group: modeling
   kind: sdk
   ecosystems: ["Python"]
-  functions: ["开发接口"]
+  functions: ["实验管理"]
 - id: hugging-face-hub
   source_group: nlp
   kind: sdk
   ecosystems: ["Hugging Face","Python"]
-  functions: ["开发接口"]
+  functions: ["模型与数据管理","开发接口"]
 
 runtime-components:
 - id: onnx-runtime
   source_group: nlp
   kind: runtime
   ecosystems: ["ONNX"]
-  functions: ["模型推理","开发辅助"]
+  functions: ["模型推理"]
 - id: tensorboard
   source_group: modeling
   kind: tool
   ecosystems: ["TensorFlow"]
-  functions: ["模型推理","开发辅助"]
+  functions: ["数据可视化","训练监控"]
 - id: rust-analyzer
   source_group: runtimes
   kind: tool
   ecosystems: ["Rust"]
-  functions: ["模型推理","开发辅助"]
+  functions: ["编辑器增强","开发辅助"]
 
 editor-extensions:
 - id: slidev
