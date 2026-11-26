@@ -71,7 +71,7 @@ function groupProductFamilies() {
     title.append(document.createTextNode(familyName));
     const count = document.createElement("span");
     count.className = "family-count";
-    count.textContent = products.length + " 个产品";
+    count.textContent = products.length + (placement.dataset.familyKind === "ecosystem" ? " 个生态条目" : " 个产品");
     summary.append(title, count);
     const list = document.createElement("ul");
     list.className = "family-members";
@@ -96,7 +96,7 @@ function groupProductFamilies() {
         link.append(name);
         link.className = "card-title-with-icon";
         const note = document.createElement("p");
-        note.textContent = "查看 " + familyName + " 产品家族";
+        note.textContent = "查看 " + familyName + (placement.dataset.familyKind === "ecosystem" ? " 工具生态" : " 产品家族");
         shortcut.append(link, note);
         product.before(shortcut);
       }

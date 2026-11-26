@@ -1,12 +1,12 @@
 {% assign family_key = nil %}
 {% for relation in site.data.entity_relations %}
-  {% if relation.from == include.entry.entity_id and relation.type == 'family_member' %}
+  {% if relation.from == include.entry.entity_id and relation.type == 'family_member' or relation.type == 'ecosystem_member' %}
     {% assign family_key = relation.to | remove_first: 'family-' %}
     {% break %}
   {% endif %}
 {% endfor %}
 {% assign family_config = site.data.product_families[family_key] %}
-<li data-entity-id="{{ include.entry.entity_id | escape }}"{% if include.component %} id="component-{{ include.component.id | escape }}" data-kind="{{ include.component.kind | escape }}" data-ecosystems="" data-functions="{{ include.component.functions | join: '|' | escape }}"{% endif %}{% if family_config %} data-family="{{ family_key | escape }}" data-family-title="{{ family_config.title | escape }}" data-family-placement="{{ family_config.placement | escape }}"{% endif %}{% if include.entry.alias %} data-alias="{{ include.entry.alias | escape }}"{% endif %}{% if include.component == nil %} id="tool-{{ include.entry.anchor | default: include.entry.entity_id | escape }}"{% endif %}{% if include.entry.integrations %} data-hosts="{{ include.entry.integrations | map: 'host' | join: '|' | escape }}"{% endif %}{% if include.entry.platforms %} data-platforms="{{ include.entry.platforms | join: ' ' | escape }}"{% endif %}>
+<li data-entity-id="{{ include.entry.entity_id | escape }}"{% if include.component %} id="component-{{ include.component.id | escape }}" data-kind="{{ include.component.kind | escape }}" data-ecosystems="" data-functions="{{ include.component.functions | join: '|' | escape }}"{% endif %}{% if family_config %} data-family="{{ family_key | escape }}" data-family-title="{{ family_config.title | escape }}" data-family-kind="{{ family_config.kind | default: 'product' | escape }}" data-family-placement="{{ family_config.placement | escape }}"{% endif %}{% if include.entry.alias %} data-alias="{{ include.entry.alias | escape }}"{% endif %}{% if include.component == nil %} id="tool-{{ include.entry.anchor | default: include.entry.entity_id | escape }}"{% endif %}{% if include.entry.integrations %} data-hosts="{{ include.entry.integrations | map: 'host' | join: '|' | escape }}"{% endif %}{% if include.entry.platforms %} data-platforms="{{ include.entry.platforms | join: ' ' | escape }}"{% endif %}>
   {% if include.component and include.entry.anchor %}<span id="tool-{{ include.entry.anchor | escape }}" class="anchor-compat" aria-hidden="true"></span>{% endif %}
   <div class="catalog-card-heading">
     <{{ include.heading }}{% if include.entry.icon or include.entry.icon_url %} class="card-title-with-icon"{% endif %}>
