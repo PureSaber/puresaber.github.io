@@ -782,6 +782,16 @@ productivity:
   url: https://www.notion.com/
   summary: 组织笔记、团队文档和数据库。
   type: Web / 桌面
+- name: Microsoft To Do
+  anchor: microsoft-todo
+  platforms: [Windows, macOS, Web]
+  mobile:
+  - id: microsoft-todo
+    name: Microsoft To Do
+  icon: microsoft-todo.webp
+  url: https://www.microsoft.com/en-us/microsoft-365/microsoft-to-do-list-app
+  summary: 管理个人待办、每日计划、任务清单和提醒，并在电脑与手机间同步。
+  type: Web / 桌面
 - name: Todoist
   platforms: [Windows, macOS, Linux, Web]
   linux:
