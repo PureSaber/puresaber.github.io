@@ -412,5 +412,13 @@ code { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .91em; 
 .catalog-section[data-view="list"] .family-members .card-details { justify-content:flex-start; text-align:start; }
 .catalog-section[data-view="list"] .resources > .family-shortcut { display:block; padding:.5rem .2rem; }
 
-.catalog-section[data-view="list"] .resources > .family-ecosystem { grid-template-areas:"name name" "extensions extensions"; }
-.family-ecosystem > .product-family { margin-top:.45rem; }
+.catalog-section[data-view="list"] .resources > .family-ecosystem { display:block; padding:.65rem .8rem; }
+.family-ecosystem > .product-family { margin:0; padding:0; border:0; }
+.family-ecosystem .family-heading { font-size:1.04rem; color:var(--ink); line-height:1.5; }
+.family-heading .family-title { display:inline-flex; align-items:center; gap:.45rem; vertical-align:middle; }
+.family-heading .family-count { float:inline-end; color:var(--muted); font-weight:500; font-size:.78rem; }
+.family-heading .tool-icon { position:static !important; margin:0; }
+.family-ecosystem .family-members { margin-top:.75rem; border-top:1px solid var(--line); padding-top:.35rem; }
+.family-ecosystem .family-members > li { border-inline-start:0; padding:.55rem 0; }
+.family-ecosystem .family-members > li > .catalog-card-heading h5 { font-size:.95rem; }
+.family-ecosystem .family-members > li > p { font-size:.85rem; }
