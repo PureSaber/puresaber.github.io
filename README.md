@@ -4,7 +4,7 @@
 
 ## 维护目录
 
-在 [`_data/catalog.yaml`](_data/catalog.yaml) 找到对应的二级分类，编辑条目的 `name`、`url`、`summary` 和 `type`，或按相同格式新增条目。`alias` 用于补充搜索关键词。VS Code 的插件放在 `development` 下对应工具的 `extensions` 里。
+在 [`_data/catalog.yaml`](_data/catalog.yaml) 找到对应的二级分类，编辑条目的 `name`、`url`、`summary` 和 `type`，或按相同格式新增条目。`alias` 用于补充搜索关键词。VS Code 扩展在目录的 `editor-extensions` 中登记，安装平台由各条目的 `integrations` 标记，工具页面自动生成宿主折叠目录。
 
 条目涉及服务状态、停服日期等易变信息时，用 `checked_at` 和 `checked_source` 记录核验日期和官方来源。GitHub Pages 从同一份 YAML 构建目录卡片和首页搜索索引。
 
@@ -29,14 +29,14 @@
 ## 扩展与组件目录
 
 - 新目录：`/components/`；旧 `/plugins/` 保留并转向新目录，透传 `?host=` 与哈希锚点。
-- `_data/catalog.yaml` 是条目资料的唯一来源；`component_id` 是稳定引用 ID。
-- `_data/component_catalog.yaml` 只记录已有条目的组件归类、技术生态和功能，不复制描述与图标。
-- `_data/component_relations.yaml` 用有类型的边记录依赖、基于、集成、官方配套等关系，并附官方来源；外部配套只展示引用链接，不自动加入正式目录。
+- `_data/catalog.yaml` 是条目资料的唯一来源；`entity_id` 是稳定引用 ID。
+- `_data/component_catalog.yaml` 只记录已登记条目的组件类型、来源组和功能分类，不复制描述与图标。
+- `_data/entity_relations.yaml` 管理统一的有类型关系；浏览器从同一组有向边计算双向查询，不重复写反向边。
 - 产品家族（`product_families.yaml`）与技术生态独立：生态归属不表示品牌所有权。
 - 新组件不自动从外部检索或入库；目前只包含原工具目录中的已登记条目。
 
 
-## 统一实体与多对多关系（V2）
+## 统一实体与多对多关系
 
 - `_data/catalog.yaml` 是软件条目的唯一主库：180 项均有稳定的 `entity_id`；名称、官网、图标和说明只维护这里。
 - `_data/component_catalog.yaml` 只保存组件类型、功能归类和来源组的索引，不复制条目本身，也不重复登记生态关系。

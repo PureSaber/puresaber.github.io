@@ -1,8 +1,10 @@
 {% assign family_key = nil %}
 {% for relation in site.data.entity_relations %}
-  {% if relation.from == include.entry.entity_id and relation.type == 'family_member' or relation.type == 'ecosystem_member' %}
-    {% assign family_key = relation.to | remove_first: 'family-' %}
-    {% break %}
+  {% if relation.from == include.entry.entity_id %}
+    {% if relation.type == 'family_member' or relation.type == 'ecosystem_member' %}
+      {% assign family_key = relation.to | remove_first: 'family-' %}
+      {% break %}
+    {% endif %}
   {% endif %}
 {% endfor %}
 {% assign family_config = site.data.product_families[family_key] %}
