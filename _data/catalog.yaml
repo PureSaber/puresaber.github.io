@@ -6,7 +6,26 @@ ai:
   summary: 在终端里读项目、梳理代码和辅助修改。接手一个新仓库时，可以先用它找项目入口、测试命令和关键配置。
   type: CLI
   alias: opencode cli
+- name: Claude
+  family: claude
+  anchor: claude
+  platforms: [Windows, macOS, Linux, Web]
+  linux:
+    note: Linux 桌面版为 Beta，支持的发行版与架构见官方页面
+    url: https://claude.com/download
+  mobile:
+  - id: claude
+    name: Claude
+  icon: claude.webp
+  url: https://claude.com/download
+  summary: 用于 AI 对话、写作、长文档阅读与资料分析；与开发用的 Claude Code 分开收录。
+  type: Web / 桌面
+  docs:
+    label: 网页版
+    url: https://claude.ai/
 - name: Claude Code
+  family: claude
+  anchor: claude-code
   platforms: [Windows, macOS, Linux]
   icon: claude-code.svg
   url: https://code.claude.com/docs/
@@ -79,6 +98,32 @@ ai:
   url: https://gemini.google.com/
   summary: Google 的网页助手，用于问答、资料整理和代码讨论。
   type: Web
+- name: DeepSeek
+  anchor: deepseek
+  platforms: [Web]
+  mobile:
+  - id: deepseek
+    name: DeepSeek
+  icon: deepseek.webp
+  url: https://chat.deepseek.com/
+  summary: DeepSeek 聊天服务，用于问答、推理和代码讨论；不等同于 DeepSeek Harness 桌面开发工具。
+  type: Web
+  docs:
+    label: 官方网站
+    url: https://www.deepseek.com/
+- name: Kimi
+  anchor: kimi
+  platforms: [Windows, macOS, Web]
+  mobile:
+  - id: kimi
+    name: Kimi
+  icon: kimi.webp
+  url: https://www.kimi.com/
+  summary: 月之暗面的 AI 助手，用于问答、资料研究、长文档阅读与内容创作。
+  type: Web / 桌面
+  docs:
+    label: 桌面端下载
+    url: https://www.kimi.com/products/download
 - name: 千问（Qwen）
   platforms: [Web]
   icon: local-qwen.svg
@@ -782,6 +827,16 @@ productivity:
   url: https://www.notion.com/
   summary: 组织笔记、团队文档和数据库。
   type: Web / 桌面
+- name: Obsidian
+  anchor: obsidian
+  platforms: [Windows, macOS, Linux]
+  mobile:
+  - id: obsidian
+    name: Obsidian
+  icon: obsidian.webp
+  url: https://obsidian.md/download
+  summary: 使用本地 Markdown 笔记、双向链接与知识图谱组织个人知识库。
+  type: 笔记应用
 - name: Microsoft To Do
   anchor: microsoft-todo
   platforms: [Windows, macOS, Web]
@@ -865,6 +920,17 @@ productivity:
   url: https://www.overleaf.com/
   summary: 在线编写、编译与协作编辑 LaTeX 文档。
   type: 在线排版工具
+- name: Microsoft Outlook
+  family: microsoft-office
+  anchor: outlook
+  platforms: [Windows, macOS, Web]
+  mobile:
+  - id: outlook
+    name: Outlook
+  icon: outlook.webp
+  url: https://www.microsoft.com/en-us/microsoft-365/outlook/email-and-calendar-software-microsoft-outlook
+  summary: 管理电子邮件、日历与会议安排，支持多设备同步。
+  type: Web / 桌面
 - name: Microsoft OneNote
   family: microsoft-office
   anchor: onenote
@@ -1005,6 +1071,19 @@ communication:
   type: 桌面 / 移动
 
 file-transfer:
+- name: Google Drive
+  anchor: google-drive
+  platforms: [Windows, macOS, Web]
+  mobile:
+  - id: google-drive
+    name: Google Drive
+  icon: google-drive.webp
+  url: https://workspace.google.com/products/drive/
+  summary: 在云端存储、共享与协作文件，并使用桌面同步客户端访问云端内容。
+  type: Web / 桌面
+  docs:
+    label: 电脑端同步
+    url: https://support.google.com/a/users/answer/13022292?hl=zh-Hans
 - name: 百度网盘
   platforms: [Windows, macOS, Web]
   anchor: baidu-netdisk
@@ -1278,6 +1357,16 @@ online-tools:
   type: 在线工具集
 
 game-platforms:
+- name: Steam
+  anchor: steam
+  platforms: [Windows, macOS, Linux]
+  mobile:
+  - id: steam
+    name: Steam
+  icon: steam.webp
+  url: https://store.steampowered.com/about/
+  summary: 在电脑上购买、下载、更新和管理游戏；手机 App 主要用于商店、社区与账号验证。
+  type: 游戏商店／客户端
 - name: Epic Games Store
   platforms: [Windows, macOS, Web]
   icon: local-epicgames.svg

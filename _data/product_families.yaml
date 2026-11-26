@@ -1,6 +1,9 @@
 chatgpt:
   title: "ChatGPT"
   placement: chatgpt
+claude:
+  title: "Claude"
+  placement: claude
 github:
   title: "GitHub"
   placement: github
