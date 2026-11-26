@@ -1,0 +1,89 @@
+{
+  "purpose": "Previously externally referenced mobile app icons copied locally. Product logos remain the property of their respective brands.",
+  "updated": "2026-11-26",
+  "icons": {
+    "baidu-netdisk": {
+      "file": "baidu-netdisk.png",
+      "source": "https://github.com/luestr/IconResource/blob/main/App_icon/120px/BaiduNetDisk.png",
+      "source_repository": "luestr/IconResource",
+      "source_blob_sha": "c5167da2cc878b6626a27413031ea9517a5d6778"
+    },
+    "termux": {
+      "file": "termux.png",
+      "source": "https://github.com/termux/termux-app/blob/master/fastlane/metadata/android/en-US/images/icon.png",
+      "source_repository": "termux/termux-app",
+      "source_blob_sha": "e3ce8bcf07de165b0dab766c0c3af84b1499028d"
+    },
+    "instagram": {
+      "file": "instagram.png",
+      "source": "https://github.com/luestr/IconResource/blob/main/App_icon/120px/Instagram.png",
+      "source_repository": "luestr/IconResource",
+      "source_blob_sha": "8355768e903e15fd4f1a9ef73b18edd9ec2e0ecc"
+    },
+    "threads": {
+      "file": "threads.png",
+      "source": "https://github.com/sooyaaabo/IconLibrary/blob/main/App/Threads.png",
+      "source_repository": "sooyaaabo/IconLibrary",
+      "source_blob_sha": "52ac65a117ecdf961ff8622b360dd395be357f73"
+    },
+    "qq-music": {
+      "file": "qq-music.png",
+      "source": "https://github.com/luestr/IconResource/blob/main/App_icon/120px/QQMusic.png",
+      "source_repository": "luestr/IconResource",
+      "source_blob_sha": "3a151a5ac6aab55180b6a69f19c1b6ec9e53c1e5"
+    },
+    "dewu": {
+      "file": "dewu.png",
+      "source": "https://github.com/luestr/IconResource/blob/main/App_icon/120px/Dewu.png",
+      "source_repository": "luestr/IconResource",
+      "source_blob_sha": "c46001df6b332e700d9381693ea67048e8407b70"
+    },
+    "zhuanzhuan": {
+      "file": "zhuanzhuan.png",
+      "source": "https://github.com/luestr/IconResource/blob/main/App_icon/120px/ZhuanZhuan.png",
+      "source_repository": "luestr/IconResource",
+      "source_blob_sha": "8e1a55ebea7c9165902754b9b0a1e7773a254af0"
+    },
+    "fcbox": {
+      "file": "fcbox.png",
+      "source": "https://github.com/luestr/IconResource/blob/main/App_icon/120px/FC_Box.png",
+      "source_repository": "luestr/IconResource",
+      "source_blob_sha": "1dc0d12e76e808faf3b9c75a7ae44dcdc27fee6b"
+    },
+    "didi": {
+      "file": "didi.png",
+      "source": "https://github.com/luestr/IconResource/blob/main/App_icon/120px/DiDi.png",
+      "source_repository": "luestr/IconResource",
+      "source_blob_sha": "f78aed8a3723a9ebd580308daf1fb9f91425959f"
+    },
+    "hellobike": {
+      "file": "hellobike.png",
+      "source": "https://github.com/Former-Years/icon/blob/master/hellobike.png",
+      "source_repository": "Former-Years/icon",
+      "source_blob_sha": "77e7351fa5b77461e3a04226ddbc8bf0e2558f54"
+    },
+    "china-unicom": {
+      "file": "china-unicom.png",
+      "source": "https://github.com/luestr/IconResource/blob/main/App_icon/120px/ChinaUnicom.png",
+      "source_repository": "luestr/IconResource",
+      "source_blob_sha": "0efe7de6c24f5783227fc524f66e031294ad8a43"
+    },
+    "china-telecom": {
+      "file": "china-telecom.png",
+      "source": "https://github.com/luestr/IconResource/blob/main/App_icon/120px/ChinaTetlcom.png",
+      "source_repository": "luestr/IconResource",
+      "source_blob_sha": "e0d96f80b1119344e33003610828627a65fc9dde"
+    },
+    "keep": {
+      "file": "keep.png",
+      "source": "https://github.com/luestr/IconResource/blob/main/App_icon/120px/Keep.png",
+      "source_repository": "luestr/IconResource",
+      "source_blob_sha": "e438ae5595d87b693ff35c764b52a8b0414ae09e"
+    },
+    "girls-frontline": {
+      "file": "girls-frontline.webp",
+      "source": "Existing local icon; reference corrected in mobile/index.html",
+      "note": "No new asset added"
+    }
+  }
+}
