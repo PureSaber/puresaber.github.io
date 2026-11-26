@@ -3,10 +3,41 @@ const query = document.querySelector("#catalog-query");
 const clear = document.querySelector("#clear-search");
 const platformSelect = document.querySelector("#tool-platform");
 const status = document.querySelector("#search-status");
-const requestedHost = new URLSearchParams(location.search).get("host");
-if (requestedHost && platformSelect && Array.from(platformSelect.options).some(option => option.value === requestedHost)) {
-  platformSelect.value = requestedHost;
+const componentKind = document.querySelector("#component-kind");
+const componentEcosystem = document.querySelector("#component-ecosystem");
+const componentFunction = document.querySelector("#component-function");
+
+// Build filters from the server-rendered component inventory. No duplicate item definitions.
+function initializeComponentFilters() {
+  const cards = Array.from(document.querySelectorAll("#components .resources > li[data-kind]"));
+  const controls = [
+    [componentKind, "kind", { library: "软件库", framework: "框架", plugin: "插件", sdk: "SDK", runtime: "运行时", tool: "辅助工具" }],
+    [componentEcosystem, "ecosystems", null],
+    [componentFunction, "functions", null],
+    [platformSelect, "hosts", null],
+  ];
+  for (const [select, attribute, labels] of controls) {
+    if (!select) continue;
+    const values = new Set();
+    for (const card of cards) {
+      for (const value of (card.dataset[attribute] || "").split("|")) {
+        if (value) values.add(value);
+      }
+    }
+    for (const value of [...values].sort((a, b) => a.localeCompare(b, "zh-CN"))) {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = labels?.[value] || value;
+      select.append(option);
+    }
+  }
+  const params = new URLSearchParams(location.search);
+  for (const [key, control] of [["host", platformSelect], ["kind", componentKind], ["ecosystem", componentEcosystem], ["function", componentFunction]]) {
+    const value = params.get(key);
+    if (value && control && Array.from(control.options).some(option => option.value === value)) control.value = value;
+  }
 }
+initializeComponentFilters();
 const normalize = (text) => text.normalize("NFKC").toLowerCase();
 let filtering = false;
 
@@ -136,7 +167,12 @@ const sections = Array.from(document.querySelectorAll(".catalog-section"), (sect
 }));
 
 function matchesCard(card, terms, platform) {
-  return (!platform || card.platforms.includes(platform)) && terms.every(term => card.keywords.includes(term));
+  const element = card.element;
+  return (!platform || card.platforms.includes(platform))
+    && (!componentKind?.value || element.dataset.kind === componentKind.value)
+    && (!componentEcosystem?.value || (element.dataset.ecosystems || "").split("|").includes(componentEcosystem.value))
+    && (!componentFunction?.value || (element.dataset.functions || "").split("|").includes(componentFunction.value))
+    && terms.every(term => card.keywords.includes(term));
 }
 
 function filterCard(card, terms, platform, matched) {
@@ -211,7 +247,8 @@ function filterCatalog() {
   const total = matched.size;
   filtering = terms.length > 0;
   clear.hidden = query.value === "";
-  if (!filtering && !platform) {
+  const componentFiltered = Boolean(componentKind?.value || componentEcosystem?.value || componentFunction?.value);
+  if (!filtering && !platform && !componentFiltered) {
     status.textContent = "共 " + total + " 项";
   } else if (total === 0) {
     status.textContent = "没有匹配的条目";
@@ -228,6 +265,7 @@ function revealTarget(hash) {
   if (wasHidden) {
     query.value = "";
     if (platformSelect) platformSelect.value = "";
+    for (const control of [componentKind, componentEcosystem, componentFunction]) if (control) control.value = "";
     filterCatalog();
   }
   let wasClosed = false;
@@ -308,12 +346,6 @@ function initializeSidebar() {
     for (const { element: category, groups } of section.categories) {
       const item = categoriesById.get(category.id);
       const [labelLink, children] = item.children;
-      if (section.element.id === "plugins") {
-        // Plugin ecology is a single navigation level; groups remain internal.
-        list.append(item);
-        register(category, labelLink);
-        continue;
-      }
       const details = document.createElement("details");
       const summary = document.createElement("summary");
       summary.textContent = labelLink.textContent;
@@ -412,6 +444,7 @@ function initializeSidebar() {
 
 query.addEventListener("input", filterCatalog);
 platformSelect?.addEventListener("change", filterCatalog);
+for (const control of [componentKind, componentEcosystem, componentFunction]) control?.addEventListener("change", filterCatalog);
 clear.addEventListener("click", () => {
   query.value = "";
   filterCatalog();

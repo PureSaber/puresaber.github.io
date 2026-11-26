@@ -32,7 +32,7 @@ function followLegacyLink() {
   }
 }
 
-function toResult(entry, catalog, category, group, anchor, parentName = "") {
+function toResult(entry, catalog, category, group, anchor, parentName = "", metadata = null) {
   const target = new URL(catalog.url);
   target.hash = anchor;
   const label = catalog.title + " · " + group;
@@ -40,6 +40,7 @@ function toResult(entry, catalog, category, group, anchor, parentName = "") {
   const keywords = normalize([
     label, category.title, parentName, plainText(entry.name), entry.alias, summary, entry.type, entry.url,
     entry.docs?.label, entry.usage?.example, ...(entry.integrations ?? []).map(integration => integration.host),
+    ...(metadata?.ecosystems ?? []), ...(metadata?.functions ?? []), metadata?.kind,
   ].join(" "));
   return { entry, label, target, summary, keywords };
 }
@@ -49,10 +50,19 @@ async function loadIndex() {
   if (!response.ok) throw new Error("Unable to load catalog index");
   const data = await response.json();
   const entries = [];
-  for (const catalog of catalogs.values()) {
+  const catalogData = data.catalog ?? data;
+  const componentData = data.components ?? {};
+  for (const [catalogId, catalog] of catalogs) {
     for (const category of Object.values(catalog.categories)) {
       for (const [groupId, group] of Object.entries(category.groups)) {
-        for (const entry of data[groupId]) {
+        if (catalogId === "components") {
+          for (const metadata of componentData[groupId] ?? []) {
+            const entry = (catalogData[metadata.source_group] ?? []).find(item => item.component_id === metadata.id);
+            if (entry) entries.push(toResult(entry, catalog, category, group, "component-" + metadata.id, "", metadata));
+          }
+          continue;
+        }
+        for (const entry of catalogData[groupId] ?? []) {
           entries.push(toResult(entry, catalog, category, group, entry.anchor ? `tool-${entry.anchor}` : groupId));
           for (const extension of entry.extensions ?? []) {
             entries.push(toResult(extension, catalog, category, group, "extensions", entry.name));
