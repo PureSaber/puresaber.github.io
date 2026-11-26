@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "note": "App icon artwork stays owned by respective rights holders. Mirrors are local to avoid brittle runtime CDNs. Upstream icon-set licenses are recorded, and these references do not imply affiliation.",
+  "icons": {
+    "baidu-netdisk": {
+      "path": "../assets/tool-icons/baidu-netdisk.svg",
+      "source": "existing shared toolbox icon"
+    },
+    "girls-frontline": {
+      "path": "icons/girls-frontline.webp",
+      "source": "existing mobile icon"
+    },
+    "termux": {
+      "path": "icons/termux.svg",
+      "source": "https://github.com/LawnchairLauncher/lawnicons/blob/develop/svgs/termux.svg",
+      "license": "Apache-2.0"
+    },
+    "instagram": {
+      "path": "icons/instagram.svg",
+      "source": "https://github.com/LawnchairLauncher/lawnicons/blob/develop/svgs/instagram.svg",
+      "license": "Apache-2.0"
+    },
+    "threads": {
+      "path": "icons/threads.svg",
+      "source": "https://github.com/LawnchairLauncher/lawnicons/blob/develop/svgs/threads.svg",
+      "license": "Apache-2.0"
+    },
+    "qq-music": {
+      "path": "icons/qq-music.svg",
+      "source": "https://github.com/LawnchairLauncher/lawnicons/blob/develop/svgs/qqmusic.svg",
+      "license": "Apache-2.0"
+    },
+    "didi": {
+      "path": "icons/didi.svg",
+      "source": "https://github.com/LawnchairLauncher/lawnicons/blob/develop/svgs/didi.svg",
+      "license": "Apache-2.0"
+    },
+    "hellobike": {
+      "path": "icons/hellobike.svg",
+      "source": "https://github.com/LawnchairLauncher/lawnicons/blob/develop/svgs/hello_cycling.svg",
+      "license": "Apache-2.0"
+    },
+    "china-unicom": {
+      "path": "icons/china-unicom.svg",
+      "source": "https://github.com/LawnchairLauncher/lawnicons/blob/develop/svgs/china_unicom.svg",
+      "license": "Apache-2.0"
+    },
+    "china-telecom": {
+      "path": "icons/china-telecom.svg",
+      "source": "https://github.com/LawnchairLauncher/lawnicons/blob/develop/svgs/china_telecom.svg",
+      "license": "Apache-2.0"
+    },
+    "dewu": {
+      "path": "icons/dewu.svg",
+      "source": "https://github.com/Arcticons-Team/Arcticons/blob/main/icons/black/dewu.svg",
+      "license": "GPL-3.0"
+    },
+    "keep": {
+      "path": "icons/keep.svg",
+      "source": "https://github.com/Arcticons-Team/Arcticons/blob/main/icons/black/keep.svg",
+      "license": "GPL-3.0"
+    },
+    "zhuanzhuan": {
+      "path": "icons/zhuanzhuan.svg",
+      "source": "https://github.com/openkylin/kylin-software-center/blob/main/data/icons/com.wuba.zhuanzhuan.svg",
+      "license": "upstream repository; embedded branded PNG"
+    },
+    "fcbox": {
+      "path": "icons/fcbox.png",
+      "source": "https://github.com/syczk301/pickup-assistant/blob/main/app/res/drawable-nodpi/carrier_fcbox.png",
+      "officialSource": "https://www.fcbox.com/images/default/icon/logo.png"
+    }
+  }
+}
