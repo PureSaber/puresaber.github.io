@@ -2,196 +2,240 @@ scientific-libraries:
 - id: pandas
   source_group: research-data
   kind: library
+  ecosystems: ["Python"]
   functions: ["科学计算","数据处理"]
 - id: numpy
   source_group: research-data
   kind: library
+  ecosystems: ["Python"]
   functions: ["科学计算","数据处理"]
 - id: scipy
   source_group: research-data
   kind: library
+  ecosystems: ["Python"]
   functions: ["科学计算","数据处理"]
 - id: polars
   source_group: research-data
   kind: library
+  ecosystems: ["Python"]
   functions: ["科学计算","数据处理"]
 
 quant-libraries:
 - id: akshare
   source_group: market-tools
   kind: library
+  ecosystems: ["Python"]
   functions: ["量化研究","回测"]
 - id: pandas-ta
   source_group: market-tools
   kind: library
+  ecosystems: ["Python"]
   functions: ["量化研究","回测"]
 - id: backtrader
   source_group: market-tools
   kind: library
+  ecosystems: ["Python"]
   functions: ["量化研究","回测"]
 - id: vectorbt
   source_group: market-tools
   kind: library
+  ecosystems: ["Python"]
   functions: ["量化研究","回测"]
 - id: yfinance
   source_group: market-tools
   kind: library
+  ecosystems: ["Python"]
   functions: ["量化研究","回测"]
 
 visual-libraries:
 - id: matplotlib
   source_group: visualization
   kind: library
+  ecosystems: ["Python"]
   functions: ["数据可视化"]
 - id: seaborn
   source_group: visualization
   kind: library
+  ecosystems: ["Python"]
   functions: ["数据可视化"]
 - id: altair
   source_group: visualization
   kind: library
+  ecosystems: ["Python"]
   functions: ["数据可视化"]
 - id: plotly
   source_group: visualization
   kind: library
+  ecosystems: ["Python"]
   functions: ["数据可视化"]
 
 ml-libraries:
 - id: scikit-learn
   source_group: modeling
   kind: library
+  ecosystems: ["Python"]
   functions: ["机器学习","优化"]
 - id: lightgbm
   source_group: modeling
   kind: library
+  ecosystems: ["Python"]
   functions: ["机器学习","优化"]
 - id: xgboost
   source_group: modeling
   kind: library
+  ecosystems: ["Python"]
   functions: ["机器学习","优化"]
 - id: or-tools
   source_group: modeling
   kind: library
+  ecosystems: ["Python"]
   functions: ["机器学习","优化"]
 - id: gurobi
   source_group: modeling
   kind: library
+  ecosystems: ["Python"]
   functions: ["机器学习","优化"]
 
 nlp-libraries:
 - id: jieba
   source_group: nlp
   kind: library
+  ecosystems: ["Python"]
   functions: ["自然语言处理"]
 - id: opencc
   source_group: nlp
   kind: library
+  ecosystems: ["Python"]
   functions: ["自然语言处理"]
 - id: nltk
   source_group: nlp
   kind: library
+  ecosystems: ["Python"]
   functions: ["自然语言处理"]
 - id: spacy
   source_group: nlp
   kind: library
+  ecosystems: ["Python"]
   functions: ["自然语言处理"]
 - id: faster-whisper
   source_group: nlp
   kind: library
+  ecosystems: ["Python"]
   functions: ["自然语言处理"]
 - id: transformers
   source_group: nlp
   kind: library
+  ecosystems: ["Python","Hugging Face"]
   functions: ["自然语言处理"]
 - id: tokenizers
   source_group: nlp
   kind: library
+  ecosystems: ["Python","Hugging Face"]
   functions: ["自然语言处理"]
 
 utility-libraries:
 - id: prometheus-client
   source_group: deployment
   kind: library
+  ecosystems: ["Python"]
   functions: ["监控与运维"]
 
 web-frameworks:
 - id: fastapi
   source_group: api-development
   kind: framework
+  ecosystems: ["Python"]
   functions: ["Web 开发"]
 - id: streamlit
   source_group: visualization
   kind: framework
+  ecosystems: ["Python"]
   functions: ["Web 开发"]
 
 ai-frameworks:
 - id: pytorch
   source_group: modeling
   kind: framework
+  ecosystems: ["Python","PyTorch"]
   functions: ["机器学习"]
 - id: tensorflow
   source_group: modeling
   kind: framework
+  ecosystems: ["Python","TensorFlow"]
   functions: ["机器学习"]
 
 sdk-components:
 - id: weights-biases
   source_group: modeling
   kind: sdk
+  ecosystems: ["Python"]
   functions: ["开发接口"]
 - id: hugging-face-hub
   source_group: nlp
   kind: sdk
+  ecosystems: ["Hugging Face","Python"]
   functions: ["开发接口"]
 
 runtime-components:
 - id: onnx-runtime
   source_group: nlp
   kind: runtime
+  ecosystems: ["ONNX"]
   functions: ["模型推理","开发辅助"]
 - id: tensorboard
   source_group: modeling
   kind: tool
+  ecosystems: ["TensorFlow"]
   functions: ["模型推理","开发辅助"]
 - id: rust-analyzer
   source_group: runtimes
   kind: tool
+  ecosystems: ["Rust"]
   functions: ["模型推理","开发辅助"]
 
 editor-extensions:
 - id: slidev
   source_group: editor-extensions
   kind: plugin
+  ecosystems: ["VS Code"]
   functions: ["编辑器增强"]
 - id: prettier
   source_group: editor-extensions
   kind: plugin
+  ecosystems: ["VS Code"]
   functions: ["编辑器增强"]
 - id: github-theme
   source_group: editor-extensions
   kind: plugin
+  ecosystems: ["VS Code"]
   functions: ["编辑器增强"]
 - id: latex-workshop
   source_group: editor-extensions
   kind: plugin
+  ecosystems: ["VS Code"]
   functions: ["编辑器增强"]
 - id: marscode
   source_group: editor-extensions
   kind: plugin
+  ecosystems: ["VS Code"]
   functions: ["编辑器增强"]
 - id: live-server
   source_group: editor-extensions
   kind: plugin
+  ecosystems: ["VS Code"]
   functions: ["编辑器增强"]
 - id: markdown-preview-enhanced
   source_group: editor-extensions
   kind: plugin
+  ecosystems: ["VS Code"]
   functions: ["编辑器增强"]
 - id: vscode-icons
   source_group: editor-extensions
   kind: plugin
+  ecosystems: ["VS Code"]
   functions: ["编辑器增强"]
 - id: markdown-pdf
   source_group: editor-extensions
   kind: plugin
+  ecosystems: ["VS Code"]
   functions: ["编辑器增强"]

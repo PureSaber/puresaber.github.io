@@ -37,7 +37,7 @@ function initializeComponentFilters() {
     if (value && control && Array.from(control.options).some(option => option.value === value)) control.value = value;
   }
 }
-// Populated after the relationship index loads, so ecosystem options stay canonical.
+initializeComponentFilters();
 const normalize = (text) => text.normalize("NFKC").toLowerCase();
 let filtering = false;
 
@@ -71,7 +71,7 @@ function groupProductFamilies() {
     title.append(document.createTextNode(familyName));
     const count = document.createElement("span");
     count.className = "family-count";
-    count.textContent = products.length + (placement.dataset.familyKind === "ecosystem" ? " 个生态条目" : " 个产品");
+    count.textContent = products.length + " 个产品";
     summary.append(title, count);
     const list = document.createElement("ul");
     list.className = "family-members";
@@ -96,7 +96,7 @@ function groupProductFamilies() {
         link.append(name);
         link.className = "card-title-with-icon";
         const note = document.createElement("p");
-        note.textContent = "查看 " + familyName + (placement.dataset.familyKind === "ecosystem" ? " 工具生态" : " 产品家族");
+        note.textContent = "查看 " + familyName + " 产品家族";
         shortcut.append(link, note);
         product.before(shortcut);
       }
@@ -106,218 +106,6 @@ function groupProductFamilies() {
 }
 groupProductFamilies();
 const familyRecords = new Map();
-
-
-/*
- * One canonical entity catalog + one typed many-to-many relation table.
- * Render direct links in both directions, then derive related items through
- * common ecosystem/vendor nodes without claiming ownership or compatibility.
- */
-async function installEntityNetwork() {
-  const main = document.querySelector("main[data-entity-index]");
-  if (!main) return;
-  const response = await fetch(main.dataset.entityIndex);
-  if (!response.ok) throw new Error("Entity index unavailable");
-  const data = await response.json();
-  const catalog = data.catalog ?? {};
-  const components = data.components ?? {};
-  const nodes = data.nodes ?? {};
-  const families = data.families ?? {};
-  const relations = [...(data.relations ?? [])];
-  const items = new Map();
-  const componentIds = new Set();
-  const pageByGroup = new Map();
-  const plain = value => String(value || "").replace(/<[^>]*>/g, "").replace(/&amp;/g, "&");
-  for (const [page, nav] of Object.entries(data.navigation ?? {})) {
-    if (page === "components") continue;
-    for (const category of Object.values(nav.categories ?? {})) {
-      for (const group of Object.keys(category.groups ?? {})) pageByGroup.set(group, page);
-    }
-  }
-  for (const [group, entries] of Object.entries(catalog)) {
-    for (const entry of entries || []) {
-      if (entry.entity_id) items.set(entry.entity_id, { ...entry, source_group: group });
-    }
-  }
-  for (const entries of Object.values(components)) {
-    for (const component of entries || []) componentIds.add(component.id);
-  }
-
-  // Host-installation URLs remain attached to the plugin record; derive
-  // host relations from that existing source, rather than copying them.
-  const byName = new Map([...items.values()].map(item => [plain(item.name), item.entity_id]));
-  for (const item of items.values()) {
-    for (const integration of item.integrations || []) {
-      const hostId = byName.get(integration.host);
-      if (hostId) relations.push({
-        from: item.entity_id, to: hostId, type: "extends",
-        source_url: integration.url
-      });
-    }
-  }
-
-  const membersByNode = new Map();
-  const incomingById = new Map();
-  const outgoingById = new Map();
-  for (const relation of relations) {
-    if (!outgoingById.has(relation.from)) outgoingById.set(relation.from, []);
-    outgoingById.get(relation.from).push(relation);
-    if (items.has(relation.to)) {
-      if (!incomingById.has(relation.to)) incomingById.set(relation.to, []);
-      incomingById.get(relation.to).push(relation);
-    }
-    if (nodes[relation.to] || relation.to?.startsWith("family-")) {
-      if (!membersByNode.has(relation.to)) membersByNode.set(relation.to, new Set());
-      membersByNode.get(relation.to).add(relation.from);
-    }
-  }
-  const labelOf = id => {
-    if (items.has(id)) return plain(items.get(id).name);
-    if (nodes[id]) return nodes[id].label;
-    if (id?.startsWith("family-")) return families[id.slice(7)]?.title || id;
-    return id;
-  };
-  const linkOf = id => {
-    const item = items.get(id);
-    if (!item) {
-      if (nodes[id]?.related_entity) return linkOf(nodes[id].related_entity);
-      return nodes[id]?.url || null;
-    }
-    if (componentIds.has(id)) return main.dataset.componentsRoot + "#component-" + encodeURIComponent(id);
-    const page = pageByGroup.get(item.source_group) || "tools";
-    const base = page === "resources" ? main.dataset.resourcesRoot : main.dataset.toolsRoot;
-    return base + "#tool-" + encodeURIComponent(item.anchor || item.entity_id);
-  };
-  const typeLabels = {
-    depends_on: "依赖", built_on: "基于", integrates_with: "集成",
-    official_companion: "官方配套", supports_language: "支持语言",
-    extends: "扩展宿主", alternative_to: "替代选择"
-  };
-  const reverseLabels = {
-    depends_on: "被依赖", built_on: "作为基础", integrates_with: "被集成",
-    official_companion: "配套组件", supports_language: "支持此语言的工具",
-    extends: "相关插件", alternative_to: "替代选择"
-  };
-  const nodeRoleLabels = {
-    vendor: "供应商", family_member: "产品家族",
-    ecosystem: "技术生态", ecosystem_tool: "支持的生态",
-    ecosystem_language: "语言生态", ecosystem_core: "技术生态核心",
-    ecosystem_host: "插件生态"
-  };
-  function createLink(href, label) {
-    const a = document.createElement("a");
-    a.href = href;
-    a.textContent = label;
-    return a;
-  }
-  function appendRelation(list, label, targetName, href, detail = "", proof = null) {
-    if (!href) return;
-    const li = document.createElement("li");
-    const tag = document.createElement("span");
-    tag.className = "relation-kind";
-    tag.textContent = label;
-    li.append(tag, createLink(href, targetName));
-    if (detail) {
-      const caption = document.createElement("span");
-      caption.className = "entity-relation-note";
-      caption.textContent = detail;
-      li.append(caption);
-    }
-    if (proof) {
-      const source = createLink(proof, "依据");
-      source.className = "relation-source";
-      source.setAttribute("aria-label", "查看官方依据");
-      li.append(source);
-    }
-    list.append(li);
-  }
-  const entityCards = Array.from(document.querySelectorAll(
-    "#tools [data-entity-id], #components [data-entity-id], #resources [data-entity-id]"
-  )).filter(card => card.matches("li"));
-  for (const card of entityCards) {
-    const id = card.dataset.entityId;
-    const outgoing = outgoingById.get(id) || [];
-    const incoming = incomingById.get(id) || [];
-    if (!outgoing.length && !incoming.length) continue;
-    const tags = new Set();
-    const keywords = new Set();
-    const panel = document.createElement("details");
-    panel.className = "entity-links";
-    const summary = document.createElement("summary");
-    summary.textContent = "关联与生态";
-    const list = document.createElement("ul");
-    let count = 0;
-    for (const edge of outgoing) {
-      if (nodes[edge.to] || edge.to?.startsWith("family-")) {
-        const node = nodes[edge.to];
-        const name = labelOf(edge.to);
-        keywords.add(name);
-        const ecosystemEdge = edge.type.startsWith("ecosystem");
-        if (ecosystemEdge) tags.add(name);
-        const href = ecosystemEdge
-          ? main.dataset.componentsRoot + "?ecosystem=" + encodeURIComponent(name)
-          : edge.to.startsWith("family-")
-            ? main.dataset.toolsRoot + "#family-" + encodeURIComponent(edge.to.slice(7))
-            : node?.url || linkOf(edge.to);
-        appendRelation(list, nodeRoleLabels[edge.type] || "关联", name, href);
-        count++;
-      } else {
-        const label = edge.external_name || labelOf(edge.to);
-        const href = edge.external_url || linkOf(edge.to);
-        keywords.add(label);
-        appendRelation(list, typeLabels[edge.type] || "相关", label, href, edge.note, edge.source_url);
-        count++;
-      }
-    }
-    for (const edge of incoming) {
-      keywords.add(labelOf(edge.from));
-      appendRelation(list, reverseLabels[edge.type] || "被关联", labelOf(edge.from), linkOf(edge.from), edge.note, edge.source_url);
-      count++;
-    }
-
-    // Derived relationships are explicitly marked as same-ecosystem or same-vendor,
-    // not falsely presented as direct integration, ownership, or installed packages.
-    for (const edge of outgoing) {
-      if (!(nodes[edge.to] || edge.to?.startsWith("family-"))) continue;
-      const related = [...(membersByNode.get(edge.to) || [])].filter(member => member !== id && items.has(member));
-      if (!related.length) continue;
-      const ecosystem = edge.type.startsWith("ecosystem");
-      if (!(ecosystem || edge.type === "vendor")) continue;
-      const subsection = document.createElement("details");
-      subsection.className = "entity-related-members";
-      const heading = document.createElement("summary");
-      heading.textContent = (ecosystem ? "同生态" : "同供应商") + " · " + labelOf(edge.to) + "（" + related.length + "）";
-      const inner = document.createElement("ul");
-      for (const target of related.sort((a,b) => labelOf(a).localeCompare(labelOf(b), "zh-CN"))) {
-        const li = document.createElement("li");
-        const href = linkOf(target);
-        if (href) li.append(createLink(href, labelOf(target)));
-        inner.append(li);
-      }
-      subsection.append(heading, inner);
-      list.append(subsection);
-    }
-
-    if (count) {
-      summary.textContent += "（" + count + "）";
-      panel.append(summary, list);
-      card.append(panel);
-    }
-    if (card.closest("#components")) {
-      card.dataset.ecosystems = [...tags].join("|");
-      const chips = card.querySelector(":scope > .component-tags");
-      if (chips && tags.size) {
-        for (const name of tags) {
-          const chip = document.createElement("li");
-          chip.textContent = name;
-          chips.append(chip);
-        }
-        chips.hidden = false;
-      }
-    }
-    card.dataset.relationKeywords = [...keywords].join(" ");
-  }
-}
 
 function indexCard(card, labels, inheritedPlatforms = []) {
   const content = Array.from(card.children)
@@ -384,7 +172,7 @@ function matchesCard(card, terms, platform) {
     && (!componentKind?.value || element.dataset.kind === componentKind.value)
     && (!componentEcosystem?.value || (element.dataset.ecosystems || "").split("|").includes(componentEcosystem.value))
     && (!componentFunction?.value || (element.dataset.functions || "").split("|").includes(componentFunction.value))
-    && terms.every(term => (card.keywords + ' ' + normalize(element.dataset.relationKeywords || '')).includes(term));
+    && terms.every(term => card.keywords.includes(term));
 }
 
 function filterCard(card, terms, platform, matched) {
@@ -687,12 +475,6 @@ window.addEventListener("hashchange", () => {
 });
 
 filterCatalog();
-installEntityNetwork().catch(() => {
-  // Keep the catalog usable if the optional relationship index cannot load.
-}).finally(() => {
-  initializeComponentFilters();
-  filterCatalog();
-});
 revealTarget(location.hash);
 const initialTarget = document.getElementById(location.hash.slice(1));
 if (initialTarget?.closest(".family-ecosystem")) initialTarget.scrollIntoView();

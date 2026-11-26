@@ -10,8 +10,8 @@ layout: null
   <meta name="description" content="Kurage 的实用工具箱，收录开发与量化工具、编程学习资料和市场数据来源。">
   <title>我的实用工具箱 · Kurage</title>
   <link rel="icon" type="image/png" sizes="96x96" href="{{ '/assets/site-toolbox-icon.png' | relative_url }}">
-  <link rel="stylesheet" href="{{ '/assets/catalog.css' | relative_url }}?v=entity-relations-v2">
-  <script defer src="{{ '/assets/home-search.js' | relative_url }}?v=entity-relations-v2"></script>
+  <link rel="stylesheet" href="{{ '/assets/catalog.css' | relative_url }}?v=components-v1">
+  <script defer src="{{ '/assets/home-search.js' | relative_url }}?v=components-v1"></script>
   <style>
     .home-shell {
       width: min(68rem, calc(100% - 3rem));
@@ -242,7 +242,7 @@ layout: null
   </header>
   <main id="main" class="home-shell banner-home home-page"
         data-navigation="{{ site.data.catalog_navigation | jsonify | escape }}"
-        data-index="{{ '/assets/catalog-index.json' | relative_url }}?v=entity-relations-v2"
+        data-index="{{ '/assets/catalog-index.json' | relative_url }}"
         data-icon-base="{{ '/assets/tool-icons/' | relative_url }}">
     <h1>我的实用工具箱</h1>
     {% include catalog-search.html label="搜索工具、资源与组件" home=true %}
