@@ -24,18 +24,6 @@
   <div class="card-details">{% if include.component %}<span class="component-kind">{% case include.component.kind %}{% when 'library' %}软件库{% when 'framework' %}开发框架{% when 'plugin' %}插件{% when 'sdk' %}SDK{% when 'runtime' %}运行时{% else %}辅助工具{% endcase %}</span>{% endif %}<span>{{ include.entry.type | escape }}</span>{% if include.entry.docs %}<a href="{{ include.entry.docs.url | escape }}">{{ include.entry.docs.label }}</a>{% endif %}</div>
   {% if include.component %}
     <ul class="component-tags" aria-label="技术生态">{% for ecosystem in include.component.ecosystems %}<li>{{ ecosystem | escape }}</li>{% endfor %}</ul>
-    {% assign component_relations = site.data.component_relations | where: 'from', include.component.id %}
-    {% if component_relations.size > 0 %}
-    <details class="component-relations">
-      <summary>关联关系（{{ component_relations.size }}）</summary>
-      <ul>{% for relation in component_relations %}
-        <li>
-          <span class="relation-kind">{% case relation.type %}{% when 'depends_on' %}依赖{% when 'built_on' %}基于{% when 'integrates_with' %}集成{% when 'official_companion' %}官方配套{% when 'alternative_to' %}同类替代{% else %}相关{% endcase %}</span>
-          {% if relation.to %}<a href="{{ '/components/' | relative_url }}#component-{{ relation.to | escape }}">{{ relation.label | escape }}</a>{% else %}<a href="{{ relation.external_url | escape }}" rel="noopener noreferrer">{{ relation.external_name | escape }}</a>{% endif %}
-          {% if relation.source_url %}<a class="relation-source" href="{{ relation.source_url | escape }}" rel="noopener noreferrer" aria-label="查看关系的官方依据">依据</a>{% endif %}
-        </li>
-      {% endfor %}</ul>
-    </details>{% endif %}
   {% endif %}
   {% if include.entry.platforms %}
     <ul class="tool-platforms" aria-label="可用平台">
