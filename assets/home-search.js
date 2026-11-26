@@ -63,7 +63,7 @@ async function loadIndex() {
     if (!searchableRelations.has(relation.from)) searchableRelations.set(relation.from, []);
     searchableRelations.get(relation.from).push(...words.filter(Boolean));
   }
-  function enrich(entry, category, group, anchor, parentName = "", metadata = null) {
+  function enrich(entry, catalog, category, group, anchor, parentName = "", metadata = null) {
     const record = toResult(entry, catalog, category, group, anchor, parentName, metadata);
     record.keywords += " " + normalize((searchableRelations.get(entry.entity_id) || []).join(" "));
     return record;
@@ -74,14 +74,14 @@ async function loadIndex() {
         if (catalogId === "components") {
           for (const metadata of componentData[groupId] ?? []) {
             const entry = (catalogData[metadata.source_group] ?? []).find(item => item.entity_id === metadata.id);
-            if (entry) entries.push(enrich(entry, category, group, "component-" + metadata.id, "", metadata));
+            if (entry) entries.push(enrich(entry, catalog, category, group, "component-" + metadata.id, "", metadata));
           }
           continue;
         }
         for (const entry of catalogData[groupId] ?? []) {
-          entries.push(enrich(entry, category, group, "tool-" + (entry.anchor || entry.entity_id)));
+          entries.push(enrich(entry, catalog, category, group, "tool-" + (entry.anchor || entry.entity_id)));
           for (const extension of entry.extensions ?? []) {
-            entries.push(enrich(extension, category, group, "extensions", entry.name));
+            entries.push(enrich(extension, catalog, category, group, "extensions", entry.name));
           }
         }
       }
