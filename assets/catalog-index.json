@@ -1,4 +1,7 @@
 ---
 layout: null
 ---
-{{ site.data.catalog | jsonify }}
+{
+  "catalog": {{ site.data.catalog | jsonify }},
+  "components": {{ site.data.component_catalog | jsonify }}
+}

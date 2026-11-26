@@ -2,7 +2,7 @@
   <label for="catalog-query">{{ include.label }}</label>
   <div class="search-row">
     {% if include.home %}<svg class="home-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.2 15.2 4.8 4.8"/></svg>{% endif %}
-    <input id="catalog-query" type="search" placeholder="{% if include.home %}搜索工具、资源与插件{% else %}{% if page.catalog == 'plugins' %}搜索插件、平台或用途{% else %}例如 Git、Python、回测{% endif %}{% endif %}" autocomplete="off">
+    <input id="catalog-query" type="search" placeholder="{% if include.home %}搜索工具、资源与组件{% else %}{% if page.catalog == 'components' %}搜索组件、生态或用途{% else %}例如 Git、Python、回测{% endif %}{% endif %}" autocomplete="off">
     <button id="clear-search" type="button" hidden>清除</button>
     {% if page.catalog == 'tools' %}
     <select id="tool-platform" aria-label="按电脑平台筛选" aria-controls="tools">
@@ -12,23 +12,11 @@
       <option value="Linux">Linux 可用</option>
       <option value="Web">Web 可用</option>
     </select>
-    {% elsif page.catalog == 'plugins' %}
-    {% assign hosts = '' | split: ',' %}
-    {% for category in site.data.catalog_navigation.plugins.categories %}
-      {% for group in category[1].groups %}
-        {% assign plugin_group_id = group[0] %}
-        {% assign plugin_entries = site.data.catalog[plugin_group_id] %}
-        {% for plugin in plugin_entries %}
-          {% assign plugin_hosts = plugin.integrations | map: 'host' %}
-          {% assign hosts = hosts | concat: plugin_hosts %}
-        {% endfor %}
-      {% endfor %}
-    {% endfor %}
-    {% assign hosts = hosts | uniq | sort %}
-    <select id="tool-platform" aria-label="按宿主平台筛选" aria-controls="plugins">
-      <option value="">全部宿主平台</option>
-      {% for host in hosts %}<option value="{{ host | escape }}">{{ host | escape }}</option>{% endfor %}
-    </select>
+    {% elsif page.catalog == 'components' %}
+    <select id="component-kind" aria-label="按组件类型筛选" aria-controls="components"><option value="">全部类型</option></select>
+    <select id="component-ecosystem" aria-label="按技术生态筛选" aria-controls="components"><option value="">全部生态</option></select>
+    <select id="component-function" aria-label="按功能筛选" aria-controls="components"><option value="">全部功能</option></select>
+    <select id="tool-platform" aria-label="按插件宿主筛选" aria-controls="components"><option value="">全部宿主</option></select>
     {% endif %}
   </div>
   <p class="search-status" id="search-status" role="status"></p>

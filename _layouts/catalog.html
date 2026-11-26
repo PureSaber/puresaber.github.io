@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#f6f5ef">
   <title>{{ catalog.title }} · Kurage</title>
   <link rel="icon" type="image/png" sizes="96x96" href="{{ '/assets/site-toolbox-icon.png' | relative_url }}">
-  <link rel="stylesheet" href="{{ '/assets/catalog.css' | relative_url }}?v=host-folders-families-1">
+  <link rel="stylesheet" href="{{ '/assets/catalog.css' | relative_url }}?v=components-v1">
   <script defer src="{{ '/assets/catalog.js' | relative_url }}?v=host-folders-families-1"></script>
 </head>
 <body>
@@ -22,7 +22,7 @@
         <ul>
           <li><a href="{{ '/' | relative_url }}">首页</a></li>
           <li><a href="{{ '/tools/' | relative_url }}"{% if page.catalog == 'tools' %} aria-current="page"{% endif %}>工具</a></li>
-          <li><a href="{{ '/plugins/' | relative_url }}"{% if page.catalog == 'plugins' %} aria-current="page"{% endif %}>插件与扩展</a></li>
+          <li><a href="{{ '/components/' | relative_url }}"{% if page.catalog == 'components' %} aria-current="page"{% endif %}>扩展与组件</a></li>
           <li><a href="{{ '/resources/' | relative_url }}"{% if page.catalog == 'resources' %} aria-current="page"{% endif %}>资源</a></li>
           <li><a href="{{ '/learn/' | relative_url }}">学习路线</a></li>
           <li><a href="{{ '/projects/' | relative_url }}">项目与服务</a></li>
@@ -37,11 +37,11 @@
       <div class="category-links" role="navigation" aria-label="按分类浏览">
         <ul class="category-index">
           {% for category in catalog.categories %}
-          {% if page.catalog == 'plugins' %}
+          {% if page.catalog == 'components' %}
             {% assign category_count = 0 %}
             {% for plugin_group in category[1].groups %}
               {% assign plugin_group_id = plugin_group[0] %}
-              {% assign plugin_entries = site.data.catalog[plugin_group_id] %}
+              {% assign plugin_entries = site.data.component_catalog[plugin_group_id] %}
               {% assign group_count = plugin_entries | size %}
               {% assign category_count = category_count | plus: group_count %}
             {% endfor %}
@@ -49,13 +49,11 @@
           {% endif %}
           <li>
             <a href="#{{ category[0] }}">{{ category[1].title }}</a>
-            {% unless page.catalog == 'plugins' %}
             <ul>
               {% for group in category[1].groups %}
               <li><a href="#{{ group[0] }}">{{ group[1] }}</a></li>
               {% endfor %}
             </ul>
-            {% endunless %}
           </li>
           {% endfor %}
         </ul>
@@ -83,11 +81,11 @@
         {% endif %}
       </div>
       {% for category in catalog.categories %}
-          {% if page.catalog == 'plugins' %}
+          {% if page.catalog == 'components' %}
             {% assign category_count = 0 %}
             {% for plugin_group in category[1].groups %}
               {% assign plugin_group_id = plugin_group[0] %}
-              {% assign plugin_entries = site.data.catalog[plugin_group_id] %}
+              {% assign plugin_entries = site.data.component_catalog[plugin_group_id] %}
               {% assign group_count = plugin_entries | size %}
               {% assign category_count = category_count | plus: group_count %}
             {% endfor %}
@@ -98,7 +96,7 @@
         {% for group in category[1].groups %}
         {% assign group_id = group[0] %}
         <section id="{{ group_id }}" class="catalog-group" aria-labelledby="{{ group_id }}-title">
-          <h4 id="{{ group_id }}-title"{% if page.catalog == 'plugins' %} hidden{% endif %}>{{ group[1] }}</h4>
+          <h4 id="{{ group_id }}-title">{{ group[1] }}</h4>
           {% include catalog-group.html group=group_id %}
         </section>
         {% endfor %}
