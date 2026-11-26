@@ -1,5 +1,14 @@
-{% assign family_config = site.data.product_families[include.entry.family] %}
-<li{% if include.component %} id="component-{{ include.component.id | escape }}" data-kind="{{ include.component.kind | escape }}" data-ecosystems="{{ include.component.ecosystems | join: '|' | escape }}" data-functions="{{ include.component.functions | join: '|' | escape }}"{% endif %}{% if family_config %} data-family="{{ include.entry.family | escape }}" data-family-title="{{ family_config.title | escape }}" data-family-placement="{{ family_config.placement | escape }}"{% endif %}{% if include.entry.alias %} data-alias="{{ include.entry.alias | escape }}"{% endif %}{% if include.entry.anchor and include.component == nil %} id="tool-{{ include.entry.anchor | escape }}"{% endif %}{% if include.entry.integrations %} data-hosts="{{ include.entry.integrations | map: 'host' | join: '|' | escape }}"{% endif %}{% if include.entry.platforms %} data-platforms="{{ include.entry.platforms | join: ' ' | escape }}"{% endif %}>
+{% assign family_key = nil %}
+{% for relation in site.data.entity_relations %}
+  {% if relation.from == include.entry.entity_id %}
+    {% if relation.type == 'family_member' or relation.type == 'ecosystem_member' %}
+      {% assign family_key = relation.to | remove_first: 'family-' %}
+      {% break %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+{% assign family_config = site.data.product_families[family_key] %}
+<li data-entity-id="{{ include.entry.entity_id | escape }}"{% if include.component %} id="component-{{ include.component.id | escape }}" data-kind="{{ include.component.kind | escape }}" data-ecosystems="" data-functions="{{ include.component.functions | join: '|' | escape }}"{% endif %}{% if family_config %} data-family="{{ family_key | escape }}" data-family-title="{{ family_config.title | escape }}" data-family-kind="{{ family_config.kind | default: 'product' | escape }}" data-family-placement="{{ family_config.placement | escape }}"{% endif %}{% if include.entry.alias %} data-alias="{{ include.entry.alias | escape }}"{% endif %}{% if include.component == nil %} id="tool-{{ include.entry.anchor | default: include.entry.entity_id | escape }}"{% endif %}{% if include.entry.integrations %} data-hosts="{{ include.entry.integrations | map: 'host' | join: '|' | escape }}"{% endif %}{% if include.entry.platforms %} data-platforms="{{ include.entry.platforms | join: ' ' | escape }}"{% endif %}>
   {% if include.component and include.entry.anchor %}<span id="tool-{{ include.entry.anchor | escape }}" class="anchor-compat" aria-hidden="true"></span>{% endif %}
   <div class="catalog-card-heading">
     <{{ include.heading }}{% if include.entry.icon or include.entry.icon_url %} class="card-title-with-icon"{% endif %}>
@@ -23,19 +32,7 @@
   <p>{{ include.entry.summary }}</p>
   <div class="card-details">{% if include.component %}<span class="component-kind">{% case include.component.kind %}{% when 'library' %}软件库{% when 'framework' %}开发框架{% when 'plugin' %}插件{% when 'sdk' %}SDK{% when 'runtime' %}运行时{% else %}辅助工具{% endcase %}</span>{% endif %}<span>{{ include.entry.type | escape }}</span>{% if include.entry.docs %}<a href="{{ include.entry.docs.url | escape }}">{{ include.entry.docs.label }}</a>{% endif %}</div>
   {% if include.component %}
-    <ul class="component-tags" aria-label="技术生态">{% for ecosystem in include.component.ecosystems %}<li>{{ ecosystem | escape }}</li>{% endfor %}</ul>
-    {% assign component_relations = site.data.component_relations | where: 'from', include.component.id %}
-    {% if component_relations.size > 0 %}
-    <details class="component-relations">
-      <summary>关联关系（{{ component_relations.size }}）</summary>
-      <ul>{% for relation in component_relations %}
-        <li>
-          <span class="relation-kind">{% case relation.type %}{% when 'depends_on' %}依赖{% when 'built_on' %}基于{% when 'integrates_with' %}集成{% when 'official_companion' %}官方配套{% when 'alternative_to' %}同类替代{% else %}相关{% endcase %}</span>
-          {% if relation.to %}<a href="{{ '/components/' | relative_url }}#component-{{ relation.to | escape }}">{{ relation.label | escape }}</a>{% else %}<a href="{{ relation.external_url | escape }}" rel="noopener noreferrer">{{ relation.external_name | escape }}</a>{% endif %}
-          {% if relation.source_url %}<a class="relation-source" href="{{ relation.source_url | escape }}" rel="noopener noreferrer" aria-label="查看关系的官方依据">依据</a>{% endif %}
-        </li>
-      {% endfor %}</ul>
-    </details>{% endif %}
+    <ul class="component-tags" aria-label="技术生态" hidden></ul>
   {% endif %}
   {% if include.entry.platforms %}
     <ul class="tool-platforms" aria-label="可用平台">
