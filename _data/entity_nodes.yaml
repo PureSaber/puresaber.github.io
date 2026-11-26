@@ -1,0 +1,40 @@
+ecosystem-python:
+  label: "Python"
+  kind: "ecosystem"
+  related_entity: "python"
+ecosystem-pytorch:
+  label: "PyTorch"
+  kind: "ecosystem"
+  related_entity: "pytorch"
+ecosystem-tensorflow:
+  label: "TensorFlow"
+  kind: "ecosystem"
+  related_entity: "tensorflow"
+ecosystem-vscode:
+  label: "VS Code"
+  kind: "ecosystem"
+  related_entity: "vscode"
+ecosystem-hugging-face:
+  label: "Hugging Face"
+  kind: "ecosystem"
+  related_entity: "hugging-face-hub"
+ecosystem-rust:
+  label: "Rust"
+  kind: "ecosystem"
+  related_entity: "rust"
+ecosystem-onnx:
+  label: "ONNX"
+  kind: "ecosystem"
+  related_entity: "onnx-runtime"
+vendor-jetbrains:
+  label: "JetBrains"
+  kind: "vendor"
+  url: "https://www.jetbrains.com/"
+vendor-microsoft:
+  label: "Microsoft"
+  kind: "vendor"
+  url: "https://www.microsoft.com/"
+vendor-google:
+  label: "Google"
+  kind: "vendor"
+  url: "https://about.google/"
