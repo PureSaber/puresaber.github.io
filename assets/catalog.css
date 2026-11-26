@@ -445,17 +445,3 @@ code { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .91em; 
 @media (max-width: 35rem) {
   #components .search-row select { flex-basis: calc(50% - .5rem); }
 }
-
-/* Typed relation graph: compact by default, open when an item is being investigated. */
-.entity-links { margin-top: .7rem; padding-top: .55rem; border-top: 1px solid var(--line); font-size: .83rem; }
-.entity-links > summary { color: var(--green); font-weight: 650; cursor: pointer; width: fit-content; }
-.entity-links > ul { list-style: none; padding: .2rem 0 0; margin: .4rem 0 0; }
-.entity-links li { display: flex; flex-wrap: wrap; gap: .3rem .5rem; align-items: baseline; padding: .16rem 0; }
-.entity-links .relation-kind { color: var(--muted); min-width: 5rem; }
-.entity-links .entity-relation-note { color: var(--muted); font-size: .75rem; }
-.entity-links .relation-source { color: var(--muted); font-size: .75rem; margin-inline-start: auto; }
-.entity-related-members { margin: .35rem 0 .5rem; flex-basis: 100%; }
-.entity-related-members > summary { cursor: pointer; color: var(--green); font-weight: 550; }
-.entity-related-members > ul { display: flex; gap: .3rem .75rem; flex-wrap: wrap; max-height: 14rem; overflow-y: auto; list-style: none; padding: .5rem 0; margin: 0; }
-.entity-related-members li { padding: .15rem .3rem; border: 1px solid var(--line); border-radius: .3rem; }
-.catalog-section[data-view="list"] .entity-links { grid-column: 1 / -1; grid-row: auto; }

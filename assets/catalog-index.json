@@ -3,9 +3,5 @@ layout: null
 ---
 {
   "catalog": {{ site.data.catalog | jsonify }},
-  "components": {{ site.data.component_catalog | jsonify }},
-  "relations": {{ site.data.entity_relations | jsonify }},
-  "nodes": {{ site.data.entity_nodes | jsonify }},
-  "families": {{ site.data.product_families | jsonify }},
-  "navigation": {{ site.data.catalog_navigation | jsonify }}
+  "components": {{ site.data.component_catalog | jsonify }}
 }

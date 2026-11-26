@@ -9,11 +9,9 @@ nodejs:
   placement: nodejs
 python:
   title: "Python"
-  kind: ecosystem
   placement: python
 rust:
   title: "Rust"
-  kind: ecosystem
   placement: rust
 docker:
   title: "Docker"
