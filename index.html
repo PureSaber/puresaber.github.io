@@ -10,8 +10,8 @@ layout: null
   <meta name="description" content="Kurage 的实用工具箱，收录开发与量化工具、编程学习资料和市场数据来源。">
   <title>我的实用工具箱 · Kurage</title>
   <link rel="icon" type="image/png" sizes="96x96" href="{{ '/assets/site-toolbox-icon.png' | relative_url }}">
-  <link rel="stylesheet" href="{{ '/assets/catalog.css' | relative_url }}?v=home-cards">
-  <script defer src="{{ '/assets/home-search.js' | relative_url }}?v=extension-hub"></script>
+  <link rel="stylesheet" href="{{ '/assets/catalog.css' | relative_url }}?v=components-v1">
+  <script defer src="{{ '/assets/home-search.js' | relative_url }}?v=components-v1"></script>
   <style>
     .home-shell {
       width: min(68rem, calc(100% - 3rem));
@@ -245,7 +245,7 @@ layout: null
         data-index="{{ '/assets/catalog-index.json' | relative_url }}"
         data-icon-base="{{ '/assets/tool-icons/' | relative_url }}">
     <h1>我的实用工具箱</h1>
-    {% include catalog-search.html label="搜索工具、资源与插件" home=true %}
+    {% include catalog-search.html label="搜索工具、资源与组件" home=true %}
     <nav class="home-nav" aria-label="站点导航">
       <ul>
         <li class="featured">
@@ -269,8 +269,8 @@ layout: null
           </a>
         </li>
         <li>
-          <a class="home-banner banner-plugins" id="plugins-entry" href="{{ '/plugins/' | relative_url }}">
-            <span class="banner-copy"><strong>插件与扩展</strong><small>编辑器扩展与跨平台集成</small></span>
+          <a class="home-banner banner-plugins" id="components-entry" href="{{ '/components/' | relative_url }}">
+            <span class="banner-copy"><strong>扩展与组件</strong><small>软件库、框架、插件和技术生态</small></span>
             <span class="banner-art" aria-hidden="true">
               <span class="banner-icon-tile"><svg class="banner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3H5a2 2 0 0 0-2 2v4h2a2 2 0 0 1 0 4H3v6a2 2 0 0 0 2 2h4v-2a2 2 0 0 1 4 0v2h6a2 2 0 0 0 2-2v-6h-2a2 2 0 0 1 0-4h2V5a2 2 0 0 0-2-2h-4v2a2 2 0 0 1-4 0V3Z"/></svg></span>
             </span>

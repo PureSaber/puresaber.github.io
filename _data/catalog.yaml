@@ -266,6 +266,7 @@ runtimes:
   summary: 用于系统软件、CLI 与性能敏感程序。
   type: 语言
 - name: rust-analyzer
+  component_id: rust-analyzer
   family: rust
   anchor: rust-analyzer
   platforms: [Windows, macOS, Linux]
@@ -384,6 +385,7 @@ deployment:
   summary: Windows 的 Web 服务器和站点管理工具。
   type: Web 服务器
 - name: prometheus_client
+  component_id: prometheus-client
   icon: vendor-020.svg
   url: https://prometheus.github.io/client_python/
   summary: 为 Python 程序暴露 Prometheus 指标。
@@ -409,6 +411,7 @@ deployment:
 
 api-development:
 - name: FastAPI
+  component_id: fastapi
   icon: vendor-021.svg
   url: https://fastapi.tiangolo.com/
   summary: 用 Python 构建带交互式文档的 API。
@@ -488,6 +491,7 @@ research-data:
   summary: 用 Notebook 做策略复现的单步检查，例如抽查信号计算、对齐交易日、对照研报图表。
   type: Notebook
 - name: pandas
+  component_id: pandas
   icon: vendor-030.svg
   url: https://pandas.pydata.org/docs/getting_started/index.html
   summary: 清洗行情表、合并交易日并计算滚动指标。适合把原始数据整理成回测需要的表格。
@@ -502,16 +506,19 @@ research-data:
   summary: 用 SQL 查询本地 CSV 或 Parquet，适合快速抽取样本、查重复行和对比文件字段。
   type: 数据库
 - name: NumPy
+  component_id: numpy
   icon: vendor-032.svg
   url: https://numpy.org/
   summary: 进行多维数组运算和数值计算。
   type: Python 库
 - name: SciPy
+  component_id: scipy
   icon: vendor-033.svg
   url: https://scipy.org/
   summary: 提供统计、优化和信号处理工具。
   type: Python 库
 - name: Polars
+  component_id: polars
   icon: vendor-034.svg
   url: https://docs.pola.rs/
   summary: 以表达式方式处理表格和列式数据。
@@ -531,21 +538,25 @@ research-data:
 
 market-tools:
 - name: AKShare
+  component_id: akshare
   icon: vendor-077.png
   url: https://akshare.akfamily.xyz/
   summary: 用 Python 探索股票、期货、基金等公开财经数据。接入策略前，先对照原始数据源确认字段、时间戳和复权口径。
   type: Python 库
 - name: pandas-ta
+  component_id: pandas-ta
   icon: pandas-ta.png
   url: https://pypi.org/project/pandas-ta/
   summary: 在 pandas 数据上计算常用技术指标。
   type: Python 库
 - name: Backtrader
+  component_id: backtrader
   icon: retry-backtrader.png
   url: https://www.backtrader.com/
   summary: 构建基于事件的策略回测。
   type: Python 库
 - name: vectorbt
+  component_id: vectorbt
   icon: vendor-078.png
   url: https://vectorbt.dev/
   summary: 用向量化计算扫描和比较回测参数。
@@ -570,6 +581,7 @@ market-tools:
   type: 金融数据终端
 
 - name: yfinance
+  component_id: yfinance
   icon: local-yahoo.svg
   url: https://github.com/ranaroussi/yfinance
   summary: 通过 Python 获取 Yahoo Finance 行情与金融数据；用于研究前需核验调整口径和数据质量。
@@ -577,26 +589,31 @@ market-tools:
 
 visualization:
 - name: Matplotlib
+  component_id: matplotlib
   icon: vendor-036.svg
   url: https://matplotlib.org/
   summary: 生成可细致控制的统计图和研究图。
   type: Python 库
 - name: Seaborn
+  component_id: seaborn
   icon: vendor-037.svg
   url: https://seaborn.pydata.org/
   summary: 快速绘制统计关系和分布。
   type: Python 库
 - name: Altair
+  component_id: altair
   icon: vendor-079.png
   url: https://altair-viz.github.io/
   summary: 以声明式语法构建统计图。
   type: Python 库
 - name: Plotly
+  component_id: plotly
   icon: vendor-038.svg
   url: https://plotly.com/python/
   summary: 生成可缩放和悬停查看的交互图。
   type: Python 库
 - name: Streamlit
+  component_id: streamlit
   icon: vendor-039.svg
   url: https://docs.streamlit.io/
   summary: 将 Python 脚本做成可交互的数据应用。
@@ -604,26 +621,31 @@ visualization:
 
 modeling:
 - name: scikit-learn（sklearn）
+  component_id: scikit-learn
   icon: vendor-040.svg
   url: https://scikit-learn.org/stable/
   summary: 训练与评估常用机器学习模型。
   type: Python 库
 - name: LightGBM
+  component_id: lightgbm
   icon: lightgbm-docs.svg
   url: https://lightgbm.readthedocs.io/
   summary: 训练基于树的梯度提升模型。
   type: Python 库
 - name: XGBoost
+  component_id: xgboost
   icon: retry-xgboost.png
   url: https://xgboost.readthedocs.io/
   summary: 训练用于分类、回归和排序的梯度提升模型。
   type: Python 库
 - name: OR-Tools（ortools）
+  component_id: or-tools
   icon: vendor-080.svg
   url: https://developers.google.com/optimization
   summary: 求解排程、路径规划和约束优化问题。
   type: 优化库
 - name: Gurobi（gurobipy）
+  component_id: gurobi
   platforms: [Windows, macOS, Linux]
   linux:
     note: 按系统与 CPU 架构选择安装包
@@ -633,11 +655,13 @@ modeling:
   summary: 从 Python 构建和求解数学规划模型。
   type: 求解器 / Python 接口
 - name: PyTorch（torch）
+  component_id: pytorch
   icon: vendor-042.svg
   url: https://pytorch.org/
   summary: 用张量与自动微分训练神经网络。
   type: Python 库
 - name: TensorFlow
+  component_id: tensorflow
   family: tensorflow
   anchor: tensorflow
   icon: vendor-043.svg
@@ -645,6 +669,7 @@ modeling:
   summary: 构建、训练和部署机器学习模型。
   type: Python 库
 - name: Weights &amp; Biases（W&amp;B）
+  component_id: weights-biases
   platforms: [Web]
   icon: vendor-044.svg
   url: https://docs.coreweave.com/products/wandb
@@ -656,6 +681,7 @@ modeling:
   summary: 记录模型实验并管理模型产物。
   type: 实验平台
 - name: TensorBoard
+  component_id: tensorboard
   family: tensorflow
   anchor: tensorboard
   icon: vendor-046.svg
@@ -665,11 +691,13 @@ modeling:
 
 nlp:
 - name: jieba
+  component_id: jieba
   icon: jieba.png
   url: https://github.com/fxsjy/jieba
   summary: 中文分词与关键词提取。
   type: Python 库
 - name: OpenCC
+  component_id: opencc
   platforms: [Windows, macOS, Linux]
   linux:
     note: 不同 Linux 发行版安装方式不同
@@ -679,21 +707,25 @@ nlp:
   summary: 转换简繁中文及地区词汇。
   type: CLI / 库
 - name: NLTK
+  component_id: nltk
   icon: vendor-081.png
   url: https://www.nltk.org/
   summary: 文本预处理、标注和语料分析。
   type: Python 库
 - name: spaCy
+  component_id: spacy
   icon: vendor-047.svg
   url: https://spacy.io/
   summary: 构建分词、词性标注和实体识别流程。
   type: Python 库
 - name: faster-whisper（faster_whisper）
+  component_id: faster-whisper
   icon: faster-whisper-systran.png
   url: https://github.com/SYSTRAN/faster-whisper
   summary: 在本地进行 Whisper 语音转写。
   type: Python 库
 - name: Transformers
+  component_id: transformers
   family: hugging-face
   anchor: transformers
   icon: vendor-048.svg
@@ -701,6 +733,7 @@ nlp:
   summary: 使用或微调预训练模型。
   type: Python 库
 - name: Tokenizers
+  component_id: tokenizers
   family: hugging-face
   anchor: tokenizers
   icon: vendor-048.svg
@@ -708,11 +741,13 @@ nlp:
   summary: 训练和运行文本分词器。
   type: 模型工具
 - name: ONNX Runtime
+  component_id: onnx-runtime
   icon: vendor-049.svg
   url: https://onnxruntime.ai/
   summary: 在不同硬件平台运行 ONNX 模型。
   type: 推理运行时
 - name: Hugging Face Hub
+  component_id: hugging-face-hub
   family: hugging-face
   anchor: hugging-face-hub
   platforms: [Web]
@@ -1306,6 +1341,7 @@ community-media:
 
 editor-extensions:
 - name: Slidev
+  component_id: slidev
   icon: vendor-069.png
   url: https://marketplace.visualstudio.com/items?itemName=antfu.slidev
   summary: 编写和预览 Slidev 演示文稿。
@@ -1315,6 +1351,7 @@ editor-extensions:
   - host: VS Code
     url: https://marketplace.visualstudio.com/items?itemName=antfu.slidev
 - name: Prettier
+  component_id: prettier
   icon: vendor-070.png
   url: https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
   summary: 格式化 JavaScript、HTML、CSS 等文件。
@@ -1324,6 +1361,7 @@ editor-extensions:
   - host: VS Code
     url: https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
 - name: GitHub Theme
+  component_id: github-theme
   icon: vendor-071.png
   url: https://marketplace.visualstudio.com/items?itemName=GitHub.github-vscode-theme
   summary: 在 VS Code 使用 GitHub 配色主题。
@@ -1333,6 +1371,7 @@ editor-extensions:
   - host: VS Code
     url: https://marketplace.visualstudio.com/items?itemName=GitHub.github-vscode-theme
 - name: LaTeX Workshop
+  component_id: latex-workshop
   icon: vendor-072.png
   url: https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop
   summary: 编译、预览和编辑 LaTeX 文档。
@@ -1342,6 +1381,7 @@ editor-extensions:
   - host: VS Code
     url: https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop
 - name: MarsCode
+  component_id: marscode
   icon: retry-marscode.png
   url: https://marketplace.visualstudio.com/items?itemName=MarsCode.marscode-extension
   summary: 用于代码补全和问答的编程助手扩展。
@@ -1351,6 +1391,7 @@ editor-extensions:
   - host: VS Code
     url: https://marketplace.visualstudio.com/items?itemName=MarsCode.marscode-extension
 - name: Live Server
+  component_id: live-server
   icon: vendor-073.png
   url: https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer
   summary: 启动带自动刷新的本地网页服务器。
@@ -1360,6 +1401,7 @@ editor-extensions:
   - host: VS Code
     url: https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer
 - name: Markdown Preview Enhanced
+  component_id: markdown-preview-enhanced
   icon: vendor-086.png
   url: https://marketplace.visualstudio.com/items?itemName=shd101wyy.markdown-preview-enhanced
   summary: 预览带公式和图表的 Markdown。
@@ -1369,6 +1411,7 @@ editor-extensions:
   - host: VS Code
     url: https://marketplace.visualstudio.com/items?itemName=shd101wyy.markdown-preview-enhanced
 - name: vscode-icons
+  component_id: vscode-icons
   icon: vendor-074.svg
   url: https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons
   summary: 按文件类型显示不同图标。
@@ -1378,6 +1421,7 @@ editor-extensions:
   - host: VS Code
     url: https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons
 - name: Markdown PDF
+  component_id: markdown-pdf
   icon: vendor-075.png
   url: https://marketplace.visualstudio.com/items?itemName=yzane.markdown-pdf
   summary: 将 Markdown 文件导出为 PDF。

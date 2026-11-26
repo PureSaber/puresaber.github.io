@@ -1,5 +1,6 @@
 {% assign family_config = site.data.product_families[include.entry.family] %}
-<li{% if family_config %} data-family="{{ include.entry.family | escape }}" data-family-title="{{ family_config.title | escape }}" data-family-placement="{{ family_config.placement | escape }}"{% endif %}{% if include.entry.alias %} data-alias="{{ include.entry.alias | escape }}"{% endif %}{% if include.entry.anchor %} id="tool-{{ include.entry.anchor | escape }}"{% endif %}{% if include.entry.integrations %} data-hosts="{{ include.entry.integrations | map: 'host' | join: '|' | escape }}"{% endif %}{% if include.entry.platforms %} data-platforms="{{ include.entry.platforms | join: ' ' | escape }}"{% endif %}>
+<li{% if include.component %} id="component-{{ include.component.id | escape }}" data-kind="{{ include.component.kind | escape }}" data-ecosystems="{{ include.component.ecosystems | join: '|' | escape }}" data-functions="{{ include.component.functions | join: '|' | escape }}"{% endif %}{% if family_config %} data-family="{{ include.entry.family | escape }}" data-family-title="{{ family_config.title | escape }}" data-family-placement="{{ family_config.placement | escape }}"{% endif %}{% if include.entry.alias %} data-alias="{{ include.entry.alias | escape }}"{% endif %}{% if include.entry.anchor and include.component == nil %} id="tool-{{ include.entry.anchor | escape }}"{% endif %}{% if include.entry.integrations %} data-hosts="{{ include.entry.integrations | map: 'host' | join: '|' | escape }}"{% endif %}{% if include.entry.platforms %} data-platforms="{{ include.entry.platforms | join: ' ' | escape }}"{% endif %}>
+  {% if include.component and include.entry.anchor %}<span id="tool-{{ include.entry.anchor | escape }}" class="anchor-compat" aria-hidden="true"></span>{% endif %}
   <div class="catalog-card-heading">
     <{{ include.heading }}{% if include.entry.icon or include.entry.icon_url %} class="card-title-with-icon"{% endif %}>
       {% if include.entry.icon or include.entry.icon_url %}<img class="tool-icon" src="{% if include.entry.icon_url %}{{ include.entry.icon_url | escape }}{% else %}{{ include.entry.icon | prepend: '/assets/tool-icons/' | relative_url | escape }}{% endif %}" width="20" height="20" alt="" loading="lazy" decoding="async">{% endif %}
@@ -20,7 +21,22 @@
     {% endif %}
   </div>
   <p>{{ include.entry.summary }}</p>
-  <div class="card-details"><span>{{ include.entry.type | escape }}</span>{% if include.entry.docs %}<a href="{{ include.entry.docs.url | escape }}">{{ include.entry.docs.label }}</a>{% endif %}</div>
+  <div class="card-details">{% if include.component %}<span class="component-kind">{% case include.component.kind %}{% when 'library' %}软件库{% when 'framework' %}开发框架{% when 'plugin' %}插件{% when 'sdk' %}SDK{% when 'runtime' %}运行时{% else %}辅助工具{% endcase %}</span>{% endif %}<span>{{ include.entry.type | escape }}</span>{% if include.entry.docs %}<a href="{{ include.entry.docs.url | escape }}">{{ include.entry.docs.label }}</a>{% endif %}</div>
+  {% if include.component %}
+    <ul class="component-tags" aria-label="技术生态">{% for ecosystem in include.component.ecosystems %}<li>{{ ecosystem | escape }}</li>{% endfor %}</ul>
+    {% assign component_relations = site.data.component_relations | where: 'from', include.component.id %}
+    {% if component_relations.size > 0 %}
+    <details class="component-relations">
+      <summary>关联关系（{{ component_relations.size }}）</summary>
+      <ul>{% for relation in component_relations %}
+        <li>
+          <span class="relation-kind">{% case relation.type %}{% when 'depends_on' %}依赖{% when 'built_on' %}基于{% when 'integrates_with' %}集成{% when 'official_companion' %}官方配套{% when 'alternative_to' %}同类替代{% else %}相关{% endcase %}</span>
+          {% if relation.to %}<a href="{{ '/components/' | relative_url }}#component-{{ relation.to | escape }}">{{ relation.label | escape }}</a>{% else %}<a href="{{ relation.external_url | escape }}" rel="noopener noreferrer">{{ relation.external_name | escape }}</a>{% endif %}
+          {% if relation.source_url %}<a class="relation-source" href="{{ relation.source_url | escape }}" rel="noopener noreferrer" aria-label="查看关系的官方依据">依据</a>{% endif %}
+        </li>
+      {% endfor %}</ul>
+    </details>{% endif %}
+  {% endif %}
   {% if include.entry.platforms %}
     <ul class="tool-platforms" aria-label="可用平台">
       {% for platform in include.entry.platforms %}<li>{{ platform | escape }}</li>{% endfor %}
@@ -44,25 +60,28 @@
     {% assign extension_host = include.entry.extension_host | default: include.entry.name %}
     {% assign extension_count = 0 %}
     {% capture extension_items %}
-      {% for category in site.data.catalog_navigation.plugins.categories %}
-        {% for group in category[1].groups %}
-          {% assign plugin_group_id = group[0] %}
-          {% for plugin in site.data.catalog[plugin_group_id] %}
-            {% assign matching_installation = plugin.integrations | where: 'host', extension_host | first %}
-            {% if matching_installation %}
-              {% assign extension_count = extension_count | plus: 1 %}
-              <li data-plugin-anchor="{{ plugin.anchor | escape }}">
-                <div class="catalog-card-heading">
-                  <h6{% if plugin.icon or plugin.icon_url %} class="card-title-with-icon"{% endif %}>
-                    {% if plugin.icon or plugin.icon_url %}<img class="tool-icon" src="{% if plugin.icon_url %}{{ plugin.icon_url | escape }}{% else %}{{ plugin.icon | prepend: '/assets/tool-icons/' | relative_url | escape }}{% endif %}" width="20" height="20" alt="" loading="lazy" decoding="async">{% endif %}
-                    <a href="{{ matching_installation.url | escape }}">{{ plugin.name }}</a>
-                  </h6>
-                </div>
-                <p>{{ plugin.summary }}</p>
-                <div class="card-details"><span>{{ plugin.type | escape }}</span><a href="{{ matching_installation.url | escape }}">安装入口</a></div>
-              </li>
+      {% for component_group in site.data.component_catalog %}
+        {% for component in component_group[1] %}
+          {% if component.kind == 'plugin' %}
+            {% assign plugin_entries = site.data.catalog[component.source_group] %}
+            {% assign plugin = plugin_entries | where: 'component_id', component.id | first %}
+            {% if plugin %}
+              {% assign matching_installation = plugin.integrations | where: 'host', extension_host | first %}
+              {% if matching_installation %}
+                {% assign extension_count = extension_count | plus: 1 %}
+                <li data-plugin-anchor="{{ plugin.anchor | escape }}">
+                  <div class="catalog-card-heading">
+                    <h6{% if plugin.icon or plugin.icon_url %} class="card-title-with-icon"{% endif %}>
+                      {% if plugin.icon or plugin.icon_url %}<img class="tool-icon" src="{% if plugin.icon_url %}{{ plugin.icon_url | escape }}{% else %}{{ plugin.icon | prepend: '/assets/tool-icons/' | relative_url | escape }}{% endif %}" width="20" height="20" alt="" loading="lazy" decoding="async">{% endif %}
+                      <a href="{{ matching_installation.url | escape }}">{{ plugin.name }}</a>
+                    </h6>
+                  </div>
+                  <p>{{ plugin.summary }}</p>
+                  <div class="card-details"><span>{{ plugin.type | escape }}</span><a href="{{ matching_installation.url | escape }}">安装入口</a></div>
+                </li>
+              {% endif %}
             {% endif %}
-          {% endfor %}
+          {% endif %}
         {% endfor %}
       {% endfor %}
     {% endcapture %}
@@ -72,7 +91,7 @@
       <details id="{{ extension_id | escape }}" class="extensions">
         <summary id="{{ extension_id | escape }}-title">{{ extension_host | escape }} 扩展（{{ extension_count }}）</summary>
         <ul class="extension-list">{{ extension_items }}</ul>
-        <div class="card-details"><a href="{{ '/plugins/' | relative_url }}?host={{ extension_host | uri_escape }}">在插件中心查看 ↗</a></div>
+        <div class="card-details"><a href="{{ '/components/' | relative_url }}?host={{ extension_host | uri_escape }}">在扩展与组件中查看 ↗</a></div>
       </details>
     {% endif %}
   {% endif %}

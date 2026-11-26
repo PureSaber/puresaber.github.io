@@ -24,3 +24,13 @@
 ## 工具图标维护
 
 优先采用 `assets/tool-icons/` 中的本地品牌图标。此次新增的本地 SVG 来源： [Simple Icons](https://github.com/simple-icons/simple-icons)（Canva 与 OneNote 使用 11.15.0 版）、[Lobe Icons](https://github.com/lobehub/lobe-icons)（Qwen、Grok、Doubao、TRAE）、[Devicon](https://github.com/devicons/devicon)（MATLAB）。工具与资源目录的图标已全部改为本地文件，不再依赖浏览器访问第三方 favicon 服务。补充图标的来源见 [`assets/tool-icons/catalog-icon-sources.json`](assets/tool-icons/catalog-icon-sources.json)。新增条目时应提交实际图标文件并设置 `icon` 字段；加载失败时不显示破损图片。
+
+
+## 扩展与组件目录
+
+- 新目录：`/components/`；旧 `/plugins/` 保留并转向新目录，透传 `?host=` 与哈希锚点。
+- `_data/catalog.yaml` 是条目资料的唯一来源；`component_id` 是稳定引用 ID。
+- `_data/component_catalog.yaml` 只记录已有条目的组件归类、技术生态和功能，不复制描述与图标。
+- `_data/component_relations.yaml` 用有类型的边记录依赖、基于、集成、官方配套等关系，并附官方来源；外部配套只展示引用链接，不自动加入正式目录。
+- 产品家族（`product_families.yaml`）与技术生态独立：生态归属不表示品牌所有权。
+- 新组件不自动从外部检索或入库；目前只包含原工具目录中的已登记条目。
