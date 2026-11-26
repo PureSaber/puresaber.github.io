@@ -66,43 +66,30 @@ resources:
       groups:
         tool-directories: 工具合集与导航站
         online-tools: 在线工具合集
-plugins:
-  title: 插件与扩展
-  description: 按宿主生态浏览插件与扩展，按具体宿主筛选，按功能用途搜索。
+components:
+  title: 扩展与组件
+  description: 从现有工具目录查找可复用的软件库、开发框架、插件和 SDK，并查看技术生态与关联关系。
   categories:
-    ide-extensions:
-      title: 开发环境与编辑器
+    libraries:
+      title: 软件库
+      groups:
+        scientific-libraries: 科学计算与数据处理
+        quant-libraries: 量化与回测
+        visual-libraries: 数据可视化
+        ml-libraries: 机器学习与优化
+        nlp-libraries: 文本与自然语言
+        utility-libraries: 监控与运维
+    frameworks:
+      title: 开发框架
+      groups:
+        web-frameworks: Web 与应用
+        ai-frameworks: 深度学习
+    extensions:
+      title: 插件与扩展
       groups:
         editor-extensions: 编辑器扩展
-    browser-extensions:
-      title: 浏览器
+    sdk-and-runtime:
+      title: SDK 与配套组件
       groups:
-        browser-plugins: 浏览器扩展
-    knowledge-extensions:
-      title: 知识管理与笔记
-      groups:
-        knowledge-plugins: 知识管理插件
-    office-extensions:
-      title: 办公软件
-      groups:
-        office-plugins: 办公软件扩展
-    design-extensions:
-      title: 设计与媒体软件
-      groups:
-        design-plugins: 设计与媒体扩展
-    ai-extensions:
-      title: AI 应用与智能代理
-      groups:
-        ai-plugins: AI 应用扩展
-    desktop-extensions:
-      title: 桌面与系统工具
-      groups:
-        desktop-plugins: 桌面与系统扩展
-    cms-extensions:
-      title: 内容管理与网站
-      groups:
-        cms-plugins: 内容管理扩展
-    game-extensions:
-      title: 游戏与娱乐
-      groups:
-        game-plugins: 游戏扩展
+        sdk-components: SDK 与服务集成
+        runtime-components: 运行时与辅助组件

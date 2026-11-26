@@ -1,4 +1,20 @@
 ---
-layout: catalog
-catalog: plugins
+layout: null
 ---
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>正在前往扩展与组件 · Kurage</title>
+<meta http-equiv="refresh" content="0;url={{ '/components/' | relative_url }}">
+<link rel="canonical" href="{{ '/components/' | absolute_url }}">
+<script>
+  const target = new URL({{ '/components/' | relative_url | jsonify }}, location.origin);
+  target.search = location.search;
+  target.hash = location.hash;
+  location.replace(target.href);
+</script>
+</head>
+<body><p>插件与扩展已更名为<a href="{{ '/components/' | relative_url }}">扩展与组件</a>。</p></body>
+</html>
