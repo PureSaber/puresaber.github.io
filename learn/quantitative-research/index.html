@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="围绕可检验研究假设、可靠数据、策略复现、回测和风险控制，系统学习量化投资研究全过程。">
+  <meta name="theme-color" content="#f6f5ef">
+  <title>量化研究与交易 · 学习路线 · Kurage</title>
+  <link rel="icon" type="image/png" sizes="96x96" href="../../assets/site-toolbox-icon.png">
+  <link rel="stylesheet" href="../../assets/sections.css">
+  <link rel="stylesheet" href="../../assets/learning-subject.css">
+</head>
+<body>
+  <a class="skip" href="#main">跳到正文</a>
+  <header class="masthead">
+    <div class="wrap">
+      <p class="subject-back"><a href="../">← 学习路线</a></p>
+      <p class="subject-eyebrow">LEARNING PATH</p>
+      <h1>量化研究与交易</h1>
+      <p class="intro" lang="en">Quantitative Research &amp; Trading</p>
+      <p class="subject-lead">围绕可检验研究假设、可靠数据、策略复现、回测和风险控制，系统学习量化投资研究全过程。</p>
+      <nav class="site-nav" aria-label="站点导航">
+        <ul>
+          <li><a href="../../">首页</a></li>
+          <li><a href="../../tools/">工具</a></li>
+          <li><a href="../../resources/">资源</a></li>
+          <li><a href="../" aria-current="page">学习路线</a></li>
+          <li><a href="../../projects/">项目与服务</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="wrap">
+    <nav class="section-links" aria-label="本页目录">
+      <a href="#topics">知识模块</a>
+      <a href="#sequence">学习顺序</a>
+      <a href="#practice">实践任务</a>
+      <a href="#resources">学习资源</a>
+      <a href="#related">相关学科</a>
+    </nav>
+    <section id="topics" class="section" aria-labelledby="topics-title">
+      <h2 id="topics-title">知识模块</h2>
+      <p class="subject-lead">从研究问题出发，得到可复现、可审查的策略证据。</p>
+      <div class="project-grid subject-grid">
+        <article class="project subject-topic">
+          <h3><span class="topic-number">01</span>研究方法与假设</h3>
+          <p class="english" lang="en">Research Design</p>
+          <p class="description">研究问题、基准假设、实验设计、样本内外划分与预注册思路。</p>
+          <p class="goal"><strong>目标：</strong>让每个策略结论都能被验证和反驳。</p>
+        </article>
+        <article class="project subject-topic">
+          <h3><span class="topic-number">02</span>行情数据与数据质量</h3>
+          <p class="english" lang="en">Market Data</p>
+          <p class="description">复权、合约换月、交易日历、时区、缺失值、幸存者偏差与未来函数。</p>
+          <p class="goal"><strong>目标：</strong>形成无未来信息泄漏的数据链路。</p>
+        </article>
+        <article class="project subject-topic">
+          <h3><span class="topic-number">03</span>统计分析与信号</h3>
+          <p class="english" lang="en">Signals &amp; Factors</p>
+          <p class="description">动量、反转、波动率、价量因子、标准化与信号稳定性。</p>
+          <p class="goal"><strong>目标：</strong>能区分信号有效性与偶然拟合。</p>
+        </article>
+        <article class="project subject-topic">
+          <h3><span class="topic-number">04</span>CTA 与中低频择时</h3>
+          <p class="english" lang="en">CTA &amp; Timing</p>
+          <p class="description">趋势跟踪、突破、时间序列动量、股指期货与商品期货择时。</p>
+          <p class="goal"><strong>目标：</strong>构建具备明确持仓与风控规则的策略。</p>
+        </article>
+        <article class="project subject-topic">
+          <h3><span class="topic-number">05</span>金融计量与时间序列</h3>
+          <p class="english" lang="en">Financial Econometrics</p>
+          <p class="description">平稳性、异方差、波动率模型、结构变化与滚动估计。</p>
+          <p class="goal"><strong>目标：</strong>选择与检验时间序列模型。</p>
+        </article>
+        <article class="project subject-topic">
+          <h3><span class="topic-number">06</span>回测与验证</h3>
+          <p class="english" lang="en">Backtesting &amp; Validation</p>
+          <p class="description">事件驱动回测、样本外检验、Walk-forward、交易成本与参数敏感性。</p>
+          <p class="goal"><strong>目标：</strong>区分回测收益与可信的研究结果。</p>
+        </article>
+        <article class="project subject-topic">
+          <h3><span class="topic-number">07</span>组合构建与风险</h3>
+          <p class="english" lang="en">Portfolio &amp; Risk</p>
+          <p class="description">波动率目标、风险预算、相关性、杠杆、回撤、压力测试与归因。</p>
+          <p class="goal"><strong>目标：</strong>解释组合风险并设定约束。</p>
+        </article>
+        <article class="project subject-topic">
+          <h3><span class="topic-number">08</span>交易执行与市场机制</h3>
+          <p class="english" lang="en">Execution &amp; Microstructure</p>
+          <p class="description">订单类型、滑点、手续费、成交限制、合约规则与容量。</p>
+          <p class="goal"><strong>目标：</strong>估计策略从信号到成交的损耗。</p>
+        </article>
+        <article class="project subject-topic">
+          <h3><span class="topic-number">09</span>论文复现与研究报告</h3>
+          <p class="english" lang="en">Replication &amp; Reporting</p>
+          <p class="description">论文拆解、数据口径、指标定义、实验日志、代码仓库与可复现报告。</p>
+          <p class="goal"><strong>目标：</strong>让第三方可以核对数据、代码与结论。</p>
+        </article>
+      </div>
+    </section>
+    <section id="sequence" class="section route" aria-labelledby="sequence-title">
+      <h2 id="sequence-title">建议学习顺序</h2>
+      <ol class="steps">
+        <li><strong>研究基础：</strong>补概率统计、时间序列、Python、金融产品及交易机制基础。</li>
+        <li><strong>数据管道：</strong>处理行情、合约换月、手续费和时钟口径，先构建基准数据集。</li>
+        <li><strong>单策略验证：</strong>从一个简单趋势或均值回归假设开始，明确规则和基准。</li>
+        <li><strong>稳健性与风险：</strong>检验样本外结果、成本、分市场表现、回撤与参数敏感性。</li>
+        <li><strong>研究复现与汇报：</strong>用可运行代码、数据说明、实验表格和复核清单完成研究档案。</li>
+      </ol>
+    </section>
+    <section id="practice" class="section route" aria-labelledby="practice-title">
+      <h2 id="practice-title">实践与验收</h2>
+      <p>建议为每个任务保存原始资料、过程和结果，便于后续复习与复现。</p>
+      <ol class="steps">
+        <li><strong>CTA 基准策略：</strong>实现一个股指或商品期货时间序列动量基准，写清换月、信号时间、成交时间及单边费用。</li>
+        <li><strong>稳健性审计：</strong>对同一策略做滚动样本外检验与参数扰动，列出失效情境和估值偏差。</li>
+        <li><strong>论文复现包：</strong>交付实验 README、数据字典、运行脚本、指标对照表和结论差异归因。</li>
+      </ol>
+    </section>
+    <section id="resources" class="section route" aria-labelledby="resources-title">
+      <h2 id="resources-title">学习资源</h2>
+      <p>按材料形式选择课程、书籍、文档、练习或音频；外部资料的开放范围以来源页面为准。</p>
+      <ul class="subject-resource-list">
+        <li><span class="resource-type">文档·研究</span><a href="https://www.quantconnect.com/docs/v2/research-environment/key-concepts/research-engine" rel="noopener noreferrer" target="_blank">QuantConnect 研究环境</a><small>研究与实验平台文档</small></li>
+        <li><span class="resource-type">代码·引擎</span><a href="https://github.com/QuantConnect/Lean" rel="noopener noreferrer" target="_blank">QuantConnect LEAN</a><small>开源回测与交易引擎</small></li>
+        <li><span class="resource-type">论文·研究</span><a href="https://www.aqr.com/Insights/Research" rel="noopener noreferrer" target="_blank">AQR Research</a><small>系统投资与资产配置研究</small></li>
+        <li><span class="resource-type">论文·检索</span><a href="https://www.ssrn.com/" rel="noopener noreferrer" target="_blank">SSRN</a><small>金融与计量研究文献</small></li>
+        <li><span class="resource-type">数据·宏观</span><a href="https://fred.stlouisfed.org/" rel="noopener noreferrer" target="_blank">FRED</a><small>宏观经济时间序列</small></li>
+        <li><span class="resource-type">数据·官方</span><a href="https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm" rel="noopener noreferrer" target="_blank">CFTC Commitments of Traders</a><small>期货市场持仓报告</small></li>
+      </ul>
+    </section>
+    <section id="related" class="section route" aria-labelledby="related-title">
+      <h2 id="related-title">相关学科</h2>
+      <p>知识可互相关联，路线仍独立维护。</p>
+      <nav class="subject-related" aria-label="相关学习路线">
+        <a href="../mathematics-statistics/">数学与统计</a>
+        <a href="../finance-investment/">金融与投资</a>
+        <a href="../computer-science/">计算机科学</a>
+      </nav>
+    </section>
+  </main>
+</body>
+</html>
