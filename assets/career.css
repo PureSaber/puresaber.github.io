@@ -4,6 +4,7 @@
 .career-section-intro{margin-top:.45rem;color:var(--muted)}
 .career-header-note{margin-top:1rem;display:flex;flex-wrap:wrap;gap:.5rem}
 .career-pill{display:inline-flex;border:1px solid #b7c7b9;color:var(--green);border-radius:2rem;padding:.15rem .7rem;font-size:.78rem;font-weight:700}
+[data-career-view]>.section:first-child{margin-top:1.35rem}
 .career-roles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.9rem;margin-top:1rem}
 .career-card{display:flex;flex-direction:column;min-width:0;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:1.1rem;padding:1.35rem;transition:transform .18s ease,box-shadow .18s ease,border-color .18s}
 .career-card:hover{transform:translateY(-3px);border-color:#93b39d;box-shadow:0 .6rem 1.4rem #19332416}
