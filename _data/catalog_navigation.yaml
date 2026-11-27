@@ -52,7 +52,7 @@ resources:
     market-research-resources:
       title: 市场与研究资料
       groups:
-        research: 市场数据与官方核对
+        research: 市场数据与官方信息
         financial-data: 金融数据接口
         quant-platforms: 量化研究与数据科学平台
         academic-library: 学术论文与检索
@@ -68,7 +68,7 @@ resources:
         online-tools: 在线工具合集
 components:
   title: 扩展与组件
-  description: 从现有工具目录查找可复用的软件库、开发框架、插件和 SDK，并按技术生态与用途筛选。
+  description: 软件库、开发框架、插件与 SDK，按技术生态和用途分类。
   categories:
     libraries:
       title: 软件库
