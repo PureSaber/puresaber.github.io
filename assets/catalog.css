@@ -105,6 +105,17 @@ a.tool-mobile-link:hover, .tool-mobile-picker summary:hover { color: var(--green
   object-fit: contain;
   margin-block-start: .125rem;
 }
+/* Keep wide product wordmarks legible without stretching them. */
+.tool-icon:is([src$="/retry-iis.png"], [src$="/retry-xgboost.png"], [src$="/vendor-069.png"], [src$="/retry-marscode.png"]) {
+  flex-basis: 1.5rem;
+  width: 1.5rem;
+  margin-inline: -.125rem;
+}
+.tool-icon[src$="/retry-xgboost.png"] {
+  flex-basis: 1.65rem;
+  width: 1.65rem;
+  margin-inline: -.2rem;
+}
 .resources :is(h5, h6) a { text-decoration-thickness: .08em; text-underline-offset: .22em; }
 .resources :is(h5, h6) a:hover { text-decoration-thickness: .14em; }
 .resources p { color: var(--muted); font-size: .93rem; margin-top: .4rem; }

@@ -1351,7 +1351,7 @@ tool-directories:
 
 online-tools:
 - name: Simon Willison’s Tools
-  icon: vendor-085.png
+  icon: simon-willison-tools.svg
   url: https://tools.simonwillison.net/
   summary: 在浏览器直接使用的独立小工具合集。
   type: 在线工具集
