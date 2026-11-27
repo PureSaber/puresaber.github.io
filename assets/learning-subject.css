@@ -25,3 +25,12 @@
 @media (max-width: 42rem) {
   .subject-grid, .subject-resource-list { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* 英语学习：资源按用途展示，延续现有项目卡片风格。 */
+.study-tools-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.study-tool { display: flex; flex-direction: column; min-width: 0; }
+.study-tool .study-tool-kind { margin: 0 0 .35rem; color: var(--green); font-size: .78rem; font-weight: 750; letter-spacing: .025em; }
+.study-tool .project-links { margin-top: auto; padding-top: .95rem; }
+.study-tool .study-tool-note { margin-top: .65rem; padding-top: .6rem; border-top: 1px solid var(--line); font-size: .82rem; color: var(--muted); }
+@media (max-width: 52rem) { .study-tools-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 42rem) { .study-tools-grid { grid-template-columns: minmax(0, 1fr); } }
