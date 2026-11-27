@@ -12,9 +12,9 @@
 
 ## 页面维护位置
 
-- 首页：[`index.html`](index.html)。主要目录入口包括 `/tools/`、`/components/`、`/resources/`；手机应用与学习路线另有独立页面。
+- 首页：[`index.html`](index.html)。主要目录入口包括 `/tools/`、`/components/`、`/resources/`；手机应用与统一学习入口另有独立页面。
 - 手机应用：[`mobile/index.html`](mobile/index.html)；停用应用归档见 [`mobile/archive/index.html`](mobile/archive/index.html)，图标见 `mobile/icons/`。
-- 项目与服务：[`projects/index.html`](projects/index.html)。学习路线见 [`learn/index.html`](learn/index.html)。
+- 项目与服务：[`projects/index.html`](projects/index.html)。统一学习入口见 [`learn/index.html`](learn/index.html)，其中包含五大学科和三条职业路线；职业详情保留在 [`career/`](career/) 目录，旧 URL 继续可用。
 - 网站样式与交互：公用样式在 `assets/`，修改对应页面后检查链接与 GitHub Pages 部署结果。
 
 ## 工具归档
