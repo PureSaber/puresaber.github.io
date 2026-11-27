@@ -1,0 +1,288 @@
+{
+  "last_reviewed": "2026-11-26",
+  "note": "通用岗位能力地图；不同机构的岗位名称与要求有差异，具体招聘以各公司当期 JD 为准。",
+  "roles": [
+    {
+      "id": "quant-researcher",
+      "zh": "量化研究员",
+      "name": "Quant Researcher",
+      "category": "研究 · Research",
+      "summary": "将市场假设转化为可检验的信号、策略和研究报告。",
+      "focus": "统计研究、行情数据、策略验证",
+      "responsibilities": [
+        "识别并研究信号：设定基准假设，检验统计关系及经济解释。",
+        "建立可靠的实验：处理行情口径，避免未来信息、幸存者偏差与样本污染。",
+        "评估策略稳健性：纳入成本、换手率、市场环境、样本外和风险约束。",
+        "将模型与证据清楚地交给研究和交易团队。"
+      ],
+      "skills": [
+        {
+          "area": "数学与统计",
+          "topic": "概率论、统计推断、时间序列",
+          "priority": "核心",
+          "url": "/learn/mathematics-statistics/#topics",
+          "what": "能解释置信区间、回归假设、相关性和过拟合。"
+        },
+        {
+          "area": "计算机科学",
+          "topic": "Python、算法、数据处理",
+          "priority": "核心",
+          "url": "/learn/computer-science/#programming",
+          "what": "编写可复现的数据清洗、实验与研究脚本。"
+        },
+        {
+          "area": "量化研究与交易",
+          "topic": "策略研究、CTA、回测验证",
+          "priority": "核心",
+          "url": "/learn/quantitative-research/#topics",
+          "what": "在明确的时间与成本口径下构建样本外检验。"
+        },
+        {
+          "area": "金融与投资",
+          "topic": "期货、资产定价、风险敞口",
+          "priority": "核心",
+          "url": "/learn/finance-investment/#topics",
+          "what": "说明策略收益可能来自什么风险和市场机制。"
+        },
+        {
+          "area": "英语学习",
+          "topic": "英文论文、研究答辩",
+          "priority": "进阶",
+          "url": "/learn/english/#topics",
+          "what": "阅读英文研究并清晰解释实验决策。"
+        }
+      ],
+      "questions": [
+        {
+          "category": "统计",
+          "question": "回测策略的夏普比率很高，为什么仍可能完全没有预测能力？",
+          "answer": "检查数据泄漏、挑选偏差、频繁试参、多重检验、样本长度和成本。先固定规则，再做真正的样本外与稳健性检验。"
+        },
+        {
+          "category": "概率",
+          "question": "独立同分布假设不成立时，直接采用常规标准误会有什么问题？",
+          "answer": "序列相关或异方差会使普通标准误与区间推断失真。应先诊断依赖结构，再按设计选择稳健估计或区块重采样。"
+        },
+        {
+          "category": "研究设计",
+          "question": "怎样证明一个时序动量因子的改进不是过拟合？",
+          "answer": "提前定义基准、调整范围和评价指标；保留独立测试集，做滚动验证、参数扰动和跨市场检验，并报告交易成本。"
+        }
+      ],
+      "projects": [
+        {
+          "title": "中低频 CTA 研究复现",
+          "deliverable": "数据字典、策略代码、样本内外结果、成本分析、参数敏感性和复现实验说明。",
+          "acceptance": "第三方按 README 运行后能得到同口径主要指标，并能指出失效情境。"
+        },
+        {
+          "title": "因子稳健性报告",
+          "deliverable": "信号构建、缺失值处理、分组检验、多重假设讨论与可视化结论。",
+          "acceptance": "包括真实的时间切分和反例分析，不只展示最佳结果。"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Jane Street · Quantitative Research",
+          "url": "https://www.janestreet.com/quantitative-research/"
+        },
+        {
+          "label": "Two Sigma · Quantitative Research & Data Science",
+          "url": "https://www.twosigma.com/careers/quantitative-research-data-science/"
+        },
+        {
+          "label": "Two Sigma · Research Interviewing",
+          "url": "https://www.twosigma.com/interviewing-for-quantitative-research-modeling/"
+        }
+      ]
+    },
+    {
+      "id": "quant-developer",
+      "zh": "量化开发工程师",
+      "name": "Quant Developer",
+      "category": "工程 · Engineering",
+      "summary": "将研究模型和市场数据转化为可靠、可测试、可运行的交易与研究系统。",
+      "focus": "软件工程、性能、系统可靠性",
+      "responsibilities": [
+        "设计行情采集、数据存储、研究计算或交易执行的软件系统。",
+        "编写结构清晰、可维护的 Python / C++ 等代码与自动化测试。",
+        "关注延迟、吞吐、并发、故障恢复、可观测性与部署。",
+        "与研究员和交易员协作，准确实现数据与策略需求。"
+      ],
+      "skills": [
+        {
+          "area": "计算机科学",
+          "topic": "数据结构、算法、程序设计",
+          "priority": "核心",
+          "url": "/learn/computer-science/#algorithms",
+          "what": "分析时间与空间复杂度，写出可测试实现。"
+        },
+        {
+          "area": "计算机科学",
+          "topic": "操作系统、网络、并发",
+          "priority": "核心",
+          "url": "/learn/computer-science/#systems",
+          "what": "理解多线程、内存、进程、TCP 与性能权衡。"
+        },
+        {
+          "area": "计算机科学",
+          "topic": "数据库、工程实践、部署",
+          "priority": "核心",
+          "url": "/learn/computer-science/#data",
+          "what": "构建可靠的数据接口、日志、测试与部署流程。"
+        },
+        {
+          "area": "量化研究与交易",
+          "topic": "行情口径、交易执行、回测",
+          "priority": "核心",
+          "url": "/learn/quantitative-research/#topics",
+          "what": "理解撮合、滑点、合约换月、订单状态和成交链路。"
+        },
+        {
+          "area": "数学与统计",
+          "topic": "概率统计与性能测量",
+          "priority": "进阶",
+          "url": "/learn/mathematics-statistics/#topics",
+          "what": "正确测量系统性能并解释实验误差。"
+        }
+      ],
+      "questions": [
+        {
+          "category": "编程",
+          "question": "你如何选择哈希表、平衡树或有序数组来维护订单与查询？",
+          "answer": "先明确更新、删除、范围查询和排序的比例，再比较各结构的复杂度、缓存局部性、内存与并发需求。"
+        },
+        {
+          "category": "系统",
+          "question": "实时行情管道出现消息积压时，如何定位问题？",
+          "answer": "区分采集、解析、队列、存储和消费者瓶颈；测量端到端时延、积压深度和丢包；明确背压与恢复机制。"
+        },
+        {
+          "category": "工程",
+          "question": "如何验证回测引擎在不同机器上产生一致结果？",
+          "answer": "固定输入、时间排序、随机种子和数值规则；使用黄金样例、边界测试、日志与版本化依赖做回归检验。"
+        }
+      ],
+      "projects": [
+        {
+          "title": "事件驱动回测引擎",
+          "deliverable": "行情事件、订单状态机、撮合简化模型、费用计算、单元测试与性能报告。",
+          "acceptance": "相同输入结果确定，关键边界条件可自动测试。"
+        },
+        {
+          "title": "行情数据服务",
+          "deliverable": "数据摄取、校验、存储、API、监控与故障恢复文档。",
+          "acceptance": "能展示错误数据处理、重复消息幂等性与恢复后数据一致性。"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Two Sigma · Software & Systems Engineering",
+          "url": "https://www.twosigma.com/careers/engineering/"
+        },
+        {
+          "label": "Two Sigma · Software Engineering Interviewing",
+          "url": "https://www.twosigma.com/careers/interviewing-for-software-engineering/"
+        },
+        {
+          "label": "Goldman Sachs · Engineering",
+          "url": "https://www.goldmansachs.com/careers/our-firm/engineering/"
+        }
+      ]
+    },
+    {
+      "id": "qis-structuring",
+      "zh": "量化投资策略 / 结构化产品",
+      "name": "QIS / Structuring",
+      "category": "策略与产品 · Strategies",
+      "summary": "将规则型投资策略、衍生品定价与投资需求连接成可解释、可实施的产品方案。",
+      "focus": "规则型指数、产品设计、对冲与定价",
+      "responsibilities": [
+        "研究规则型指数、风险溢价和资产配置策略的投资逻辑。",
+        "分析衍生品结构、现金流、定价与对冲风险。",
+        "评估指数方法、再平衡规则、交易成本与市场容量。",
+        "将模型、风险和投资方案清晰传达给交易、销售或投资团队。"
+      ],
+      "skills": [
+        {
+          "area": "金融与投资",
+          "topic": "衍生品、固定收益与投资组合",
+          "priority": "核心",
+          "url": "/learn/finance-investment/#topics",
+          "what": "推导基础产品收益结构并比较风险敞口。"
+        },
+        {
+          "area": "数学与统计",
+          "topic": "随机过程、概率与优化",
+          "priority": "核心",
+          "url": "/learn/mathematics-statistics/#topics",
+          "what": "理解定价假设、风险中性框架与约束优化。"
+        },
+        {
+          "area": "量化研究与交易",
+          "topic": "规则型指数与策略回测",
+          "priority": "核心",
+          "url": "/learn/quantitative-research/#topics",
+          "what": "定义可复现的成分选择、再平衡与成本口径。"
+        },
+        {
+          "area": "计算机科学",
+          "topic": "Python / 数据处理 / 建模",
+          "priority": "核心",
+          "url": "/learn/computer-science/#programming",
+          "what": "实现定价计算、情景分析与透明的研究输出。"
+        },
+        {
+          "area": "英语学习",
+          "topic": "产品说明和客户沟通",
+          "priority": "进阶",
+          "url": "/learn/english/#topics",
+          "what": "用英文解释策略规则、风险与产品限制。"
+        }
+      ],
+      "questions": [
+        {
+          "category": "衍生品",
+          "question": "如何解释看涨期权的 Delta 和 Gamma？",
+          "answer": "Delta 描述价格对标的价格的小幅变动敏感度，Gamma 描述 Delta 随标的价格变化的快慢；对冲还需考虑成本与离散再平衡。"
+        },
+        {
+          "category": "策略指数",
+          "question": "设计一个规则型波动率目标指数时应明确哪些规则？",
+          "answer": "定义参考资产、波动率估计窗口、目标风险、调仓日历、杠杆边界、价格和费用口径及极端行情处理。"
+        },
+        {
+          "category": "产品",
+          "question": "看起来收益高的结构化产品，如何分解它的风险？",
+          "answer": "拆解本金与或有现金流，识别期权卖出/买入敞口、发行人信用、流动性、路径依赖和最坏情景。"
+        }
+      ],
+      "projects": [
+        {
+          "title": "规则型指数原型",
+          "deliverable": "方法论文件、再平衡脚本、权重记录、成本与风险分析和对照基准。",
+          "acceptance": "可按同一规则复算历史权重，清晰区分模拟与真实可交易表现。"
+        },
+        {
+          "title": "结构化产品收益分析",
+          "deliverable": "期限与情景现金流、期权敞口、核心风险假设与产品说明书示例。",
+          "acceptance": "在多个情景下复核收益图与对冲风险，列出可能的损失。"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Goldman Sachs · Systematic Trading Strategies",
+          "url": "https://www.goldmansachs.com/what-we-do/ficc-and-equities/systematic-trading-strategies"
+        },
+        {
+          "label": "Goldman Sachs · Engineering / Quantitative Strategists",
+          "url": "https://www.goldmansachs.com/careers/our-firm/engineering/"
+        },
+        {
+          "label": "Goldman Sachs · Quantitative Investment Strategies",
+          "url": "https://www.goldmansachs.com/insights/goldman-sachs-exchanges/will-ai-make-markets-less-efficient"
+        }
+      ]
+    }
+  ]
+}
